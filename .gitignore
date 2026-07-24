@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+.vscode/
+*.log
+.env
+.env.*
+!.env.example
+/feedback/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

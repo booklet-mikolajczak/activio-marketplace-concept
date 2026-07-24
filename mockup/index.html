@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0b1120">
+    <meta name="activio-mockup-version" content="20260724-10">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>ACTIVIO — klikalny prototyp</title>
+    <link rel="stylesheet" href="styles.css?v=20260724-10">
+</head>
+<body>
+    <div class="prototype-bar">
+        <button class="prototype-menu" type="button" data-prototype-menu aria-label="Otwórz scenariusze">☰</button>
+        <div>
+            <strong>Prototyp koncepcyjny</strong>
+            <span>Nie jest to finalny branding ani gotowy produkt</span>
+        </div>
+        <button class="prototype-project" type="button" data-go="project-hub">O projekcie</button>
+        <button class="prototype-refresh" type="button" data-refresh-latest title="Pobierz najnowszą wersję prototypu">
+            <span>↻</span><time data-version-time>Sprawdzam…</time>
+        </button>
+        <button class="prototype-feedback" type="button" data-feedback-open data-feedback-ui data-html2canvas-ignore>
+            <span>Uwagi</span><span class="prototype-feedback-count" data-feedback-count>0</span>
+        </button>
+        <button class="prototype-assumptions" type="button" data-assumptions>
+            <span class="status-dot"></span>
+            Założenia ekranu
+        </button>
+    </div>
+
+    <aside class="scenario-rail" data-scenario-rail>
+        <div class="scenario-head">
+            <span>Scenariusze</span>
+            <button type="button" data-prototype-menu aria-label="Zamknij scenariusze">×</button>
+        </div>
+        <p>Przeklikaj pełną ścieżkę klienta i partnera klubowego.</p>
+        <nav>
+            <button type="button" data-go="marketplace"><span>01</span> Marketplace</button>
+            <button type="button" data-go="club"><span>02</span> Sklep klubu</button>
+            <button type="button" data-go="product"><span>03</span> Personalizacja</button>
+            <button type="button" data-go="cart"><span>04</span> Mieszany koszyk</button>
+            <button type="button" data-go="checkout"><span>05</span> Checkout</button>
+            <button type="button" data-go="confirmation"><span>06</span> Potwierdzenie</button>
+            <div class="scenario-divider"></div>
+            <button type="button" data-go="partner-dashboard"><span>07</span> Panel klubu</button>
+            <button type="button" data-go="partner-offer"><span>08</span> Oferta i ceny</button>
+            <button type="button" data-go="partner-orders"><span>09</span> Zamówienia</button>
+            <button type="button" data-go="partner-settlements"><span>10</span> Rozliczenia</button>
+            <div class="scenario-divider"></div>
+            <button type="button" data-go="project-hub"><span>11</span> O projekcie</button>
+            <button type="button" data-go="project-concept"><span>12</span> Koncepcja biznesowa</button>
+            <button type="button" data-go="project-assumptions"><span>13</span> Założenia produktu</button>
+            <button type="button" data-go="project-technical"><span>14</span> Dodatek techniczny</button>
+        </nav>
+    </aside>
+
+    <div class="scenario-backdrop" data-prototype-menu></div>
+
+    <aside class="assumption-drawer" data-assumption-drawer aria-hidden="true">
+        <div class="assumption-head">
+            <div>
+                <span class="eyebrow">Decyzje do rozmowy</span>
+                <h2 data-assumption-title>Marketplace</h2>
+            </div>
+            <button type="button" data-assumptions aria-label="Zamknij">×</button>
+        </div>
+        <div data-assumption-content></div>
+        <a href="#project-assumptions" data-go="project-assumptions">Otwórz pełny spis założeń →</a>
+    </aside>
+
+    <main>
+        <header class="store-header" data-store-header>
+            <a class="brand" href="#marketplace" data-go="marketplace" aria-label="ACTIVIO — strona główna">
+                <span class="brand-mark">A</span>
+                <span>ACTIVIO<small>CLUB</small></span>
+            </a>
+            <nav class="main-nav">
+                <button type="button" data-go="marketplace">Wszystkie produkty</button>
+                <button type="button" data-go="marketplace" data-scroll-clubs>Kluby</button>
+                <button type="button" data-go="marketplace" data-scroll-how>Jak to działa</button>
+                <button type="button" data-go="project-hub">O projekcie</button>
+            </nav>
+            <div class="header-actions">
+                <button class="search-button" type="button" aria-label="Szukaj" data-demo-action="Wyszukiwarka produktów będzie osobnym widokiem.">⌕</button>
+                <button class="cart-button" type="button" data-go="cart">
+                    Koszyk <span data-cart-count>2</span>
+                </button>
+                <button class="partner-link" type="button" data-go="partner-dashboard">Panel klubu</button>
+            </div>
+        </header>
+
+        <header class="partner-header" data-partner-header hidden>
+            <div class="partner-brand">
+                <span class="club-crest crest-stal">S</span>
+                <div><strong>KS Stal Pleszew</strong><span>Panel partnera ACTIVIO</span></div>
+            </div>
+            <nav>
+                <button type="button" data-go="partner-dashboard">Pulpit</button>
+                <button type="button" data-go="partner-offer">Oferta sklepu</button>
+                <button type="button" data-go="partner-orders">Zamówienia</button>
+                <button type="button" data-go="partner-settlements">Rozliczenia</button>
+            </nav>
+            <div class="partner-user">
+                <span>MK</span>
+                <div><strong>Marek Kowalski</strong><small>Administrator klubu</small></div>
+            </div>
+        </header>
+
+        <section class="view marketplace-view" data-view="marketplace">
+            <div class="market-hero">
+                <div class="hero-copy">
+                    <span class="eyebrow light">OFICJALNE PRODUKTY. PRAWDZIWE WSPARCIE.</span>
+                    <h1>Noś barwy.<br>Wspieraj swój klub.</h1>
+                    <p>Znajdź oficjalny sklep swojej drużyny albo odkryj produkty klubów z całej Polski.</p>
+                    <div class="hero-actions">
+                        <button class="button primary lime" type="button" data-scroll-products>Poznaj produkty</button>
+                        <button class="button ghost light" type="button" data-scroll-clubs>Znajdź swój klub</button>
+                    </div>
+                    <div class="hero-proof">
+                        <span><strong>24</strong> kluby</span>
+                        <span><strong>100%</strong> na zamówienie</span>
+                        <span><strong>1</strong> wspólny koszyk</span>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-orbit orbit-one"></div>
+                    <div class="hero-orbit orbit-two"></div>
+                    <div class="hero-shirt shirt-stal">
+                        <span class="mini-crest">S</span>
+                        <strong>STAL</strong>
+                        <b>10</b>
+                    </div>
+                    <div class="hero-scarf">KS STAL · KS STAL · KS STAL</div>
+                    <div class="hero-badge">PRODUKCJA<br><strong>BEZ MAGAZYNU</strong></div>
+                </div>
+            </div>
+
+            <div class="trust-strip">
+                <span>Każdy zakup wspiera wybrany klub</span>
+                <i></i>
+                <span>Produkujemy dopiero po zamówieniu</span>
+                <i></i>
+                <span>Personalizacja bez pośredników</span>
+            </div>
+
+            <section class="content-section" id="clubs">
+                <div class="section-heading split">
+                    <div><span class="eyebrow">KLUBY W ACTIVIO</span><h2>Znajdź swoje barwy</h2></div>
+                    <button class="text-button" type="button" data-demo-action="Lista wszystkich klubów: w prototypie pokazujemy cztery przykłady.">Zobacz wszystkie 24 kluby →</button>
+                </div>
+                <div class="club-grid">
+                    <button class="club-card club-stal" type="button" data-go="club">
+                        <span class="club-crest crest-stal">S</span>
+                        <span><strong>KS Stal Pleszew</strong><small>Piłka nożna · Pleszew</small></span>
+                        <b>18 produktów →</b>
+                    </button>
+                    <button class="club-card club-wisla" type="button" data-demo-action="W prototypie rozwinięty jest sklep KS Stal Pleszew.">
+                        <span class="club-crest crest-wisla">W</span>
+                        <span><strong>Wisła Borek</strong><small>Piłka nożna · Borek Wlkp.</small></span>
+                        <b>12 produktów →</b>
+                    </button>
+                    <button class="club-card club-titan" type="button" data-demo-action="W prototypie rozwinięty jest sklep KS Stal Pleszew.">
+                        <span class="club-crest crest-titan">T</span>
+                        <span><strong>Titan Kalisz</strong><small>Koszykówka · Kalisz</small></span>
+                        <b>9 produktów →</b>
+                    </button>
+                    <button class="club-card club-orzel" type="button" data-demo-action="W prototypie rozwinięty jest sklep KS Stal Pleszew.">
+                        <span class="club-crest crest-orzel">O</span>
+                        <span><strong>Orzeł Jarocin</strong><small>Siatkówka · Jarocin</small></span>
+                        <b>15 produktów →</b>
+                    </button>
+                </div>
+            </section>
+
+            <section class="content-section product-section" id="products">
+                <div class="section-heading split">
+                    <div><span class="eyebrow">WYBRANE DLA CIEBIE</span><h2>Popularne w tym tygodniu</h2></div>
+                    <div class="chips">
+                        <button class="chip active" type="button" data-product-filter="all">Wszystko</button>
+                        <button class="chip" type="button" data-product-filter="clothing">Odzież</button>
+                        <button class="chip" type="button" data-product-filter="fan">Dla kibica</button>
+                        <button class="chip" type="button" data-product-filter="gift">Prezenty</button>
+                    </div>
+                </div>
+                <div class="product-grid">
+                    <article class="product-card" data-go="product" data-category="clothing" role="link" tabindex="0">
+                        <div class="product-art">
+                            <span class="art-label">PERSONALIZUJ</span>
+                            <img class="product-photo" src="../assets/products/koszulki-sportowe.jpg" alt="Koszulki sportowe z nadrukiem klubowym" loading="lazy">
+                            <button type="button" aria-label="Dodaj do ulubionych" aria-pressed="false" data-favorite>♡</button>
+                        </div>
+                        <div class="product-meta">
+                            <span class="product-club"><i class="crest-stal">S</i> KS Stal Pleszew</span>
+                            <h3>Koszulka sportowa Stal 2026</h3>
+                            <div><strong>129,00 zł</strong><span>100% poliester</span></div>
+                        </div>
+                    </article>
+                    <article class="product-card" data-go="product" data-category="clothing" role="link" tabindex="0">
+                        <div class="product-art"><img class="product-photo" src="../assets/products/bluzy.jpg" alt="Bluzy klubowe z kapturem" loading="lazy"><button type="button" aria-label="Dodaj do ulubionych" aria-pressed="false" data-favorite>♡</button></div>
+                        <div class="product-meta">
+                            <span class="product-club"><i class="crest-stal">S</i> KS Stal Pleszew</span>
+                            <h3>Bluza klubowa z kapturem</h3>
+                            <div><strong>179,00 zł</strong><span>290 g/m²</span></div>
+                        </div>
+                    </article>
+                    <article class="product-card" data-go="product" data-category="fan gift" role="link" tabindex="0">
+                        <div class="product-art"><img class="product-photo" src="../assets/products/kubki.jpg" alt="Kubki ceramiczne z nadrukiem klubowym" loading="lazy"><button type="button" aria-label="Dodaj do ulubionych" aria-pressed="false" data-favorite>♡</button></div>
+                        <div class="product-meta">
+                            <span class="product-club"><i class="crest-orzel">R</i> LKS Raszkowianka</span>
+                            <h3>Kubek klasyczny 330 ml</h3>
+                            <div><strong>49,00 zł</strong><span>Dowolny nadruk</span></div>
+                        </div>
+                    </article>
+                    <article class="product-card" data-go="product" data-category="fan gift" role="link" tabindex="0">
+                        <div class="product-art"><img class="product-photo" src="../assets/products/breloki.jpg" alt="Breloki klubowe z zawieszką" loading="lazy"><button type="button" aria-label="Dodaj do ulubionych" aria-pressed="false" data-favorite>♡</button></div>
+                        <div class="product-meta">
+                            <span class="product-club"><i class="crest-stal">S</i> KS Stal Pleszew</span>
+                            <h3>Brelok koszulka klubowa</h3>
+                            <div><strong>29,00 zł</strong><span>Dwustronny nadruk</span></div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="how-section" id="how">
+                <div><span class="eyebrow light">DLACZEGO ACTIVIO</span><h2>Zakup, który gra dla klubu</h2></div>
+                <ol>
+                    <li><b>01</b><span><strong>Wybierasz klub</strong><small>Każda oferta ma jasno wskazanego beneficjenta.</small></span></li>
+                    <li><b>02</b><span><strong>Personalizujesz</strong><small>Numer, nazwisko albo zdjęcie — zależnie od produktu.</small></span></li>
+                    <li><b>03</b><span><strong>My produkujemy</strong><small>Bez zapasów i odpadów. Dopiero po zakupie.</small></span></li>
+                    <li><b>04</b><span><strong>Klub zyskuje</strong><small>Część wartości pozycji trafia do jego rozliczenia.</small></span></li>
+                </ol>
+            </section>
+        </section>
+
+        <section class="view club-view" data-view="club" hidden>
+            <div class="club-hero">
+                <div class="club-hero-inner">
+                    <span class="club-crest crest-stal large">S</span>
+                    <div>
+                        <span class="eyebrow light">OFICJALNY SKLEP KLUBOWY</span>
+                        <h1>KS Stal Pleszew</h1>
+                        <p>Od 1924 roku gramy dla Pleszewa. Kupując tutaj, wspierasz szkolenie dzieci i młodzieży.</p>
+                    </div>
+                    <div class="club-support-card"><small>Twój zakup ma znaczenie</small><strong>20 zł</strong><span>średnio trafia do klubu z jednego zamówienia</span></div>
+                </div>
+            </div>
+            <nav class="club-tabs">
+                <button class="active" type="button" data-club-filter="all">Wszystkie</button>
+                <button type="button" data-club-filter="match">Meczowe</button>
+                <button type="button" data-club-filter="training">Treningowe</button>
+                <button type="button" data-club-filter="fan">Dla kibica</button>
+                <button type="button" data-club-filter="gift">Prezenty</button>
+                <span>18 produktów</span>
+            </nav>
+            <section class="content-section">
+                <div class="section-heading split"><div><span class="eyebrow">KOLEKCJA 2026</span><h2>Graj i kibicuj w naszych barwach</h2></div><select aria-label="Sortowanie"><option>Najpopularniejsze</option><option>Cena rosnąco</option><option>Najnowsze</option></select></div>
+                <div class="product-grid club-products">
+                    <article class="product-card" data-go="product" data-category="match" role="link" tabindex="0">
+                        <div class="product-art"><span class="art-label">PERSONALIZUJ</span><img class="product-photo" src="../assets/products/koszulki-sportowe.jpg" alt="Koszulki sportowe z nadrukiem klubowym" loading="lazy"></div>
+                        <div class="product-meta"><span class="product-club">Odzież sportowa</span><h3>Koszulka sportowa Stal 2026</h3><div><strong>129,00 zł</strong><span>Numer i nazwisko</span></div></div>
+                    </article>
+                    <article class="product-card" data-go="product" data-category="fan gift" role="link" tabindex="0"><div class="product-art"><img class="product-photo" src="../assets/products/bluzy.jpg" alt="Bluzy klubowe z kapturem" loading="lazy"></div><div class="product-meta"><span class="product-club">Odzież klubowa</span><h3>Bluza klubowa z kapturem</h3><div><strong>179,00 zł</strong><span>6 rozmiarów</span></div></div></article>
+                    <article class="product-card" data-go="product" data-category="fan gift" role="link" tabindex="0"><div class="product-art"><img class="product-photo" src="../assets/products/breloki.jpg" alt="Breloki klubowe z zawieszką" loading="lazy"></div><div class="product-meta"><span class="product-club">Dla kibica</span><h3>Brelok koszulka klubowa</h3><div><strong>29,00 zł</strong><span>Dwustronny nadruk</span></div></div></article>
+                    <article class="product-card" data-go="product" data-category="gift" role="link" tabindex="0"><div class="product-art"><img class="product-photo" src="../assets/products/karty-zawodnika.jpg" alt="Personalizowana karta zawodnika" loading="lazy"></div><div class="product-meta"><span class="product-club">Personalizowane</span><h3>Karta zawodnika FIFA</h3><div><strong>99,00 zł</strong><span>Zdjęcie i statystyki</span></div></div></article>
+                </div>
+            </section>
+            <section class="club-story">
+                <div><span class="eyebrow light">RAZEM OD 1924</span><h2>Każde zamówienie wspiera szkolenie młodych zawodników.</h2><button class="button ghost light" type="button" data-demo-action="Historia klubu będzie podstroną redakcyjną zarządzaną przez ACTIVIO.">Poznaj nasz klub</button></div>
+                <div class="story-number"><strong>146</strong><span>dzieci trenuje dziś<br>w Akademii Stali</span></div>
+            </section>
+        </section>
+
+        <section class="view product-view" data-view="product" hidden>
+            <div class="breadcrumbs"><button data-go="marketplace">ACTIVIO</button><span>/</span><button data-go="club">KS Stal Pleszew</button><span>/</span><strong>Koszulka meczowa 2026</strong></div>
+            <div class="product-layout">
+                <div class="product-gallery">
+                    <div class="gallery-main">
+                        <span class="gallery-badge">PERSONALIZOWANA</span>
+                        <div class="jersey-preview">
+                            <span class="preview-crest">S</span>
+                            <small>STAL PLESZEW</small>
+                            <strong data-preview-number>10</strong>
+                            <b data-preview-name>KOWALSKI</b>
+                        </div>
+                    </div>
+                    <div class="gallery-thumbs"><button class="active" type="button">Tył</button><button type="button">Przód</button><button type="button">Detal</button></div>
+                </div>
+                <div class="product-config">
+                    <span class="product-club"><i class="crest-stal">S</i> Oficjalny produkt KS Stal Pleszew</span>
+                    <h1>Koszulka meczowa 2026</h1>
+                    <div class="rating">OFICJALNA KOLEKCJA <span>Sezon 2026</span></div>
+                    <p class="product-price">129,00 zł <small>Personalizacja w cenie</small></p>
+                    <p class="product-lead">Lekka koszulka sportowa w oficjalnych barwach klubu. Wybierz swój numer i nazwisko.</p>
+                    <fieldset>
+                        <legend>Rozmiar <a href="#" data-demo-action="Tabela rozmiarów: 128–XL, szczegółowe wymiary będą otwierane w oknie.">Tabela rozmiarów</a></legend>
+                        <div class="option-row size-options">
+                            <button type="button">128</button><button type="button">140</button><button type="button">152</button><button type="button">S</button><button class="selected" type="button">M</button><button type="button">L</button><button type="button">XL</button>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Numer zawodnika <span data-number-count>2/2</span></legend>
+                        <input type="text" maxlength="2" value="10" inputmode="numeric" aria-label="Numer zawodnika" data-number-input>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Nazwisko lub pseudonim <span data-name-count>8/14</span></legend>
+                        <input type="text" maxlength="14" value="KOWALSKI" aria-label="Nazwisko lub pseudonim" data-name-input>
+                        <small>Dokładnie tak zostanie wydrukowane. Sprawdź pisownię.</small>
+                    </fieldset>
+                    <label class="confirmation-check"><input type="checkbox" data-personalization-confirm><span>Potwierdzam poprawność numeru i napisu. Produkt powstanie specjalnie dla mnie.</span></label>
+                    <button class="button primary full add-cart" type="button" data-add-cart disabled>Dodaj do koszyka · 129,00 zł</button>
+                    <div class="product-promises"><span>✓ Produkcja 3–5 dni</span><span>✓ Wysyłka od 12,99 zł</span><span>✓ Zakup wspiera klub</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="view cart-view narrow-view" data-view="cart" hidden>
+            <div class="page-title"><span class="eyebrow">TWÓJ KOSZYK</span><h1>Dwa kluby. Jedno zamówienie.</h1><p>Produkty wyprodukujemy razem i wyślemy w jednej paczce.</p></div>
+            <div class="cart-layout">
+                <div class="cart-items">
+                    <div class="cart-group">
+                        <div class="cart-club"><span class="club-crest crest-stal">S</span><div><strong>KS Stal Pleszew</strong><small>1 produkt · wspierasz klub kwotą 20,00 zł</small></div></div>
+                        <article class="cart-item">
+                            <div class="cart-art yellow"><div class="mini-shirt"><b>10</b><span>KOWALSKI</span></div></div>
+                            <div><h3>Koszulka meczowa 2026</h3><p>Rozmiar M · Numer 10 · KOWALSKI</p><button type="button" data-go="product">Edytuj personalizację</button></div>
+                            <div class="quantity"><button type="button" data-quantity-change="-1" aria-label="Zmniejsz ilość">−</button><span>1</span><button type="button" data-quantity-change="1" aria-label="Zwiększ ilość">+</button></div>
+                            <strong>129,00 zł</strong>
+                        </article>
+                    </div>
+                    <div class="cart-group">
+                        <div class="cart-club"><span class="club-crest crest-wisla">W</span><div><strong>Wisła Borek</strong><small>1 produkt · wspierasz klub kwotą 8,00 zł</small></div></div>
+                        <article class="cart-item">
+                            <div class="cart-art red"><div class="mini-mug"><b>W</b><small>OLA</small></div></div>
+                            <div><h3>Kubek kibica z imieniem</h3><p>Biały · Napis: OLA</p><button type="button" data-go="product">Edytuj personalizację</button></div>
+                            <div class="quantity"><button type="button" data-quantity-change="-1" aria-label="Zmniejsz ilość">−</button><span>1</span><button type="button" data-quantity-change="1" aria-label="Zwiększ ilość">+</button></div>
+                            <strong>49,00 zł</strong>
+                        </article>
+                    </div>
+                    <div class="shipping-note"><span>▣</span><div><strong>Jedna wspólna paczka</strong><p>Wyślemy zamówienie, gdy wszystkie produkty będą gotowe. Przewidywana wysyłka: 29–31 lipca.</p></div><button type="button" data-go="checkout">Zmień</button></div>
+                </div>
+                <aside class="order-summary">
+                    <h2>Podsumowanie</h2>
+                    <dl><div><dt>Produkty</dt><dd>178,00 zł</dd></div><div><dt>Dostawa</dt><dd>12,99 zł</dd></div><div class="support-row"><dt>Wsparcie klubów</dt><dd>28,00 zł <small>w cenie produktów</small></dd></div><div class="total"><dt>Razem</dt><dd>190,99 zł</dd></div></dl>
+                    <button class="button primary full" type="button" data-go="checkout">Przejdź do dostawy</button>
+                    <button class="safe-payment" type="button" data-demo-action="Płatność obsługuje zewnętrzny operator. ACTIVIO nie przechowuje danych karty.">🔒 Bezpieczna płatność</button>
+                </aside>
+            </div>
+        </section>
+
+        <section class="view checkout-view narrow-view" data-view="checkout" hidden>
+            <div class="checkout-head"><button data-go="cart">← Wróć do koszyka</button><div><span class="active">1 Dane</span><i></i><span>2 Dostawa</span><i></i><span>3 Płatność</span></div></div>
+            <div class="checkout-layout">
+                <div class="checkout-form">
+                    <span class="eyebrow">FINALIZACJA</span><h1>Gdzie wysłać zamówienie?</h1>
+                    <p class="seller-note"><strong>Sprzedawcą jest ACTIVIO.</strong> Kluby są partnerami marki i otrzymują wskazany udział w sprzedaży.</p>
+                    <div class="form-grid">
+                        <label>Imię<input value="Jan"></label><label>Nazwisko<input value="Nowak"></label>
+                        <label class="wide">E-mail<input type="email" value="jan.nowak@example.pl"></label>
+                        <label class="wide">Telefon<input type="tel" value="+48 600 100 200"></label>
+                    </div>
+                    <h2>Dostawa</h2>
+                    <label class="delivery-option selected"><input type="radio" checked><span>▦</span><div><strong>Paczkomat InPost</strong><small>1 paczka · przewidywana wysyłka 29–31 lipca</small></div><b>12,99 zł</b></label>
+                    <label class="delivery-option"><input type="radio"><span>▣</span><div><strong>Kurier</strong><small>Dostawa pod wskazany adres</small></div><b>16,99 zł</b></label>
+                    <label class="locker-field">Wybrany Paczkomat<input value="PPL01M · ul. Poznańska 12, Pleszew"><button type="button" data-demo-action="Mapa wyboru Paczkomatu otworzy się w tym miejscu.">Zmień</button></label>
+                    <h2>Płatność</h2>
+                    <div class="payment-options"><button class="selected" type="button"><b>PayU</b><small>BLIK, karta lub bank</small></button><button type="button"><b>BLIK</b><small>Szybka płatność</small></button></div>
+                    <label class="confirmation-check"><input type="checkbox" data-checkout-confirm><span>Akceptuję regulamin ACTIVIO i przyjmuję do wiadomości, że wskazane produkty personalizowane powstają na zamówienie.</span></label>
+                    <button class="button primary full" type="button" data-place-order disabled>Kupuję i płacę · 190,99 zł</button>
+                </div>
+                <aside class="checkout-summary">
+                    <h2>Twoje zamówienie</h2>
+                    <div><span class="summary-thumb yellow">10</span><p><strong>Koszulka meczowa 2026</strong><small>KS Stal Pleszew · M · 10 · KOWALSKI</small></p><b>129,00 zł</b></div>
+                    <div><span class="summary-thumb red">W</span><p><strong>Kubek kibica</strong><small>Wisła Borek · napis OLA</small></p><b>49,00 zł</b></div>
+                    <dl><div><dt>Produkty</dt><dd>178,00 zł</dd></div><div><dt>Dostawa</dt><dd>12,99 zł</dd></div><div class="total"><dt>Razem</dt><dd>190,99 zł</dd></div></dl>
+                    <p class="checkout-support">♥ Z tego zamówienia 28,00 zł zasili działalność dwóch klubów.</p>
+                </aside>
+            </div>
+        </section>
+
+        <section class="view confirmation-view" data-view="confirmation" hidden>
+            <div class="confirmation-card">
+                <span class="success-icon">✓</span>
+                <span class="eyebrow">ZAMÓWIENIE OPŁACONE</span>
+                <h1>Dziękujemy, Jan!</h1>
+                <p>Twoje produkty właśnie trafiły do przygotowania. Wyślemy jedną paczkę, gdy wszystkie będą gotowe.</p>
+                <div class="order-number"><span>Numer zamówienia</span><strong>AC/2026/1048</strong></div>
+                <div class="order-timeline"><div class="done"><i>✓</i><span><strong>Opłacone</strong><small>23 lipca, 17:42</small></span></div><b></b><div class="active"><i>2</i><span><strong>Produkcja</strong><small>3–5 dni roboczych</small></span></div><b></b><div><i>3</i><span><strong>Wysyłka</strong><small>29–31 lipca</small></span></div></div>
+                <div class="impact-card"><span>♥</span><div><strong>Wspólnie przekazujesz klubom 28,00 zł</strong><small>KS Stal Pleszew: 20,00 zł · Wisła Borek: 8,00 zł</small></div></div>
+                <div class="confirmation-actions"><button class="button primary" data-go="marketplace">Wróć do sklepu</button><button class="button ghost" type="button" data-demo-action="Status zamówienia: produkcja, przewidywana wysyłka 29–31 lipca.">Śledź zamówienie</button></div>
+            </div>
+        </section>
+
+        <section class="view partner-view" data-view="partner-dashboard" hidden>
+            <div class="partner-page-head"><div><span class="eyebrow">CZWARTEK, 23 LIPCA</span><h1>Dzień dobry, Marek</h1><p>Twój sklep działa prawidłowo. Oto najważniejsze informacje.</p></div><button class="button primary" type="button" data-go="club">Otwórz sklep ↗</button></div>
+            <div class="metric-grid">
+                <article><span>Sprzedaż w lipcu</span><strong>8 420,00 zł</strong><small class="positive">↑ 18,4% vs czerwiec</small></article>
+                <article><span>Należne klubowi</span><strong>1 286,00 zł</strong><small>1 040,00 zł dostępne</small></article>
+                <article><span>Zamówienia</span><strong>67</strong><small class="positive">↑ 11 nowych w tym tygodniu</small></article>
+                <article><span>Średni koszyk</span><strong>125,67 zł</strong><small>1,4 produktu / zamówienie</small></article>
+            </div>
+            <div class="dashboard-grid">
+                <article class="sales-chart">
+                    <div class="panel-heading"><div><span>Sprzedaż</span><strong>Ostatnie 30 dni</strong></div><select><option>30 dni</option><option>7 dni</option></select></div>
+                    <div class="chart">
+                        <div class="chart-labels"><span>600 zł</span><span>400 zł</span><span>200 zł</span><span>0 zł</span></div>
+                        <div class="chart-bars">
+                            <i style="height:28%"></i><i style="height:42%"></i><i style="height:34%"></i><i style="height:56%"></i><i style="height:48%"></i><i style="height:68%"></i><i style="height:74%"></i><i style="height:61%"></i><i style="height:82%"></i><i style="height:72%"></i><i style="height:91%"></i><i style="height:78%"></i>
+                        </div>
+                    </div>
+                    <div class="chart-axis"><span>24 cze</span><span>1 lip</span><span>8 lip</span><span>15 lip</span><span>23 lip</span></div>
+                </article>
+                <article class="payout-card">
+                    <span class="eyebrow light">NAJBLIŻSZA WYPŁATA</span>
+                    <strong>1 040,00 zł</strong>
+                    <small>Planowana: 5 sierpnia 2026</small>
+                    <div><span>Dostępne</span><b>1 040,00 zł</b></div><div><span>Oczekujące</span><b>246,00 zł</b></div>
+                    <button class="button lime full" type="button" data-go="partner-settlements">Zobacz rozliczenie</button>
+                </article>
+            </div>
+            <article class="recent-orders">
+                <div class="panel-heading"><div><span>Ostatnie zamówienia</span><strong>Sprzedaż Twoich produktów</strong></div><button type="button" data-go="partner-orders">Wszystkie zamówienia →</button></div>
+                <table><thead><tr><th>Zamówienie</th><th>Produkt</th><th>Wartość</th><th>Dla klubu</th><th>Status</th></tr></thead><tbody>
+                    <tr><td><strong>AC/2026/1048</strong><small>Dzisiaj, 17:42</small></td><td>Koszulka meczowa 2026</td><td>129,00 zł</td><td><b>20,00 zł</b></td><td><span class="table-status production">W produkcji</span></td></tr>
+                    <tr><td><strong>AC/2026/1041</strong><small>Dzisiaj, 12:18</small></td><td>Bluza klubowa</td><td>179,00 zł</td><td><b>28,00 zł</b></td><td><span class="table-status paid">Opłacone</span></td></tr>
+                    <tr><td><strong>AC/2026/1036</strong><small>Wczoraj, 18:04</small></td><td>Kubek Stalowej Rodziny</td><td>49,00 zł</td><td><b>8,00 zł</b></td><td><span class="table-status shipped">Wysłane</span></td></tr>
+                </tbody></table>
+            </article>
+        </section>
+
+        <section class="view partner-view" data-view="partner-offer" hidden>
+            <div class="partner-page-head">
+                <div><span class="eyebrow">TWÓJ SKLEP</span><h1>Oferta i ceny</h1><p>Wybierasz produkty ACTIVIO i sam ustalasz ich cenę detaliczną.</p></div>
+                <button class="button ghost" type="button" data-demo-action="Katalog bazowy zawiera produkty możliwe do wdrożenia dla klubu.">＋ Dodaj produkt z katalogu</button>
+            </div>
+            <div class="pricing-rule-card">
+                <span>i</span>
+                <div><strong>Klub ustala cenę. ACTIVIO wyznacza minimum.</strong><p>Cena sklepu nie może być niższa od minimum dla danego wariantu i personalizacji. Cennik ilościowy activio.pl jest źródłem katalogu, ale nie jest automatycznie minimum dla pojedynczej sztuki w marketplace.</p></div>
+                <button type="button" data-assumptions>Jak to rozliczamy?</button>
+            </div>
+            <div class="offer-grid">
+                <article class="offer-card" data-offer-item data-min-price="69">
+                    <img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulki sportowe z nadrukiem klubowym" loading="lazy">
+                    <div class="offer-card-main">
+                        <div class="offer-title"><div><span>Odzież sportowa</span><strong>Koszulka sportowa Stal 2026</strong></div><span class="table-status available">Aktywna</span></div>
+                        <div class="price-editor">
+                            <label>Minimum ACTIVIO <output>69,00 zł</output></label>
+                            <label>Cena w Twoim sklepie <span><input type="number" min="69" step="1" value="129" data-sale-price> zł</span></label>
+                            <div class="price-result"><span>Kwota ponad minimum</span><strong data-price-spread>60,00 zł</strong><small>Podstawa udziału wymaga potwierdzenia podatkowego</small></div>
+                        </div>
+                        <div class="offer-actions"><button type="button" data-go="product">Podgląd produktu</button><button class="button primary" type="button" data-save-price>Zapisz cenę</button></div>
+                    </div>
+                </article>
+                <article class="offer-card" data-offer-item data-min-price="139">
+                    <img src="../assets/products/bluzy.jpg" alt="Bluzy klubowe z kapturem" loading="lazy">
+                    <div class="offer-card-main">
+                        <div class="offer-title"><div><span>Odzież klubowa</span><strong>Bluza klubowa z kapturem</strong></div><span class="table-status available">Aktywna</span></div>
+                        <div class="price-editor">
+                            <label>Minimum ACTIVIO <output>139,00 zł</output></label>
+                            <label>Cena w Twoim sklepie <span><input type="number" min="139" step="1" value="179" data-sale-price> zł</span></label>
+                            <div class="price-result"><span>Kwota ponad minimum</span><strong data-price-spread>40,00 zł</strong><small>Podstawa udziału wymaga potwierdzenia podatkowego</small></div>
+                        </div>
+                        <div class="offer-actions"><button type="button" data-demo-action="Podgląd bluzy otworzy jej kartę produktu.">Podgląd produktu</button><button class="button primary" type="button" data-save-price>Zapisz cenę</button></div>
+                    </div>
+                </article>
+                <article class="offer-card" data-offer-item data-min-price="19">
+                    <img src="../assets/products/breloki.jpg" alt="Breloki klubowe z zawieszką" loading="lazy">
+                    <div class="offer-card-main">
+                        <div class="offer-title"><div><span>Gadżety klubowe</span><strong>Brelok koszulka klubowa</strong></div><span class="table-status available">Aktywna</span></div>
+                        <div class="price-editor">
+                            <label>Minimum ACTIVIO <output>19,00 zł</output></label>
+                            <label>Cena w Twoim sklepie <span><input type="number" min="19" step="1" value="29" data-sale-price> zł</span></label>
+                            <div class="price-result"><span>Kwota ponad minimum</span><strong data-price-spread>10,00 zł</strong><small>Podstawa udziału wymaga potwierdzenia podatkowego</small></div>
+                        </div>
+                        <div class="offer-actions"><button type="button" data-demo-action="Podgląd breloka otworzy jego kartę produktu.">Podgląd produktu</button><button class="button primary" type="button" data-save-price>Zapisz cenę</button></div>
+                    </div>
+                </article>
+                <article class="offer-card" data-offer-item data-min-price="69">
+                    <img src="../assets/products/karty-zawodnika.jpg" alt="Personalizowana karta zawodnika" loading="lazy">
+                    <div class="offer-card-main">
+                        <div class="offer-title"><div><span>Personalizowane</span><strong>Karta zawodnika FIFA</strong></div><span class="table-status pending">Projekt</span></div>
+                        <div class="price-editor">
+                            <label>Minimum ACTIVIO <output>69,00 zł</output></label>
+                            <label>Cena w Twoim sklepie <span><input type="number" min="69" step="1" value="99" data-sale-price> zł</span></label>
+                            <div class="price-result"><span>Kwota ponad minimum</span><strong data-price-spread>30,00 zł</strong><small>Podstawa udziału wymaga potwierdzenia podatkowego</small></div>
+                        </div>
+                        <div class="offer-actions"><button type="button" data-demo-action="Produkt czeka na zatwierdzenie projektu klubowego.">Zobacz projekt</button><button class="button primary" type="button" data-save-price>Zapisz cenę</button></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="view partner-view" data-view="partner-orders" hidden>
+            <div class="partner-page-head"><div><span class="eyebrow">SPRZEDAŻ</span><h1>Zamówienia</h1><p>Pozycje produktów przypisanych do KS Stal Pleszew.</p></div><button class="button ghost" type="button" data-demo-action="Eksport CSV został przygotowany do pobrania.">Eksportuj CSV</button></div>
+            <div class="filter-bar"><label>⌕ <input placeholder="Numer zamówienia lub produkt"></label><button class="active" type="button">Wszystkie <b>67</b></button><button type="button">W produkcji <b>8</b></button><button type="button">Wysłane <b>51</b></button><button type="button">Problem <b>1</b></button></div>
+            <article class="orders-table full-table">
+                <table><thead><tr><th>Zamówienie</th><th>Data</th><th>Produkt i personalizacja</th><th>Wartość pozycji</th><th>Dla klubu</th><th>Status</th></tr></thead><tbody>
+                    <tr><td><strong>AC/2026/1048</strong><small>Koszyk 2 klubów</small></td><td>23.07.2026<small>17:42</small></td><td><strong>Koszulka meczowa 2026</strong><small>M · 10 · KOWALSKI</small></td><td>129,00 zł</td><td><b>20,00 zł</b></td><td><span class="table-status production">W produkcji</span></td></tr>
+                    <tr><td><strong>AC/2026/1041</strong><small>Tylko Stal Pleszew</small></td><td>23.07.2026<small>12:18</small></td><td><strong>Bluza klubowa</strong><small>L · bez personalizacji</small></td><td>179,00 zł</td><td><b>28,00 zł</b></td><td><span class="table-status paid">Opłacone</span></td></tr>
+                    <tr><td><strong>AC/2026/1036</strong><small>Koszyk 1 klubu</small></td><td>22.07.2026<small>18:04</small></td><td><strong>Kubek Stalowej Rodziny</strong><small>Napis: NAJLEPSZY TATA</small></td><td>49,00 zł</td><td><b>8,00 zł</b></td><td><span class="table-status shipped">Wysłane</span></td></tr>
+                    <tr><td><strong>AC/2026/1029</strong><small>Koszyk 3 klubów</small></td><td>22.07.2026<small>09:31</small></td><td><strong>Bidon treningowy</strong><small>Numer: 7</small></td><td>59,00 zł</td><td><b>9,00 zł</b></td><td><span class="table-status issue">Reklamacja</span></td></tr>
+                    <tr><td><strong>AC/2026/1018</strong><small>Koszyk 1 klubu</small></td><td>20.07.2026<small>14:22</small></td><td><strong>Koszulka meczowa 2026</strong><small>152 · 21 · MATEUSZ</small></td><td>129,00 zł</td><td><b>20,00 zł</b></td><td><span class="table-status shipped">Wysłane</span></td></tr>
+                </tbody></table>
+            </article>
+            <div class="privacy-note">ⓘ Klub widzi dane sprzedażowe i personalizację potrzebną do identyfikacji produktu. Dane kontaktowe kupującego pozostają po stronie ACTIVIO.</div>
+        </section>
+
+        <section class="view partner-view" data-view="partner-settlements" hidden>
+            <div class="partner-page-head"><div><span class="eyebrow">FINANSE KLUBU</span><h1>Rozliczenia</h1><p>Przejrzysty zapis każdej sprzedaży, korekty i wypłaty.</p></div><button class="button ghost" type="button" data-demo-action="Zestawienie PDF za lipiec zostało przygotowane.">Pobierz zestawienie PDF</button></div>
+            <div class="settlement-summary">
+                <article class="available"><span>Dostępne do wypłaty</span><strong>1 040,00 zł</strong><small>Wypłata automatyczna 5 sierpnia</small><button class="button lime" data-demo-action="Prośba o wcześniejszą wypłatę wymaga dodatkowego potwierdzenia właściciela konta.">Zleć wypłatę wcześniej</button></article>
+                <article><span>Oczekujące</span><strong>246,00 zł</strong><small>Sprzedaż przed zakończeniem okresu bezpieczeństwa</small></article>
+                <article><span>Wypłacone łącznie</span><strong>8 740,00 zł</strong><small>Od uruchomienia sklepu · 8 wypłat</small></article>
+            </div>
+            <article class="ledger">
+                <div class="panel-heading"><div><span>Historia salda</span><strong>Lipiec 2026</strong></div><div class="ledger-legend"><span><i class="sale"></i>Sprzedaż</span><span><i class="adjustment"></i>Korekta</span><span><i class="payout"></i>Wypłata</span></div></div>
+                <table><thead><tr><th>Data</th><th>Zdarzenie</th><th>Powiązanie</th><th>Status</th><th>Zmiana</th><th>Saldo</th></tr></thead><tbody>
+                    <tr><td>23.07.2026<small>17:42</small></td><td><span class="ledger-icon sale">＋</span><strong>Sprzedaż produktu</strong><small>Koszulka meczowa 2026</small></td><td>AC/2026/1048</td><td><span class="table-status pending">Oczekuje</span></td><td class="amount plus">+20,00 zł</td><td>1 286,00 zł</td></tr>
+                    <tr><td>23.07.2026<small>12:18</small></td><td><span class="ledger-icon sale">＋</span><strong>Sprzedaż produktu</strong><small>Bluza klubowa</small></td><td>AC/2026/1041</td><td><span class="table-status pending">Oczekuje</span></td><td class="amount plus">+28,00 zł</td><td>1 266,00 zł</td></tr>
+                    <tr><td>22.07.2026<small>11:06</small></td><td><span class="ledger-icon adjustment">−</span><strong>Korekta reklamacji</strong><small>Bidon treningowy</small></td><td>AC/2026/0984</td><td><span class="table-status reversed">Cofnięte</span></td><td class="amount minus">−9,00 zł</td><td>1 238,00 zł</td></tr>
+                    <tr><td>20.07.2026<small>14:22</small></td><td><span class="ledger-icon sale">＋</span><strong>Sprzedaż produktu</strong><small>Koszulka meczowa 2026</small></td><td>AC/2026/1018</td><td><span class="table-status available">Dostępne</span></td><td class="amount plus">+20,00 zł</td><td>1 247,00 zł</td></tr>
+                    <tr><td>05.07.2026<small>08:00</small></td><td><span class="ledger-icon payout">↗</span><strong>Wypłata miesięczna</strong><small>Rozliczenie za czerwiec</small></td><td>WYP/2026/007</td><td><span class="table-status shipped">Wypłacone</span></td><td class="amount minus">−1 184,00 zł</td><td>118,00 zł</td></tr>
+                </tbody></table>
+            </article>
+            <div class="settlement-rule"><span>i</span><div><strong>Robocza zasada rozliczeń</strong><p>Udział klubu staje się dostępny po dostarczeniu i zakończeniu ustalonego okresu bezpieczeństwa. Zwrot lub uznana reklamacja tworzy korektę, nigdy nie usuwa wcześniejszego wpisu.</p></div><button data-assumptions>Omów założenie</button></div>
+        </section>
+
+        <section class="view project-hub-view" data-view="project-hub" hidden>
+            <div class="project-hero">
+                <div>
+                    <span class="eyebrow light">ACTIVIO CLUB · MATERIAŁ DO ROZMOWY</span>
+                    <h1>Poznaj założenia całego projektu</h1>
+                    <p>Mockup pokazuje interfejs. Materiały biznesowe opisują model, zakres MVP, role, ceny, rozliczenia, ryzyka i decyzje. Szczegóły dla zespołu IT są dostępne osobno.</p>
+                    <div class="hero-actions">
+                        <button class="button lime" type="button" data-go="project-concept">Czytaj koncepcję biznesową</button>
+                        <button class="button ghost light" type="button" data-go="project-assumptions">Zobacz założenia produktu</button>
+                    </div>
+                </div>
+                <aside class="project-status-card">
+                    <span>Status materiału</span>
+                    <strong>Koncepcja do walidacji</strong>
+                    <p>To nie jest gotowa specyfikacja. Model sprzedaży, umowy, rozliczenia i zakres pilotażu wymagają wspólnych decyzji.</p>
+                    <button type="button" data-go="marketplace">Przejdź do mockupu →</button>
+                </aside>
+            </div>
+            <div class="project-content">
+                <div class="section-heading"><span class="eyebrow">NAJWAŻNIEJSZE USTALENIA</span><h2>Co dziś zakładamy</h2></div>
+                <div class="project-decision-grid">
+                    <article><span>01</span><strong>Jeden handel ACTIVIO</strong><p>Marketplace i sklepy klubów korzystają z jednego koszyka, checkoutu i sprzedawcy.</p></article>
+                    <article><span>02</span><strong>ACTIVIO jest sprzedawcą</strong><p>Klient płaci ACTIVIO, a klub jest partnerem marki i otrzymuje wynagrodzenie zgodne z umową.</p></article>
+                    <article><span>03</span><strong>Ceny ustala klub</strong><p>Klub wybiera cenę detaliczną, a ACTIVIO definiuje wersjonowane minimum per wariant.</p></article>
+                    <article><span>04</span><strong>Rozliczenie per pozycja</strong><p>Każdy sprzedany produkt ma przypisany właściwy klub, kwotę wynagrodzenia i historię korekt.</p></article>
+                </div>
+
+                <div class="project-doc-heading">
+                    <div><span class="eyebrow">JEDNO ŹRÓDŁO BIZNESOWE</span><h2>Dokument i skrót decyzyjny</h2></div>
+                    <p>Oba wejścia korzystają z tego samego pliku Markdown. Nie utrzymujemy drugiej kopii założeń produktu.</p>
+                </div>
+                <div class="project-doc-grid">
+                    <button type="button" data-go="project-concept">
+                        <span class="doc-card-number">01</span>
+                        <span><small>Dokument dla biznesu</small><strong>Koncepcja biznesowa ACTIVIO CLUB</strong><p>Problem, wartość, model sprzedaży, role, ceny, wynagrodzenie klubu, operacje, ryzyka, mierniki i plan pilotażu.</p></span>
+                        <b>Czytaj dokument →</b>
+                    </button>
+                    <button type="button" data-go="project-assumptions">
+                        <span class="doc-card-number">02</span>
+                        <span><small>Rozdział dokumentu biznesowego</small><strong>Założenia produktu</strong><p>Najważniejsze zasady MVP, sposób działania oferty, ceny, rozliczenia i odpowiedzialności w jednym miejscu.</p></span>
+                        <b>Przejdź do rozdziału →</b>
+                    </button>
+                </div>
+
+                <div class="project-technical">
+                    <div>
+                        <span class="eyebrow light">OSOBNO DLA ZESPOŁU IT</span>
+                        <h2>Dodatek techniczny</h2>
+                        <p>Architektura, integracja z ShopSystem, model domenowy, bezpieczeństwo, testy i plan wdrożenia nie są potrzebne do rozmowy biznesowej.</p>
+                    </div>
+                    <button type="button" data-go="project-technical">Otwórz dokument techniczny →</button>
+                </div>
+
+                <div class="project-path">
+                    <div><span class="eyebrow">JAK CZYTAĆ PROTOTYP</span><h2>Trzy perspektywy jednego produktu</h2></div>
+                    <ol>
+                        <li><span>1</span><div><strong>Kibic</strong><p>Marketplace → sklep klubu → personalizacja → wspólny koszyk → płatność.</p><button data-go="marketplace">Otwórz ścieżkę klienta</button></div></li>
+                        <li><span>2</span><div><strong>Klub</strong><p>Pulpit → oferta i ceny → pozycje zamówień → rozliczenia.</p><button data-go="partner-dashboard">Otwórz panel klubu</button></div></li>
+                        <li><span>3</span><div><strong>Zespół projektowy</strong><p>Założenia → decyzje → ryzyka → kryteria pilotażu.</p><button data-go="project-concept">Otwórz materiały biznesowe</button></div></li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section class="view document-view" data-view="project-concept" data-document-src="../docs/activio_business_concept.md" hidden>
+            <div class="document-shell">
+                <aside class="document-sidebar">
+                    <button class="document-back" type="button" data-go="project-hub">← O projekcie</button>
+                    <span class="eyebrow">DOKUMENTACJA</span>
+                    <strong>Koncepcja biznesowa</strong>
+                    <nav class="document-switcher">
+                        <button type="button" data-go="project-concept">Koncepcja biznesowa</button>
+                        <button type="button" data-go="project-assumptions">Założenia produktu</button>
+                        <button type="button" data-go="project-technical">Dodatek techniczny</button>
+                    </nav>
+                    <div class="document-toc-label">Na tej stronie</div>
+                    <nav class="document-toc" data-document-toc></nav>
+                </aside>
+                <article class="document-reader">
+                    <div class="document-reader-bar"><span>Pełny dokument źródłowy</span><button type="button" data-go="marketplace">Otwórz mockup sklepu ↗</button></div>
+                    <div class="markdown-body" data-document-content aria-live="polite"><p>Ładowanie dokumentu…</p></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="view document-view" data-view="project-assumptions" data-document-src="../docs/activio_business_concept.md" data-document-section="zalozenia-produktu" hidden>
+            <div class="document-shell">
+                <aside class="document-sidebar">
+                    <button class="document-back" type="button" data-go="project-hub">← O projekcie</button>
+                    <span class="eyebrow">DOKUMENTACJA</span>
+                    <strong>Założenia produktu</strong>
+                    <nav class="document-switcher">
+                        <button type="button" data-go="project-concept">Koncepcja biznesowa</button>
+                        <button type="button" data-go="project-assumptions">Założenia produktu</button>
+                        <button type="button" data-go="project-technical">Dodatek techniczny</button>
+                    </nav>
+                    <div class="document-toc-label">Na tej stronie</div>
+                    <nav class="document-toc" data-document-toc></nav>
+                </aside>
+                <article class="document-reader">
+                    <div class="document-reader-bar"><span>Rozdział kanonicznego dokumentu biznesowego</span><button type="button" data-go="partner-offer">Zobacz panel oferty ↗</button></div>
+                    <div class="markdown-body" data-document-content aria-live="polite"><p>Ładowanie dokumentu…</p></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="view document-view" data-view="project-technical" data-document-src="../docs/activio_technical_concept.md" hidden>
+            <div class="document-shell">
+                <aside class="document-sidebar">
+                    <button class="document-back" type="button" data-go="project-hub">← O projekcie</button>
+                    <span class="eyebrow">DOKUMENTACJA · IT</span>
+                    <strong>Dodatek techniczny</strong>
+                    <nav class="document-switcher">
+                        <button type="button" data-go="project-concept">Koncepcja biznesowa</button>
+                        <button type="button" data-go="project-assumptions">Założenia produktu</button>
+                        <button type="button" data-go="project-technical">Dodatek techniczny</button>
+                    </nav>
+                    <div class="document-toc-label">Na tej stronie</div>
+                    <nav class="document-toc" data-document-toc></nav>
+                </aside>
+                <article class="document-reader">
+                    <div class="document-reader-bar"><span>Materiał wyłącznie dla zespołu IT</span><button type="button" data-go="project-concept">Wróć do biznesu ↗</button></div>
+                    <div class="markdown-body" data-document-content aria-live="polite"><p>Ładowanie dokumentu…</p></div>
+                </article>
+            </div>
+        </section>
+
+        <footer data-store-footer>
+            <div class="brand footer-brand"><span class="brand-mark">A</span><span>ACTIVIO<small>CLUB</small></span></div>
+            <p>Oficjalne produkty klubowe. Produkcja, obsługa i wysyłka bez magazynu po stronie klubu.</p>
+            <nav><button data-go="marketplace">Marketplace</button><button data-scroll-clubs>Kluby</button><button data-go="partner-dashboard">Dla klubów</button><button data-go="project-hub">O projekcie</button></nav>
+            <small>Prototyp koncepcyjny · lipiec 2026</small>
+        </footer>
+    </main>
+
+    <div class="toast" data-toast role="status">Dodano do koszyka</div>
+
+    <div class="feedback-backdrop" data-feedback-backdrop data-feedback-ui data-html2canvas-ignore hidden></div>
+    <aside class="feedback-panel" data-feedback-panel data-feedback-ui data-html2canvas-ignore aria-hidden="true">
+        <header class="feedback-panel-head">
+            <div>
+                <span class="eyebrow">WSPÓLNA RECENZJA</span>
+                <h2>Uwagi do prototypu</h2>
+            </div>
+            <button type="button" data-feedback-close aria-label="Zamknij uwagi">×</button>
+        </header>
+        <p class="feedback-intro">Wskaż dowolny fragment ekranu i opisz, co warto zmienić. Uwagi pozostaną po publikacji kolejnych wersji.</p>
+        <button class="feedback-select-button" type="button" data-feedback-select>
+            <span>＋</span> Wskaż fragment strony
+        </button>
+        <div class="feedback-filters">
+            <label>Widok
+                <select data-feedback-scope>
+                    <option value="view">Bieżący ekran</option>
+                    <option value="all">Wszystkie ekrany</option>
+                </select>
+            </label>
+            <label>Status
+                <select data-feedback-status>
+                    <option value="open">Otwarte</option>
+                    <option value="all">Wszystkie</option>
+                    <option value="new">Nowe</option>
+                    <option value="in_progress">W realizacji</option>
+                    <option value="resolved">Rozwiązane</option>
+                    <option value="rejected">Odrzucone</option>
+                </select>
+            </label>
+        </div>
+        <div class="feedback-list" data-feedback-list aria-live="polite">
+            <p class="feedback-empty">Ładowanie uwag…</p>
+        </div>
+    </aside>
+
+    <div class="feedback-highlight" data-feedback-highlight data-feedback-ui data-html2canvas-ignore hidden></div>
+    <div class="feedback-pins" data-feedback-pins data-feedback-ui data-html2canvas-ignore></div>
+
+    <dialog class="feedback-dialog" data-feedback-dialog data-feedback-ui data-html2canvas-ignore>
+        <form method="dialog" data-feedback-form>
+            <header>
+                <div>
+                    <span class="eyebrow">NOWA UWAGA</span>
+                    <h2>Co chcesz przekazać?</h2>
+                </div>
+                <button type="button" data-feedback-cancel aria-label="Zamknij">×</button>
+            </header>
+            <div class="feedback-target" data-feedback-target></div>
+            <label class="feedback-field">Podpis
+                <input type="text" name="author" maxlength="80" autocomplete="name" placeholder="Imię lub rola" required>
+            </label>
+            <label class="feedback-field">Komentarz
+                <textarea name="comment" maxlength="4000" rows="5" placeholder="Co jest niejasne, czego brakuje albo co warto zmienić?" required></textarea>
+            </label>
+            <label class="feedback-screenshot-option">
+                <input type="checkbox" name="include_screenshot" checked>
+                Dołącz zrzut bieżącego ekranu
+            </label>
+            <p class="feedback-form-error" data-feedback-form-error role="alert" hidden></p>
+            <footer>
+                <button class="feedback-cancel" type="button" data-feedback-cancel>Anuluj</button>
+                <button class="feedback-submit" type="submit">Dodaj uwagę</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
+    <script src="app.js?v=20260724-10"></script>
+    <script src="feedback.js?v=20260724-10"></script>
+</body>
+</html>

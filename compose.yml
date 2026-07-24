@@ -1,0 +1,51 @@
+services:
+  activio-club-concept:
+    image: node:24-alpine
+    container_name: activio-club-concept
+    restart: unless-stopped
+    user: "1000:1000"
+    working_dir: /app
+    command:
+      - node
+      - server.mjs
+    env_file:
+      - .env
+    environment:
+      ACTIVIO_DEMO_HOST: 0.0.0.0
+      ACTIVIO_DEMO_PORT: 8080
+      ACTIVIO_FEEDBACK_DIR: /feedback
+    volumes:
+      - .:/app:ro
+      - ../activio-club-feedback:/feedback
+    networks:
+      - traefik_proxy
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: traefik_proxy
+      traefik.http.routers.activio-club-concept.priority: "10000"
+      traefik.http.routers.activio-club-concept.rule: Host(`bkt44bartek.tailf5aee2.ts.net`)
+      traefik.http.services.activio-club-concept.loadbalancer.server.port: "8080"
+
+  activio-club-ngrok:
+    image: ngrok/ngrok:latest
+    container_name: activio-club-ngrok
+    profiles:
+      - ngrok
+    restart: unless-stopped
+    depends_on:
+      - activio-club-concept
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    command:
+      - http
+      - http://activio-club-concept:8080
+      - --url
+      - https://${NGROK_DOMAIN:-development-domain-not-configured.invalid}
+      - --log
+      - stdout
+    networks:
+      - traefik_proxy
+
+networks:
+  traefik_proxy:
+    external: true
