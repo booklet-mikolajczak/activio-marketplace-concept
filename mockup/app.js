@@ -20,12 +20,35 @@ let version_check_in_progress = false;
 
 const assumptions = {
     marketplace: {
-        title: 'Marketplace ACTIVIO',
+        title: 'Strona główna ACTIVIO',
         items: [
-            'To wspólny katalog wyłącznie klubów obsługiwanych przez ACTIVIO — bez Npack i Naklejkon.',
-            'Klient może odkrywać produkty globalnie lub wejść do oficjalnego sklepu konkretnego klubu.',
-            'Roboczo ACTIVIO jest jedynym sprzedawcą, a kluby są partnerami i licencjodawcami marki.',
-            'Jeden koszyk może łączyć produkty kilku klubów, jeśli produkcja i wysyłka pozostają wspólne.',
+            'Strona główna rozdziela trzy usługi: Oferta B2B, ACTIVIO Club i Sklep.',
+            'Produkty klubów i produkty własne ACTIVIO są sprzedawane w Sklepie oraz dodawane do jednego koszyka.',
+            'ACTIVIO jest jedynym sprzedawcą, a kluby są partnerami i licencjodawcami marki.',
+        ],
+    },
+    offer: {
+        title: 'Oferta dla klubów',
+        items: [
+            'Oferta to usługa druku i produkcji kierowana bezpośrednio do organizacji sportowych.',
+            'Produkt prowadzi do zapytania albo zamówienia B2B, nie do koszyka konsumenckiego.',
+            'Katalog i producenci są kontrolowani przez ACTIVIO.',
+        ],
+    },
+    clubs: {
+        title: 'ACTIVIO Club',
+        items: [
+            'Ta część prezentuje program partnerski oraz oficjalne sklepy klubowe.',
+            'Klub nie jest sprzedawcą: wybiera produkty, ustala ceny i otrzymuje wynagrodzenie.',
+            'Wejście do sklepu konkretnego klubu zachowuje jego markę, ofertę i historię.',
+        ],
+    },
+    store: {
+        title: 'Sklep ACTIVIO',
+        items: [
+            'Sklep łączy produkty klubów oraz dopuszczone produkty własne ACTIVIO.',
+            'Katalog można filtrować według kategorii i klubu oraz sortować według popularności.',
+            'Produkty z różnych klubów trafiają do jednego koszyka i są kupowane od ACTIVIO.',
         ],
     },
     club: {
@@ -33,6 +56,7 @@ const assumptions = {
         items: [
             'Sklep ma własny adres, identyfikację i historię, ale działa na wspólnej platformie ACTIVIO.',
             'Klub wybiera ofertę z katalogu bazowego i ustala cenę detaliczną nie niższą od minimum ACTIVIO.',
+            'Klub nie dodaje własnych dostawców ani dowolnych produktów; katalog rozszerza ACTIVIO o zatwierdzonych producentów.',
             'Komunikat o wsparciu klubu musi odpowiadać umowie i faktycznemu sposobowi rozliczenia.',
         ],
     },
@@ -76,14 +100,15 @@ const assumptions = {
             'Panel jest osobnym modułem ACTIVIO, a nie rozszerzeniem paneli Npack lub Naklejkon.',
             'Sprzedaż oznacza wartość produktów klubowych; „należne klubowi” to zobowiązanie ACTIVIO z umowy.',
             'Klub widzi agregaty i pozycje swoich produktów, bez danych innych klubów.',
-            'Metryki muszą rozróżniać sprzedaż brutto, udział oczekujący, dostępny, wypłacony i skorygowany.',
+            'Sprzedaż klienta jest brutto, a wynagrodzenie klubu pokazujemy jako podstawę netto, VAT i kwotę brutto do wypłaty.',
         ],
     },
     'partner-offer': {
         title: 'Oferta i ceny',
         items: [
             'Klub sam ustala cenę detaliczną każdego listingu, ale nie może zejść poniżej minimum ACTIVIO.',
-            'Minimum jest wersjonowane per wariant i personalizację; sprawdzamy je ponownie przy publikacji, kuponie i checkoutcie.',
+            'Minimum jest wersjonowane per wariant i personalizację; sprawdzamy je ponownie przy publikacji i checkoutcie.',
+            'W MVP nie ma kuponów, rabatów ani promocji cenowych.',
             'Cennik ilościowy activio.pl jest źródłem katalogu, nie automatycznym minimum dla pojedynczej sztuki produkowanej na zamówienie.',
             'Czy całe przekroczenie minimum jest udziałem klubu, wymaga jeszcze decyzji podatkowej i umownej.',
             'Podniesienie minimum nie zmienia po cichu ceny klubu: listing wymaga nowej ceny albo zostaje wstrzymany w dniu wejścia zmiany.',
@@ -104,7 +129,8 @@ const assumptions = {
             'To nie portfel płatniczy, lecz księga zobowiązań ACTIVIO wobec klubu.',
             'Każda sprzedaż, korekta, reklamacja i wypłata tworzy nieusuwalny zapis powiązany z pozycją zamówienia.',
             'Kwota staje się dostępna dopiero po ustalonym okresie bezpieczeństwa.',
-            'Częstotliwość wypłat, próg minimalny, dokument rozliczeniowy i skutki ujemnego salda wymagają decyzji księgowej.',
+            'Klub VAT wystawia fakturę i otrzymuje netto plus VAT; klub bez VAT wystawia dokument bez VAT i otrzymuje netto.',
+            'Częstotliwość wypłat, próg minimalny i skutki ujemnego salda wymagają decyzji księgowej.',
         ],
     },
     'project-hub': {
@@ -113,6 +139,14 @@ const assumptions = {
             'Ta część prototypu łączy widoki produktu z pełną dokumentacją koncepcyjną.',
             'Dokumenty są ładowane z plików Markdown, więc udostępniona wersja pokazuje ich aktualną treść.',
             'Materiały opisują rekomendacje i pytania do decyzji, a nie zatwierdzoną specyfikację implementacyjną.',
+        ],
+    },
+    'feedback-history': {
+        title: 'Historia uwag i zmian',
+        items: [
+            'Widok jest zasilany tą samą trwałą bazą co panel uwag i nie duplikuje komentarzy w kodzie mockupu.',
+            'Odrzucone uwagi testowe są pomijane.',
+            'Odpowiedzi opisują podjęte działania, a status wskazuje, czy wdrożenie zostało zakończone.',
         ],
     },
     'project-concept': {
@@ -593,11 +627,26 @@ function render_view(view_name, update_hash = true) {
     }));
 }
 
-function navigate_and_scroll(view_name, section_id) {
-    render_view(view_name);
-    window.requestAnimationFrame(() => {
-        document.getElementById(section_id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+function render_store_products() {
+    const container = document.querySelector('[data-store-products]');
+    const active_filter = document.querySelector('[data-store-filter].active')?.dataset.storeFilter || 'all';
+    const selected_club = document.querySelector('[data-store-club]')?.value || 'all';
+    const sort = document.querySelector('[data-store-sort]')?.value || 'popular';
+    const products = [...document.querySelectorAll('[data-store-product]')];
+    const sort_key = sort === 'price-asc'
+        ? 'price'
+        : sort === 'newest' ? 'newness' : 'popularity';
+    const direction = sort === 'price-asc' ? 1 : -1;
+
+    products
+        .sort((left, right) => direction * (
+            Number(left.dataset[sort_key]) - Number(right.dataset[sort_key])
+        ))
+        .forEach((product) => {
+            product.hidden = (active_filter !== 'all' && product.dataset.storeCategory !== active_filter)
+                || (selected_club !== 'all' && product.dataset.storeClub !== selected_club);
+            container.append(product);
+        });
 }
 
 document.addEventListener('click', (event) => {
@@ -615,6 +664,15 @@ document.addEventListener('click', (event) => {
         favorite_button.textContent = is_favorite ? '♥' : '♡';
         favorite_button.setAttribute('aria-label', is_favorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych');
         show_toast(is_favorite ? 'Dodano do ulubionych' : 'Usunięto z ulubionych');
+        return;
+    }
+
+    const store_filter = event.target.closest('[data-store-filter]');
+    if (store_filter) {
+        document.querySelectorAll('[data-store-filter]').forEach((button) => {
+            button.classList.toggle('active', button === store_filter);
+        });
+        render_store_products();
         return;
     }
 
@@ -680,24 +738,6 @@ document.addEventListener('click', (event) => {
         [...document_view.querySelectorAll('[id]')]
             .find((element) => element.id === document_anchor.dataset.documentAnchor)
             ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-    }
-
-    if (event.target.closest('[data-scroll-clubs]')) {
-        event.preventDefault();
-        navigate_and_scroll('marketplace', 'clubs');
-        return;
-    }
-
-    if (event.target.closest('[data-scroll-products]')) {
-        event.preventDefault();
-        navigate_and_scroll('marketplace', 'products');
-        return;
-    }
-
-    if (event.target.closest('[data-scroll-how]')) {
-        event.preventDefault();
-        navigate_and_scroll('marketplace', 'how');
         return;
     }
 
@@ -834,6 +874,10 @@ document.querySelector('.sales-chart select')?.addEventListener('change', (event
     show_toast(`Zakres wykresu: ${event.target.value}`);
 });
 
+document.querySelectorAll('[data-store-club], [data-store-sort]').forEach((select) => {
+    select.addEventListener('change', render_store_products);
+});
+
 document.querySelectorAll('[data-sale-price]').forEach((input) => {
     input.addEventListener('input', () => update_offer_price(input));
 });
@@ -857,11 +901,19 @@ window.addEventListener('keydown', (event) => {
         close_overlays();
     }
 
-    if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('[role="link"][data-go]')) {
+    if (
+        (event.key === 'Enter' || event.key === ' ')
+        && event.target.matches('[role="link"][data-go], [role="button"][data-demo-action]')
+    ) {
         event.preventDefault();
-        render_view(event.target.dataset.go);
+        if (event.target.dataset.go) {
+            render_view(event.target.dataset.go);
+        } else {
+            show_toast(event.target.dataset.demoAction);
+        }
     }
 });
 
+render_store_products();
 render_view(window.location.hash.slice(1) || 'marketplace', false);
 check_version(true);

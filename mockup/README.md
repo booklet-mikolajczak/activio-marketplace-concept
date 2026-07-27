@@ -18,12 +18,14 @@ http://127.0.0.1:8080/mockup/
 
 ## Scenariusz klienta
 
-1. Marketplace.
-2. Sklep KS Stal Pleszew.
-3. Personalizacja koszulki.
-4. Mieszany koszyk dwóch klubów.
-5. Checkout.
-6. Potwierdzenie i podział wsparcia.
+1. Strona główna ACTIVIO.
+2. Oferta B2B albo program ACTIVIO Club.
+3. Wspólny Sklep i filtry kategorii lub klubu.
+4. Sklep KS Stal Pleszew.
+5. Personalizacja produktu.
+6. Mieszany koszyk dwóch klubów.
+7. Checkout.
+8. Potwierdzenie i podział wynagrodzenia klubów.
 
 ## Scenariusz klubu
 
@@ -51,6 +53,8 @@ Przycisk „Założenia ekranu” wyjaśnia decyzje ukryte pod każdym widokiem.
 ## Zbieranie uwag
 
 Przycisk „Uwagi” otwiera panel recenzji. Recenzent wybiera „Wskaż fragment strony”, klika element albo zaznacza tekst i dodaje komentarz. Do uwagi może zostać dołączony screenshot z obramowaniem wskazanego miejsca.
+
+Odpowiedź pod uwagą może zostać oznaczona jako wykonane działanie. Takie wpisy są wyróżnione w panelu i trafiają do sekcji „Podjęte działania” na stronie „Historia zmian”. Zwykłe odpowiedzi pozostają częścią dyskusji. Odrzucone uwagi nie są pokazywane w publicznej historii.
 
 Każda uwaga ma kilka kotwic: identyfikator elementu, selektor, treść i położenie. Po zmianie mockupu system próbuje ponownie odnaleźć element. Nierozpoznana kotwica nie usuwa komentarza — uwaga i screenshot nadal są dostępne w panelu.
 

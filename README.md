@@ -60,6 +60,8 @@ Przycisk „Uwagi” pozwala:
 - zobaczyć pinezki na właściwych ekranach;
 - odpowiadać i zmieniać status: nowa, w realizacji, rozwiązana, odrzucona.
 
+Widok „Historia zmian” odczytuje tę samą bazę, pomija uwagi odrzucone i pokazuje przy każdej uwadze działania wdrożeniowe. Zwykła odpowiedź i wykonane działanie są odrębnymi typami wpisu, dlatego pytanie w dyskusji nie jest prezentowane jako zrealizowana poprawka.
+
 Zdarzenia są append-only: aplikacja dopisuje nowe wpisy, nie aktualizuje ani nie usuwa wcześniejszych. Dane nie znajdują się w repozytorium mockupu, dlatego zmiana, publikacja lub podmiana jego plików ich nie kasuje.
 
 Domyślne miejsce:
@@ -79,6 +81,12 @@ node scripts/feedback-report.mjs
 node scripts/feedback-report.mjs --status all
 node scripts/feedback-report.mjs --view marketplace
 node scripts/feedback-report.mjs --json
+```
+
+Test magazynu uwag:
+
+```bash
+node --test tests/feedback-store.test.mjs
 ```
 
 System jest przeznaczony dla zaproszonych recenzentów znających wspólne hasło. Podpis autora jest deklaratywny, a nie potwierdzony osobnym kontem użytkownika.

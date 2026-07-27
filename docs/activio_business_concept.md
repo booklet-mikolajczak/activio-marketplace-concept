@@ -1,7 +1,7 @@
 # ACTIVIO CLUB — koncepcja biznesowa
 
 Status: materiał do decyzji biznesowych, nie specyfikacja wdrożeniowa  
-Data: 24 lipca 2026  
+Data: 27 lipca 2026
 Prototyp: [mockup/index.html](../mockup/index.html)  
 Założenia produktu: [rozdział dokumentu](#zalozenia-produktu)  
 Dodatek dla IT: [docs/activio_technical_concept.md](activio_technical_concept.md)  
@@ -9,20 +9,30 @@ Research regulacyjny: [docs/activio_marketplace_research.md](activio_marketplace
 
 ## 1. Streszczenie
 
-ACTIVIO CLUB to platforma sprzedaży oficjalnych produktów klubowych produkowanych na zamówienie. Klub otrzymuje własny sklep, ofertę, panel wyników i rozliczenia, a ACTIVIO odpowiada za produkcję, płatność, obsługę klienta, pakowanie i wysyłkę.
+ACTIVIO łączy usługi produkcyjne dla klubów, program partnerski ACTIVIO Club i wspólny sklep internetowy. W ramach ACTIVIO Club klub otrzymuje własny sklep, ofertę, panel wyników i rozliczenia, a ACTIVIO odpowiada za sprzedaż, produkcję, płatność, obsługę klienta, pakowanie i wysyłkę.
 
-To jeden handel ACTIVIO dostępny na dwa sposoby:
+Sprzedaż konsumencka jest dostępna na dwa sposoby:
 
 1. przez sklep konkretnego klubu;
-2. przez wspólny marketplace wszystkich klubów ACTIVIO.
+2. przez wspólny Sklep ACTIVIO zawierający produkty klubów i dopuszczone produkty własne.
 
 Poniższe założenia są roboczym punktem wyjścia do pilotażu. Szczegóły i otwarte decyzje rozwijają kolejne rozdziały.
+
+## 2. Architektura oferty ACTIVIO
+
+Strona główna ACTIVIO prowadzi do trzech odrębnych usług:
+
+1. **Oferta** — aktualny katalog druku i gadżetów kierowany do klubów sportowych. Produkt prowadzi do zapytania lub zamówienia B2B.
+2. **Kluby / ACTIVIO Club** — program partnerski, lista klubów i wejścia do ich oficjalnych sklepów.
+3. **Sklep** — e-commerce z produktami wszystkich klubów oraz dopuszczonymi produktami własnymi ACTIVIO.
+
+Produkty ze Sklepu ACTIVIO i oficjalnych sklepów klubowych korzystają z jednego koszyka. Oferta B2B ma osobną ścieżkę zapytania lub zamówienia i nie miesza się z koszykiem konsumenckim.
 
 ## Założenia produktu
 
 1. ACTIVIO jest formalnym sprzedawcą. Klub otrzymuje wynagrodzenie partnerskie zgodne z umową.
-2. Sklep klubu i wspólny marketplace pokazują tę samą ofertę ACTIVIO, a nie dwa niezależne katalogi.
-3. Marketplace obejmuje wyłącznie kluby ACTIVIO; Npack, Naklejkon i pozostałe marki Booklet są poza nim.
+2. Sklep klubu i wspólny Sklep ACTIVIO pokazują te same produkty klubowe, a nie dwa niezależne katalogi.
+3. Sklep obejmuje kluby ACTIVIO i dopuszczone produkty własne; Npack, Naklejkon i pozostałe marki Booklet są poza nim.
 4. Jeden koszyk może zawierać produkty wielu klubów, a kupujący płaci raz.
 5. Produkty wielu klubów są domyślnie wysyłane jedną paczką z jednego centrum realizacji.
 6. Klub nie utrzymuje magazynu, nie produkuje, nie pakuje i nie obsługuje wysyłki.
@@ -33,8 +43,9 @@ Poniższe założenia są roboczym punktem wyjścia do pilotażu. Szczegóły i 
 11. Warunki obowiązujące w chwili zakupu pozostają częścią historii zamówienia i rozliczenia.
 12. Wynagrodzenie klubu staje się dostępne po dostarczeniu i zakończeniu ustalonego okresu bezpieczeństwa.
 13. Klub widzi dane potrzebne do oceny sprzedaży i identyfikacji produktu, ale nie pełne dane kupującego.
+14. Katalog i lista producentów są kontrolowane przez ACTIVIO; klub nie dodaje własnych dostawców ani dowolnych towarów.
 
-Historia pozycji zachowuje klub, produkt, wariant, personalizację, zaakceptowany projekt, cenę klienta, obowiązujące minimum, wynagrodzenie klubu, rabat, podatek i ilość. Późniejsza zmiana ceny, projektu lub umowy nie zmienia wcześniejszego zamówienia.
+Historia pozycji zachowuje klub, produkt, wariant, personalizację, zaakceptowany projekt, cenę klienta, obowiązujące minimum, wynagrodzenie klubu, podatek i ilość. Późniejsza zmiana ceny, projektu lub umowy nie zmienia wcześniejszego zamówienia.
 
 Każde założenie wymaga potwierdzenia biznesowego, prawnego albo operacyjnego przed pilotażem.
 
@@ -79,20 +90,20 @@ Kupujący może:
 - śledzić jedno zamówienie;
 - zobaczyć, jaka kwota z zakupu przypada klubowi.
 
-## 6. Jeden marketplace, wiele sklepów klubowych
+## 6. Jeden sklep, wiele witryn klubowych
 
-Sklep klubu i marketplace nie są oddzielnymi biznesami ani kopiami oferty. Ten sam produkt klubowy może być znaleziony:
+Sklep klubu i wspólny Sklep ACTIVIO nie są oddzielnymi biznesami ani kopiami oferty. Ten sam produkt klubowy może być znaleziony:
 
 - w witrynie klubu;
-- w kategorii marketplace;
+- w kategorii Sklepu ACTIVIO;
 - w wynikach wyszukiwania;
 - przez bezpośredni link z mediów społecznościowych.
 
-Marketplace obejmuje wyłącznie sklepy ACTIVIO. Npack, Naklejkon i inne marki Booklet pozostają poza nim.
+Sklep obejmuje produkty klubów ACTIVIO oraz dopuszczone produkty własne ACTIVIO. Npack, Naklejkon i inne marki Booklet pozostają poza nim.
 
 ## 7. Kto jest sprzedawcą
 
-### Rekomendacja dla MVP: ACTIVIO
+### Przyjęty model: ACTIVIO
 
 - klient kupuje od ACTIVIO;
 - ACTIVIO pobiera płatność i wystawia dokument sprzedaży;
@@ -102,11 +113,11 @@ Marketplace obejmuje wyłącznie sklepy ACTIVIO. Npack, Naklejkon i inne marki B
 
 Ten wariant upraszcza doświadczenie klienta i odpowiedzialność za realizację, ale przenosi na ACTIVIO pełne obowiązki sprzedawcy.
 
-### Wariant przyszłościowy: klub jako sprzedawca
+### Model wykluczony: klub jako sprzedawca
 
 Jeżeli kluby miałyby sprzedawać własne produkty, wystawiać dokumenty klientowi lub odpowiadać za realizację, powstałby model wielu sprzedawców. Oznaczałby osobne umowy w koszyku, dodatkową weryfikację klubów, podział płatności i znacznie szersze obowiązki platformy.
 
-Nie rekomendujemy tego wariantu na pilotaż.
+Nie zakładamy tego wariantu. ACTIVIO pozostaje sprzedawcą, a kluby partnerami.
 
 ### Decyzje wymagające potwierdzenia
 
@@ -144,11 +155,21 @@ Do decyzji pozostają dwa modele:
 
 Na pilotaż warto rozważyć stałą kwotę za sprzedaną sztukę. Jest najłatwiejsza do zrozumienia, pokazania kupującemu i rozliczenia z klubem.
 
-Trzeba jednoznacznie ustalić:
+### Brutto, netto i status VAT klubu
 
-- czy wartości są liczone brutto czy netto;
-- kto finansuje kupony i promocje;
-- czy rabat zmniejsza wynagrodzenie klubu;
+Wszystkie ceny pokazywane kupującemu w Sklepie ACTIVIO i sklepach klubowych są cenami brutto.
+
+Wynagrodzenie partnerskie klubu jest ustalane jako kwota netto:
+
+- klub będący czynnym podatnikiem VAT wystawia fakturę VAT i otrzymuje kwotę brutto, czyli wynagrodzenie netto powiększone o VAT;
+- klub niebędący podatnikiem VAT wystawia dokument bez VAT i otrzymuje kwotę netto.
+
+Panel musi pokazywać osobno podstawę netto, VAT oraz kwotę brutto do wypłaty. Status VAT i wymagany dokument są danymi umowy klubu. Księgowy powinien potwierdzić dokumenty i moment powstania obowiązku podatkowego przed pilotażem.
+
+W pilotażu nie obsługujemy kuponów, kodów rabatowych, promocji cenowych ani przekreślonych cen. Cena listingu może zostać zmieniona przez klub, ale zawsze pozostaje ceną regularną i nie niższą od minimum ACTIVIO.
+
+Trzeba jeszcze jednoznacznie ustalić:
+
 - kiedy sprzedaż staje się należna do wypłaty;
 - co dzieje się po zwrocie, reklamacji lub obciążeniu zwrotnym.
 
@@ -221,11 +242,12 @@ Klub widzi tylko swoje produkty, ich personalizację, wartość, status i wpływ
 - Polska i PLN;
 - ACTIVIO jako jeden sprzedawca;
 - 3–5 klubów;
-- marketplace i sklepy klubowe na jednej domenie;
+- Sklep ACTIVIO i sklepy klubowe na jednej domenie;
 - wspólny koszyk i jedna płatność;
 - jedna paczka z jednego centrum realizacji;
 - gościnny zakup;
 - katalog kontrolowany przez ACTIVIO;
+- brak kuponów, rabatów i promocji cenowych;
 - ceny ustalane przez kluby powyżej minimum;
 - tekstowa personalizacja: rozmiar, numer, imię lub nazwisko;
 - panel klubu: pulpit, oferta, zamówienia i rozliczenia;
@@ -235,7 +257,6 @@ Klub widzi tylko swoje produkty, ich personalizację, wartość, status i wpływ
 ### Poza pilotażem
 
 - kluby jako samodzielni sprzedawcy;
-- towary i dostawcy wprowadzani dowolnie przez kluby;
 - automatyczny podział płatności;
 - wiele centrów realizacji;
 - wiele walut i sprzedaż zagraniczna;
@@ -245,6 +266,8 @@ Klub widzi tylko swoje produkty, ich personalizację, wartość, status i wpływ
 - własne domeny klubów;
 - program lojalnościowy.
 
+Towary i dostawcy wprowadzani dowolnie przez kluby nie są wariantem przyszłościowym. ACTIVIO może rozszerzać katalog wyłącznie o produkty własne lub produkty zatwierdzonych dodatkowych producentów.
+
 ## 12. Główne procesy
 
 ### Uruchomienie klubu
@@ -253,7 +276,7 @@ Umowa → weryfikacja organizacji → prawa do marki → materiały → wybór p
 
 ### Zakup
 
-Marketplace lub sklep klubu → produkt → personalizacja → koszyk → dostawa i płatność → produkcja → wysyłka → rozliczenie.
+Sklep ACTIVIO lub sklep klubu → produkt → personalizacja → koszyk → dostawa i płatność → produkcja → wysyłka → rozliczenie.
 
 ### Zwrot lub reklamacja
 
@@ -265,7 +288,6 @@ Wspólny koszyk jest dużą wartością, ale wymaga uzgodnienia:
 
 - czy cała paczka czeka na najwolniejszy produkt;
 - co robimy, gdy jednej pozycji nie da się wykonać;
-- jak dzielimy rabat koszykowy;
 - jak rozliczamy częściowy zwrot;
 - kto ponosi koszt błędu w personalizacji;
 - co dzieje się z rozliczeniem po reklamacji;
@@ -276,6 +298,17 @@ Na MVP rekomendowana jest jedna paczka i jasna informacja, że termin zależy od
 ## 14. Produkty, personalizacja i marka
 
 ACTIVIO prowadzi katalog bazowy. Klub wybiera z niego produkty, zamiast samodzielnie definiować dowolne technologie i materiały.
+
+Każdy produkt katalogowy wskazuje producenta zatwierdzonego przez ACTIVIO. Nowego producenta i jego produkty może wprowadzić operator ACTIVIO; klub może jedynie wybrać produkt udostępniony w katalogu.
+
+Początkowy katalog ma cztery kategorie:
+
+1. odzież klubowa;
+2. gadżety i upominki;
+3. torby i akcesoria;
+4. naklejki i magnesy.
+
+Odzież klubowa obejmuje między innymi bluzy, koszulki i czapki z oferty ACTIVIO. Nie zakładamy sprzedaży strojów meczowych ani treningowych, ponieważ kluby korzystają z własnych marek wyposażenia sportowego.
 
 Przed publikacją należy potwierdzić:
 
@@ -331,7 +364,7 @@ Do ustalenia:
 - liczba klubów gotowych podpisać umowę;
 - czas od umowy do uruchomienia sklepu;
 - liczba aktywnych produktów;
-- konwersja sklepu i marketplace;
+- konwersja Sklepu ACTIVIO i sklepów klubowych;
 - średnia wartość koszyka;
 - udział koszyków wieloklubowych;
 - marża po pełnych kosztach;
@@ -351,7 +384,7 @@ Sam obrót nie wystarczy. Pilot ma potwierdzić jednocześnie popyt, rentownoś�
 - produkcja wycenia 10–15 produktów wraz z odpadem i poprawkami;
 - rozmowy z pięcioma klubami;
 - test mockupu z administratorami klubów i kupującymi;
-- ręczna symulacja zamówień, rabatów, zwrotów i wypłat;
+- ręczna symulacja zamówień, zwrotów i wypłat;
 - wybór czterech prostych produktów pilotażowych.
 
 ### Etap 1 — zamknięty pilot
@@ -370,11 +403,14 @@ Dopiero po dwóch poprawnych cyklach rozliczeniowych rozszerzamy katalog, onboar
 
 | Decyzja | Rekomendacja | Status |
 |---|---|---|
-| Sprzedawca | ACTIVIO | do potwierdzenia prawnego |
-| Marketplace | wszystkie sklepy ACTIVIO | przyjęte roboczo |
+| Sprzedawca | ACTIVIO | przyjęte; do potwierdzenia prawnego |
+| Strona główna | Oferta / Kluby / Sklep / Koszyk | przyjęte |
+| Sklep ACTIVIO | produkty klubów i dopuszczone produkty własne | przyjęte |
 | Mieszany koszyk | tak, jedna paczka w MVP | do potwierdzenia operacyjnego |
 | Cena detaliczna | ustala klub | przyjęte |
 | Dolna granica ceny | minimum ACTIVIO | przyjęte |
+| Kupony i rabaty | brak w MVP | przyjęte |
+| Rozszerzanie katalogu | wyłącznie ACTIVIO i zatwierdzeni producenci | przyjęte |
 | Wynagrodzenie klubu | osobno dla każdej pozycji | wymagane |
 | Reguła wynagrodzenia | stała kwota na sztukę w pilotażu | do decyzji |
 | Wypłata | miesięczna po okresie bezpieczeństwa | do decyzji księgowej |
@@ -383,26 +419,24 @@ Dopiero po dwóch poprawnych cyklach rozliczeniowych rozszerzamy katalog, onboar
 
 ## 21. Pytania na pierwsze spotkanie
 
-1. Czy ACTIVIO ma być sprzedawcą na paragonie lub fakturze?
-2. Za co dokładnie klub otrzymuje pieniądze?
-3. Jak dokumentujemy rozliczenie z klubem?
-4. Czy klub otrzymuje różnicę ponad minimum, stałą kwotę czy procent?
-5. Czy klient widzi dokładną kwotę przypadającą klubowi?
-6. Kto finansuje rabat i czy zmniejsza on wynagrodzenie klubu?
-7. Kiedy środki stają się dostępne?
-8. Czy wszystkie produkty powstają i jadą z jednego miejsca?
-9. Co robimy, gdy jeden produkt opóźnia całą paczkę?
-10. Jakie personalizacje dopuszczamy w pilotażu?
-11. Kto ponosi koszt błędu klienta, produkcji i reklamacji?
-12. Kto w klubie zatwierdza markę, ceny i rachunek?
-13. Jakie dane kupującego naprawdę są potrzebne klubowi?
-14. Jaki wynik po dwóch cyklach oznacza „skalujemy”?
+1. Za co dokładnie klub otrzymuje pieniądze?
+2. Jak dokumentujemy rozliczenie z klubem?
+3. Czy klub otrzymuje różnicę ponad minimum, stałą kwotę czy procent?
+4. Czy klient widzi dokładną kwotę przypadającą klubowi?
+5. Kiedy środki stają się dostępne?
+6. Czy wszystkie produkty powstają i jadą z jednego miejsca?
+7. Co robimy, gdy jeden produkt opóźnia całą paczkę?
+8. Jakie personalizacje dopuszczamy w pilotażu?
+9. Kto ponosi koszt błędu klienta, produkcji i reklamacji?
+10. Kto w klubie zatwierdza markę, ceny i rachunek?
+11. Jakie dane kupującego naprawdę są potrzebne klubowi?
+12. Jaki wynik po dwóch cyklach oznacza „skalujemy”?
 
 ## 22. Gotowość do pilotażu
 
 Przed pełnym wdrożeniem potrzebujemy:
 
-- decyzji o sprzedawcy;
+- prawnego potwierdzenia modelu ACTIVIO jako sprzedawcy;
 - wzoru umowy z klubem;
 - zatwierdzonej zasady ceny i wynagrodzenia;
 - polityki zwrotów i reklamacji;

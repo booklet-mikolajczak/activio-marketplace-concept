@@ -17,6 +17,8 @@
         form: document.querySelector('[data-feedback-form]'),
         target: document.querySelector('[data-feedback-target]'),
         form_error: document.querySelector('[data-feedback-form-error]'),
+        changelog: document.querySelector('[data-feedback-changelog]'),
+        changelog_count: document.querySelector('[data-feedback-history-count]'),
     };
     const version = document.querySelector('meta[name="activio-mockup-version"]')?.content || 'unknown';
     const statuses = {
@@ -32,6 +34,9 @@
         screenshot: null,
         reporter: localStorage.getItem('activio-feedback-author') || '',
         position_frame: null,
+        feedback_request: null,
+        reload_requested: false,
+        load_error: '',
     };
 
     function escape_html(value) {
@@ -155,6 +160,11 @@
             let part = current.tagName.toLowerCase();
             const parent = current.parentElement;
 
+            if (current !== element && current.dataset.feedbackId) {
+                parts.unshift(`[data-feedback-id="${CSS.escape(current.dataset.feedbackId)}"]`);
+                break;
+            }
+
             if (current.id) {
                 parts.unshift(`#${CSS.escape(current.id)}`);
                 break;
@@ -183,12 +193,13 @@
 
     function describe_target(element, selected_text = '') {
         const rect = element.getBoundingClientRect();
+        const selector = css_selector(element);
 
         return {
             element,
             view: visible_view(),
             element_id: ensure_target_id(element),
-            selector: css_selector(element),
+            selector,
             selected_text: selected_text.slice(0, 2000),
             element_text: element_text(element),
             element_tag: element.tagName.toLowerCase(),
@@ -426,19 +437,22 @@
         ui.count.textContent = String(open_count);
         ui.open.title = `${open_count} otwartych uwag`;
 
-        if (items.length === 0) {
+        if (state.load_error) {
+            ui.list.innerHTML = `<p class="feedback-empty">${escape_html(state.load_error)}</p>`;
+        } else if (items.length === 0) {
             ui.list.innerHTML = '<p class="feedback-empty">Brak uwag dla wybranych filtrów.</p>';
         } else {
             ui.list.innerHTML = items.map((item, index) => {
                 const target = resolve_target(item);
                 const replies = item.comments.map((comment) => `
-                    <div class="feedback-reply">
+                    <div class="feedback-reply${comment.kind === 'action' ? ' action' : ''}">
+                        <small>${comment.kind === 'action' ? 'Wykonane działanie' : 'Odpowiedź'}</small>
                         <strong>${escape_html(comment.author)}</strong>
                         <span>${escape_html(comment.comment)}</span>
                     </div>
                 `).join('');
                 const screenshot = item.screenshot_file
-                    ? `<a href="/api/feedback/${encodeURIComponent(item.id)}/screenshot" target="_blank">Screenshot</a>`
+                    ? `<a href="/api/feedback/${encodeURIComponent(item.id)}/screenshot" target="_blank" rel="noopener noreferrer">Screenshot</a>`
                     : '';
 
                 return `
@@ -460,6 +474,7 @@
                         </div>
                         <form class="feedback-reply-form" data-feedback-reply-form>
                             <input name="comment" maxlength="4000" placeholder="Napisz odpowiedź…" required>
+                            <label><input type="checkbox" name="is_action"> To jest opis wykonanego działania</label>
                             <button type="submit">Wyślij</button>
                         </form>
                     </article>
@@ -467,7 +482,85 @@
             }).join('');
         }
 
-        render_pins(items);
+        render_pins(state.load_error ? [] : items);
+    }
+
+    function render_changelog() {
+        if (!ui.changelog) {
+            return;
+        }
+
+        const items = state.feedback
+            .filter((item) => item.status !== 'rejected')
+            .sort((left, right) => new Date(right.created_at) - new Date(left.created_at));
+
+        if (ui.changelog_count) {
+            ui.changelog_count.textContent = String(items.length);
+        }
+
+        if (items.length === 0) {
+            ui.changelog.innerHTML = '<p class="feedback-history-empty">Brak merytorycznych uwag.</p>';
+            return;
+        }
+
+        ui.changelog.innerHTML = items.map((item, index) => {
+            const actions = (item.comments || [])
+                .filter((comment) => comment.kind === 'action')
+                .map((comment) => `
+                <li>
+                    <span>✓</span>
+                    <div>
+                        <strong>${escape_html(comment.author)}</strong>
+                        <p>${escape_html(comment.comment)}</p>
+                        <small>${escape_html(format_date(comment.created_at))}</small>
+                    </div>
+                </li>
+            `).join('');
+            const replies = (item.comments || [])
+                .filter((comment) => comment.kind !== 'action')
+                .map((comment) => `
+                    <li>
+                        <div>
+                            <strong>${escape_html(comment.author)}</strong>
+                            <p>${escape_html(comment.comment)}</p>
+                            <small>${escape_html(format_date(comment.created_at))}</small>
+                        </div>
+                    </li>
+                `).join('');
+            const screenshot = item.screenshot_file
+                ? `<a href="/api/feedback/${encodeURIComponent(item.id)}/screenshot" target="_blank" rel="noopener noreferrer">Zobacz pierwotny ekran ↗</a>`
+                : '';
+
+            return `
+                <article class="feedback-change-card" data-feedback-history-item="${escape_html(item.id)}">
+                    <div class="feedback-change-index" title="${escape_html(item.id)}">#${escape_html(item.id.slice(-4).toUpperCase())}</div>
+                    <div class="feedback-change-body">
+                        <div class="feedback-change-head">
+                            <span class="feedback-change-status status-${escape_html(item.status)}">${escape_html(statuses[item.status] || item.status)}</span>
+                            <small>${escape_html(item.view)} · ${escape_html(format_date(item.created_at))}</small>
+                        </div>
+                        <blockquote>${escape_html(item.comment)}</blockquote>
+                        <p class="feedback-change-author">Uwagi dodał: <strong>${escape_html(item.author)}</strong></p>
+                        <div class="feedback-change-actions">
+                            <h3>Podjęte działania</h3>
+                            ${actions
+                                ? `<ol>${actions}</ol>`
+                                : '<p class="feedback-history-empty">Działania nie zostały jeszcze opisane.</p>'}
+                        </div>
+                        ${replies ? `
+                            <div class="feedback-change-discussion">
+                                <h3>Pozostałe odpowiedzi</h3>
+                                <ol>${replies}</ol>
+                            </div>
+                        ` : ''}
+                        <div class="feedback-change-links">
+                            <button type="button" data-feedback-history-target>Przejdź do zmienionego miejsca</button>
+                            ${screenshot}
+                        </div>
+                    </div>
+                </article>
+            `;
+        }).join('');
     }
 
     function render_pins(items = feedback_filter()) {
@@ -518,12 +611,44 @@
     }
 
     async function load_feedback() {
+        state.reload_requested = true;
+
+        if (state.feedback_request) {
+            return state.feedback_request;
+        }
+
+        state.feedback_request = (async () => {
+            while (state.reload_requested) {
+                state.reload_requested = false;
+
+                try {
+                    const payload = await api('/api/feedback?status=all');
+                    state.load_error = '';
+                    state.feedback = payload.feedback;
+                    render_feedback();
+                    render_changelog();
+                } catch (error) {
+                    state.load_error = error.message;
+                    render_feedback();
+                    if (ui.changelog) {
+                        ui.changelog.innerHTML = `
+                            <p class="feedback-history-empty">
+                                Nie udało się wczytać historii: ${escape_html(error.message)}
+                                <button type="button" data-feedback-history-retry>Spróbuj ponownie</button>
+                            </p>
+                        `;
+                    }
+                    if (ui.changelog_count) {
+                        ui.changelog_count.textContent = '—';
+                    }
+                }
+            }
+        })();
+
         try {
-            const payload = await api('/api/feedback?status=all');
-            state.feedback = payload.feedback;
-            render_feedback();
-        } catch (error) {
-            ui.list.innerHTML = `<p class="feedback-empty">${escape_html(error.message)}</p>`;
+            await state.feedback_request;
+        } finally {
+            state.feedback_request = null;
         }
     }
 
@@ -730,6 +855,7 @@
                 body: JSON.stringify({
                     author: state.reporter || 'Recenzent',
                     comment: input.value.trim(),
+                    kind: event.target.elements.is_action.checked ? 'action' : 'reply',
                 }),
             });
             await load_feedback();
@@ -751,6 +877,25 @@
             ui.list.querySelector(`[data-feedback-item="${CSS.escape(pin.dataset.feedbackPin)}"]`)
                 ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 250);
+    });
+
+    ui.changelog?.addEventListener('click', (event) => {
+        if (event.target.closest('[data-feedback-history-retry]')) {
+            event.target.disabled = true;
+            load_feedback();
+            return;
+        }
+
+        const card = event.target.closest('[data-feedback-history-item]');
+
+        if (!card || !event.target.closest('[data-feedback-history-target]')) {
+            return;
+        }
+
+        const item = state.feedback.find((feedback) => feedback.id === card.dataset.feedbackHistoryItem);
+        if (item) {
+            navigate_to_feedback(item);
+        }
     });
 
     window.addEventListener('scroll', schedule_pin_positions, { passive: true });

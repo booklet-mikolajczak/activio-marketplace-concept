@@ -46,9 +46,10 @@ feedback.forEach((item) => {
     process.stdout.write(`Screenshot: ${item.screenshot_file ? `screenshots/${item.screenshot_file}` : 'brak'}\n`);
 
     if (item.comments.length > 0) {
-        process.stdout.write('\nOdpowiedzi:\n');
+        process.stdout.write('\nKomentarze i działania:\n');
         item.comments.forEach((comment) => {
-            process.stdout.write(`- ${comment.author}: ${comment.comment}\n`);
+            const kind = comment.kind === 'action' ? 'działanie' : 'odpowiedź';
+            process.stdout.write(`- [${kind}] ${comment.author}: ${comment.comment}\n`);
         });
     }
 

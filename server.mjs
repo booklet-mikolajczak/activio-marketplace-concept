@@ -243,6 +243,7 @@ async function handle_feedback_api(request, response, url) {
                 comments_match[1],
                 clean_text(body.author, 80, true),
                 clean_text(body.comment, 4000, true),
+                body.kind === 'action' ? 'action' : 'reply',
             );
 
             if (!feedback) {

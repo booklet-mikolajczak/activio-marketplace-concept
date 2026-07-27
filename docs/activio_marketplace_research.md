@@ -121,6 +121,8 @@ Wymagania:
 
 ## 7. Promocje i ceny
 
+ACTIVIO nie zakłada kuponów, rabatów ani promocji cenowych w MVP. Poniższe wymagania są materiałem na wypadek późniejszego rozszerzenia zakresu.
+
 Przy ogłaszanej obniżce obok aktualnej ceny należy pokazać najniższą cenę z 30 dni poprzedzających obniżkę.
 
 Źródło: [UOKiK: informacje o obniżkach cen](https://prawakonsumenta.uokik.gov.pl/prawo-do-informacji/informacje-o-obnizkach-cen/)
@@ -132,7 +134,6 @@ Wymagania:
 - obliczenie ceny referencyjnej przed publikacją promocji,
 - kupony, komunikaty „okazja” i przekreślone ceny objęte analizą,
 - eksport dowodu ceny dla BOK,
-- reguła wpływu rabatu na udział klubu,
 - ranking ofert i płatne wyróżnienia opisane publicznie, jeśli wystąpią.
 
 ## 8. Bezpieczeństwo produktów — GPSR
@@ -346,4 +347,3 @@ Przed sprzedażą poza Polskę ponownie przeanalizować:
 - automatyczne payouty,
 - zdjęcia klientów,
 - własne towary klubów.
-

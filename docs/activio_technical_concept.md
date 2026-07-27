@@ -75,7 +75,7 @@ app/Activio/
     ShopSystemIntegration/
 
 app-frontend/Activio/
-    marketplace + sklep klubu + karta produktu + adapter checkoutu
+    strona główna + Oferta + Kluby + Sklep ACTIVIO + sklep klubu + karta produktu + adapter checkoutu
 
 app-frontend/ActivioPartner/
     panel klubu
@@ -107,12 +107,23 @@ Panel partnera może współdzielić infrastrukturę uwierzytelniania, ale musi 
 
 ### `CatalogTemplate`
 
+- `producer_id` wskazujący producenta zatwierdzonego przez ACTIVIO;
 - produkt bazowy i warianty;
+- kategoria: odzież klubowa, gadżety i upominki, torby i akcesoria albo naklejki i magnesy;
 - technologia oraz materiał;
 - wersjonowana cena minimalna;
 - schemat personalizacji;
 - czas produkcji;
 - ograniczenia i oznaczenia.
+
+### `Producer`
+
+- nazwa, dane operacyjne i status zatwierdzenia;
+- zakres udostępnionych produktów oraz technologii;
+- wersjonowane terminy i warunki realizacji;
+- status aktywny, zawieszony albo wycofany.
+
+Producenta i `CatalogTemplate` tworzy wyłącznie operator ACTIVIO. Rola klubowa nie otrzymuje komend tworzenia producenta, produktu bazowego ani dowolnego towaru.
 
 ### `ClubListing`
 
@@ -140,9 +151,10 @@ Tworzony w chwili zamówienia:
 - order id i order item id;
 - club id, nazwa i slug;
 - club listing id i wersja;
-- cena brutto/netto, VAT, ilość i rabat;
+- cena klienta brutto i netto, stawka oraz kwota VAT i ilość;
 - cena minimalna oraz jej wersja;
-- reguła udziału i wyliczona kwota;
+- reguła udziału i wyliczona kwota wynagrodzenia klubu netto;
+- status VAT klubu, kwota VAT i kwota brutto do wypłaty;
 - personalizacja;
 - rewizja projektu i plik produkcyjny;
 - moment i źródło utworzenia.
@@ -152,6 +164,7 @@ Tworzony w chwili zamówienia:
 - club id;
 - typ: accrual, release, adjustment, payout, payout_failed;
 - kwota ze znakiem i waluta;
+- podstawa netto, VAT i kwota brutto dokumentu rozliczeniowego;
 - status: pending, available, paid, reversed;
 - order item id, reklamacja albo payout id;
 - idempotency key;
@@ -180,12 +193,13 @@ Minimum musi uwzględniać wariant, personalizację, kanał i datę obowiązywan
 
 - przy publikacji;
 - przy zmianie ceny;
-- przy uruchomieniu promocji lub kuponu;
 - przed utworzeniem transakcji.
 
 Zmiana minimum tworzy nową wersję. Nie zmienia ceny ani historii zamówień. Listing poniżej nowego minimum otrzymuje termin korekty i może zostać automatycznie wstrzymany.
 
-Kwoty przechowywać jako integer w groszach z jawną walutą. Reguła udziału musi mieć wersję. Przy alokacji rabatu suma kwot po zaokrągleniu musi być równa rabatowi źródłowemu.
+Kwoty przechowywać jako integer w groszach z jawną walutą. Reguła udziału musi mieć wersję.
+
+Kontekst ACTIVIO nie publikuje kuponów, rabatów ani promocji cenowych. Integracja z `ShopSystem` musi blokować ich zastosowanie do pozycji ACTIVIO, nawet jeśli sam `ShopSystem` obsługuje takie mechanizmy dla innych sklepów.
 
 Snapshot pozycji jest jedynym źródłem historycznej ceny i rozliczenia. Nie przeliczamy starych zamówień z aktualnego listingu lub umowy.
 
@@ -219,7 +233,6 @@ Techniczne przypadki wymagające modelu per pozycja:
 
 - produkty różnych klubów;
 - różne terminy produkcji;
-- alokacja rabatu koszykowego;
 - częściowy zwrot;
 - ponowna produkcja bez nowej sprzedaży;
 - anulowanie jednej pozycji;
@@ -288,13 +301,13 @@ Importer powinien:
 - oznaczyć produkty wymagające minimalnego nakładu;
 - wygenerować raport rekordów wymagających ręcznej decyzji.
 
-Po imporcie katalog aktualizuje operator.
+Po imporcie katalog aktualizuje operator. Dodatkowy producent przechodzi zatwierdzenie ACTIVIO, a jego produkty są importowane lub wprowadzane do katalogu centralnego; klub nie tworzy własnego źródła katalogu.
 
 ## 13. Storefront, SEO i cache
 
-- osobne URL dla marketplace, klubu i produktu;
+- osobne URL dla strony głównej, Oferty, listy klubów, Sklepu ACTIVIO, klubu i produktu;
 - stabilny slug klubu oraz listingu;
-- canonicale eliminujące duplikację marketplace/sklep klubu;
+- canonicale eliminujące duplikację Sklep ACTIVIO/sklep klubu;
 - metadata i dane strukturalne świadome sprzedawcy oraz klubu;
 - sitemap dla aktywnych klubów i produktów;
 - brak indeksowania szkiców i wstrzymanych ofert;
@@ -340,8 +353,8 @@ To ma być spike potwierdzający granice, nie początek pełnej implementacji.
 - dwa kluby w jednym koszyku;
 - klub A nie odczyta zasobu klubu B przez listę ani identyfikator;
 - edycja listingu nie zmienia snapshotu zamówienia;
-- minimum jest sprawdzane przy publikacji, promocji i checkoutcie;
-- rabat zachowuje sumę groszy po alokacji;
+- minimum jest sprawdzane przy publikacji i checkoutcie;
+- kupon lub rabat nie może zostać zastosowany do pozycji ACTIVIO;
 - podwójny webhook tworzy jedno naliczenie;
 - częściowy zwrot koryguje właściwą sztukę i klub;
 - zwrot po wypłacie tworzy korektę, nie usuwa historii;
