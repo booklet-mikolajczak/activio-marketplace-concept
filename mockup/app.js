@@ -313,7 +313,7 @@ const assumptions = {
         title: 'Strona główna ACTIVIO',
         items: [
             'Strona główna rozdziela trzy usługi: Druk dla Klubów, ACTIVIO Club i Market.',
-            'Trzy przełączalne kierunki graficzne prezentują tę samą treść: nowoczesny, klasyczny i sportowy.',
+            'Trzy kierunki prezentują tę samą treść i paletę ACTIVIO, różniąc się układem, typografią oraz formą komponentów.',
             'Produkty klubów i produkty własne ACTIVIO są sprzedawane w Markecie oraz dodawane do jednego koszyka.',
             'ACTIVIO jest jedynym sprzedawcą, a kluby są partnerami i licencjodawcami marki.',
         ],

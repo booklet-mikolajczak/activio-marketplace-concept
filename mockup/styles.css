@@ -1686,22 +1686,22 @@ td small { display: block; color: var(--muted); font-size: 8px; }
 .visual-concept-options > button:nth-child(1) > i b:nth-child(3) { background: #ff6b35; }
 .visual-concept-options > button:nth-child(2) > i {
     gap: 0;
-    border: 1px solid #9a8d72;
+    border: 1px solid #312782;
     border-radius: 0;
-    background: #f6f1e5;
+    background: #fff;
 }
-.visual-concept-options > button:nth-child(2) > i b:first-child { background: #e8dfcd; }
-.visual-concept-options > button:nth-child(2) > i b:nth-child(2) { background: #17304d; }
-.visual-concept-options > button:nth-child(2) > i b:nth-child(3) { background: #a58954; }
+.visual-concept-options > button:nth-child(2) > i b:first-child { background: #312782; }
+.visual-concept-options > button:nth-child(2) > i b:nth-child(2) { background: #e5007e; }
+.visual-concept-options > button:nth-child(2) > i b:nth-child(3) { background: #ff6b35; }
 .visual-concept-options > button:nth-child(3) > i {
     gap: 2px;
     border-radius: 0;
-    background: #090c11;
+    background: #fff;
     transform: skewX(-7deg);
 }
-.visual-concept-options > button:nth-child(3) > i b:first-child { background: #171d27; }
-.visual-concept-options > button:nth-child(3) > i b:nth-child(2) { background: #d9ff00; }
-.visual-concept-options > button:nth-child(3) > i b:nth-child(3) { background: #e5007e; }
+.visual-concept-options > button:nth-child(3) > i b:first-child { background: #312782; }
+.visual-concept-options > button:nth-child(3) > i b:nth-child(2) { background: #e5007e; }
+.visual-concept-options > button:nth-child(3) > i b:nth-child(3) { background: #ff6b35; }
 .visual-concept-options > button > span { min-width: 0; display: grid; }
 .visual-concept-options em {
     color: #786000;
@@ -1900,7 +1900,7 @@ td small { display: block; color: var(--muted); font-size: 8px; }
 
 /* Direction 03: mocno sportowo */
 .marketplace-view[data-home-concept="sport"] {
-    --sport-lime: #d9ff00;
+    --sport-lime: var(--accent);
     color: #fff;
     background: #080b10;
 }
@@ -2040,6 +2040,158 @@ body[data-home-concept="sport"] .store-header .brand { padding: 7px 10px; border
 body[data-home-concept="sport"] .store-header button { color: #fff; }
 body[data-home-concept="sport"] .store-header .cart-button span { color: #080b10; background: var(--sport-lime); }
 body[data-home-concept="sport"] .store-header .partner-link { color: var(--sport-lime); border-color: var(--sport-lime) !important; }
+
+/* One ACTIVIO palette shared by all layout directions */
+.marketplace-view[data-home-concept] {
+    color: var(--ink);
+    background: var(--paper);
+}
+.marketplace-view[data-home-concept] .service-offer {
+    color: var(--ink);
+    background-color: #f2f5fa;
+}
+.marketplace-view[data-home-concept="modern"] .service-offer {
+    background:
+        radial-gradient(circle at 12% 22%, rgba(229,0,126,.09), transparent 29%),
+        radial-gradient(circle at 82% 76%, rgba(15,91,215,.1), transparent 31%),
+        #f2f5fa;
+}
+.marketplace-view[data-home-concept="classic"] .service-offer {
+    background:
+        linear-gradient(rgba(49,39,130,.06) 1px, transparent 1px),
+        #f2f5fa;
+    background-size: 100% 38px;
+}
+.marketplace-view[data-home-concept="sport"] .service-offer {
+    background:
+        linear-gradient(115deg, transparent 0 58%, rgba(229,0,126,.07) 58% 62%, transparent 62%),
+        repeating-linear-gradient(120deg, rgba(49,39,130,.045) 0 1px, transparent 1px 34px),
+        #f2f5fa;
+}
+.marketplace-view[data-home-concept="sport"] .service-offer::before { border-color: rgba(49,39,130,.08); }
+.marketplace-view[data-home-concept] .service-offer-heading h1 { color: var(--ink); }
+.marketplace-view[data-home-concept] .service-offer-heading .eyebrow { color: var(--primary); }
+.marketplace-view[data-home-concept] .service-offer-heading p { color: var(--muted); }
+.marketplace-view[data-home-concept="classic"] .service-switcher button {
+    color: var(--ink);
+    border-color: var(--line);
+    background: #fff;
+}
+.marketplace-view[data-home-concept="classic"] .service-switcher button > span { color: #fff; background: var(--primary); }
+.marketplace-view[data-home-concept="classic"] .service-switcher small,
+.marketplace-view[data-home-concept="classic"] .service-switcher b { color: var(--primary); }
+.marketplace-view[data-home-concept="sport"] .service-switcher button {
+    border-color: rgba(255,255,255,.18);
+    border-top-color: var(--accent);
+    background: var(--navy);
+    box-shadow: 10px 10px 0 rgba(15,91,215,.1);
+}
+.marketplace-view[data-home-concept="sport"] .service-switcher button:nth-child(2) { border-top-color: var(--brand-pink); }
+.marketplace-view[data-home-concept="sport"] .service-switcher button:nth-child(3) { border-top-color: var(--primary); }
+.marketplace-view[data-home-concept="sport"] .service-switcher button:hover { box-shadow: 14px 14px 0 rgba(15,91,215,.16); }
+.marketplace-view[data-home-concept="sport"] .service-switcher button > span,
+.marketplace-view[data-home-concept="sport"] .service-switcher b { color: var(--accent); }
+.marketplace-view[data-home-concept] .benefit-strip {
+    color: var(--ink);
+    border-color: var(--line);
+    background: #fff;
+}
+.marketplace-view[data-home-concept] .benefit-strip article { border-color: var(--line); }
+.marketplace-view[data-home-concept] .benefit-icon {
+    border: 0;
+    color: var(--primary);
+    background: #eaf1fd;
+}
+.marketplace-view[data-home-concept] .benefit-icon-number { color: #684211; background: #fff1c2; }
+.marketplace-view[data-home-concept] .benefit-icon-pl { color: #a51e33; background: #fff0f2; }
+.marketplace-view[data-home-concept] .benefit-strip small { color: var(--muted); }
+.marketplace-view[data-home-concept] .content-section { color: var(--ink); }
+.marketplace-view[data-home-concept] .eyebrow { color: var(--primary); }
+.marketplace-view[data-home-concept] .text-button { color: var(--ink); }
+.marketplace-view[data-home-concept] .print-home-section { background: #fff; }
+.marketplace-view[data-home-concept] #clubs {
+    color: #fff;
+    background:
+        radial-gradient(circle at 12% 20%, rgba(229,0,126,.26), transparent 34%),
+        linear-gradient(120deg, #24134e, #312782 58%, #561b75);
+}
+.marketplace-view[data-home-concept] #clubs .eyebrow { color: #ffad91; }
+.marketplace-view[data-home-concept] #clubs .text-button { color: #fff; }
+.marketplace-view[data-home-concept] .product-section { background: linear-gradient(180deg, #f0edf9, #f7f5fc); }
+.marketplace-view[data-home-concept] .testimonials-section { background: #fff; }
+.marketplace-view[data-home-concept] .print-home-grid button {
+    color: var(--ink);
+    border-color: var(--line);
+    background: #fff;
+}
+.marketplace-view[data-home-concept] .print-home-grid small,
+.marketplace-view[data-home-concept] .print-home-grid b { color: var(--primary); }
+.marketplace-view[data-home-concept] .print-home-grid button:hover {
+    border-color: #b8c9e8;
+    box-shadow: var(--shadow);
+}
+.marketplace-view[data-home-concept] .club-card { color: #fff; border-color: transparent; }
+.marketplace-view[data-home-concept] .club-stal { background: linear-gradient(140deg, #111b39, #27355a); }
+.marketplace-view[data-home-concept] .club-kks { background: linear-gradient(140deg, #17639d, #219456); }
+.marketplace-view[data-home-concept] .club-pogon { background: linear-gradient(140deg, #121d4f, #343b8e); }
+.marketplace-view[data-home-concept] .club-jarota { background: linear-gradient(140deg, #170d57, #473594); }
+.marketplace-view[data-home-concept] .club-card small,
+.marketplace-view[data-home-concept] .club-card b { color: inherit; }
+.marketplace-view[data-home-concept] .club-card:hover {
+    border-color: transparent;
+    box-shadow: 0 18px 34px rgba(17,24,39,.15);
+}
+.marketplace-view[data-home-concept] .product-card {
+    color: var(--ink);
+    border-color: var(--line);
+    background: #fff;
+}
+.marketplace-view[data-home-concept] .product-art { background: #ebece8; }
+.marketplace-view[data-home-concept] .product-club { color: #697181; }
+.marketplace-view[data-home-concept] .product-meta strong { color: var(--ink); }
+.marketplace-view[data-home-concept] .product-meta div span,
+.marketplace-view[data-home-concept] .store-price-note { color: #89909b; }
+.marketplace-view[data-home-concept] .product-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 14px 28px rgba(15,91,215,.12);
+}
+.marketplace-view[data-home-concept] .chip {
+    color: var(--ink);
+    border-color: var(--line);
+    background: #fff;
+}
+.marketplace-view[data-home-concept] .chip.active { color: #fff; border-color: var(--primary); background: var(--primary); }
+.marketplace-view[data-home-concept] .testimonials-grid article {
+    color: var(--ink);
+    border-color: var(--line);
+    background: #f8f9fc;
+}
+.marketplace-view[data-home-concept] .testimonials-grid blockquote,
+.marketplace-view[data-home-concept] .testimonials-grid footer { color: var(--ink); }
+.marketplace-view[data-home-concept] .social-proof-section { color: #fff; background: var(--dark-bg); }
+.marketplace-view[data-home-concept] .social-media-section {
+    color: #fff;
+    background: linear-gradient(120deg, #28154f, #711a70 58%, #b30c77);
+}
+.marketplace-view[data-home-concept="sport"] .social-media-section { border-top-color: var(--primary); }
+.marketplace-view[data-home-concept] .social-club-grid button,
+.marketplace-view[data-home-concept] .social-media-section nav a { color: #fff; }
+body[data-home-concept] .store-header {
+    color: var(--ink);
+    border-color: var(--line);
+    background: rgba(255,255,255,.96);
+}
+body[data-home-concept] .store-header .brand { padding: 0; border-radius: 0; background: transparent; }
+body[data-home-concept] .store-header button { color: inherit; }
+body[data-home-concept] .store-header .cart-button span { color: #fff; background: var(--primary); }
+body[data-home-concept] .store-header .partner-link { color: var(--primary); border-color: var(--primary) !important; }
+body[data-home-concept="classic"] .store-header button { font-family: Georgia, "Times New Roman", serif; }
+body[data-home-concept="sport"] .store-header button {
+    font-family: Impact, "Arial Black", sans-serif;
+    font-style: italic;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+}
 
 .toast {
     position: fixed;
