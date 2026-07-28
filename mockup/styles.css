@@ -1624,6 +1624,423 @@ td small { display: block; color: var(--muted); font-size: 8px; }
 .project-preview p { color: var(--muted); font-size: 10px; }
 .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
 
+/* Prototype-only visual direction switcher */
+.visual-concept-lab {
+    display: grid;
+    grid-template-columns: minmax(230px, .7fr) minmax(620px, 1.3fr);
+    gap: 28px;
+    align-items: center;
+    padding: 18px max(28px, calc((100vw - 1240px) / 2));
+    border-bottom: 1px solid #e2bb16;
+    color: var(--prototype-ink);
+    background: var(--prototype-yellow-soft);
+}
+.visual-concept-lab-copy { display: grid; gap: 2px; }
+.visual-concept-lab-copy > span {
+    color: #7a6200;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+.visual-concept-lab-copy > strong { font-size: 15px; }
+.visual-concept-lab-copy > small { max-width: 410px; color: #6f5a00; font-size: 10px; }
+.visual-concept-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+.visual-concept-options > button {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #dac252;
+    border-radius: 9px;
+    background: rgba(255,255,255,.68);
+    text-align: left;
+    transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.visual-concept-options > button:hover { border-color: #7c6500; background: #fff; }
+.visual-concept-options > button.active {
+    border-color: var(--prototype-ink);
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(52,41,0,.13);
+}
+.visual-concept-options > button > i {
+    width: 42px;
+    height: 36px;
+    display: grid;
+    grid-template-columns: 1.35fr .65fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+    overflow: hidden;
+    border-radius: 5px;
+    background: #d9deea;
+}
+.visual-concept-options > button > i b { display: block; background: #a5aec0; }
+.visual-concept-options > button > i b:first-child { grid-row: 1 / 3; background: #312782; }
+.visual-concept-options > button:nth-child(1) > i b:nth-child(2) { background: #e5007e; }
+.visual-concept-options > button:nth-child(1) > i b:nth-child(3) { background: #ff6b35; }
+.visual-concept-options > button:nth-child(2) > i {
+    gap: 0;
+    border: 1px solid #9a8d72;
+    border-radius: 0;
+    background: #f6f1e5;
+}
+.visual-concept-options > button:nth-child(2) > i b:first-child { background: #e8dfcd; }
+.visual-concept-options > button:nth-child(2) > i b:nth-child(2) { background: #17304d; }
+.visual-concept-options > button:nth-child(2) > i b:nth-child(3) { background: #a58954; }
+.visual-concept-options > button:nth-child(3) > i {
+    gap: 2px;
+    border-radius: 0;
+    background: #090c11;
+    transform: skewX(-7deg);
+}
+.visual-concept-options > button:nth-child(3) > i b:first-child { background: #171d27; }
+.visual-concept-options > button:nth-child(3) > i b:nth-child(2) { background: #d9ff00; }
+.visual-concept-options > button:nth-child(3) > i b:nth-child(3) { background: #e5007e; }
+.visual-concept-options > button > span { min-width: 0; display: grid; }
+.visual-concept-options em {
+    color: #786000;
+    font-size: 7px;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+.visual-concept-options strong { overflow: hidden; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.visual-concept-options small { overflow: hidden; color: #7b6a28; font-size: 7px; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Direction 01: totalnie nowocześnie */
+.marketplace-view[data-home-concept="modern"] { background: #f4f1fa; }
+.marketplace-view[data-home-concept="modern"] .service-offer {
+    min-height: 690px;
+    display: grid;
+    grid-template-columns: minmax(280px, .72fr) minmax(600px, 1.28fr);
+    gap: clamp(38px, 6vw, 92px);
+    align-items: center;
+    padding-top: 78px;
+    padding-bottom: 78px;
+    color: #fff;
+    background:
+        radial-gradient(circle at 12% 22%, rgba(229,0,126,.3), transparent 28%),
+        radial-gradient(circle at 80% 78%, rgba(15,91,215,.32), transparent 30%),
+        linear-gradient(135deg, #100d2b 0%, #25205c 52%, #401a60 100%);
+}
+.marketplace-view[data-home-concept="modern"] .service-offer-heading { margin: 0; }
+.marketplace-view[data-home-concept="modern"] .service-offer-heading .eyebrow { color: #ff8cbf; }
+.marketplace-view[data-home-concept="modern"] .service-offer-heading h1 {
+    max-width: 500px;
+    margin-top: 15px;
+    font-size: clamp(58px, 6vw, 88px);
+    line-height: .88;
+    letter-spacing: -.075em;
+}
+.marketplace-view[data-home-concept="modern"] .service-offer-heading p {
+    max-width: 480px;
+    color: rgba(255,255,255,.68);
+    font-size: 16px;
+}
+.marketplace-view[data-home-concept="modern"] .service-switcher {
+    grid-template-columns: minmax(280px, 1.2fr) minmax(220px, .8fr);
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+}
+.marketplace-view[data-home-concept="modern"] .service-switcher button {
+    min-height: 245px;
+    padding: 24px;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 27px;
+    box-shadow: 0 24px 60px rgba(3,5,25,.28);
+    backdrop-filter: blur(8px);
+}
+.marketplace-view[data-home-concept="modern"] .service-switcher .service-print {
+    grid-row: 1 / 3;
+    min-height: 504px;
+    padding: 30px;
+}
+.marketplace-view[data-home-concept="modern"] .service-switcher .service-print strong { max-width: 260px; font-size: 42px; line-height: .95; }
+.marketplace-view[data-home-concept="modern"] .service-switcher .service-print p { max-width: 340px; font-size: 14px; }
+.marketplace-view[data-home-concept="modern"] .service-switcher button::before { opacity: .6; }
+.marketplace-view[data-home-concept="modern"] .service-switcher .service-club::after {
+    background: linear-gradient(180deg, rgba(102,24,126,.08), rgba(45,13,66,.96));
+}
+.marketplace-view[data-home-concept="modern"] .service-switcher .service-market::after {
+    background: linear-gradient(180deg, rgba(11,55,85,.08), rgba(6,31,57,.97));
+}
+.marketplace-view[data-home-concept="modern"] .service-switcher small { margin-top: auto; }
+.marketplace-view[data-home-concept="modern"] .benefit-strip { border: 0; background: #fff; box-shadow: 0 18px 50px rgba(30,20,70,.08); }
+.marketplace-view[data-home-concept="modern"] .benefit-strip article { border-color: #ede8f4; }
+.marketplace-view[data-home-concept="modern"] .benefit-icon { border-radius: 15px; }
+.marketplace-view[data-home-concept="modern"] .print-home-section,
+.marketplace-view[data-home-concept="modern"] #clubs,
+.marketplace-view[data-home-concept="modern"] .product-section,
+.marketplace-view[data-home-concept="modern"] .testimonials-section { background: #f4f1fa; }
+.marketplace-view[data-home-concept="modern"] .section-heading h2 { letter-spacing: -.045em; }
+.marketplace-view[data-home-concept="modern"] .print-home-grid button,
+.marketplace-view[data-home-concept="modern"] .club-card,
+.marketplace-view[data-home-concept="modern"] .product-card,
+.marketplace-view[data-home-concept="modern"] .testimonials-grid article { border: 0; border-radius: 22px; box-shadow: 0 18px 45px rgba(30,20,70,.09); }
+.marketplace-view[data-home-concept="modern"] .print-home-grid button { overflow: hidden; }
+.marketplace-view[data-home-concept="modern"] .print-home-grid img { aspect-ratio: 1.1; }
+.marketplace-view[data-home-concept="modern"] .club-card { background: rgba(255,255,255,.78); backdrop-filter: blur(10px); }
+.marketplace-view[data-home-concept="modern"] .product-card { overflow: hidden; background: #fff; }
+.marketplace-view[data-home-concept="modern"] .product-art { border-radius: 0; }
+.marketplace-view[data-home-concept="modern"] .social-proof-section {
+    background:
+        radial-gradient(circle at 86% 10%, rgba(229,0,126,.28), transparent 28%),
+        linear-gradient(125deg, #15133d, #3d1c63);
+}
+.marketplace-view[data-home-concept="modern"] .social-media-section { background: linear-gradient(125deg, #121735, #112855); }
+
+/* Direction 02: klasyka */
+.marketplace-view[data-home-concept="classic"] {
+    color: #18283b;
+    background: #f4f0e7;
+}
+.marketplace-view[data-home-concept="classic"] .service-offer {
+    padding-top: 74px;
+    padding-bottom: 82px;
+    background:
+        linear-gradient(rgba(137,112,69,.08) 1px, transparent 1px),
+        #f4f0e7;
+    background-size: 100% 38px;
+}
+.marketplace-view[data-home-concept="classic"] .service-offer-heading {
+    max-width: 820px;
+    margin: 0 auto 46px;
+    text-align: center;
+}
+.marketplace-view[data-home-concept="classic"] .service-offer-heading > div { max-width: none; }
+.marketplace-view[data-home-concept="classic"] .service-offer-heading .eyebrow { color: #917342; }
+.marketplace-view[data-home-concept="classic"] .service-offer-heading h1,
+.marketplace-view[data-home-concept="classic"] .section-heading h2,
+.marketplace-view[data-home-concept="classic"] .social-proof-section h2,
+.marketplace-view[data-home-concept="classic"] .social-media-section h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    letter-spacing: -.035em;
+}
+.marketplace-view[data-home-concept="classic"] .service-offer-heading h1 { margin-top: 10px; font-size: clamp(54px, 6vw, 78px); }
+.marketplace-view[data-home-concept="classic"] .service-offer-heading p { max-width: 650px; margin-right: auto; margin-left: auto; font-size: 16px; }
+.marketplace-view[data-home-concept="classic"] .service-switcher { gap: 22px; }
+.marketplace-view[data-home-concept="classic"] .service-switcher button {
+    min-height: 500px;
+    padding: 228px 27px 28px;
+    border: 1px solid #bdb39f;
+    border-radius: 0;
+    color: #18283b;
+    background: #fffdf8;
+    box-shadow: none;
+}
+.marketplace-view[data-home-concept="classic"] .service-switcher button:hover {
+    border-color: #6d604b;
+    box-shadow: 0 14px 35px rgba(67,56,38,.12);
+    transform: translateY(-3px);
+}
+.marketplace-view[data-home-concept="classic"] .service-switcher button::before {
+    inset: 0 0 auto;
+    height: 198px;
+    opacity: 1;
+    filter: saturate(.7) contrast(.94);
+}
+.marketplace-view[data-home-concept="classic"] .service-switcher button::after {
+    inset: 0 0 auto;
+    height: 198px;
+    background: linear-gradient(180deg, transparent 45%, rgba(17,28,49,.28));
+}
+.marketplace-view[data-home-concept="classic"] .service-switcher button > span {
+    position: absolute;
+    top: 166px;
+    left: 27px;
+    min-width: 45px;
+    padding: 6px 9px;
+    color: #fff;
+    background: #172b43;
+    text-align: center;
+}
+.marketplace-view[data-home-concept="classic"] .service-switcher small { margin: 0 0 9px; color: #917342; }
+.marketplace-view[data-home-concept="classic"] .service-switcher strong {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 31px;
+    font-weight: 500;
+}
+.marketplace-view[data-home-concept="classic"] .service-switcher p { color: #5d6876; font-size: 13px; }
+.marketplace-view[data-home-concept="classic"] .service-switcher b { margin-top: auto; color: #172b43; }
+.marketplace-view[data-home-concept="classic"] .benefit-strip { border-color: #cfc6b5; background: #e9e1d2; }
+.marketplace-view[data-home-concept="classic"] .benefit-strip article { border-color: #cfc6b5; }
+.marketplace-view[data-home-concept="classic"] .benefit-icon { border: 1px solid #bdb39f; border-radius: 50%; color: #172b43; background: #f8f4eb; }
+.marketplace-view[data-home-concept="classic"] .print-home-section,
+.marketplace-view[data-home-concept="classic"] #clubs,
+.marketplace-view[data-home-concept="classic"] .product-section,
+.marketplace-view[data-home-concept="classic"] .testimonials-section { background: #f4f0e7; }
+.marketplace-view[data-home-concept="classic"] .eyebrow { color: #917342; }
+.marketplace-view[data-home-concept="classic"] .print-home-grid { gap: 22px; }
+.marketplace-view[data-home-concept="classic"] .print-home-grid button,
+.marketplace-view[data-home-concept="classic"] .club-card,
+.marketplace-view[data-home-concept="classic"] .product-card,
+.marketplace-view[data-home-concept="classic"] .testimonials-grid article {
+    border: 1px solid #c8beaa;
+    border-radius: 0;
+    background: #fffdf8;
+    box-shadow: none;
+}
+.marketplace-view[data-home-concept="classic"] .print-home-grid button:hover,
+.marketplace-view[data-home-concept="classic"] .club-card:hover,
+.marketplace-view[data-home-concept="classic"] .product-card:hover { border-color: #756750; box-shadow: 0 12px 28px rgba(67,56,38,.1); }
+.marketplace-view[data-home-concept="classic"] .product-art { border-radius: 0; }
+.marketplace-view[data-home-concept="classic"] .chip { border-radius: 0; border-color: #bdb39f; background: transparent; }
+.marketplace-view[data-home-concept="classic"] .chip.active { color: #fff; border-color: #172b43; background: #172b43; }
+.marketplace-view[data-home-concept="classic"] .social-proof-section { background: #172b43; }
+.marketplace-view[data-home-concept="classic"] .social-club-grid button,
+.marketplace-view[data-home-concept="classic"] .social-media-section nav a { border-radius: 0; }
+.marketplace-view[data-home-concept="classic"] .social-media-section { background: #2f3e4e; }
+
+/* Direction 03: mocno sportowo */
+.marketplace-view[data-home-concept="sport"] {
+    --sport-lime: #d9ff00;
+    color: #fff;
+    background: #080b10;
+}
+.marketplace-view[data-home-concept="sport"] .service-offer {
+    position: relative;
+    overflow: hidden;
+    padding-top: 70px;
+    padding-bottom: 78px;
+    color: #fff;
+    background:
+        linear-gradient(115deg, transparent 0 58%, rgba(217,255,0,.08) 58% 62%, transparent 62%),
+        repeating-linear-gradient(120deg, rgba(255,255,255,.025) 0 1px, transparent 1px 34px),
+        #080b10;
+}
+.marketplace-view[data-home-concept="sport"] .service-offer::before {
+    position: absolute;
+    top: -145px;
+    right: -75px;
+    width: 520px;
+    height: 520px;
+    border: 90px solid rgba(229,0,126,.12);
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+}
+.marketplace-view[data-home-concept="sport"] .service-offer-heading { position: relative; z-index: 1; }
+.marketplace-view[data-home-concept="sport"] .service-offer-heading .eyebrow { color: var(--sport-lime); }
+.marketplace-view[data-home-concept="sport"] .service-offer-heading h1 {
+    max-width: 920px;
+    margin-top: 8px;
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: clamp(64px, 8vw, 112px);
+    font-style: italic;
+    font-weight: 900;
+    line-height: .82;
+    letter-spacing: -.045em;
+    text-transform: uppercase;
+}
+.marketplace-view[data-home-concept="sport"] .service-offer-heading p { max-width: 660px; color: rgba(255,255,255,.68); font-size: 16px; }
+.marketplace-view[data-home-concept="sport"] .service-switcher { position: relative; z-index: 1; gap: 12px; margin-top: 42px; }
+.marketplace-view[data-home-concept="sport"] .service-switcher button {
+    min-height: 390px;
+    padding: 26px;
+    border: 1px solid rgba(255,255,255,.18);
+    border-top: 6px solid var(--sport-lime);
+    border-radius: 0;
+    background: #121722;
+    box-shadow: 10px 10px 0 rgba(217,255,0,.08);
+}
+.marketplace-view[data-home-concept="sport"] .service-switcher button:nth-child(2) { border-top-color: #e5007e; }
+.marketplace-view[data-home-concept="sport"] .service-switcher button:nth-child(3) { border-top-color: #0f86ff; }
+.marketplace-view[data-home-concept="sport"] .service-switcher button:hover { box-shadow: 14px 14px 0 rgba(217,255,0,.16); transform: translate(-3px, -3px); }
+.marketplace-view[data-home-concept="sport"] .service-switcher button::before { filter: saturate(1.2) contrast(1.08); opacity: .56; }
+.marketplace-view[data-home-concept="sport"] .service-switcher button::after { background: linear-gradient(180deg, rgba(4,7,12,.08), rgba(4,7,12,.97)); }
+.marketplace-view[data-home-concept="sport"] .service-switcher button > span { color: var(--sport-lime); font-size: 14px; }
+.marketplace-view[data-home-concept="sport"] .service-switcher strong {
+    max-width: 310px;
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: 35px;
+    font-style: italic;
+    letter-spacing: -.015em;
+    text-transform: uppercase;
+}
+.marketplace-view[data-home-concept="sport"] .service-switcher p { color: rgba(255,255,255,.72); }
+.marketplace-view[data-home-concept="sport"] .service-switcher b { color: var(--sport-lime); text-transform: uppercase; }
+.marketplace-view[data-home-concept="sport"] .benefit-strip { color: #080b10; border: 0; background: var(--sport-lime); }
+.marketplace-view[data-home-concept="sport"] .benefit-strip article { border-color: rgba(8,11,16,.25); }
+.marketplace-view[data-home-concept="sport"] .benefit-icon {
+    border: 2px solid #080b10;
+    border-radius: 0;
+    color: var(--sport-lime);
+    background: #080b10;
+}
+.marketplace-view[data-home-concept="sport"] .benefit-strip small { color: rgba(8,11,16,.65); }
+.marketplace-view[data-home-concept="sport"] .content-section,
+.marketplace-view[data-home-concept="sport"] .print-home-section,
+.marketplace-view[data-home-concept="sport"] #clubs,
+.marketplace-view[data-home-concept="sport"] .product-section,
+.marketplace-view[data-home-concept="sport"] .testimonials-section { color: #fff; background: #0d1118; }
+.marketplace-view[data-home-concept="sport"] #clubs,
+.marketplace-view[data-home-concept="sport"] .testimonials-section { background: #080b10; }
+.marketplace-view[data-home-concept="sport"] .section-heading h2,
+.marketplace-view[data-home-concept="sport"] .social-proof-section h2,
+.marketplace-view[data-home-concept="sport"] .social-media-section h2 {
+    font-family: Impact, "Arial Black", sans-serif;
+    font-style: italic;
+    letter-spacing: -.015em;
+    text-transform: uppercase;
+}
+.marketplace-view[data-home-concept="sport"] .eyebrow,
+.marketplace-view[data-home-concept="sport"] .text-button { color: var(--sport-lime); }
+.marketplace-view[data-home-concept="sport"] .print-home-grid button,
+.marketplace-view[data-home-concept="sport"] .club-card,
+.marketplace-view[data-home-concept="sport"] .product-card,
+.marketplace-view[data-home-concept="sport"] .testimonials-grid article {
+    border: 1px solid #303744;
+    border-radius: 0;
+    color: #fff;
+    background: #141a24;
+    box-shadow: none;
+}
+.marketplace-view[data-home-concept="sport"] .print-home-grid button:hover,
+.marketplace-view[data-home-concept="sport"] .club-card:hover,
+.marketplace-view[data-home-concept="sport"] .product-card:hover { border-color: var(--sport-lime); box-shadow: 8px 8px 0 rgba(217,255,0,.12); }
+.marketplace-view[data-home-concept="sport"] .print-home-grid small,
+.marketplace-view[data-home-concept="sport"] .print-home-grid b,
+.marketplace-view[data-home-concept="sport"] .club-card b,
+.marketplace-view[data-home-concept="sport"] .product-meta strong { color: var(--sport-lime); }
+.marketplace-view[data-home-concept="sport"] .club-card small,
+.marketplace-view[data-home-concept="sport"] .product-club,
+.marketplace-view[data-home-concept="sport"] .product-meta div span,
+.marketplace-view[data-home-concept="sport"] .store-price-note { color: #929bad; }
+.marketplace-view[data-home-concept="sport"] .product-art { border-radius: 0; }
+.marketplace-view[data-home-concept="sport"] .chip { border-radius: 0; color: #d3d8e2; border-color: #394150; background: #141a24; }
+.marketplace-view[data-home-concept="sport"] .chip.active { color: #080b10; border-color: var(--sport-lime); background: var(--sport-lime); }
+.marketplace-view[data-home-concept="sport"] .social-proof-section {
+    background:
+        linear-gradient(115deg, rgba(229,0,126,.82), rgba(49,39,130,.9)),
+        #18102b;
+}
+.marketplace-view[data-home-concept="sport"] .social-club-grid button,
+.marketplace-view[data-home-concept="sport"] .social-media-section nav a { border-radius: 0; }
+.marketplace-view[data-home-concept="sport"] .social-media-section {
+    border-top: 6px solid var(--sport-lime);
+    background:
+        repeating-linear-gradient(120deg, rgba(255,255,255,.025) 0 1px, transparent 1px 30px),
+        #080b10;
+}
+body[data-home-concept="classic"] .store-header { border-color: #cfc6b5; background: #fffdf8; }
+body[data-home-concept="classic"] .store-header button { font-family: Georgia, "Times New Roman", serif; }
+body[data-home-concept="sport"] .store-header {
+    color: #fff;
+    border-color: #2e3541;
+    background: #080b10;
+}
+body[data-home-concept="sport"] .store-header .brand { padding: 7px 10px; border-radius: 0; background: #fff; }
+body[data-home-concept="sport"] .store-header button { color: #fff; }
+body[data-home-concept="sport"] .store-header .cart-button span { color: #080b10; background: var(--sport-lime); }
+body[data-home-concept="sport"] .store-header .partner-link { color: var(--sport-lime); border-color: var(--sport-lime) !important; }
+
 .toast {
     position: fixed;
     z-index: 160;
@@ -1921,4 +2338,69 @@ td small { display: block; color: var(--muted); font-size: 8px; }
 
 @media (max-width: 360px) {
     .prototype-assumptions { display: none; }
+}
+
+@media (max-width: 1100px) {
+    .visual-concept-lab { grid-template-columns: 1fr; gap: 12px; }
+    .visual-concept-lab-copy > small { max-width: none; }
+    .marketplace-view[data-home-concept="modern"] .service-offer {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .marketplace-view[data-home-concept="modern"] .service-offer-heading > div { max-width: 750px; }
+    .marketplace-view[data-home-concept="modern"] .service-switcher {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: 1fr;
+    }
+    .marketplace-view[data-home-concept="modern"] .service-switcher .service-print {
+        grid-row: auto;
+        min-height: 320px;
+        padding: 22px;
+    }
+    .marketplace-view[data-home-concept="modern"] .service-switcher .service-print strong { font-size: 25px; }
+    .marketplace-view[data-home-concept="modern"] .service-switcher .service-print p { font-size: 11px; }
+}
+
+@media (max-width: 820px) {
+    .visual-concept-lab { padding: 14px 18px; }
+    .visual-concept-options {
+        grid-template-columns: none;
+        grid-auto-columns: minmax(205px, 1fr);
+        grid-auto-flow: column;
+        padding: 2px 2px 8px;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+    }
+    .visual-concept-options > button { scroll-snap-align: start; }
+    .marketplace-view[data-home-concept="modern"] .service-switcher,
+    .marketplace-view[data-home-concept="classic"] .service-switcher,
+    .marketplace-view[data-home-concept="sport"] .service-switcher { grid-template-columns: 1fr; }
+    .marketplace-view[data-home-concept="modern"] .service-offer { min-height: 0; }
+    .marketplace-view[data-home-concept="modern"] .service-offer-heading h1 { font-size: 52px; }
+    .marketplace-view[data-home-concept="modern"] .service-switcher .service-print,
+    .marketplace-view[data-home-concept="modern"] .service-switcher button { min-height: 245px; }
+    .marketplace-view[data-home-concept="modern"] .service-switcher .service-print strong { font-size: 28px; }
+    .marketplace-view[data-home-concept="modern"] .service-switcher .service-print p { font-size: 12px; }
+    .marketplace-view[data-home-concept="classic"] .service-offer-heading { margin-bottom: 30px; }
+    .marketplace-view[data-home-concept="classic"] .service-offer-heading h1 { font-size: 51px; }
+    .marketplace-view[data-home-concept="classic"] .service-switcher button {
+        min-height: 430px;
+        padding: 208px 22px 24px;
+    }
+    .marketplace-view[data-home-concept="classic"] .service-switcher button::before,
+    .marketplace-view[data-home-concept="classic"] .service-switcher button::after { height: 180px; }
+    .marketplace-view[data-home-concept="classic"] .service-switcher button > span { top: 150px; left: 22px; }
+    .marketplace-view[data-home-concept="sport"] .service-offer-heading h1 { font-size: 59px; }
+    .marketplace-view[data-home-concept="sport"] .service-switcher { margin-top: 28px; }
+    .marketplace-view[data-home-concept="sport"] .service-switcher button { min-height: 280px; }
+}
+
+@media (max-width: 420px) {
+    .visual-concept-lab-copy > strong { font-size: 13px; }
+    .visual-concept-lab-copy > small { font-size: 9px; }
+    .visual-concept-options { grid-auto-columns: minmax(190px, 82vw); }
+    .marketplace-view[data-home-concept="modern"] .service-offer-heading h1,
+    .marketplace-view[data-home-concept="classic"] .service-offer-heading h1 { font-size: 45px; }
+    .marketplace-view[data-home-concept="sport"] .service-offer-heading h1 { font-size: 52px; }
+    .marketplace-view[data-home-concept="sport"] .service-switcher strong { font-size: 30px; }
 }

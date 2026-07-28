@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260728-12">
+    <meta name="activio-mockup-version" content="20260728-13">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260728-12">
+    <link rel="stylesheet" href="styles.css?v=20260728-13">
 </head>
 <body>
     <div class="prototype-bar">
@@ -123,7 +123,28 @@
             <button type="button" data-go="partner-settlements">Rozliczenia</button>
         </nav>
 
-        <section class="view marketplace-view" data-view="marketplace">
+        <section class="view marketplace-view" data-view="marketplace" data-home-concept="modern">
+            <div class="visual-concept-lab" role="region" aria-labelledby="visual-concept-title">
+                <div class="visual-concept-lab-copy">
+                    <span>Porównanie koncepcji</span>
+                    <strong id="visual-concept-title">Wybierz kierunek graficzny strony</strong>
+                    <small>Treść i funkcje pozostają takie same. Zmienia się język wizualny całego landingu.</small>
+                </div>
+                <div class="visual-concept-options" role="group" aria-label="Kierunek graficzny">
+                    <button type="button" data-home-concept-option="modern" aria-pressed="true">
+                        <i aria-hidden="true"><b></b><b></b><b></b></i>
+                        <span><em>01</em><strong>Totalnie nowocześnie</strong><small>Bento · cyfrowo · premium</small></span>
+                    </button>
+                    <button type="button" data-home-concept-option="classic" aria-pressed="false">
+                        <i aria-hidden="true"><b></b><b></b><b></b></i>
+                        <span><em>02</em><strong>Klasyka</strong><small>Spokojnie · wiarygodnie · katalogowo</small></span>
+                    </button>
+                    <button type="button" data-home-concept-option="sport" aria-pressed="false">
+                        <i aria-hidden="true"><b></b><b></b><b></b></i>
+                        <span><em>03</em><strong>Mocno sportowo</strong><small>Dynamicznie · kontrastowo · stadionowo</small></span>
+                    </button>
+                </div>
+            </div>
             <section class="service-offer">
                 <div class="service-offer-heading">
                     <div>
@@ -1236,7 +1257,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260728-12"></script>
-    <script src="feedback.js?v=20260728-12"></script>
+    <script src="app.js?v=20260728-13"></script>
+    <script src="feedback.js?v=20260728-13"></script>
 </body>
 </html>
