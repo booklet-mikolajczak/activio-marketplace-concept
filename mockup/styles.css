@@ -608,7 +608,26 @@ main { min-height: calc(100vh - 46px); }
 .service-switcher button:hover { box-shadow: 0 18px 42px rgba(17, 32, 64, .2); transform: translateY(-4px); }
 .service-switcher button:hover::before { transform: scale(1.035); }
 .service-switcher button > * { position: relative; z-index: 1; }
-.service-switcher button > span { color: var(--accent); font-size: 12px; font-weight: 900; }
+.service-switcher .service-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 12px;
+    color: var(--accent);
+    background: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(6px);
+}
+.service-switcher .service-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
 .service-switcher small { margin: auto 0 4px; color: rgba(255,255,255,.72); font-size: 9px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
 .service-switcher strong { font-size: 31px; letter-spacing: -.04em; }
 .service-switcher p { margin: 11px 0 22px; color: rgba(255,255,255,.78); font-size: 13px; }
