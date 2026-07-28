@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260727-18">
+    <meta name="activio-mockup-version" content="20260728-10">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260727-18">
+    <link rel="stylesheet" href="styles.css?v=20260728-10">
 </head>
 <body>
     <div class="prototype-bar">
@@ -43,7 +43,7 @@
             <button type="button" data-go="marketplace"><span>01</span> Strona główna</button>
             <button type="button" data-go="offer"><span>02</span> Oferta dla klubów</button>
             <button type="button" data-go="clubs"><span>03</span> ACTIVIO Club</button>
-            <button type="button" data-go="store"><span>04</span> Sklep</button>
+            <button type="button" data-go="store"><span>04</span> Market</button>
             <button type="button" data-go="club"><span>05</span> Sklep klubu</button>
             <button type="button" data-go="product"><span>06</span> Personalizacja</button>
             <button type="button" data-go="cart"><span>07</span> Mieszany koszyk</button>
@@ -86,8 +86,7 @@
             <nav class="main-nav">
                 <button type="button" data-go="offer">Oferta</button>
                 <button type="button" data-go="clubs">Kluby</button>
-                <button type="button" data-go="store">Sklep</button>
-                <button type="button" data-go="project-hub">O projekcie</button>
+                <button type="button" data-go="store">Market</button>
             </nav>
             <div class="header-actions">
                 <button class="search-button" type="button" aria-label="Szukaj" data-action="search">⌕</button>
@@ -125,85 +124,112 @@
         </nav>
 
         <section class="view marketplace-view" data-view="marketplace">
-            <div class="market-hero">
-                <img
-                    class="market-hero-background"
-                    src="../assets/hero/marketplace-merch-v2.png"
-                    alt=""
-                    aria-hidden="true"
-                >
-                <div class="hero-copy">
-                    <span class="eyebrow light">OFICJALNE PRODUKTY. PRAWDZIWE WSPARCIE.</span>
-                    <h1>Noś barwy.<br>Wspieraj swój klub.</h1>
-                    <p>Znajdź oficjalny sklep swojej drużyny albo odkryj produkty klubów z całej Polski.</p>
-                    <div class="hero-actions">
-                        <button class="button primary lime" type="button" data-go="store">Przejdź do sklepu</button>
-                        <button class="button ghost light" type="button" data-go="clubs">Znajdź swój klub</button>
-                    </div>
-                    <div class="hero-proof">
-                        <span><strong>4</strong> kluby pilotażowe</span>
-                        <span><strong>100%</strong> na zamówienie</span>
-                        <span><strong>1</strong> wspólny koszyk</span>
+            <section class="service-offer">
+                <div class="service-offer-heading">
+                    <div>
+                        <span class="eyebrow">ACTIVIO</span>
+                        <h1>Drukarnia dla aktywnych</h1>
+                        <p>Wszystko dla klubów sportowych, trenerów i kibiców — od produkcji po własny sklep i wspólny Market.</p>
                     </div>
                 </div>
-                <div class="hero-visual">
-                    <span class="hero-visual-label"><strong>PRODUKCJA</strong> NA ZAMÓWIENIE</span>
+                <div class="service-switcher">
+                    <button class="service-print" type="button" data-go="offer">
+                        <span>01</span><small>Drukarnia dla aktywnych</small>
+                        <strong>Druk dla Klubów</strong>
+                        <p>Wszystko dla klubów sportowych, trenerów i organizacji. Gadżety, odzież i materiały promocyjne z możliwością pełnej personalizacji.</p>
+                        <b>Zobacz ofertę →</b>
+                    </button>
+                    <button class="service-club" type="button" data-go="clubs">
+                        <span>02</span><small>Program partnerski</small>
+                        <strong>ACTIVIO Club</strong>
+                        <p>Dołącz do nas. Uruchom oficjalny sklep klubu bez magazynu, pakowania i obsługi wysyłek.</p>
+                        <b>Dołącz do ACTIVIO Club →</b>
+                    </button>
+                    <button class="service-market" type="button" data-go="store">
+                        <span>03</span><small>Dla Kibiców</small>
+                        <strong>Market</strong>
+                        <p>Wszystkie kluby. Jeden koszyk.<br>Odkrywaj produkty według kategorii i klubu.</p>
+                        <b>Przejdź do Marketu →</b>
+                    </button>
                 </div>
-            </div>
+            </section>
 
-            <div class="trust-strip">
-                <span>Każdy produkt klubowy wspiera wskazany klub</span>
-                <i></i>
-                <span>Produkujemy dopiero po zamówieniu</span>
-                <i></i>
-                <span>Personalizacja bez pośredników</span>
-            </div>
+            <section class="benefit-strip" aria-label="Atuty drukarni ACTIVIO">
+                <article>
+                    <span class="benefit-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5zM4 7.5l8 4.5 8-4.5M12 12v9"/></svg>
+                    </span>
+                    <strong>Szeroka oferta</strong>
+                    <small>Produkty i gadżety sportowe</small>
+                </article>
+                <article>
+                    <span class="benefit-icon benefit-icon-number" aria-hidden="true">1</span>
+                    <strong>Już od 1 sztuki</strong>
+                    <small>Małe i większe zamówienia</small>
+                </article>
+                <article>
+                    <span class="benefit-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+                    </span>
+                    <strong>Krótkie terminy</strong>
+                    <small>Sprawna realizacja zamówień</small>
+                </article>
+                <article>
+                    <span class="benefit-icon benefit-icon-pl" aria-hidden="true">PL</span>
+                    <strong>Produkujemy w Polsce</strong>
+                    <small>Kontrola na każdym etapie</small>
+                </article>
+            </section>
 
-            <section class="service-switcher">
-                <button type="button" data-go="offer">
-                    <span>01</span><small>Dla organizacji sportowych</small>
-                    <strong>Oferta</strong>
-                    <p>Druk gadżetów i produktów dla klubów. Zapytaj o produkt albo przygotuj zamówienie.</p>
-                    <b>Zobacz ofertę →</b>
-                </button>
-                <button type="button" data-go="clubs">
-                    <span>02</span><small>Program partnerski</small>
-                    <strong>ACTIVIO Club</strong>
-                    <p>Własny sklep klubowy, produkcja na zamówienie i przejrzyste rozliczenia.</p>
-                    <b>Poznaj kluby →</b>
-                </button>
-                <button type="button" data-go="store">
-                    <span>03</span><small>Zakupy online</small>
-                    <strong>Sklep</strong>
-                    <p>Produkty wszystkich klubów i ACTIVIO w jednym katalogu oraz wspólnym koszyku.</p>
-                    <b>Przejdź do sklepu →</b>
-                </button>
+            <section class="content-section print-home-section" id="print-offer">
+                <div class="section-heading split">
+                    <div><span class="eyebrow">DRUKARNIA ACTIVIO</span><h2>Oferta dla klubów sportowych</h2></div>
+                    <button class="text-button" type="button" data-go="offer">Zobacz pełną ofertę →</button>
+                </div>
+                <div class="print-home-grid">
+                    <button type="button" data-go="offer">
+                        <img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulki sportowe z personalizacją" loading="lazy">
+                        <span><small>ODZIEŻ KLUBOWA</small><strong>Koszulki i odzież</strong><b>Zobacz produkty →</b></span>
+                    </button>
+                    <button type="button" data-go="offer">
+                        <img src="../assets/products/kubki.jpg" alt="Kubki i gadżety klubowe" loading="lazy">
+                        <span><small>GADŻETY KLUBOWE</small><strong>Kubki i upominki</strong><b>Zobacz produkty →</b></span>
+                    </button>
+                    <button type="button" data-go="offer">
+                        <img src="../assets/products/karty-zawodnika.jpg" alt="Personalizowane karty zawodnika" loading="lazy">
+                        <span><small>DRUK I POLIGRAFIA</small><strong>Karty zawodnika</strong><b>Zobacz produkty →</b></span>
+                    </button>
+                    <button type="button" data-go="offer">
+                        <img src="../assets/products/breloki.jpg" alt="Personalizowane breloki klubowe" loading="lazy">
+                        <span><small>GADŻETY PERSONALIZOWANE</small><strong>Breloki i magnesy</strong><b>Zobacz produkty →</b></span>
+                    </button>
+                </div>
             </section>
 
             <section class="content-section" id="clubs">
                 <div class="section-heading split">
-                    <div><span class="eyebrow">KLUBY W ACTIVIO</span><h2>Znajdź swoje barwy</h2></div>
+                    <div><span class="eyebrow">ACTIVIO CLUB</span><h2>Znajdź swój Klub</h2></div>
                     <button class="text-button" type="button" data-go="clubs">Zobacz wszystkie kluby →</button>
                 </div>
                 <div class="club-grid">
                     <button class="club-card club-stal" type="button" data-go="club" data-club-id="stal">
                         <img class="club-logo" src="../assets/clubs/stal-pleszew.png" alt="Herb KS Stal Pleszew" loading="lazy">
-                        <span><strong>KS Stal Pleszew</strong><small>Piłka nożna · Pleszew</small></span>
+                        <span><strong>KS Stal Pleszew</strong><small>Piłka nożna</small></span>
                         <b>4 produkty →</b>
                     </button>
                     <button class="club-card club-kks" type="button" data-go="club" data-club-id="kks">
                         <img class="club-logo" src="../assets/clubs/kks-kalisz.webp" alt="Herb KKS Kalisz" loading="lazy">
-                        <span><strong>KKS Kalisz</strong><small>Piłka nożna · Kalisz</small></span>
+                        <span><strong>KKS Kalisz</strong><small>Piłka nożna</small></span>
                         <b>4 produkty →</b>
                     </button>
                     <button class="club-card club-pogon" type="button" data-go="club" data-club-id="pogon">
                         <img class="club-logo" src="../assets/clubs/pogon-nowe-skalmierzyce.webp" alt="Herb KS Pogoń Nowe Skalmierzyce" loading="lazy">
-                        <span><strong>KS Pogoń</strong><small>Piłka nożna · Nowe Skalmierzyce</small></span>
+                        <span><strong>KS Pogoń</strong><small>Piłka nożna</small></span>
                         <b>4 produkty →</b>
                     </button>
                     <button class="club-card club-jarota" type="button" data-go="club" data-club-id="jarota">
                         <img class="club-logo" src="../assets/clubs/jarota-jarocin.png" alt="Herb JKS Jarota Jarocin" loading="lazy">
-                        <span><strong>JKS Jarota Jarocin</strong><small>Piłka nożna · Jarocin</small></span>
+                        <span><strong>JKS Jarota Jarocin</strong><small>Piłka nożna</small></span>
                         <b>4 produkty →</b>
                     </button>
                 </div>
@@ -211,7 +237,7 @@
 
             <section class="content-section product-section" id="products">
                 <div class="section-heading split">
-                    <div><span class="eyebrow">WYBRANE DLA CIEBIE</span><h2>Popularne w tym tygodniu</h2></div>
+                    <div><span class="eyebrow">ACTIVIO MARKET</span><h2>Popularne w tym tygodniu</h2></div>
                     <div class="chips">
                         <button class="chip active" type="button" data-product-filter="all">Wszystko</button>
                         <button class="chip" type="button" data-product-filter="clothing">Odzież klubowa</button>
@@ -220,7 +246,7 @@
                         <button class="chip" type="button" data-product-filter="stickers">Naklejki i magnesy</button>
                     </div>
                 </div>
-                <p class="store-price-note">Sprzedawcą jest ACTIVIO. Wszystkie ceny są cenami brutto.</p>
+                <p class="store-price-note">Wszystkie podane ceny są brutto.</p>
                 <div class="product-grid">
                     <article class="product-card" data-go="product" data-product-id="shirt" data-club-id="stal" data-category="clothing" role="link" tabindex="0">
                         <div class="product-art">
@@ -261,14 +287,71 @@
                 </div>
             </section>
 
-            <section class="how-section" id="how">
-                <div><span class="eyebrow light">DLACZEGO ACTIVIO</span><h2>Zakup, który gra dla klubu</h2></div>
-                <ol>
-                    <li><b>01</b><span><strong>Wybierasz klub</strong><small>Każda oferta ma jasno wskazanego beneficjenta.</small></span></li>
-                    <li><b>02</b><span><strong>Personalizujesz</strong><small>Rozmiar, numer, imię lub nazwisko — zależnie od produktu.</small></span></li>
-                    <li><b>03</b><span><strong>My produkujemy</strong><small>Bez zapasów i odpadów. Dopiero po zakupie.</small></span></li>
-                    <li><b>04</b><span><strong>Klub zyskuje</strong><small>Część wartości pozycji trafia do jego rozliczenia.</small></span></li>
-                </ol>
+            <section class="social-proof-section" id="social-proof">
+                <div class="social-proof-copy">
+                    <span class="eyebrow light">TWORZYMY DLA SPORTU</span>
+                    <h2>Kluby budują ACTIVIO razem z nami</h2>
+                    <p>Pilotaż rozwijamy z organizacjami, które znają codzienne potrzeby zawodników, trenerów i kibiców.</p>
+                    <div class="social-proof-actions">
+                        <a href="https://www.activio.pl/" target="_blank" rel="noopener noreferrer">Zobacz realizacje ACTIVIO ↗</a>
+                        <a href="mailto:sport@activio.pl">Napisz do nas</a>
+                    </div>
+                </div>
+                <div class="social-club-grid" aria-label="Kluby pilotażowe ACTIVIO">
+                    <button type="button" data-go="club" data-club-id="stal"><img src="../assets/clubs/stal-pleszew.png" alt=""><span><strong>KS Stal Pleszew</strong><small>Zobacz sklep →</small></span></button>
+                    <button type="button" data-go="club" data-club-id="kks"><img src="../assets/clubs/kks-kalisz.webp" alt=""><span><strong>KKS Kalisz</strong><small>Zobacz sklep →</small></span></button>
+                    <button type="button" data-go="club" data-club-id="pogon"><img src="../assets/clubs/pogon-nowe-skalmierzyce.webp" alt=""><span><strong>KS Pogoń</strong><small>Zobacz sklep →</small></span></button>
+                    <button type="button" data-go="club" data-club-id="jarota"><img src="../assets/clubs/jarota-jarocin.png" alt=""><span><strong>JKS Jarota Jarocin</strong><small>Zobacz sklep →</small></span></button>
+                </div>
+            </section>
+
+            <section class="content-section testimonials-section">
+                <div class="section-heading split">
+                    <div><span class="eyebrow">GŁOS SPOŁECZNOŚCI</span><h2>Dlaczego warto być w ACTIVIO?</h2></div>
+                    <p class="prototype-content-note">Treści przykładowe do zastąpienia prawdziwymi opiniami przed publikacją.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <article>
+                        <span aria-hidden="true">“</span>
+                        <blockquote>Wreszcie możemy zaproponować kibicom oficjalne produkty bez inwestowania w magazyn i angażowania ludzi do pakowania paczek.</blockquote>
+                        <footer><strong>Prezes klubu</strong><small>Opinia przykładowa</small></footer>
+                    </article>
+                    <article>
+                        <span aria-hidden="true">“</span>
+                        <blockquote>Zamawiam koszulkę z własnym numerem, a przy okazji wiem, że zakup realnie wspiera klub, któremu kibicuję.</blockquote>
+                        <footer><strong>Kibic</strong><small>Opinia przykładowa</small></footer>
+                    </article>
+                    <article>
+                        <span aria-hidden="true">“</span>
+                        <blockquote>Nie zbieramy już rozmiarów i wpłat w wiadomościach. Oferta, zamówienia i rozliczenia są widoczne w jednym miejscu.</blockquote>
+                        <footer><strong>Koordynator akademii</strong><small>Opinia przykładowa</small></footer>
+                    </article>
+                </div>
+            </section>
+
+            <section class="social-media-section">
+                <div>
+                    <span class="eyebrow light">ACTIVIO W SOCIAL MEDIACH</span>
+                    <h2>Zobacz, co właśnie produkujemy</h2>
+                    <p>Realizacje, inspiracje produktowe i sportowe historie publikujemy na naszych oficjalnych profilach.</p>
+                </div>
+                <nav aria-label="Profile społecznościowe ACTIVIO">
+                    <a href="https://www.facebook.com/Activio" target="_blank" rel="noopener noreferrer">
+                        <span class="social-network-icon social-facebook" aria-hidden="true">f</span>
+                        <span><strong>Facebook</strong><small>Activio</small></span>
+                        <b>↗</b>
+                    </a>
+                    <a href="https://www.instagram.com/activio_pl/" target="_blank" rel="noopener noreferrer">
+                        <span class="social-network-icon social-instagram" aria-hidden="true">◎</span>
+                        <span><strong>Instagram</strong><small>@activio_pl</small></span>
+                        <b>↗</b>
+                    </a>
+                    <a href="https://www.tiktok.com/@activio_pl" target="_blank" rel="noopener noreferrer">
+                        <span class="social-network-icon social-tiktok" aria-hidden="true">♪</span>
+                        <span><strong>TikTok</strong><small>@activio_pl</small></span>
+                        <b>↗</b>
+                    </a>
+                </nav>
             </section>
         </section>
 
@@ -303,7 +386,7 @@
                     <p>ACTIVIO sprzedaje i realizuje zamówienia. Klub wybiera produkty, ustala ceny i otrzymuje wynagrodzenie partnerskie.</p>
                     <div class="hero-actions">
                         <button class="button lime" type="button" data-action="join-club">Dołącz do ACTIVIO Club</button>
-                        <button class="button ghost light" type="button" data-go="partner-dashboard">Zobacz panel klubu</button>
+                        <button class="button ghost light" type="button" data-go="club-program">Przeczytaj więcej</button>
                     </div>
                 </div>
             </div>
@@ -313,22 +396,118 @@
                     <button class="text-button" type="button" data-action="focus-club-list">Przeglądaj kluby ↓</button>
                 </div>
                 <div class="club-grid">
-                    <button class="club-card club-stal" type="button" data-go="club" data-club-id="stal"><img class="club-logo" src="../assets/clubs/stal-pleszew.png" alt="Herb KS Stal Pleszew" loading="lazy"><span><strong>KS Stal Pleszew</strong><small>Piłka nożna · Pleszew</small></span><b>4 produkty →</b></button>
-                    <button class="club-card club-kks" type="button" data-go="club" data-club-id="kks"><img class="club-logo" src="../assets/clubs/kks-kalisz.webp" alt="Herb KKS Kalisz" loading="lazy"><span><strong>KKS Kalisz</strong><small>Piłka nożna · Kalisz</small></span><b>4 produkty →</b></button>
-                    <button class="club-card club-pogon" type="button" data-go="club" data-club-id="pogon"><img class="club-logo" src="../assets/clubs/pogon-nowe-skalmierzyce.webp" alt="Herb KS Pogoń Nowe Skalmierzyce" loading="lazy"><span><strong>KS Pogoń</strong><small>Piłka nożna · Nowe Skalmierzyce</small></span><b>4 produkty →</b></button>
-                    <button class="club-card club-jarota" type="button" data-go="club" data-club-id="jarota"><img class="club-logo" src="../assets/clubs/jarota-jarocin.png" alt="Herb JKS Jarota Jarocin" loading="lazy"><span><strong>JKS Jarota Jarocin</strong><small>Piłka nożna · Jarocin</small></span><b>4 produkty →</b></button>
+                    <button class="club-card club-stal" type="button" data-go="club" data-club-id="stal"><img class="club-logo" src="../assets/clubs/stal-pleszew.png" alt="Herb KS Stal Pleszew" loading="lazy"><span><strong>KS Stal Pleszew</strong><small>Piłka nożna</small></span><b>4 produkty →</b></button>
+                    <button class="club-card club-kks" type="button" data-go="club" data-club-id="kks"><img class="club-logo" src="../assets/clubs/kks-kalisz.webp" alt="Herb KKS Kalisz" loading="lazy"><span><strong>KKS Kalisz</strong><small>Piłka nożna</small></span><b>4 produkty →</b></button>
+                    <button class="club-card club-pogon" type="button" data-go="club" data-club-id="pogon"><img class="club-logo" src="../assets/clubs/pogon-nowe-skalmierzyce.webp" alt="Herb KS Pogoń Nowe Skalmierzyce" loading="lazy"><span><strong>KS Pogoń</strong><small>Piłka nożna</small></span><b>4 produkty →</b></button>
+                    <button class="club-card club-jarota" type="button" data-go="club" data-club-id="jarota"><img class="club-logo" src="../assets/clubs/jarota-jarocin.png" alt="Herb JKS Jarota Jarocin" loading="lazy"><span><strong>JKS Jarota Jarocin</strong><small>Piłka nożna</small></span><b>4 produkty →</b></button>
                 </div>
+            </section>
+            <section class="how-section" id="club-how">
+                <div><span class="eyebrow light">DLACZEGO ACTIVIO</span><h2>Zakup, który gra dla klubu</h2></div>
+                <ol>
+                    <li><b>01</b><span><strong>Wybierasz klub</strong><small>Każda oferta ma jasno wskazanego beneficjenta.</small></span></li>
+                    <li><b>02</b><span><strong>Personalizujesz</strong><small>Rozmiar, numer, imię lub nazwisko — zależnie od produktu.</small></span></li>
+                    <li><b>03</b><span><strong>My produkujemy</strong><small>Bez zapasów i odpadów. Dopiero po zakupie.</small></span></li>
+                    <li><b>04</b><span><strong>Klub zyskuje</strong><small>Część wartości pozycji trafia do jego rozliczenia.</small></span></li>
+                </ol>
+            </section>
+        </section>
+
+        <section class="view club-program-view" data-view="club-program" hidden>
+            <section class="club-program-hero">
+                <div>
+                    <span class="eyebrow light">ACTIVIO CLUB</span>
+                    <h1>Oficjalny sklep klubu.<br>Bez magazynu i logistyki.</h1>
+                    <p>ACTIVIO przygotowuje produkty, prowadzi sprzedaż i realizuje zamówienia. Klub rozwija swoją markę, ustala ceny ponad minimum i otrzymuje wynagrodzenie od sprzedanych pozycji.</p>
+                    <div class="hero-actions">
+                        <button class="button lime" type="button" data-action="join-club">Porozmawiajmy o sklepie</button>
+                        <button class="button ghost light" type="button" data-go="partner-dashboard">Zobacz przykładowy panel</button>
+                    </div>
+                </div>
+                <aside>
+                    <span>PROGRAM PARTNERSKI</span>
+                    <strong>Klub skupia się na sporcie.<br>My obsługujemy sprzedaż.</strong>
+                    <ul>
+                        <li>bez zakupu towaru na magazyn</li>
+                        <li>bez pakowania i wysyłek</li>
+                        <li>z panelem, statystykami i rozliczeniami</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section class="content-section club-program-intro">
+                <div class="section-heading">
+                    <span class="eyebrow">CO OTRZYMUJE KLUB</span>
+                    <h2>Sklep, produkty i obsługę w jednym programie</h2>
+                    <p>ACTIVIO pozostaje sprzedawcą i organizuje realizację. Klub jest partnerem: wybiera ofertę, przekazuje materiały marki i decyduje o cenie detalicznej nie niższej niż minimum ACTIVIO.</p>
+                </div>
+                <div class="club-program-benefits">
+                    <article><span>01</span><strong>Własny sklep i adres</strong><p>Dedykowany landing z herbem, historią klubu i zatwierdzoną ofertą.</p></article>
+                    <article><span>02</span><strong>Produkcja na zamówienie</strong><p>Produkty powstają po zakupie — klub nie zamraża środków w magazynie.</p></article>
+                    <article><span>03</span><strong>Kontrola oferty i ceny</strong><p>Klub wybiera produkty oraz ustala ceny ponad minimum wskazane przez ACTIVIO.</p></article>
+                    <article><span>04</span><strong>Panel i rozliczenia</strong><p>Statystyki, pozycje zamówień i należne wynagrodzenie są dostępne w jednym miejscu.</p></article>
+                    <article><span>05</span><strong>Obsługa klienta</strong><p>ACTIVIO przyjmuje płatności, organizuje produkcję, pakowanie, wysyłkę i reklamacje.</p></article>
+                    <article><span>06</span><strong>Wspólny Market</strong><p>Produkty klubu mogą docierać do kibiców również przez ogólny Market ACTIVIO.</p></article>
+                </div>
+            </section>
+
+            <section class="club-program-steps">
+                <div>
+                    <span class="eyebrow light">JAK STARTUJEMY</span>
+                    <h2>Od rozmowy do pierwszego zamówienia</h2>
+                </div>
+                <ol>
+                    <li><b>01</b><span><strong>Poznajemy klub</strong><small>Ustalamy cele, uprawnienia do marki, osoby kontaktowe i zasady współpracy.</small></span></li>
+                    <li><b>02</b><span><strong>Budujemy ofertę</strong><small>Klub wybiera produkty, akceptuje projekty i ustala ceny detaliczne.</small></span></li>
+                    <li><b>03</b><span><strong>Uruchamiamy sklep</strong><small>Publikujemy landing, konfigurujemy płatności, dostawy oraz dostęp do panelu.</small></span></li>
+                    <li><b>04</b><span><strong>Sprzedajemy i rozliczamy</strong><small>ACTIVIO realizuje zamówienia, a klub śledzi sprzedaż i okresowe rozliczenia.</small></span></li>
+                </ol>
+            </section>
+
+            <section class="content-section club-program-economics">
+                <div>
+                    <span class="eyebrow">JASNY MODEL CENOWY</span>
+                    <h2>Klub ustala cenę. ACTIVIO pilnuje minimum.</h2>
+                    <p>Cena minimalna zabezpiecza koszt produktu, personalizacji i obsługi. Klub może ustawić wyższą cenę detaliczną, a jego wynagrodzenie jest zapisywane i rozliczane osobno dla każdej pozycji zamówienia.</p>
+                    <button class="button primary" type="button" data-go="partner-offer">Zobacz zarządzanie cenami</button>
+                </div>
+                <aside>
+                    <span>Cena detaliczna klubu</span>
+                    <strong>129,00 zł</strong>
+                    <dl>
+                        <div><dt>Minimum ACTIVIO</dt><dd>99,00 zł</dd></div>
+                        <div><dt>Wynagrodzenie klubu</dt><dd>30,00 zł</dd></div>
+                    </dl>
+                    <small>Przykład koncepcyjny. Podatki i zasady rozliczeń potwierdza umowa.</small>
+                </aside>
+            </section>
+
+            <section class="content-section club-program-faq">
+                <div class="section-heading"><span class="eyebrow">NAJCZĘSTSZE PYTANIA</span><h2>Zanim uruchomimy sklep</h2></div>
+                <div>
+                    <details><summary>Czy klub musi kupować produkty na start?</summary><p>Nie. Założeniem programu jest produkcja po zamówieniu, bez tworzenia magazynu po stronie klubu.</p></details>
+                    <details><summary>Kto sprzedaje i wystawia dokument klientowi?</summary><p>ACTIVIO jest sprzedawcą, przyjmuje płatność i wystawia dokument sprzedaży. Klub działa jako partner programu.</p></details>
+                    <details><summary>Czy klub sam ustala ceny?</summary><p>Tak, ale cena detaliczna nie może być niższa niż aktualna cena minimalna ACTIVIO dla danego produktu.</p></details>
+                    <details><summary>Co klub widzi w panelu?</summary><p>Własną ofertę, ceny, przypisane pozycje zamówień, statystyki sprzedaży oraz księgę rozliczeń.</p></details>
+                </div>
+            </section>
+
+            <section class="club-program-cta">
+                <span class="eyebrow light">GOTOWI NA PILOTAŻ?</span>
+                <h2>Zbudujmy oficjalny sklep Twojego klubu</h2>
+                <p>Zaczniemy od krótkiej rozmowy o klubie, marce i produktach, których potrzebują zawodnicy oraz kibice.</p>
+                <button class="button lime" type="button" data-action="join-club">Dołącz do ACTIVIO Club</button>
             </section>
         </section>
 
         <section class="view service-view store-view" data-view="store" hidden>
             <div class="store-intro">
-                <span class="eyebrow">SKLEP ACTIVIO</span>
-                <h1>Wszystkie kluby.<br>Jeden koszyk.</h1>
-                <p>Odkrywaj produkty według kategorii i klubu. Sprzedawcą każdego produktu jest ACTIVIO.</p>
+                <span class="eyebrow">MARKET ACTIVIO</span>
+                <h1>Wszystkie Kluby<br>w jednym miejscu.<br>Łączy nas sport.</h1>
+                <p>Odkrywaj oficjalne produkty według kategorii i klubu. Wszystko dodasz do jednego koszyka.</p>
             </div>
             <section class="content-section store-catalog">
-                <p class="store-price-note">Wszystkie ceny w Sklepie ACTIVIO są cenami brutto.</p>
+                <p class="store-price-note">Wszystkie podane ceny są brutto.</p>
                 <div class="store-filter-bar">
                     <div class="chips">
                         <button class="chip active" type="button" data-store-filter="all">Wszystko</button>
@@ -355,7 +534,9 @@
                         </select>
                     </label>
                 </div>
-                <div class="product-grid" data-store-products>
+                <section class="store-shelf" data-store-shelf="popular">
+                    <div class="store-shelf-heading"><span>01</span><h2>Najpopularniejsze</h2></div>
+                    <div class="product-grid" data-store-products="popular">
                     <article class="product-card" data-go="product" data-product-id="shirt" data-club-id="stal" data-store-product="koszulka-stal" data-feedback-id="store:product:koszulka-stal" data-store-category="clothing" data-store-club="stal" data-popularity="98" data-price="129" data-newness="5" role="link" tabindex="0"><div class="product-art"><span class="art-label">PERSONALIZUJ</span><img class="product-photo" src="../assets/products/koszulki-sportowe.jpg" alt="Koszulka klubowa KS Stal Pleszew"></div><div class="product-meta"><span class="product-club"><img class="mini-club-logo" src="../assets/clubs/stal-pleszew.png" alt=""> KS Stal Pleszew</span><h3>Koszulka klubowa z personalizacją</h3><div><strong>129,00 zł</strong><span>Numer i nazwisko</span></div></div></article>
                     <article class="product-card" data-go="product" data-product-id="hoodie" data-club-id="activio" data-store-product="bluza-activio" data-feedback-id="store:product:bluza-activio" data-store-category="clothing" data-store-club="activio" data-popularity="82" data-price="179" data-newness="4" role="link" tabindex="0"><div class="product-art"><img class="product-photo" src="../assets/products/bluzy.jpg" alt="Bluza ACTIVIO Team"></div><div class="product-meta"><span class="product-club"><img class="mini-activio-logo" src="../assets/brand/activio-logo.svg" alt="ACTIVIO"></span><h3>Bluza ACTIVIO Team</h3><div><strong>179,00 zł</strong><span>6 rozmiarów</span></div></div></article>
                     <article class="product-card" data-go="product" data-product-id="mug" data-club-id="kks" data-store-product="kubek-kks" data-feedback-id="store:product:kubek-kks" data-store-category="gifts" data-store-club="kks" data-popularity="91" data-price="49" data-newness="3" role="link" tabindex="0"><div class="product-art"><img class="product-photo" src="../assets/products/kubki.jpg" alt="Kubek klubowy KKS Kalisz"></div><div class="product-meta"><span class="product-club"><img class="mini-club-logo" src="../assets/clubs/kks-kalisz.webp" alt=""> KKS Kalisz</span><h3>Kubek klubowy z imieniem</h3><div><strong>49,00 zł</strong><span>Personalizowany</span></div></div></article>
@@ -363,6 +544,18 @@
                     <article class="product-card" data-go="product" data-product-id="bag" data-club-id="stal" data-store-product="torba-stal" data-feedback-id="store:product:torba-stal" data-store-category="bags" data-store-club="stal" data-popularity="64" data-price="69" data-newness="6" role="link" tabindex="0"><div class="product-art"><img class="product-photo" src="../assets/products/karty-zawodnika.jpg" alt="Torba sportowa z herbem KS Stal Pleszew"></div><div class="product-meta"><span class="product-club"><img class="mini-club-logo" src="../assets/clubs/stal-pleszew.png" alt=""> KS Stal Pleszew</span><h3>Torba sportowa z herbem</h3><div><strong>69,00 zł</strong><span>Personalizacja klubu</span></div></div></article>
                     <article class="product-card" data-go="product" data-product-id="bag" data-club-id="pogon" data-store-product="torba-pogon" data-feedback-id="store:product:torba-pogon" data-store-category="bags" data-store-club="pogon" data-popularity="73" data-price="69" data-newness="7" role="link" tabindex="0"><div class="product-art"><img class="product-photo" src="../assets/products/karty-zawodnika.jpg" alt="Torba sportowa z herbem KS Pogoń Nowe Skalmierzyce"></div><div class="product-meta"><span class="product-club"><img class="mini-club-logo" src="../assets/clubs/pogon-nowe-skalmierzyce.webp" alt=""> KS Pogoń Nowe Skalmierzyce</span><h3>Torba sportowa z herbem</h3><div><strong>69,00 zł</strong><span>Personalizacja klubu</span></div></div></article>
                     <article class="product-card" data-go="product" data-product-id="stickers" data-club-id="jarota" data-store-product="naklejki-jarota" data-feedback-id="store:product:naklejki-jarota" data-store-category="stickers" data-store-club="jarota" data-popularity="68" data-price="29" data-newness="8" role="link" tabindex="0"><div class="product-art"><img class="product-photo" src="../assets/products/breloki.jpg" alt="Zestaw naklejek i magnesów JKS Jarota Jarocin"></div><div class="product-meta"><span class="product-club"><img class="mini-club-logo" src="../assets/clubs/jarota-jarocin.png" alt=""> JKS Jarota Jarocin</span><h3>Zestaw naklejek i magnesów</h3><div><strong>29,00 zł</strong><span>6 elementów</span></div></div></article>
+                    </div>
+                </section>
+                <section class="store-shelf" data-store-shelf="new">
+                    <div class="store-shelf-heading"><span>02</span><h2>Nowości</h2></div>
+                    <div class="product-grid" data-store-products="new"></div>
+                </section>
+                <section class="store-shelf store-shelf-other" data-store-shelf="other" hidden>
+                    <div class="store-shelf-heading"><span>03</span><h2>Pozostałe</h2></div>
+                    <div class="product-grid" data-store-products="other"></div>
+                </section>
+                <div class="store-load-more" data-store-load-more hidden>
+                    <button class="button ghost" type="button" data-store-show-all aria-expanded="false">Pokaż wszystkie</button>
                 </div>
                 <p class="store-empty" data-store-empty hidden>Brak produktów dla wybranych filtrów. Zmień kategorię albo klub.</p>
             </section>
@@ -377,7 +570,6 @@
                         <h1 data-club-name>KS Stal Pleszew</h1>
                         <p data-club-intro>Od 1924 roku gramy dla Pleszewa. Kupując tutaj, wspierasz szkolenie dzieci i młodzieży.</p>
                     </div>
-                    <div class="club-support-card"><small>Twój zakup ma znaczenie</small><strong data-club-support>20,00 zł</strong><span>średniej podstawy wynagrodzenia klubu netto na zamówienie</span></div>
                 </div>
             </div>
             <p class="seller-note seller-strip"><strong>Sprzedawcą jest ACTIVIO.</strong> Klub jest partnerem, a wszystkie ceny są cenami brutto.</p>
@@ -390,7 +582,7 @@
                 <span data-club-product-count>18 produktów</span>
             </nav>
             <section class="content-section">
-                <div class="section-heading split"><div><span class="eyebrow">KOLEKCJA 2026</span><h2>Graj i kibicuj w naszych barwach</h2></div><select aria-label="Sortowanie" data-club-sort><option value="popular">Najpopularniejsze</option><option value="price-asc">Cena rosnąco</option><option value="newest">Najnowsze</option></select></div>
+                <div class="section-heading split"><div><span class="eyebrow">OFICJALNE PRODUKTY</span><h2>Wspieraj swój Klub</h2></div><select aria-label="Sortowanie" data-club-sort><option value="popular">Najpopularniejsze</option><option value="price-asc">Cena rosnąco</option><option value="newest">Najnowsze</option></select></div>
                 <div class="product-grid club-products">
                     <article class="product-card" data-go="product" data-product-id="shirt" data-category="clothing" data-price="129" data-popularity="98" data-newness="3" role="link" tabindex="0">
                         <div class="product-art"><span class="art-label">PERSONALIZUJ</span><img class="product-photo" src="../assets/products/koszulki-sportowe.jpg" alt="Koszulki sportowe z nadrukiem klubowym" loading="lazy"></div>
@@ -571,7 +763,7 @@
             </div>
             <div class="pricing-rule-card">
                 <span>i</span>
-                <div><strong>Klub ustala cenę. ACTIVIO wyznacza minimum.</strong><p>Cena sklepu nie może być niższa od minimum dla danego wariantu i personalizacji. Cennik ilościowy activio.pl jest źródłem katalogu, ale nie jest automatycznie minimum dla pojedynczej sztuki w Sklepie ACTIVIO.</p></div>
+                <div><strong>Klub ustala cenę. ACTIVIO wyznacza minimum.</strong><p>Cena sklepu nie może być niższa od minimum dla danego wariantu i personalizacji. Cennik ilościowy activio.pl jest źródłem katalogu, ale nie jest automatycznie minimum dla pojedynczej sztuki w Markecie ACTIVIO.</p></div>
                 <button type="button" data-assumptions>Jak to rozliczamy?</button>
             </div>
             <div class="offer-grid">
@@ -708,7 +900,7 @@
             <div class="project-content">
                 <div class="section-heading"><span class="eyebrow">NAJWAŻNIEJSZE USTALENIA</span><h2>Co dziś zakładamy</h2></div>
                 <div class="project-decision-grid">
-                    <article><span>01</span><strong>Jeden handel ACTIVIO</strong><p>Sklep ACTIVIO i sklepy klubów korzystają z jednego koszyka, checkoutu i sprzedawcy.</p></article>
+                    <article><span>01</span><strong>Jeden handel ACTIVIO</strong><p>Market ACTIVIO i sklepy klubów korzystają z jednego koszyka, checkoutu i sprzedawcy.</p></article>
                     <article><span>02</span><strong>ACTIVIO jest sprzedawcą</strong><p>Klient płaci ACTIVIO, a klub jest partnerem marki i otrzymuje wynagrodzenie zgodne z umową.</p></article>
                     <article><span>03</span><strong>Ceny ustala klub</strong><p>Klub wybiera cenę detaliczną, a ACTIVIO definiuje wersjonowane minimum per wariant.</p></article>
                     <article><span>04</span><strong>Rozliczenie per pozycja</strong><p>Każdy sprzedany produkt ma przypisany właściwy klub, kwotę wynagrodzenia i historię korekt.</p></article>
@@ -748,7 +940,7 @@
                 <div class="project-path">
                     <div><span class="eyebrow">JAK CZYTAĆ PROTOTYP</span><h2>Trzy perspektywy jednego produktu</h2></div>
                     <ol>
-                        <li><span>1</span><div><strong>Kibic</strong><p>Sklep ACTIVIO → sklep klubu → personalizacja → wspólny koszyk → płatność.</p><button data-go="store">Otwórz ścieżkę klienta</button></div></li>
+                        <li><span>1</span><div><strong>Kibic</strong><p>Market ACTIVIO → sklep klubu → personalizacja → wspólny koszyk → płatność.</p><button data-go="store">Otwórz ścieżkę klienta</button></div></li>
                         <li><span>2</span><div><strong>Klub</strong><p>Pulpit → oferta i ceny → pozycje zamówień → rozliczenia.</p><button data-go="partner-dashboard">Otwórz panel klubu</button></div></li>
                         <li><span>3</span><div><strong>Zespół projektowy</strong><p>Założenia → decyzje → ryzyka → kryteria pilotażu.</p><button data-go="project-concept">Otwórz materiały biznesowe</button></div></li>
                     </ol>
@@ -846,8 +1038,8 @@
 
         <footer data-store-footer>
             <button class="brand footer-brand" type="button" data-go="marketplace" aria-label="ACTIVIO — strona główna"><img class="brand-logo" src="../assets/brand/activio-logo.svg" alt="ACTIVIO"></button>
-            <p>Oferta dla klubów, oficjalne sklepy partnerskie i wspólny sklep internetowy.</p>
-            <nav><button data-go="marketplace">Strona główna</button><button data-go="offer">Oferta</button><button data-go="clubs">Kluby</button><button data-go="store">Sklep</button><button data-go="project-hub">O projekcie</button></nav>
+            <p>Oferta dla klubów, oficjalne sklepy partnerskie i wspólny Market.</p>
+            <nav><button data-go="marketplace">Strona główna</button><button data-go="offer">Oferta</button><button data-go="clubs">Kluby</button><button data-go="store">Market</button></nav>
             <small>Prototyp koncepcyjny · lipiec 2026</small>
         </footer>
     </main>
@@ -935,7 +1127,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260727-18"></script>
-    <script src="feedback.js?v=20260727-18"></script>
+    <script src="app.js?v=20260728-10"></script>
+    <script src="feedback.js?v=20260728-10"></script>
 </body>
 </html>

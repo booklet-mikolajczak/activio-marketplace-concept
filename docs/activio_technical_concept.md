@@ -75,7 +75,7 @@ app/Activio/
     ShopSystemIntegration/
 
 app-frontend/Activio/
-    strona główna + Oferta + Kluby + Sklep ACTIVIO + sklep klubu + karta produktu + adapter checkoutu
+    strona główna + Oferta + Kluby + Market ACTIVIO + sklep klubu + karta produktu + adapter checkoutu
 
 app-frontend/ActivioPartner/
     panel klubu
@@ -307,7 +307,7 @@ Po imporcie katalog aktualizuje operator. Dodatkowy producent przechodzi zatwier
 
 - osobne URL dla strony głównej, Oferty, listy klubów, Sklepu ACTIVIO, klubu i produktu;
 - stabilny slug klubu oraz listingu;
-- canonicale eliminujące duplikację Sklep ACTIVIO/sklep klubu;
+- canonicale eliminujące duplikację Market ACTIVIO/sklep klubu;
 - metadata i dane strukturalne świadome sprzedawcy oraz klubu;
 - sitemap dla aktywnych klubów i produktów;
 - brak indeksowania szkiców i wstrzymanych ofert;

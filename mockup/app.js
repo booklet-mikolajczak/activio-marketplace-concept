@@ -22,6 +22,7 @@ const document_cache = new Map();
 const loaded_document_timestamp = Date.parse(document.lastModified) || Date.now();
 let known_version_signature = null;
 let version_check_in_progress = false;
+let store_show_all = false;
 
 const clubs = {
     stal: {
@@ -143,8 +144,8 @@ const assumptions = {
     marketplace: {
         title: 'Strona główna ACTIVIO',
         items: [
-            'Strona główna rozdziela trzy usługi: Oferta B2B, ACTIVIO Club i Sklep.',
-            'Produkty klubów i produkty własne ACTIVIO są sprzedawane w Sklepie oraz dodawane do jednego koszyka.',
+            'Strona główna rozdziela trzy usługi: Druk dla Klubów, ACTIVIO Club i Market.',
+            'Produkty klubów i produkty własne ACTIVIO są sprzedawane w Markecie oraz dodawane do jednego koszyka.',
             'ACTIVIO jest jedynym sprzedawcą, a kluby są partnerami i licencjodawcami marki.',
         ],
     },
@@ -164,11 +165,21 @@ const assumptions = {
             'Wejście do sklepu konkretnego klubu zachowuje jego markę, ofertę i historię.',
         ],
     },
-    store: {
-        title: 'Sklep ACTIVIO',
+    'club-program': {
+        title: 'Landing programu ACTIVIO Club',
         items: [
-            'Sklep łączy produkty klubów oraz dopuszczone produkty własne ACTIVIO.',
-            'Katalog można filtrować według kategorii i klubu oraz sortować według popularności.',
+            'Landing wyjaśnia model partnerski przed przejściem do formularza kontaktowego lub panelu demonstracyjnego.',
+            'ACTIVIO pozostaje sprzedawcą i obsługuje produkcję, płatności, wysyłkę oraz klienta.',
+            'Klub wybiera zatwierdzone produkty, ustala ceny ponad minimum i otrzymuje wynagrodzenie zapisane per pozycja zamówienia.',
+            'Kwoty, stawki i rozliczenia pokazane w prototypie są przykładami koncepcyjnymi, nie ofertą handlową.',
+        ],
+    },
+    store: {
+        title: 'Market ACTIVIO',
+        items: [
+            'Market łączy produkty klubów oraz dopuszczone produkty własne ACTIVIO.',
+            'Katalog dzieli ofertę na najpopularniejsze produkty, nowości i pozostałe pozycje.',
+            'Produkty można filtrować według kategorii i klubu oraz sortować według popularności, ceny lub daty dodania.',
             'Produkty z różnych klubów trafiają do jednego koszyka i są kupowane od ACTIVIO.',
         ],
     },
@@ -677,7 +688,6 @@ function update_club_context(club_id) {
     });
     document.querySelector('[data-club-intro]').textContent = club.intro;
     document.querySelector('[data-club-product-count]').textContent = `${club.products} produktów`;
-    document.querySelector('[data-club-support]').textContent = format_price(club.support_base);
     document.querySelector('[data-club-since]').textContent = `RAZEM OD ${club.since}`;
     document.querySelector('[data-club-academy-count]').textContent = String(club.academy_count);
     document.querySelector('.club-hero').style.background = club.gradient;
@@ -1276,30 +1286,68 @@ function render_view(view_name, update_hash = true) {
 }
 
 function render_store_products() {
-    const container = document.querySelector('[data-store-products]');
+    const containers = {
+        popular: document.querySelector('[data-store-products="popular"]'),
+        new: document.querySelector('[data-store-products="new"]'),
+        other: document.querySelector('[data-store-products="other"]'),
+    };
+    const shelves = {
+        popular: document.querySelector('[data-store-shelf="popular"]'),
+        new: document.querySelector('[data-store-shelf="new"]'),
+        other: document.querySelector('[data-store-shelf="other"]'),
+    };
+    const load_more = document.querySelector('[data-store-load-more]');
+    const show_all_button = document.querySelector('[data-store-show-all]');
     const active_filter = document.querySelector('[data-store-filter].active')?.dataset.storeFilter || 'all';
-    const selected_club = document.querySelector('[data-store-club]')?.value || 'all';
+    const selected_club = document.querySelector('select[data-store-club]')?.value || 'all';
     const sort = document.querySelector('[data-store-sort]')?.value || 'popular';
     const products = [...document.querySelectorAll('[data-store-product]')];
-    const sort_key = sort === 'price-asc'
-        ? 'price'
-        : sort === 'newest' ? 'newness' : 'popularity';
-    const direction = sort === 'price-asc' ? 1 : -1;
+    const eligible = products.filter((product) => (
+        (active_filter === 'all' || product.dataset.storeCategory === active_filter)
+        && (selected_club === 'all' || product.dataset.storeClub === selected_club)
+    ));
+    const by_popularity = (left, right) => Number(right.dataset.popularity) - Number(left.dataset.popularity);
+    const by_newness = (left, right) => Number(right.dataset.newness) - Number(left.dataset.newness);
+    const selected_sort = (left, right) => {
+        if (sort === 'price-asc') {
+            return Number(left.dataset.price) - Number(right.dataset.price);
+        }
+        return sort === 'newest' ? by_newness(left, right) : by_popularity(left, right);
+    };
 
-    let visible_count = 0;
-    products
-        .sort((left, right) => direction * (
-            Number(left.dataset[sort_key]) - Number(right.dataset[sort_key])
-        ))
-        .forEach((product) => {
-            product.hidden = (active_filter !== 'all' && product.dataset.storeCategory !== active_filter)
-                || (selected_club !== 'all' && product.dataset.storeClub !== selected_club);
-            if (!product.hidden) {
-                visible_count += 1;
-            }
-            container.append(product);
+    const popular = [...eligible].sort(by_popularity).slice(0, 3);
+    const popular_ids = new Set(popular.map((product) => product.dataset.storeProduct));
+    const newest = eligible
+        .filter((product) => !popular_ids.has(product.dataset.storeProduct))
+        .sort(by_newness)
+        .slice(0, 2);
+    const featured_ids = new Set([...popular, ...newest].map((product) => product.dataset.storeProduct));
+    const other = eligible.filter((product) => !featured_ids.has(product.dataset.storeProduct));
+
+    const groups = { popular, new: newest, other };
+    Object.entries(groups).forEach(([group, items]) => {
+        items.sort(selected_sort).forEach((product) => {
+            product.hidden = false;
+            containers[group].append(product);
         });
-    document.querySelector('[data-store-empty]').hidden = visible_count > 0;
+    });
+    products
+        .filter((product) => !eligible.includes(product))
+        .forEach((product) => {
+            product.hidden = true;
+            containers.other.append(product);
+        });
+
+    shelves.popular.hidden = popular.length === 0;
+    shelves.new.hidden = newest.length === 0;
+    shelves.other.hidden = other.length === 0;
+    containers.other.hidden = !store_show_all;
+    load_more.hidden = other.length === 0;
+    show_all_button.textContent = store_show_all
+        ? 'Pokaż mniej'
+        : `Pokaż wszystkie (${other.length})`;
+    show_all_button.setAttribute('aria-expanded', String(store_show_all));
+    document.querySelector('[data-store-empty]').hidden = eligible.length > 0;
 }
 
 function render_club_products() {
@@ -1439,7 +1487,18 @@ document.addEventListener('click', (event) => {
         document.querySelectorAll('[data-store-filter]').forEach((button) => {
             button.classList.toggle('active', button === store_filter);
         });
+        store_show_all = false;
         render_store_products();
+        return;
+    }
+
+    const store_show_all_button = event.target.closest('[data-store-show-all]');
+    if (store_show_all_button) {
+        store_show_all = !store_show_all;
+        render_store_products();
+        if (store_show_all) {
+            document.querySelector('[data-store-shelf="other"]').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         return;
     }
 
@@ -1735,8 +1794,11 @@ document.querySelector('[data-chart-range]')?.addEventListener('change', (event)
     render_sales_chart(event.target.value);
 });
 
-document.querySelectorAll('[data-store-club], [data-store-sort]').forEach((select) => {
-    select.addEventListener('change', render_store_products);
+document.querySelectorAll('select[data-store-club], select[data-store-sort]').forEach((select) => {
+    select.addEventListener('change', () => {
+        store_show_all = false;
+        render_store_products();
+    });
 });
 
 document.querySelectorAll('[data-sale-price]').forEach((input) => {

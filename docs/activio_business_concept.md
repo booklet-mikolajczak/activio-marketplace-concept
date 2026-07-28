@@ -9,12 +9,12 @@ Research regulacyjny: [docs/activio_marketplace_research.md](activio_marketplace
 
 ## 1. Streszczenie
 
-ACTIVIO łączy usługi produkcyjne dla klubów, program partnerski ACTIVIO Club i wspólny sklep internetowy. W ramach ACTIVIO Club klub otrzymuje własny sklep, ofertę, panel wyników i rozliczenia, a ACTIVIO odpowiada za sprzedaż, produkcję, płatność, obsługę klienta, pakowanie i wysyłkę.
+ACTIVIO łączy usługi produkcyjne dla klubów, program partnerski ACTIVIO Club i wspólny Market. W ramach ACTIVIO Club klub otrzymuje własny sklep, ofertę, panel wyników i rozliczenia, a ACTIVIO odpowiada za sprzedaż, produkcję, płatność, obsługę klienta, pakowanie i wysyłkę.
 
 Sprzedaż konsumencka jest dostępna na dwa sposoby:
 
 1. przez sklep konkretnego klubu;
-2. przez wspólny Sklep ACTIVIO zawierający produkty klubów i dopuszczone produkty własne.
+2. przez wspólny Market ACTIVIO zawierający produkty klubów i dopuszczone produkty własne.
 
 Poniższe założenia są roboczym punktem wyjścia do pilotażu. Szczegóły i otwarte decyzje rozwijają kolejne rozdziały.
 
@@ -31,7 +31,7 @@ Produkty ze Sklepu ACTIVIO i oficjalnych sklepów klubowych korzystają z jedneg
 ## Założenia produktu
 
 1. ACTIVIO jest formalnym sprzedawcą. Klub otrzymuje wynagrodzenie partnerskie zgodne z umową.
-2. Sklep klubu i wspólny Sklep ACTIVIO pokazują te same produkty klubowe, a nie dwa niezależne katalogi.
+2. Sklep klubu i wspólny Market ACTIVIO pokazują te same produkty klubowe, a nie dwa niezależne katalogi.
 3. Sklep obejmuje kluby ACTIVIO i dopuszczone produkty własne; Npack, Naklejkon i pozostałe marki Booklet są poza nim.
 4. Jeden koszyk może zawierać produkty wielu klubów, a kupujący płaci raz.
 5. Produkty wielu klubów są domyślnie wysyłane jedną paczką z jednego centrum realizacji.
@@ -92,7 +92,7 @@ Kupujący może:
 
 ## 6. Jeden sklep, wiele witryn klubowych
 
-Sklep klubu i wspólny Sklep ACTIVIO nie są oddzielnymi biznesami ani kopiami oferty. Ten sam produkt klubowy może być znaleziony:
+Sklep klubu i wspólny Market ACTIVIO nie są oddzielnymi biznesami ani kopiami oferty. Ten sam produkt klubowy może być znaleziony:
 
 - w witrynie klubu;
 - w kategorii Sklepu ACTIVIO;
@@ -157,7 +157,7 @@ Na pilotaż warto rozważyć stałą kwotę za sprzedaną sztukę. Jest najłatw
 
 ### Brutto, netto i status VAT klubu
 
-Wszystkie ceny pokazywane kupującemu w Sklepie ACTIVIO i sklepach klubowych są cenami brutto.
+Wszystkie ceny pokazywane kupującemu w Markecie ACTIVIO i sklepach klubowych są cenami brutto.
 
 Wynagrodzenie partnerskie klubu jest ustalane jako kwota netto:
 
@@ -242,7 +242,7 @@ Klub widzi tylko swoje produkty, ich personalizację, wartość, status i wpływ
 - Polska i PLN;
 - ACTIVIO jako jeden sprzedawca;
 - 3–5 klubów;
-- Sklep ACTIVIO i sklepy klubowe na jednej domenie;
+- Market ACTIVIO i sklepy klubowe na jednej domenie;
 - wspólny koszyk i jedna płatność;
 - jedna paczka z jednego centrum realizacji;
 - gościnny zakup;
@@ -276,7 +276,7 @@ Umowa → weryfikacja organizacji → prawa do marki → materiały → wybór p
 
 ### Zakup
 
-Sklep ACTIVIO lub sklep klubu → produkt → personalizacja → koszyk → dostawa i płatność → produkcja → wysyłka → rozliczenie.
+Market ACTIVIO lub sklep klubu → produkt → personalizacja → koszyk → dostawa i płatność → produkcja → wysyłka → rozliczenie.
 
 ### Zwrot lub reklamacja
 
@@ -405,7 +405,7 @@ Dopiero po dwóch poprawnych cyklach rozliczeniowych rozszerzamy katalog, onboar
 |---|---|---|
 | Sprzedawca | ACTIVIO | przyjęte; do potwierdzenia prawnego |
 | Strona główna | Oferta / Kluby / Sklep / Koszyk | przyjęte |
-| Sklep ACTIVIO | produkty klubów i dopuszczone produkty własne | przyjęte |
+| Market ACTIVIO | produkty klubów i dopuszczone produkty własne | przyjęte |
 | Mieszany koszyk | tak, jedna paczka w MVP | do potwierdzenia operacyjnego |
 | Cena detaliczna | ustala klub | przyjęte |
 | Dolna granica ceny | minimum ACTIVIO | przyjęte |
