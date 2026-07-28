@@ -15,11 +15,8 @@ const action_dialog = document.querySelector('[data-action-dialog]');
 const action_title = document.querySelector('[data-action-title]');
 const action_kicker = document.querySelector('[data-action-kicker]');
 const action_content = document.querySelector('[data-action-content]');
-const marketplace_view = document.querySelector('[data-view="marketplace"]');
-const home_concept_buttons = [...document.querySelectorAll('[data-home-concept-option]')];
 
 const partner_views = ['partner-dashboard', 'partner-offer', 'partner-orders', 'partner-settlements'];
-const home_concepts = ['modern', 'classic', 'sport'];
 const valid_views = views.map((view) => view.dataset.view);
 const document_cache = new Map();
 const loaded_document_timestamp = Date.parse(document.lastModified) || Date.now();
@@ -313,7 +310,6 @@ const assumptions = {
         title: 'Strona główna ACTIVIO',
         items: [
             'Strona główna rozdziela trzy usługi: Druk dla Klubów, ACTIVIO Club i Market.',
-            'Trzy kierunki prezentują tę samą treść i paletę ACTIVIO, różniąc się układem, typografią oraz formą komponentów.',
             'Produkty klubów i produkty własne ACTIVIO są sprzedawane w Markecie oraz dodawane do jednego koszyka.',
             'ACTIVIO jest jedynym sprzedawcą, a kluby są partnerami i licencjodawcami marki.',
         ],
@@ -482,7 +478,6 @@ const assumptions = {
 };
 
 let current_view = 'marketplace';
-let home_concept = read_initial_home_concept();
 let current_club_id = 'stal';
 let current_product_id = 'shirt';
 let current_product_club_id = 'stal';
@@ -511,73 +506,6 @@ let cart_items = [
 let cart_count = 2;
 let toast_timeout;
 let overlay_trigger = null;
-
-function read_initial_home_concept() {
-    const requested_concept = new URL(window.location.href).searchParams.get('concept');
-    if (home_concepts.includes(requested_concept)) {
-        return requested_concept;
-    }
-
-    try {
-        const saved_concept = window.localStorage.getItem('activio-home-concept');
-        if (home_concepts.includes(saved_concept)) {
-            return saved_concept;
-        }
-    } catch (error) {
-        // Storage can be unavailable in a hardened or private browser context.
-    }
-
-    return 'modern';
-}
-
-function apply_home_concept(concept, persist = true, update_url = true) {
-    if (!home_concepts.includes(concept)) {
-        return;
-    }
-
-    home_concept = concept;
-    marketplace_view.dataset.homeConcept = concept;
-    let active_button = null;
-    home_concept_buttons.forEach((button) => {
-        const is_active = button.dataset.homeConceptOption === concept;
-        button.classList.toggle('active', is_active);
-        button.setAttribute('aria-pressed', String(is_active));
-        if (is_active) {
-            active_button = button;
-        }
-    });
-
-    if (active_button && window.matchMedia('(max-width: 820px)').matches) {
-        window.requestAnimationFrame(() => {
-            const options = active_button.parentElement;
-            const centered_position = active_button.offsetLeft
-                - options.offsetLeft
-                - ((options.clientWidth - active_button.offsetWidth) / 2);
-            options.scrollTo({
-                left: Math.max(0, centered_position),
-                behavior: persist ? 'smooth' : 'auto',
-            });
-        });
-    }
-
-    if (current_view === 'marketplace') {
-        document.body.dataset.homeConcept = concept;
-    }
-
-    if (persist) {
-        try {
-            window.localStorage.setItem('activio-home-concept', concept);
-        } catch (error) {
-            // The URL still preserves the selected concept when storage is unavailable.
-        }
-    }
-
-    if (update_url) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('concept', concept);
-        window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
-    }
-}
 
 function close_overlays(restore_focus = false) {
     scenario_rail.classList.remove('open');
@@ -1494,11 +1422,6 @@ function render_view(view_name, update_hash = true) {
         show_toast('Dodaj produkt, aby przejść do płatności');
     }
     current_view = next_view;
-    if (next_view === 'marketplace') {
-        document.body.dataset.homeConcept = home_concept;
-    } else {
-        delete document.body.dataset.homeConcept;
-    }
 
     views.forEach((view) => {
         view.hidden = view.dataset.view !== next_view;
@@ -2065,12 +1988,6 @@ document.querySelectorAll('[data-sale-price]').forEach((input) => {
 
 refresh_button.addEventListener('click', reload_latest);
 
-home_concept_buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        apply_home_concept(button.dataset.homeConceptOption);
-    });
-});
-
 document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
         check_version();
@@ -2090,7 +2007,6 @@ window.addEventListener('keydown', (event) => {
 });
 
 normalize_product_cards();
-apply_home_concept(home_concept, false, false);
 render_cart();
 update_club_context(current_club_id);
 update_product_context(current_product_id, current_club_id);
