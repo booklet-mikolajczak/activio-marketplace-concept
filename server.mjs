@@ -2,7 +2,7 @@ import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { dirname, extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { timingSafeEqual } from 'node:crypto';
+import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import { FeedbackStore, statuses } from './lib/feedback-store.mjs';
 
 const project_dir = dirname(fileURLToPath(import.meta.url));
@@ -10,9 +10,16 @@ const expected_user = process.env.ACTIVIO_DEMO_USER || 'activio';
 const expected_password = process.env.ACTIVIO_DEMO_PASSWORD || '';
 const host = process.env.ACTIVIO_DEMO_HOST || '127.0.0.1';
 const port = Number(process.env.ACTIVIO_DEMO_PORT || 8080);
+const trust_proxy = process.env.ACTIVIO_TRUST_PROXY === 'true';
 const feedback_dir = process.env.ACTIVIO_FEEDBACK_DIR
     || resolve(project_dir, '..', 'activio-club-feedback');
 const feedback_store = new FeedbackStore(feedback_dir);
+const session_cookie = 'activio_session';
+const session_duration_seconds = 7 * 24 * 60 * 60;
+const session_secret = randomBytes(32);
+const login_attempt_limit = 10;
+const login_attempt_window_ms = 10 * 60 * 1000;
+const login_attempts = new Map();
 
 if (!expected_password) {
     throw new Error('Ustaw ACTIVIO_DEMO_PASSWORD przed uruchomieniem.');
@@ -71,6 +78,186 @@ function credentials(request) {
     }
 }
 
+function session_signature(expires_at) {
+    return createHmac('sha256', session_secret)
+        .update(`${expected_user}:${expires_at}:activio-demo-session`)
+        .digest('base64url');
+}
+
+function cookies(request) {
+    return Object.fromEntries(
+        String(request.headers.cookie || '')
+            .split(';')
+            .map((entry) => entry.trim())
+            .filter(Boolean)
+            .map((entry) => {
+                const separator = entry.indexOf('=');
+                return separator === -1
+                    ? [entry, '']
+                    : [entry.slice(0, separator), entry.slice(separator + 1)];
+            }),
+    );
+}
+
+function has_valid_session(request) {
+    const value = cookies(request)[session_cookie] || '';
+    const separator = value.indexOf('.');
+
+    if (separator === -1) {
+        return false;
+    }
+
+    const expires_at = Number(value.slice(0, separator));
+    const signature = value.slice(separator + 1);
+
+    return Number.isSafeInteger(expires_at)
+        && expires_at > Math.floor(Date.now() / 1000)
+        && safe_equal(session_signature(expires_at), signature);
+}
+
+function is_authorized(request) {
+    const [provided_user, provided_password] = credentials(request);
+    return (
+        safe_equal(expected_user, provided_user)
+        && safe_equal(expected_password, provided_password)
+    ) || has_valid_session(request);
+}
+
+function is_https(request) {
+    return String(request.headers['x-forwarded-proto'] || '')
+        .split(',')[0]
+        .trim()
+        .toLowerCase() === 'https'
+        || request.socket.encrypted === true;
+}
+
+function safe_next(value) {
+    const next = typeof value === 'string' ? value.slice(0, 500) : '/';
+
+    if (!next.startsWith('/')) {
+        return '/';
+    }
+
+    try {
+        const base = 'http://activio.local';
+        const parsed = new URL(next, base);
+        const result = `${parsed.pathname}${parsed.search}${parsed.hash}`;
+        return parsed.origin === base && !/^\/[/\\]/.test(result) ? result : '/';
+    } catch {
+        return '/';
+    }
+}
+
+function client_address(request) {
+    const forwarded = String(request.headers['x-forwarded-for'] || '');
+    const forwarded_addresses = forwarded.split(',').map((value) => value.trim()).filter(Boolean);
+    return String(
+        trust_proxy && forwarded_addresses.length > 0
+            ? forwarded_addresses.at(-1)
+            : request.socket.remoteAddress || 'unknown',
+    ).slice(0, 100);
+}
+
+function login_attempt_key(request, scope = 'form') {
+    const address = client_address(request);
+    const key = `${scope}:${address}`;
+
+    if (!login_attempts.has(key) && login_attempts.size >= 1000) {
+        const now = Date.now();
+        for (const [key, entry] of login_attempts) {
+            if (entry.reset_at <= now) {
+                login_attempts.delete(key);
+            }
+        }
+
+        if (login_attempts.size >= 1000) {
+            login_attempts.delete(login_attempts.keys().next().value);
+        }
+    }
+
+    return key;
+}
+
+function login_retry_after(request, scope = 'form') {
+    const entry = login_attempts.get(login_attempt_key(request, scope));
+    const now = Date.now();
+
+    if (!entry || entry.reset_at <= now) {
+        return 0;
+    }
+
+    return entry.count >= login_attempt_limit
+        ? Math.max(1, Math.ceil((entry.reset_at - now) / 1000))
+        : 0;
+}
+
+function record_failed_login(request, scope = 'form') {
+    const address = login_attempt_key(request, scope);
+    const now = Date.now();
+    const current = login_attempts.get(address);
+    const entry = !current || current.reset_at <= now
+        ? { count: 1, reset_at: now + login_attempt_window_ms }
+        : { ...current, count: current.count + 1 };
+
+    login_attempts.set(address, entry);
+
+}
+
+function clear_failed_logins(request, scope = 'form') {
+    login_attempts.delete(login_attempt_key(request, scope));
+}
+
+function is_html_navigation(request) {
+    const method = request.method || '';
+    const accept = String(request.headers.accept || '');
+    return ['GET', 'HEAD'].includes(method)
+        && (
+            request.headers['sec-fetch-mode'] === 'navigate'
+            || accept.split(',').some((value) => value.trim().startsWith('text/html'))
+        );
+}
+
+function has_basic_credentials(request) {
+    return String(request.headers.authorization || '').startsWith('Basic ');
+}
+
+function has_valid_basic_credentials(request) {
+    const [provided_user, provided_password] = credentials(request);
+    return safe_equal(expected_user, provided_user)
+        && safe_equal(expected_password, provided_password);
+}
+
+function send_authentication_failure(request, response, status = 401, retry_after = 0) {
+    const likely_browser = Boolean(request.headers['sec-fetch-mode'])
+        || String(request.headers['user-agent'] || '').includes('Mozilla/')
+        || String(request.headers.accept || '').includes('text/html');
+    const headers = {
+        ...(!likely_browser || has_basic_credentials(request)
+            ? { 'WWW-Authenticate': 'Basic realm="ACTIVIO CLUB", charset="UTF-8"' }
+            : {}),
+        ...(retry_after > 0 ? { 'Retry-After': String(retry_after) } : {}),
+    };
+    const error = status === 429
+        ? 'Zbyt wiele prób logowania. Spróbuj ponownie później.'
+        : 'Wymagane logowanie.';
+
+    if (new URL(request.url || '/', 'http://127.0.0.1').pathname.startsWith('/api/')) {
+        send_json(response, status, { error, login_url: '/login' }, headers);
+        return;
+    }
+
+    send(response, status, `${error}\nZaloguj: /login\n`, headers);
+}
+
+function escape_html(value) {
+    return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+}
+
 function send(response, status, body, headers = {}) {
     response.writeHead(status, {
         'Cache-Control': 'no-store, no-cache, must-revalidate',
@@ -80,12 +267,24 @@ function send(response, status, body, headers = {}) {
     response.end(body);
 }
 
-function send_json(response, status, value) {
+function send_html(response, status, body, headers = {}) {
+    response.writeHead(status, {
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
+        'Content-Length': Buffer.byteLength(body),
+        'Content-Security-Policy': "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'self'",
+        'Content-Type': 'text/html; charset=utf-8',
+        ...headers,
+    });
+    response.end(body);
+}
+
+function send_json(response, status, value, headers = {}) {
     const body = JSON.stringify(value);
     response.writeHead(status, {
         'Cache-Control': 'no-store, no-cache, must-revalidate',
         'Content-Length': Buffer.byteLength(body),
         'Content-Type': 'application/json; charset=utf-8',
+        ...headers,
     });
     response.end(body);
 }
@@ -132,7 +331,7 @@ function clean_viewport(value) {
     };
 }
 
-async function read_json(request, maximum_bytes = 6 * 1024 * 1024) {
+async function read_body(request, maximum_bytes) {
     const chunks = [];
     let bytes = 0;
 
@@ -146,11 +345,143 @@ async function read_json(request, maximum_bytes = 6 * 1024 * 1024) {
         chunks.push(chunk);
     }
 
+    return Buffer.concat(chunks).toString('utf8');
+}
+
+async function read_json(request, maximum_bytes = 6 * 1024 * 1024) {
     try {
-        return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
+        return JSON.parse(await read_body(request, maximum_bytes) || '{}');
     } catch {
         throw new Error('Nieprawidłowy JSON.');
     }
+}
+
+function login_page(next, user = '', error = '') {
+    const safe_redirect = safe_next(next);
+    const error_html = error
+        ? `<p class="error" role="alert">${escape_html(error)}</p>`
+        : '';
+
+    return `<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Logowanie — ACTIVIO</title>
+    <style>
+        :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+        * { box-sizing: border-box; }
+        body { min-height: 100vh; display: grid; place-items: center; margin: 0; padding: 24px; color: #121827; background: linear-gradient(140deg, #17154a, #6f207e 60%, #b12670); }
+        main { width: min(100%, 410px); padding: 36px; border-radius: 20px; background: #fff; box-shadow: 0 24px 70px rgba(9, 8, 35, .32); }
+        .brand { display: flex; align-items: center; margin-bottom: 30px; }
+        .brand img { width: 145px; height: auto; display: block; }
+        h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: -.04em; }
+        p { margin: 0 0 24px; color: #697386; font-size: 14px; line-height: 1.5; }
+        label { display: grid; gap: 7px; margin-top: 16px; font-size: 12px; font-weight: 800; }
+        input { width: 100%; padding: 12px 13px; border: 1px solid #ccd3df; border-radius: 10px; font: inherit; }
+        input:focus { outline: 3px solid rgba(40, 95, 220, .17); border-color: #245ed8; }
+        button { width: 100%; margin-top: 22px; padding: 13px; border: 0; border-radius: 10px; color: #fff; background: #185ad7; font: inherit; font-weight: 850; cursor: pointer; }
+        .error { margin: 18px 0 0; padding: 11px 12px; border-radius: 9px; color: #8e1b25; background: #fff0f1; font-size: 12px; font-weight: 700; }
+        small { display: block; margin-top: 20px; color: #8a94a5; font-size: 10px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="brand"><img src="/assets/brand/activio-logo.svg" alt="ACTIVIO"></div>
+        <h1>Prototyp koncepcyjny</h1>
+        <p>Zaloguj się, aby przejrzeć mockup, dokumentację i uwagi projektu.</p>
+        ${error_html}
+        <form method="post" action="/login">
+            <input type="hidden" name="next" value="${escape_html(safe_redirect)}">
+            <label>Login
+                <input name="user" value="${escape_html(user)}" autocomplete="username" required autofocus>
+            </label>
+            <label>Hasło
+                <input type="password" name="password" autocomplete="current-password" required>
+            </label>
+            <button type="submit">Zaloguj się</button>
+        </form>
+        <small>Dostęp jest przeznaczony dla zaproszonych osób. Dane logowania otrzymasz od zespołu ACTIVIO.</small>
+    </main>
+    <script>
+        const next = document.querySelector('[name="next"]');
+        if (location.hash && !next.value.includes('#')) next.value += location.hash;
+    </script>
+</body>
+</html>`;
+}
+
+async function handle_login(request, response, url) {
+    if (request.method === 'GET' || request.method === 'HEAD') {
+        const next = safe_next(url.searchParams.get('next') || '/');
+
+        if (has_valid_session(request)) {
+            response.writeHead(303, { 'Cache-Control': 'no-store', Location: next });
+            response.end();
+            return;
+        }
+
+        if (request.method === 'HEAD') {
+            const body = login_page(next);
+            response.writeHead(200, {
+                'Cache-Control': 'no-store, no-cache, must-revalidate',
+                'Content-Length': Buffer.byteLength(body),
+                'Content-Security-Policy': "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'self'",
+                'Content-Type': 'text/html; charset=utf-8',
+            });
+            response.end();
+        } else {
+            send_html(response, 200, login_page(next));
+        }
+        return;
+    }
+
+    if (request.method !== 'POST') {
+        send(response, 405, 'Niedozwolona metoda.\n', { Allow: 'GET, HEAD, POST' });
+        return;
+    }
+
+    if (!is_same_origin(request)) {
+        send_html(response, 403, login_page('/', '', 'Niedozwolone źródło żądania.'));
+        return;
+    }
+
+    const form = new URLSearchParams(await read_body(request, 16 * 1024));
+    const user = clean_text(form.get('user'), 80);
+    const password = typeof form.get('password') === 'string'
+        ? form.get('password').slice(0, 500)
+        : '';
+    const next = safe_next(form.get('next'));
+    const retry_after = login_retry_after(request);
+
+    if (retry_after > 0) {
+        send_html(
+            response,
+            429,
+            login_page(next, user, 'Zbyt wiele prób logowania. Spróbuj ponownie później.'),
+            { 'Retry-After': String(retry_after) },
+        );
+        return;
+    }
+
+    if (!safe_equal(expected_user, user) || !safe_equal(expected_password, password)) {
+        record_failed_login(request);
+        send_html(response, 401, login_page(next, user, 'Nieprawidłowy login lub hasło.'));
+        return;
+    }
+
+    clear_failed_logins(request);
+    const expires_at = Math.floor(Date.now() / 1000) + session_duration_seconds;
+    const value = `${expires_at}.${session_signature(expires_at)}`;
+    const secure = is_https(request) ? '; Secure' : '';
+
+    response.writeHead(303, {
+        'Cache-Control': 'no-store',
+        Location: next,
+        'Set-Cookie': `${session_cookie}=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${session_duration_seconds}${secure}`,
+    });
+    response.end();
 }
 
 function is_same_origin(request) {
@@ -317,18 +648,86 @@ async function resolve_file(request_url) {
 }
 
 const server = createServer(async (request, response) => {
-    const [provided_user, provided_password] = credentials(request);
-    const authorized = safe_equal(expected_user, provided_user)
-        && safe_equal(expected_password, provided_password);
+    const url = new URL(request.url || '/', 'http://127.0.0.1');
+    const basic_attempt = has_basic_credentials(request);
 
-    if (!authorized) {
-        send(response, 401, 'Wymagane logowanie.\n', {
-            'WWW-Authenticate': 'Basic realm="ACTIVIO CLUB", charset="UTF-8"',
-        });
+    if (
+        url.pathname === '/assets/brand/activio-logo.svg'
+        && ['GET', 'HEAD'].includes(request.method || '')
+    ) {
+        try {
+            const logo_path = resolve(project_dir, 'assets', 'brand', 'activio-logo.svg');
+            const logo_stat = await stat(logo_path);
+            response.writeHead(200, {
+                'Cache-Control': 'public, max-age=3600',
+                'Content-Length': logo_stat.size,
+                'Content-Type': content_types['.svg'],
+                'X-Content-Type-Options': 'nosniff',
+            });
+            response.end(request.method === 'HEAD' ? undefined : await readFile(logo_path));
+        } catch {
+            send(response, 404, 'Nie znaleziono logo.\n');
+        }
         return;
     }
 
-    const url = new URL(request.url || '/', 'http://127.0.0.1');
+    if (basic_attempt && url.pathname !== '/login' && !has_valid_session(request)) {
+        const retry_after = login_retry_after(request, 'basic');
+        const valid_basic = has_valid_basic_credentials(request);
+
+        if (retry_after > 0) {
+            send_authentication_failure(request, response, 429, retry_after);
+            return;
+        }
+
+        if (valid_basic) {
+            clear_failed_logins(request, 'basic');
+        } else {
+            record_failed_login(request, 'basic');
+            if (is_html_navigation(request)) {
+                response.writeHead(302, {
+                    'Cache-Control': 'no-store',
+                    Location: `/login?next=${encodeURIComponent(request.url || '/')}`,
+                });
+                response.end();
+            } else {
+                send_authentication_failure(request, response);
+            }
+            return;
+        }
+    }
+
+    if (url.pathname === '/login') {
+        try {
+            await handle_login(request, response, url);
+        } catch (error) {
+            send_html(response, 400, login_page(
+                '/',
+                '',
+                error instanceof Error ? error.message : 'Nie udało się zalogować.',
+            ));
+        }
+        return;
+    }
+
+    if (!is_authorized(request)) {
+        if (url.pathname.startsWith('/api/')) {
+            send_authentication_failure(request, response);
+            return;
+        }
+
+        if (is_html_navigation(request)) {
+            response.writeHead(302, {
+                'Cache-Control': 'no-store',
+                Location: `/login?next=${encodeURIComponent(request.url || '/')}`,
+            });
+            response.end();
+            return;
+        }
+
+        send_authentication_failure(request, response);
+        return;
+    }
 
     if (/^\/docs\/prototypes\/activio\/?$/.test(url.pathname)) {
         response.writeHead(302, {
@@ -371,6 +770,9 @@ const server = createServer(async (request, response) => {
             'Cache-Control': 'no-store, no-cache, must-revalidate',
             'Content-Length': file_stat.size,
             'Content-Type': content_type,
+            ...(content_type.startsWith('text/html')
+                ? { 'Content-Security-Policy': "frame-ancestors 'self'" }
+                : {}),
             ETag: `"${file_stat.size.toString(16)}-${Math.round(file_stat.mtimeMs).toString(16)}"`,
             Expires: '0',
             'Last-Modified': file_stat.mtime.toUTCString(),

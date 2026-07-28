@@ -14,9 +14,12 @@ services:
       ACTIVIO_DEMO_HOST: 0.0.0.0
       ACTIVIO_DEMO_PORT: 8080
       ACTIVIO_FEEDBACK_DIR: /feedback
+      ACTIVIO_TRUST_PROXY: "true"
     volumes:
       - .:/app:ro
       - ../activio-club-feedback:/feedback
+    ports:
+      - "127.0.0.1:18080:8080"
     networks:
       - traefik_proxy
     labels:
@@ -25,26 +28,6 @@ services:
       traefik.http.routers.activio-club-concept.priority: "10000"
       traefik.http.routers.activio-club-concept.rule: Host(`bkt44bartek.tailf5aee2.ts.net`)
       traefik.http.services.activio-club-concept.loadbalancer.server.port: "8080"
-
-  activio-club-ngrok:
-    image: ngrok/ngrok:latest
-    container_name: activio-club-ngrok
-    profiles:
-      - ngrok
-    restart: unless-stopped
-    depends_on:
-      - activio-club-concept
-    environment:
-      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
-    command:
-      - http
-      - http://activio-club-concept:8080
-      - --url
-      - https://${NGROK_DOMAIN:-development-domain-not-configured.invalid}
-      - --log
-      - stdout
-    networks:
-      - traefik_proxy
 
 networks:
   traefik_proxy:

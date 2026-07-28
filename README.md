@@ -36,7 +36,11 @@ Otwórz:
 http://127.0.0.1:8080/
 ```
 
-Login: `activio`. Hasło pochodzi wyłącznie ze zmiennej środowiskowej i nie jest zapisywane w repozytorium.
+Serwer pokazuje własny formularz logowania, działający również w osadzonych przeglądarkach i bocznych panelach, które nie wyświetlają systemowego okna HTTP Basic Auth. Login: `activio`. Hasło pochodzi wyłącznie ze zmiennej środowiskowej i nie jest zapisywane w repozytorium.
+
+Po poprawnym logowaniu serwer ustawia podpisane, niedostępne dla JavaScript cookie sesyjne na maksymalnie 7 dni. Restart procesu unieważnia wcześniejsze sesje. Basic Auth pozostaje obsługiwany dla skryptów i narzędzi raportowych. Formularz ogranicza liczbę błędnych prób logowania z jednego adresu.
+
+`ACTIVIO_TRUST_PROXY=true` należy ustawiać wyłącznie wtedy, gdy serwer jest osiągalny przez kontrolowany reverse proxy, jak Tailscale Funnel lub Traefik z `compose.yml`. W przeciwnym razie limiter korzysta z adresu bezpośredniego połączenia.
 
 Router chroni wszystkie zasoby, w tym dokumenty Markdown i obrazy dostępne bezpośrednimi adresami. Nie należy zastępować go formularzem hasła działającym wyłącznie w JavaScript.
 
@@ -87,6 +91,7 @@ Test magazynu uwag:
 
 ```bash
 node --test tests/feedback-store.test.mjs
+node --test tests/server-auth.test.mjs
 ```
 
 System jest przeznaczony dla zaproszonych recenzentów znających wspólne hasło. Podpis autora jest deklaratywny, a nie potwierdzony osobnym kontem użytkownika.
@@ -125,21 +130,27 @@ Skrypt uruchamia Cloudflare Quick Tunnel i pokazuje losowy adres `https://…try
 
 Publiczny adres nadal wymaga loginu i hasła z `.env`. Do stałego adresu potrzebny jest nazwany Cloudflare Tunnel albo zwykły hosting procesu Node z trwałym wolumenem.
 
-### Stały adres bez własnej domeny
+### Stały adres publiczny przez Tailscale Funnel
 
-Po dodaniu `NGROK_AUTHTOKEN` i `NGROK_DOMAIN` do `.env` można uruchomić ngrok. Domena musi zostać przekazana jawnie przez `--url`; uruchomienie bez niej tworzy adres losowy.
+Kontener udostępnia serwer wyłącznie lokalnie na `127.0.0.1:18080`. Tailscale Funnel publikuje ten port pod stałym adresem HTTPS:
 
-Adres można odczytać w panelu `https://dashboard.ngrok.com/domains` albo z logów:
-
-```bash
-docker logs activio-club-ngrok
+```text
+https://bkt-44-parobek.tailf5aee2.ts.net/
 ```
 
-Uruchomienie:
+Status tunelu:
 
 ```bash
-docker compose --profile ngrok up -d
+tailscale funnel status
 ```
+
+Ponowne włączenie tunelu:
+
+```bash
+tailscale funnel --bg http://127.0.0.1:18080
+```
+
+Funnel zapewnia publiczny dostęp bez konta Tailscale. Formularz logowania aplikacji nadal chroni prototyp.
 
 ## Źródła
 

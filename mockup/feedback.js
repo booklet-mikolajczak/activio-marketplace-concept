@@ -277,6 +277,14 @@
             });
             const payload = await response.json().catch(() => ({}));
 
+            if (response.status === 401) {
+                const next = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+                window.location.assign(payload.login_url
+                    ? `${payload.login_url}?next=${encodeURIComponent(next)}`
+                    : `/login?next=${encodeURIComponent(next)}`);
+                throw new Error('Sesja wygasła. Przejdź do logowania.');
+            }
+
             if (!response.ok) {
                 throw new Error(payload.error || 'Nie udało się połączyć z systemem uwag.');
             }
@@ -295,17 +303,25 @@
 
     function open_panel() {
         set_selecting(false);
+        ui.panel.inert = false;
         ui.panel.classList.add('open');
         ui.panel.setAttribute('aria-hidden', 'false');
+        ui.open.setAttribute('aria-expanded', 'true');
         ui.open.classList.add('active');
         ui.backdrop.hidden = false;
+        window.requestAnimationFrame(() => ui.close.focus());
     }
 
-    function close_panel() {
+    function close_panel(restore_focus = true) {
         ui.panel.classList.remove('open');
         ui.panel.setAttribute('aria-hidden', 'true');
+        ui.panel.inert = true;
+        ui.open.setAttribute('aria-expanded', 'false');
         ui.open.classList.remove('active');
         ui.backdrop.hidden = true;
+        if (restore_focus === true) {
+            ui.open.focus();
+        }
     }
 
     function set_selecting(enabled) {
@@ -674,7 +690,7 @@
                 return;
             }
 
-            close_panel();
+            close_panel(false);
             target.scrollIntoView({ behavior: 'smooth', block: 'center' });
             target.classList.remove('feedback-flash');
             window.requestAnimationFrame(() => target.classList.add('feedback-flash'));
@@ -689,11 +705,11 @@
             open_panel();
         }
     });
-    ui.close.addEventListener('click', close_panel);
-    ui.backdrop.addEventListener('click', close_panel);
+    ui.close.addEventListener('click', () => close_panel(true));
+    ui.backdrop.addEventListener('click', () => close_panel(true));
     ui.select.addEventListener('click', () => {
         const enable = !state.selecting;
-        close_panel();
+        close_panel(false);
         set_selecting(enable);
     });
     ui.scope.addEventListener('change', render_feedback);
@@ -909,6 +925,9 @@
     window.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && state.selecting) {
             set_selecting(false);
+        }
+        if (event.key === 'Escape' && ui.panel.classList.contains('open')) {
+            close_panel(true);
         }
     });
 
