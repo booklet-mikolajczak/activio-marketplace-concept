@@ -138,6 +138,171 @@ const products = {
         name_label: 'Imię lub nazwisko',
         has_size_guide: false,
     },
+    cap: {
+        name: 'Czapka klubowa z daszkiem',
+        price: 59,
+        image: '../assets/products/activio-czapka.jpg',
+        lead: 'Bawełniana czapka pięciopanelowa z regulacją oraz oznaczeniem w oficjalnych barwach klubu.',
+        option_label: 'Kolor',
+        options: ['Granatowa', 'Czarna', 'Biała'],
+        number_label: 'Numer',
+        name_label: 'Krótki napis',
+        has_size_guide: false,
+    },
+    clock: {
+        name: 'Zegar klubowy z pleksi',
+        price: 89,
+        image: '../assets/products/activio-zegar.jpg',
+        lead: 'Personalizowany zegar ścienny z herbem klubu, nadrukiem UV i kompletnym mechanizmem.',
+        option_label: 'Rozmiar',
+        options: ['30 × 30 cm', '40 × 40 cm'],
+        number_label: 'Numer',
+        name_label: 'Dedykacja',
+        has_size_guide: false,
+    },
+    drawstring: {
+        name: 'Worek sportowy z nadrukiem',
+        price: 59,
+        image: '../assets/products/activio-worek.png',
+        lead: 'Bawełniany worek treningowy ze wzmocnionymi rogami, herbem i tekstem personalizacji.',
+        option_label: 'Kolor',
+        options: ['Czarny', 'Granatowy', 'Naturalny'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Imię lub nazwisko',
+        has_size_guide: false,
+    },
+    pencilcase: {
+        name: 'Piórnik klubowy',
+        price: 49,
+        image: '../assets/products/activio-piornik.jpg',
+        lead: 'Lekki piórnik z klubowym nadrukiem, zamkiem błyskawicznym i miejscem na krótki podpis.',
+        option_label: 'Wariant',
+        options: ['Klasyczny', 'Z karabinkiem'],
+        number_label: 'Numer',
+        name_label: 'Imię',
+        has_size_guide: false,
+    },
+    medal: {
+        name: 'Medal klubowy z personalizacją',
+        price: 39,
+        image: '../assets/products/activio-medale.jpg',
+        lead: 'Indywidualny medal dla turnieju, ligi albo klubowego wydarzenia z kolorową grafiką i dedykacją.',
+        option_label: 'Wykończenie',
+        options: ['Złote', 'Srebrne', 'Brązowe'],
+        number_label: 'Rok',
+        name_label: 'Nazwa wydarzenia',
+        has_size_guide: false,
+    },
+    playercard: {
+        name: 'Karta zawodnika',
+        price: 79,
+        image: '../assets/products/activio-karty-zawodnika.jpg',
+        lead: 'Personalizowana karta w stylu kolekcjonerskim ze zdjęciem, herbem, numerem i nazwiskiem.',
+        option_label: 'Format',
+        options: ['A5', 'A4'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Imię i nazwisko',
+        has_size_guide: false,
+    },
+    trophy: {
+        name: 'Statuetka klubowa',
+        price: 99,
+        image: '../assets/products/activio-statuetki.jpg',
+        lead: 'Personalizowana statuetka dla zawodnika, trenera, sponsora albo zwycięzcy turnieju.',
+        option_label: 'Rozmiar',
+        options: ['Mała', 'Średnia', 'Duża'],
+        number_label: 'Rok',
+        name_label: 'Dedykacja',
+        has_size_guide: false,
+    },
+    transfer: {
+        name: 'Naklejki transferowe 3D',
+        price: 39,
+        image: '../assets/products/activio-naklejki-transferowe.png',
+        lead: 'Wypukłe naklejki bez widocznego tła, przeznaczone do szkła, metalu, ceramiki i akrylu.',
+        option_label: 'Format',
+        options: ['3 × 3 cm', '5 × 5 cm', '7 × 7 cm'],
+        number_label: 'Numer',
+        name_label: 'Krótki napis',
+        has_size_guide: false,
+    },
+    cosmetic: {
+        name: 'Kosmetyczka klubowa',
+        price: 69,
+        image: '../assets/products/activio-kosmetyczka.png',
+        lead: 'Wodoodporna kosmetyczka na trening i wyjazdy z klubowym nadrukiem oraz krótką personalizacją.',
+        option_label: 'Kolor',
+        options: ['Czarna', 'Granatowa'],
+        number_label: 'Numer',
+        name_label: 'Imię lub nazwisko',
+        has_size_guide: false,
+    },
+    waistbag: {
+        name: 'Nerka sportowa',
+        price: 59,
+        image: '../assets/products/activio-nerka.png',
+        lead: 'Kompaktowa nerka z regulowanym paskiem, klubowym nadrukiem i miejscem na imię.',
+        option_label: 'Kolor',
+        options: ['Czarna', 'Czerwona', 'Granatowa'],
+        number_label: 'Numer',
+        name_label: 'Imię',
+        has_size_guide: false,
+    },
+    plaque: {
+        name: 'Podziękowanie klubowe',
+        price: 119,
+        image: '../assets/products/activio-podziekowania.jpg',
+        lead: 'Personalizowane podziękowanie dla sponsora, trenera lub osoby wspierającej klub.',
+        option_label: 'Format',
+        options: ['A5', 'A4'],
+        number_label: 'Rok',
+        name_label: 'Dedykacja',
+        has_size_guide: false,
+    },
+    crest: {
+        name: 'Herb klubu z pleksi',
+        price: 149,
+        image: '../assets/products/activio-herb-pleksi.jpg',
+        lead: 'Wycinany po obrysie herb z nadrukiem UV do szatni, biura albo klubowej strefy kibica.',
+        option_label: 'Rozmiar',
+        options: ['30 cm', '50 cm', '70 cm'],
+        number_label: 'Rok',
+        name_label: 'Nazwa klubu',
+        has_size_guide: false,
+    },
+    calendar: {
+        name: 'Kalendarz klubowy',
+        price: 49,
+        image: '../assets/products/activio-kalendarze.jpg',
+        lead: 'Sezonowy kalendarz z drużyną, sponsorami i terminami ważnymi dla klubowej społeczności.',
+        option_label: 'Format',
+        options: ['A4', 'A3'],
+        number_label: 'Rok',
+        name_label: 'Nazwa drużyny',
+        has_size_guide: false,
+    },
+    magnets: {
+        name: 'Zestaw magnesów taktycznych',
+        price: 39,
+        image: '../assets/products/activio-magnesy-taktyczne.jpg',
+        lead: 'Zestaw dla trenera z numerami zawodników i piłką, przygotowany w kolorach drużyny.',
+        option_label: 'Kolor drużyny',
+        options: ['Żółty', 'Niebieski', 'Czerwony'],
+        number_label: 'Numer zestawu',
+        name_label: 'Nazwa drużyny',
+        has_size_guide: false,
+    },
+    poster: {
+        name: 'Plakat klubowy',
+        price: 35,
+        image: '../assets/products/activio-plakaty.jpg',
+        lead: 'Plakat promujący mecz, nabór albo wydarzenie z klubową identyfikacją i wybranym tekstem.',
+        option_label: 'Format',
+        options: ['A3', 'A2', 'B2'],
+        number_label: 'Rok',
+        name_label: 'Tytuł wydarzenia',
+        has_size_guide: false,
+    },
 };
 
 const assumptions = {
@@ -153,7 +318,8 @@ const assumptions = {
         title: 'Oferta dla klubów',
         items: [
             'Oferta to usługa druku i produkcji kierowana bezpośrednio do organizacji sportowych.',
-            'Produkt prowadzi do zapytania albo zamówienia B2B, nie do koszyka konsumenckiego.',
+            'Katalog odwzorowuje sześć kategorii activio.pl: kafle, boczne drzewo produktów i pełną listę one-page.',
+            'Produkt prowadzi do formularza zapytania B2B z uzupełnionym tematem, nie do koszyka konsumenckiego.',
             'Katalog i producenci są kontrolowani przez ACTIVIO.',
         ],
     },
@@ -520,7 +686,7 @@ function render_cart() {
             sum + (club.support_base || 0) * item.quantity
         ), 0);
         const support_text = club.support_base
-            ? `podstawa wynagrodzenia klubu: ${format_price(support)} netto (+ VAT, jeśli dotyczy)`
+            ? `Wsparcie dla Klubu: ${format_price(support)} brutto`
             : 'produkt własny ACTIVIO';
         const item_markup = items.map((item) => {
             const product = products[item.product_id];
@@ -600,7 +766,7 @@ function render_cart() {
             const club_support = items.reduce((sum, item) => (
                 sum + (clubs[club_id].support_base || 0) * item.quantity
             ), 0);
-            return `${clubs[club_id].name} ${format_price(club_support)} netto`;
+            return `${clubs[club_id].name} ${format_price(club_support)} brutto`;
         });
     const club_count = new Set(
         cart_items.filter((item) => item.club_id !== 'activio').map((item) => item.club_id),
@@ -613,7 +779,7 @@ function render_cart() {
         element.textContent = format_price(subtotal);
     });
     document.querySelectorAll('[data-cart-support]').forEach((element) => {
-        element.textContent = `${format_price(support)} netto`;
+        element.textContent = `${format_price(support)} brutto`;
     });
     document.querySelectorAll('[data-shipping-total]').forEach((element) => {
         element.textContent = format_price(shipping);
@@ -623,8 +789,8 @@ function render_cart() {
     });
     document.querySelectorAll('[data-cart-support-split]').forEach((element) => {
         element.textContent = support_by_club.length > 0
-            ? `Podstawa wynagrodzenia: ${support_by_club.join(' · ')}`
-            : 'Brak produktów przypisanych do wynagrodzenia klubu.';
+            ? `Wsparcie dla Klubów: ${support_by_club.join(' · ')}`
+            : 'Brak produktów przypisanych do wsparcia Klubu.';
     });
     document.querySelectorAll('[data-view="cart"] [data-go="checkout"]').forEach((button) => {
         button.disabled = cart_items.length === 0;
@@ -1446,6 +1612,21 @@ document.addEventListener('click', (event) => {
             show_toast('Projekt wrócił do ACTIVIO z prośbą o poprawki');
         }
         close_action_dialog();
+        return;
+    }
+
+    const offer_question = event.target.closest('[data-offer-question]');
+    if (offer_question) {
+        const topic_input = document.querySelector('[data-offer-topic]');
+        topic_input.value = offer_question.dataset.offerQuestion;
+        document.getElementById('offer-contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.setTimeout(() => topic_input.focus(), 450);
+        return;
+    }
+
+    const scroll_button = event.target.closest('[data-scroll-to]');
+    if (scroll_button) {
+        document.getElementById(scroll_button.dataset.scrollTo)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
     }
 
