@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260729-01">
+    <meta name="activio-mockup-version" content="20260729-02">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260729-01">
+    <link rel="stylesheet" href="styles.css?v=20260729-02">
 </head>
 <body>
     <div class="prototype-bar">
@@ -63,12 +63,23 @@
             <button type="button" data-go="partner-security"><span>20</span> Bezpieczeństwo</button>
             <button type="button" data-go="partner-notifications"><span>21</span> Powiadomienia</button>
             <div class="scenario-divider"></div>
-            <button type="button" data-go="feedback-history"><span>22</span> Historia zmian</button>
-            <button type="button" data-go="project-hub"><span>23</span> O projekcie</button>
-            <button type="button" data-go="project-concept"><span>24</span> Koncepcja biznesowa</button>
-            <button type="button" data-go="project-assumptions"><span>25</span> Założenia produktu</button>
-            <button type="button" data-go="project-technical"><span>26</span> Dodatek techniczny</button>
-            <button type="button" data-go="project-research"><span>27</span> Research regulacyjny</button>
+            <button type="button" data-go="system-dashboard"><span>22</span> Operacje ACTIVIO</button>
+            <button type="button" data-go="system-clubs"><span>23</span> Kluby i onboarding</button>
+            <button type="button" data-go="system-club"><span>24</span> Karta klubu</button>
+            <button type="button" data-go="system-catalog"><span>25</span> Katalog i minima</button>
+            <button type="button" data-go="system-listings"><span>26</span> Projekty i listingi</button>
+            <button type="button" data-go="system-orders"><span>27</span> Zamówienia i wyjątki</button>
+            <button type="button" data-go="system-cases"><span>28</span> Reklamacje i korekty</button>
+            <button type="button" data-go="system-settlements"><span>29</span> Rozliczenia klubów</button>
+            <button type="button" data-go="system-settlement"><span>30</span> Akceptacja wypłaty</button>
+            <button type="button" data-go="system-audit"><span>31</span> Audyt operacyjny</button>
+            <div class="scenario-divider"></div>
+            <button type="button" data-go="feedback-history"><span>32</span> Historia zmian</button>
+            <button type="button" data-go="project-hub"><span>33</span> O projekcie</button>
+            <button type="button" data-go="project-concept"><span>34</span> Koncepcja biznesowa</button>
+            <button type="button" data-go="project-assumptions"><span>35</span> Założenia produktu</button>
+            <button type="button" data-go="project-technical"><span>36</span> Dodatek techniczny</button>
+            <button type="button" data-go="project-research"><span>37</span> Research regulacyjny</button>
         </nav>
     </aside>
 
@@ -133,6 +144,29 @@
             <button type="button" data-go="partner-settlements">Rozliczenia</button>
             <button type="button" data-go="partner-club">Klub</button>
             <button type="button" data-go="partner-notifications">Powiadomienia <b>3</b></button>
+        </nav>
+
+        <header class="system-header" data-system-header hidden>
+            <a class="system-brand" href="#system-dashboard" data-go="system-dashboard"><img src="../assets/brand/activio-logo.svg" alt="ACTIVIO"><span>System <b>Operacje</b></span></a>
+            <nav>
+                <button type="button" data-go="system-dashboard">Pulpit</button>
+                <button type="button" data-go="system-clubs">Kluby</button>
+                <button type="button" data-go="system-catalog">Katalog</button>
+                <button type="button" data-go="system-listings">Listingi</button>
+                <button type="button" data-go="system-orders">Operacje</button>
+                <button type="button" data-go="system-settlements">Rozliczenia</button>
+                <button type="button" data-go="system-audit">Audyt</button>
+            </nav>
+            <div class="system-user"><span>AN</span><div><strong>Anna Nowak</strong><small>Operator ACTIVIO</small></div></div>
+        </header>
+        <nav class="system-mobile-nav" data-system-mobile-nav hidden aria-label="Nawigacja operacji ACTIVIO">
+            <button type="button" data-go="system-dashboard">Pulpit</button>
+            <button type="button" data-go="system-clubs">Kluby</button>
+            <button type="button" data-go="system-catalog">Katalog</button>
+            <button type="button" data-go="system-listings">Listingi</button>
+            <button type="button" data-go="system-orders">Operacje</button>
+            <button type="button" data-go="system-settlements">Rozliczenia</button>
+            <button type="button" data-go="system-audit">Audyt</button>
         </nav>
 
         <section class="view marketplace-view" data-view="marketplace">
@@ -1187,6 +1221,167 @@
             </article>
         </section>
 
+        <section class="view system-view" data-view="system-dashboard" hidden>
+            <div class="system-page-head"><div><span class="eyebrow">SYSTEM / ACTIVIO</span><h1>Centrum operacyjne</h1><p>Dzisiejsza sprzedaż, kolejki i sprawy wymagające decyzji operatora.</p></div><button class="button primary" type="button" data-action="system-new-club">＋ Dodaj klub</button></div>
+            <div class="system-kpi-grid">
+                <article><span>Sprzedaż brutto dzisiaj</span><strong>12 840,00 zł</strong><small class="positive">↑ 16,2% tydzień do tygodnia</small></article>
+                <article><span>Aktywne kluby / listingi</span><strong>12 / 186</strong><small>8 listingów w przygotowaniu</small></article>
+                <article><span>Pozycje w realizacji</span><strong>74</strong><small>5 po terminie planowanym</small></article>
+                <article class="attention"><span>Decyzje operatora</span><strong>17</strong><small>6 pilnych do końca dnia</small></article>
+            </div>
+            <div class="system-dashboard-grid">
+                <article class="system-panel queue-panel">
+                    <div class="panel-heading"><div><span>Kolejka pracy</span><strong>Wymaga działania</strong></div><button type="button" data-go="system-orders">Wszystkie sprawy →</button></div>
+                    <button type="button" data-go="system-listings"><i class="system-priority high">P1</i><span><strong>3 listingi zagrożone wstrzymaniem</strong><small>Nowe minima obowiązują od 1 sierpnia</small></span><b>Oferta →</b></button>
+                    <button type="button" data-go="system-settlements"><i class="system-priority high">P1</i><span><strong>4 dokumenty rozliczeniowe do weryfikacji</strong><small>Najstarszy czeka 19 godzin</small></span><b>Rozliczenia →</b></button>
+                    <button type="button" data-go="system-cases"><i class="system-priority medium">P2</i><span><strong>2 reklamacje z możliwą korektą klubu</strong><small>Decyzja BOK przed zamknięciem lipca</small></span><b>Sprawy →</b></button>
+                    <button type="button" data-go="system-clubs"><i class="system-priority low">P3</i><span><strong>2 kluby w onboardingu</strong><small>Brakuje licencji i weryfikacji rachunku</small></span><b>Kluby →</b></button>
+                </article>
+                <article class="system-panel ops-health">
+                    <div class="panel-heading"><div><span>Stan przepływów</span><strong>Ostatnie 24 godziny</strong></div></div>
+                    <div><span>Płatności ShopSystem</span><b class="health-ok">99,8%</b><small>1 ponowienie</small></div>
+                    <div><span>Przekazanie do produkcji</span><b class="health-ok">100%</b><small>0 błędów</small></div>
+                    <div><span>Snapshoty rozliczeniowe</span><b class="health-warn">99,1%</b><small>2 do ponowienia</small></div>
+                    <div><span>Synchronizacja wysyłek</span><b class="health-ok">99,9%</b><small>1 opóźniony status</small></div>
+                    <button class="button ghost full" type="button" data-go="system-audit">Zobacz zdarzenia i ponowienia</button>
+                </article>
+            </div>
+            <article class="system-panel system-activity">
+                <div class="panel-heading"><div><span>Sprzedaż klubów</span><strong>Najaktywniejsze dzisiaj</strong></div><button type="button" data-go="system-clubs">Wszystkie kluby →</button></div>
+                <div class="table-scroll"><table><thead><tr><th>Klub</th><th>Zamówienia</th><th>Sprzedaż brutto</th><th>Naliczenie netto</th><th>Otwarte sprawy</th><th>Status</th></tr></thead><tbody>
+                    <tr><td><span class="club-cell"><img src="../assets/clubs/stal-pleszew.png" alt=""><strong>KS Stal Pleszew</strong></span></td><td>11</td><td>1 486,00 zł</td><td>228,00 zł</td><td>2</td><td><span class="table-status available">Aktywny</span></td></tr>
+                    <tr><td><span class="club-cell"><img src="../assets/clubs/kks-kalisz.webp" alt=""><strong>KKS Kalisz</strong></span></td><td>9</td><td>1 172,00 zł</td><td>184,00 zł</td><td>0</td><td><span class="table-status available">Aktywny</span></td></tr>
+                    <tr><td><span class="club-cell"><img src="../assets/clubs/jarota-jarocin.png" alt=""><strong>JKS Jarota Jarocin</strong></span></td><td>7</td><td>892,00 zł</td><td>136,00 zł</td><td>1</td><td><span class="table-status pending">Weryfikacja marki</span></td></tr>
+                </tbody></table></div>
+            </article>
+        </section>
+
+        <section class="view system-view" data-view="system-clubs" hidden>
+            <div class="system-page-head"><div><span class="eyebrow">PARTNERZY</span><h1>Kluby i onboarding</h1><p>Umowy, dane formalne, marka, rachunki i gotowość do sprzedaży.</p></div><button class="button primary" type="button" data-action="system-new-club">＋ Dodaj klub</button></div>
+            <div class="system-filter-bar"><label>⌕ <input placeholder="Nazwa, NIP, miasto lub opiekun"></label><select><option>Wszystkie statusy</option><option>Aktywne</option><option>Onboarding</option><option>Wstrzymane</option></select><select><option>Wszyscy opiekunowie</option><option>Anna Nowak</option><option>Piotr Lis</option></select></div>
+            <article class="system-panel">
+                <div class="table-scroll"><table class="system-main-table"><thead><tr><th>Klub</th><th>Status</th><th>Onboarding</th><th>Umowa</th><th>Licencja</th><th>Rozliczenia</th><th>Opiekun</th><th></th></tr></thead><tbody>
+                    <tr><td><span class="club-cell"><img src="../assets/clubs/stal-pleszew.png" alt=""><span><strong>KS Stal Pleszew</strong><small>Pleszew · NIP 6170004182</small></span></span></td><td><span class="table-status available">Aktywny</span></td><td><b>100%</b><small>6/6 kroków</small></td><td>Aktywna</td><td><span class="table-status pending">45 dni</span></td><td>VAT · miesięczne</td><td>Anna Nowak</td><td><button class="table-link" type="button" data-go="system-club">Otwórz →</button></td></tr>
+                    <tr><td><span class="club-cell"><img src="../assets/clubs/pogon-nowe-skalmierzyce.webp" alt=""><span><strong>KS Pogoń</strong><small>Nowe Skalmierzyce</small></span></span></td><td><span class="table-status production">Onboarding</span></td><td><b>67%</b><small>4/6 kroków</small></td><td>Podpisana</td><td>Brak dokumentu</td><td>Bez VAT · miesięczne</td><td>Piotr Lis</td><td><button class="table-link" type="button" data-go="system-club">Otwórz →</button></td></tr>
+                    <tr><td><span class="club-cell"><img src="../assets/clubs/jarota-jarocin.png" alt=""><span><strong>JKS Jarota Jarocin</strong><small>Jarocin</small></span></span></td><td><span class="table-status pending">Ograniczony</span></td><td><b>100%</b><small>6/6 kroków</small></td><td>Aktywna</td><td>Do odnowienia</td><td>VAT · miesięczne</td><td>Anna Nowak</td><td><button class="table-link" type="button" data-go="system-club">Otwórz →</button></td></tr>
+                </tbody></table></div>
+            </article>
+        </section>
+
+        <section class="view system-view" data-view="system-club" hidden>
+            <div class="system-breadcrumbs"><button type="button" data-go="system-clubs">← Kluby</button><span>/</span><strong>KS Stal Pleszew</strong></div>
+            <div class="system-page-head"><div class="system-club-title"><img src="../assets/clubs/stal-pleszew.png" alt=""><div><span class="eyebrow">PARTNER ACT-014</span><h1>KS Stal Pleszew</h1><p>Aktywny od 20.03.2026 · opiekun: Anna Nowak</p></div></div><div class="head-actions"><button class="button ghost" type="button" data-action="system-partner-preview">Podgląd panelu klubu</button><button class="button primary" type="button" data-action="system-club-status">Zmień status</button></div></div>
+            <div class="system-tabs"><button class="active">Przegląd</button><button data-action="system-club-documents">Dokumenty</button><button data-go="system-listings">Listingi</button><button data-go="system-settlements">Rozliczenia</button><button data-go="system-audit">Historia</button></div>
+            <div class="system-club-grid">
+                <article class="system-panel onboarding-ops">
+                    <div class="panel-heading"><div><span>Gotowość partnera</span><strong>Onboarding zakończony</strong></div><b>6/6</b></div>
+                    <ol><li class="done"><i>✓</i><span><strong>Organizacja i reprezentacja</strong><small>KRS/NIP zweryfikowane 12.03.2026</small></span><button data-action="system-review-step">Sprawdź</button></li><li class="done"><i>✓</i><span><strong>Umowa partnerska</strong><small>ACT/CLUB/2026/014 · podpisana</small></span><button data-action="download-contract">Pobierz</button></li><li class="attention"><i>!</i><span><strong>Prawa do marki</strong><small>Licencja wygasa 12.09.2026</small></span><button data-action="system-review-license">Odnowienie</button></li><li class="done"><i>✓</i><span><strong>Rachunek bankowy</strong><small>Zweryfikowany · końcówka 0047</small></span><button data-action="system-review-bank">Sprawdź</button></li><li class="done"><i>✓</i><span><strong>Oferta i ceny</strong><small>4 aktywne · 1 projekt</small></span><button data-go="system-listings">Listingi</button></li><li class="done"><i>✓</i><span><strong>Publikacja witryny</strong><small>stal-pleszew · aktywna</small></span><button data-go="club" data-club-id="stal">Podgląd</button></li></ol>
+                </article>
+                <article class="system-panel system-club-facts"><div class="panel-heading"><div><span>Dane rozliczeniowe</span><strong>Zweryfikowane</strong></div><button data-action="system-edit-club">Edytuj</button></div><dl><div><dt>NIP</dt><dd>617 000 41 82</dd></div><div><dt>Status VAT</dt><dd>Czynny podatnik VAT</dd></div><div><dt>Cykl</dt><dd>Miesięczny · do 5. dnia</dd></div><div><dt>Rachunek</dt><dd>PL •••• 0047</dd></div><div><dt>Saldo netto</dt><dd>1 286,00 zł</dd></div><div><dt>Otwarta korekta</dt><dd class="negative">−9,00 zł</dd></div></dl><button class="button ghost full" type="button" data-go="system-settlements">Przejdź do rozliczeń</button></article>
+            </div>
+        </section>
+
+        <section class="view system-view" data-view="system-catalog" hidden>
+            <div class="system-page-head"><div><span class="eyebrow">KATALOG CENTRALNY</span><h1>Produkty i ceny minimalne</h1><p>Szablony ACTIVIO, producenci, personalizacje i wersjonowane minima dla klubów.</p></div><button class="button primary" type="button" data-action="system-new-template">＋ Nowy szablon</button></div>
+            <div class="system-kpi-grid compact"><article><span>Aktywne szablony</span><strong>42</strong><small>8 kategorii</small></article><article><span>Warianty cenowe</span><strong>316</strong><small>Rozmiar × personalizacja</small></article><article><span>Zmiany zaplanowane</span><strong>12</strong><small>Od 1 sierpnia</small></article><article class="attention"><span>Konflikty cen</span><strong>3</strong><small>Listingi wymagają reakcji</small></article></div>
+            <article class="system-panel">
+                <div class="system-filter-bar inside"><label>⌕ <input placeholder="Produkt, SKU lub producent"></label><select><option>Wszystkie kategorie</option><option>Odzież</option><option>Gadżety</option></select><select><option>Wszyscy producenci</option><option>ACTIVIO</option></select></div>
+                <div class="table-scroll"><table class="system-main-table"><thead><tr><th>Szablon</th><th>Producent</th><th>Warianty</th><th>Personalizacja</th><th>Minimum od</th><th>Listingi klubów</th><th>Status</th><th></th></tr></thead><tbody>
+                    <tr><td><span class="product-cell"><img src="../assets/products/koszulki-sportowe.jpg" alt=""><span><strong>Koszulka sportowa</strong><small>CAT-TS-001</small></span></span></td><td>ACTIVIO</td><td>7 rozmiarów</td><td>Numer + nazwisko</td><td><strong>69,00 zł brutto</strong><small>84,00 zł S–XL z nadrukiem od 01.08</small></td><td>38 aktywnych</td><td><span class="table-status pending">Zmiana ceny</span></td><td><button class="table-link" data-action="system-template-detail">Edytuj →</button></td></tr>
+                    <tr><td><span class="product-cell"><img src="../assets/products/bluzy.jpg" alt=""><span><strong>Bluza z kapturem</strong><small>CAT-HD-002</small></span></span></td><td>ACTIVIO</td><td>7 rozmiarów</td><td>Napis opcjonalny</td><td><strong>139,00 zł brutto</strong></td><td>27 aktywnych</td><td><span class="table-status available">Aktywny</span></td><td><button class="table-link" data-action="system-template-detail">Edytuj →</button></td></tr>
+                    <tr><td><span class="product-cell"><img src="../assets/products/kubki.jpg" alt=""><span><strong>Kubek 330 ml</strong><small>CAT-MG-004</small></span></span></td><td>ACTIVIO</td><td>2 kolory</td><td>Imię / numer</td><td><strong>29,00 zł brutto</strong></td><td>31 aktywnych</td><td><span class="table-status available">Aktywny</span></td><td><button class="table-link" data-action="system-template-detail">Edytuj →</button></td></tr>
+                </tbody></table></div>
+            </article>
+            <div class="system-rule-card"><i>i</i><div><strong>Zmiana minimum nigdy nie nadpisuje ceny listingu.</strong><p>Tworzy przyszłą wersję reguły, wskazuje dotknięte listingi i uruchamia termin reakcji klubu. W dniu wejścia system ponownie waliduje listing i ewentualnie go wstrzymuje.</p></div><button type="button" data-action="system-price-impact">Pokaż wpływ zmiany</button></div>
+        </section>
+
+        <section class="view system-view" data-view="system-listings" hidden>
+            <div class="system-page-head"><div><span class="eyebrow">OFERTA KLUBÓW</span><h1>Projekty i listingi</h1><p>Kolejka przygotowania, akceptacji, publikacji i zmian cen.</p></div><button class="button ghost" type="button" data-action="system-bulk-review">Tryb przeglądu</button></div>
+            <div class="workflow-counters"><button class="active">Wszystkie <b>186</b></button><button>Projekt ACTIVIO <b>5</b></button><button>Akceptacja klubu <b>3</b></button><button>Weryfikacja ACTIVIO <b>4</b></button><button>Konflikt ceny <b>3</b></button><button>Opublikowane <b>171</b></button></div>
+            <article class="system-panel">
+                <div class="table-scroll"><table class="system-main-table"><thead><tr><th>Klub / produkt</th><th>Projekt</th><th>Cena detaliczna</th><th>Minimum</th><th>Licencja</th><th>Status</th><th></th></tr></thead><tbody>
+                    <tr><td><span class="product-cell"><img src="../assets/products/koszulki-sportowe.jpg" alt=""><span><strong>KS Stal · Koszulka</strong><small>LST-014-001 · wersja 3</small></span></span></td><td>Zaakceptowany</td><td>129,00 zł brutto</td><td><strong>69,00 zł</strong><small>84,00 zł od 01.08 dla wariantu</small></td><td><span class="table-status pending">45 dni</span></td><td><span class="table-status pending">Reakcja cenowa</span></td><td><button class="table-link" type="button" data-action="system-listing-review">Przejrzyj →</button></td></tr>
+                    <tr><td><span class="product-cell"><img src="../assets/products/karty-zawodnika.jpg" alt=""><span><strong>KS Stal · Torba sportowa</strong><small>LST-014-005 · wersja 2</small></span></span></td><td>Klub zaakceptował</td><td>99,00 zł brutto</td><td>69,00 zł</td><td><span class="table-status available">Ważna</span></td><td><span class="table-status production">Weryfikacja ACTIVIO</span></td><td><button class="table-link" type="button" data-action="system-listing-review">Przejrzyj →</button></td></tr>
+                    <tr><td><span class="product-cell"><img src="../assets/products/bluzy.jpg" alt=""><span><strong>JKS Jarota · Bluza</strong><small>LST-009-013 · wersja 1</small></span></span></td><td>Do poprawek</td><td>189,00 zł brutto</td><td>139,00 zł</td><td><span class="table-status reversed">Wygasa</span></td><td><span class="table-status issue">Blokada marki</span></td><td><button class="table-link" type="button" data-action="system-listing-review">Przejrzyj →</button></td></tr>
+                </tbody></table></div>
+            </article>
+        </section>
+
+        <section class="view system-view" data-view="system-orders" hidden>
+            <div class="system-page-head"><div><span class="eyebrow">REALIZACJA</span><h1>Zamówienia i wyjątki</h1><p>Pozycje ACTIVIO wzbogacone o kontekst klubu; źródłem statusu transakcji i realizacji pozostaje ShopSystem.</p></div><button class="button ghost" type="button" data-action="system-export-operations">Eksport kolejki</button></div>
+            <div class="system-scope-note"><i>⇄</i><div><strong>To widok operacyjny ACTIVIO, nie drugi system zamówień.</strong><p>Płatność, produkcja i wysyłka są obsługiwane w ShopSystem. Ten ekran łączy ich status z listingiem, personalizacją i przyszłym naliczeniem klubu.</p></div></div>
+            <div class="workflow-counters"><button class="active">Wszystkie <b>486</b></button><button>Do produkcji <b>18</b></button><button>Po terminie <b>5</b></button><button>Błąd integracji <b>2</b></button><button>Reklamacja <b>7</b></button></div>
+            <article class="system-panel">
+                <div class="table-scroll"><table class="system-main-table"><thead><tr><th>Pozycja</th><th>Klub</th><th>Produkt / personalizacja</th><th>ShopSystem</th><th>Produkcja</th><th>Naliczenie</th><th>Ryzyko</th><th></th></tr></thead><tbody>
+                    <tr><td><strong>AC/2026/1048 · 1</strong><small>23.07 · 17:42</small></td><td>KS Stal</td><td><strong>Koszulka klubowa</strong><small>M · 10 · KOWALSKI</small></td><td><span class="table-status paid">Opłacone</span></td><td><span class="table-status production">W produkcji</span></td><td>20,00 zł netto<small>Oczekuje</small></td><td>—</td><td><button class="table-link" data-action="system-order-detail">Otwórz →</button></td></tr>
+                    <tr><td><strong>AC/2026/1031 · 2</strong><small>22.07 · 10:14</small></td><td>KKS Kalisz</td><td><strong>Bluza klubowa</strong><small>L · bez personalizacji</small></td><td><span class="table-status paid">Opłacone</span></td><td><span class="table-status issue">Po terminie</span></td><td>28,00 zł netto<small>Wstrzymane</small></td><td><span class="system-priority high">P1</span></td><td><button class="table-link" data-action="system-order-detail">Otwórz →</button></td></tr>
+                    <tr><td><strong>AC/2026/1029 · 1</strong><small>22.07 · 09:31</small></td><td>KS Stal</td><td><strong>Bidon klubowy</strong><small>Numer 7</small></td><td><span class="table-status shipped">Dostarczone</span></td><td>Zakończona</td><td>9,00 zł netto<small>Korekta możliwa</small></td><td><span class="table-status issue">Reklamacja</span></td><td><button class="table-link" data-go="system-cases">Sprawa →</button></td></tr>
+                </tbody></table></div>
+            </article>
+        </section>
+
+        <section class="view system-view" data-view="system-cases" hidden>
+            <div class="system-page-head"><div><span class="eyebrow">BOK I FINANSE</span><h1>Reklamacje i korekty</h1><p>Decyzja klientowska ACTIVIO oraz jej jawny, odwracalny wpływ na ledger klubu.</p></div><button class="button ghost" type="button" data-go="system-orders">Wróć do operacji</button></div>
+            <div class="case-layout">
+                <article class="system-panel case-list"><div class="panel-heading"><div><span>Otwarte sprawy</span><strong>7 reklamacji</strong></div></div><button class="active"><i class="system-priority high">P1</i><span><strong>REK/2026/118 · Bidon</strong><small>KS Stal · wada nadruku · 9,00 zł</small></span></button><button><i class="system-priority medium">P2</i><span><strong>REK/2026/115 · Bluza</strong><small>KKS Kalisz · opóźnienie · 28,00 zł</small></span></button><button><i class="system-priority low">P3</i><span><strong>REK/2026/109 · Kubek</strong><small>JKS Jarota · uszkodzenie · 8,00 zł</small></span></button></article>
+                <article class="system-panel case-detail">
+                    <div class="panel-heading"><div><span>REK/2026/118</span><strong>Wada nadruku na bidonie</strong></div><span class="table-status production">Do decyzji</span></div>
+                    <dl><div><dt>Pozycja</dt><dd>AC/2026/1029 · 1</dd></div><div><dt>Klub</dt><dd>KS Stal Pleszew</dd></div><div><dt>Żądanie klienta</dt><dd>Ponowna produkcja</dd></div><div><dt>Odpowiedzialność</dt><dd>ACTIVIO / produkcja</dd></div></dl>
+                    <div class="case-evidence"><span>Dowody sprawy</span><button type="button" data-action="system-case-evidence">2 zdjęcia produktu</button><button type="button" data-action="system-order-detail">Historia realizacji</button></div>
+                    <div class="correction-preview"><span>Wpływ na klub przy uznaniu i korekcie</span><strong>−9,00 zł netto</strong><small>Powstanie nowy wpis `adjustment`; pierwotne naliczenie nie zostanie usunięte.</small></div>
+                    <div class="dialog-actions"><button class="dialog-button" type="button" data-action="system-case-reproduce">Ponowna produkcja bez korekty</button><button class="dialog-button primary" type="button" data-action="system-case-adjust">Uznaj i utwórz korektę</button></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="view system-view" data-view="system-settlements" hidden>
+            <div class="system-page-head"><div><span class="eyebrow">FINANSE PARTNERÓW</span><h1>Rozliczenia klubów</h1><p>Zamykanie okresów, dokumenty, korekty oraz ręcznie zatwierdzane wypłaty.</p></div><button class="button primary" type="button" data-action="system-close-period">Zamknij okres lipca</button></div>
+            <div class="system-kpi-grid compact"><article><span>Do wypłaty brutto</span><strong>18 492,17 zł</strong><small>12 klubów</small></article><article><span>Dokumenty do weryfikacji</span><strong>4</strong><small>5 841,22 zł brutto</small></article><article><span>Zaplanowane wypłaty</span><strong>8</strong><small>05.08.2026</small></article><article class="attention"><span>Blokady</span><strong>2</strong><small>Rachunek / ujemne saldo</small></article></div>
+            <article class="system-panel">
+                <div class="table-scroll"><table class="system-main-table"><thead><tr><th>Klub / okres</th><th>Sprzedaż</th><th>Korekty</th><th>Podstawa netto</th><th>VAT</th><th>Brutto</th><th>Dokument</th><th>Wypłata</th><th></th></tr></thead><tbody>
+                    <tr><td><strong>KS Stal Pleszew</strong><small>Lipiec 2026 · 67 zamówień</small></td><td>1 049,00 zł</td><td class="amount minus">−9,00 zł</td><td><strong>1 040,00 zł</strong></td><td>239,20 zł</td><td>1 279,20 zł</td><td><span class="table-status production">Do weryfikacji</span></td><td>05.08</td><td><button class="table-link" type="button" data-go="system-settlement">Sprawdź →</button></td></tr>
+                    <tr><td><strong>KKS Kalisz</strong><small>Lipiec 2026 · 58 zamówień</small></td><td>1 184,00 zł</td><td>0,00 zł</td><td><strong>1 184,00 zł</strong></td><td>272,32 zł</td><td>1 456,32 zł</td><td><span class="table-status available">Zweryfikowany</span></td><td><span class="table-status pending">Zaplanowana</span></td><td><button class="table-link" type="button" data-go="system-settlement">Sprawdź →</button></td></tr>
+                    <tr><td><strong>KS Pogoń</strong><small>Lipiec 2026 · onboarding</small></td><td>0,00 zł</td><td>0,00 zł</td><td><strong>0,00 zł</strong></td><td>—</td><td>0,00 zł</td><td>Nie dotyczy</td><td><span class="table-status reversed">Brak sprzedaży</span></td><td><button class="table-link" type="button" data-go="system-club">Klub →</button></td></tr>
+                </tbody></table></div>
+            </article>
+        </section>
+
+        <section class="view system-view" data-view="system-settlement" hidden>
+            <div class="system-breadcrumbs"><button type="button" data-go="system-settlements">← Rozliczenia</button><span>/</span><strong>KS Stal · lipiec 2026</strong></div>
+            <div class="system-page-head"><div><span class="eyebrow">WERYFIKACJA WYPŁATY</span><h1>KS Stal Pleszew · lipiec</h1><p>Dokument, saldo, rachunek i ślad akceptacji przed zleceniem wypłaty.</p></div><span class="table-status production status-large" data-system-settlement-status>Do weryfikacji</span></div>
+            <div class="approval-layout">
+                <article class="system-panel approval-checklist">
+                    <div class="panel-heading"><div><span>Kontrola rozliczenia</span><strong>4 z 5 warunków spełnione</strong></div><b>80%</b></div>
+                    <ol><li class="done"><i>✓</i><span><strong>Okres zamknięty</strong><small>31.07.2026 · 23:59</small></span></li><li class="done"><i>✓</i><span><strong>Ledger uzgodniony</strong><small>94 sprzedaże · 1 korekta · suma 1 040,00 zł</small></span></li><li class="done"><i>✓</i><span><strong>Rachunek bankowy zweryfikowany</strong><small>PL •••• 0047 · bez zmian od 12.03</small></span></li><li class="done"><i>✓</i><span><strong>Status VAT zgodny</strong><small>Czynny podatnik · biała lista sprawdzona</small></span></li><li class="active"><i>5</i><span><strong>Faktura FV/07/2026</strong><small>PDF otrzymany · wymaga akceptacji operatora</small></span></li></ol>
+                </article>
+                <article class="system-panel invoice-preview">
+                    <div class="panel-heading"><div><span>Dokument klubu</span><strong>FV/07/2026.pdf</strong></div><button type="button" data-action="system-download-invoice">Pobierz</button></div>
+                    <dl><div><dt>Sprzedawca</dt><dd>KS Stal Pleszew</dd></div><div><dt>Nabywca</dt><dd>ACTIVIO</dd></div><div><dt>Netto</dt><dd>1 040,00 zł</dd></div><div><dt>VAT 23%</dt><dd>239,20 zł</dd></div><div><dt>Brutto</dt><dd><strong>1 279,20 zł</strong></dd></div><div><dt>Rachunek</dt><dd>PL •••• 0047</dd></div></dl>
+                    <div class="document-match"><i>✓</i><span><strong>Kwoty i rachunek zgodne</strong><small>Automatyczna kontrola nie zastępuje decyzji operatora.</small></span></div>
+                </article>
+            </div>
+            <article class="system-panel settlement-approval">
+                <div><span>Decyzja operatora</span><strong>1 279,20 zł brutto · planowana wypłata 05.08.2026</strong><small>Zatwierdzenie utworzy zlecenie wypłaty i nieedytowalny wpis w audycie.</small></div>
+                <button class="button ghost" type="button" data-action="system-reject-invoice">Zwróć dokument do klubu</button>
+                <button class="button primary" type="button" data-action="system-approve-settlement">Zatwierdź do wypłaty</button>
+            </article>
+        </section>
+
+        <section class="view system-view" data-view="system-audit" hidden>
+            <div class="system-page-head"><div><span class="eyebrow">KONTROLA I OBSERWOWALNOŚĆ</span><h1>Audyt operacyjny</h1><p>Decyzje ludzi, zdarzenia integracyjne, ponowienia i uzgodnienie danych.</p></div><button class="button ghost" type="button" data-action="system-export-audit">Eksportuj audyt</button></div>
+            <div class="audit-scope-grid"><article class="system-panel"><span>Zdarzenia dzisiaj</span><strong>4 812</strong><small>100% z correlation ID</small></article><article class="system-panel"><span>Nieudane integracje</span><strong>2</strong><small>Gotowe do bezpiecznego ponowienia</small></article><article class="system-panel"><span>Różnice uzgodnienia</span><strong>0</strong><small>ShopSystem ↔ Activio ledger</small></article></div>
+            <article class="system-panel">
+                <div class="system-filter-bar inside"><label>⌕ <input placeholder="ID, klub, operator lub correlation ID"></label><select><option>Wszystkie źródła</option><option>Operator</option><option>ShopSystem</option><option>Activio</option></select><select><option>Wszystkie wyniki</option><option>Sukces</option><option>Błąd</option></select></div>
+                <div class="table-scroll"><table class="system-main-table"><thead><tr><th>Czas</th><th>Źródło</th><th>Zdarzenie</th><th>Obiekt</th><th>Operator / correlation</th><th>Wynik</th><th></th></tr></thead><tbody>
+                    <tr><td>18:14:08</td><td>Partner panel</td><td>ORDER_ITEM_VIEWED</td><td>AC/2026/1048 · 1</td><td>Marek Kowalski<small>cor-8fa19c</small></td><td><span class="table-status available">Sukces</span></td><td><button class="table-link" data-action="system-audit-detail">Szczegóły</button></td></tr>
+                    <tr><td>17:42:13</td><td>ShopSystem</td><td>ORDER_ITEM_PAID</td><td>AC/2026/1048 · 1</td><td>system<small>cor-29ab17</small></td><td><span class="table-status available">Sukces</span></td><td><button class="table-link" data-action="system-audit-detail">Szczegóły</button></td></tr>
+                    <tr><td>17:42:14</td><td>Activio</td><td>SETTLEMENT_ENTRY_CREATE</td><td>SET-014-1048-1</td><td>system<small>cor-29ab17</small></td><td><span class="table-status issue">Błąd</span></td><td><button class="table-link" data-action="system-retry-event">Ponów</button></td></tr>
+                    <tr><td>17:43:02</td><td>Activio</td><td>SETTLEMENT_ENTRY_CREATE</td><td>SET-014-1048-1</td><td>Anna Nowak<small>cor-29ab17 · retry 1</small></td><td><span class="table-status available">Sukces</span></td><td><button class="table-link" data-action="system-audit-detail">Szczegóły</button></td></tr>
+                </tbody></table></div>
+            </article>
+            <div class="system-rule-card"><i>✓</i><div><strong>Ponowienie jest idempotentne.</strong><p>Używa tego samego klucza zdarzenia i pozycji. Nie może utworzyć drugiego naliczenia, wypłaty ani korekty.</p></div><button type="button" data-action="system-reconciliation">Uruchom uzgodnienie kontrolne</button></div>
+        </section>
+
         <section class="view feedback-history-view" data-view="feedback-history" data-feedback-ui data-html2canvas-ignore hidden>
             <div class="feedback-history-hero">
                 <div>
@@ -1460,7 +1655,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260729-01"></script>
-    <script src="feedback.js?v=20260729-01"></script>
+    <script src="app.js?v=20260729-02"></script>
+    <script src="feedback.js?v=20260729-02"></script>
 </body>
 </html>

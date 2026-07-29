@@ -2,6 +2,8 @@ const views = [...document.querySelectorAll('[data-view]')];
 const store_header = document.querySelector('[data-store-header]');
 const partner_header = document.querySelector('[data-partner-header]');
 const partner_mobile_nav = document.querySelector('[data-partner-mobile-nav]');
+const system_header = document.querySelector('[data-system-header]');
+const system_mobile_nav = document.querySelector('[data-system-mobile-nav]');
 const store_footer = document.querySelector('[data-store-footer]');
 const scenario_rail = document.querySelector('[data-scenario-rail]');
 const scenario_backdrop = document.querySelector('.scenario-backdrop');
@@ -37,6 +39,23 @@ const partner_nav_roots = {
     'partner-brand': 'partner-club',
     'partner-team': 'partner-club',
     'partner-security': 'partner-club',
+};
+const system_views = [
+    'system-dashboard',
+    'system-clubs',
+    'system-club',
+    'system-catalog',
+    'system-listings',
+    'system-orders',
+    'system-cases',
+    'system-settlements',
+    'system-settlement',
+    'system-audit',
+];
+const system_nav_roots = {
+    'system-club': 'system-clubs',
+    'system-cases': 'system-orders',
+    'system-settlement': 'system-settlements',
 };
 const valid_views = views.map((view) => view.dataset.view);
 const document_cache = new Map();
@@ -518,6 +537,86 @@ const assumptions = {
             'Komunikaty prowadzą do konkretnego produktu, rozliczenia, zamówienia albo ustawienia.',
             'Najważniejsze alerty dotyczą ceny minimalnej, dokumentów, praw do marki i bezpieczeństwa.',
             'Oznaczenie jako przeczytane nie usuwa komunikatu ani śladu wysyłki.',
+        ],
+    },
+    'system-dashboard': {
+        title: 'Operacje ACTIVIO',
+        items: [
+            'To zaplecze BOK i operacji ACTIVIO w istniejącym Systemie, nie panel klubu ani nowy produkt sklepowy.',
+            'Kolejki łączą dane domeny Activio ze statusami ShopSystem, ale nie kopiują jego odpowiedzialności.',
+            'Decyzje operatora, ponowienia i zmiany statusów są audytowane.',
+        ],
+    },
+    'system-clubs': {
+        title: 'Kluby i onboarding',
+        items: [
+            'Klub jest partnerem domeny Activio, nie osobnym Shop ani Offer w ShopSystem.',
+            'Sprzedaż można uruchomić dopiero po umowie, weryfikacji organizacji, praw do marki i rachunku.',
+            'Status ograniczony pozwala blokować wybrane procesy bez usuwania historii partnera.',
+        ],
+    },
+    'system-club': {
+        title: 'Karta klubu',
+        items: [
+            'Karta agreguje dane partnera i odsyła do listingów, rozliczeń oraz audytu.',
+            'Wrażliwe zmiany wymagają powodu, odpowiednich uprawnień i śladu decyzji.',
+            'Panel klubu otwierany z Systemu pozostaje objęty izolacją tenantową.',
+        ],
+    },
+    'system-catalog': {
+        title: 'Katalog i minima',
+        items: [
+            'ACTIVIO kontroluje szablony produktów, producentów, warianty i dostępne personalizacje.',
+            'Minimum jest wersjonowane per wariant i personalizację oraz może obowiązywać od przyszłej daty.',
+            'Zmiana minimum wskazuje dotknięte listingi; nie nadpisuje ceny ustalonej przez klub.',
+        ],
+    },
+    'system-listings': {
+        title: 'Projekty i listingi',
+        items: [
+            'Publikacja wymaga zgodnej ceny, zaakceptowanego projektu, aktywnych praw do marki i kontroli ACTIVIO.',
+            'Akceptacja klubu nie oznacza automatycznej publikacji.',
+            'Każda wersja projektu, ceny i statusu pozostaje w historii.',
+        ],
+    },
+    'system-orders': {
+        title: 'Zamówienia i wyjątki',
+        items: [
+            'ShopSystem pozostaje źródłem transakcji, płatności, produkcji i wysyłki.',
+            'Activio przechowuje powiązanie pozycji z klubem, listingiem, personalizacją i snapshotem rozliczenia.',
+            'Widok operacyjny służy obsłudze wyjątków, nie tworzy drugiego systemu zamówień.',
+        ],
+    },
+    'system-cases': {
+        title: 'Reklamacje i korekty',
+        items: [
+            'ACTIVIO odpowiada klientowi i podejmuje decyzję reklamacyjną.',
+            'Ponowna produkcja nie zawsze oznacza korektę wynagrodzenia klubu.',
+            'Uznana korekta tworzy nowy wpis ledgeru i nie usuwa pierwotnego naliczenia.',
+        ],
+    },
+    'system-settlements': {
+        title: 'Rozliczenia klubów',
+        items: [
+            'Okresy są zamykane miesięcznie, a wypłaty zatwierdzane ręcznie przez ACTIVIO.',
+            'Dokument, VAT, rachunek, korekty i saldo muszą być zgodne przed wypłatą.',
+            'To księga zobowiązań i proces rozliczeniowy, nie portfel płatniczy.',
+        ],
+    },
+    'system-settlement': {
+        title: 'Akceptacja wypłaty',
+        items: [
+            'Operator zatwierdza dokument i tworzy zlecenie wypłaty dopiero po kompletnej kontroli.',
+            'Zmiana rachunku albo statusu podatkowego blokuje proces do ponownej weryfikacji.',
+            'Decyzja i jej uzasadnienie są nieedytowalnym zdarzeniem audytowym.',
+        ],
+    },
+    'system-audit': {
+        title: 'Audyt operacyjny',
+        items: [
+            'Zdarzenia przechodzą z correlation ID przez ShopSystem, Activio i procesy operacyjne.',
+            'Ponowienia używają idempotency key, więc nie mogą dublować naliczeń, korekt ani wypłat.',
+            'Uzgodnienie kontrolne porównuje źródłowe pozycje zamówień ze snapshotami i ledgerem.',
         ],
     },
     'project-hub': {
@@ -1285,6 +1384,111 @@ function show_action(action, source) {
         return;
     }
 
+    if (action === 'system-new-club') {
+        open_action_dialog('Nowy partner klubowy', `
+            <form class="action-form" data-action-form="system-new-club">
+                <label>Nazwa klubu<input name="club" required></label><label>NIP<input name="nip" required></label>
+                <label>Miasto<input name="city" required></label><label>Opiekun<select name="manager"><option>Anna Nowak</option><option>Piotr Lis</option></select></label>
+                <label class="wide">E-mail reprezentanta<input name="email" type="email" required></label>
+                <p class="action-form-note">Utworzenie partnera rozpoczyna onboarding. Nie publikuje witryny ani produktów.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Rozpocznij onboarding</button></footer>
+            </form>
+        `, 'SYSTEM / ACTIVIO');
+        return;
+    }
+
+    if (action === 'system-club-status') {
+        open_action_dialog('Status KS Stal Pleszew', `
+            <form class="action-form" data-action-form="system-club-status">
+                <label class="wide">Nowy status<select name="status" required><option>Aktywny</option><option>Ograniczony</option><option>Wstrzymany</option></select></label>
+                <label class="wide">Uzasadnienie<textarea name="reason" required placeholder="Powód i zakres ograniczenia"></textarea></label>
+                <p class="action-form-note">Wstrzymanie partnera blokuje publikację i sprzedaż jego listingów, ale nie usuwa danych ani historii.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zapisz decyzję</button></footer>
+            </form>
+        `, 'DECYZJA OPERATORA');
+        return;
+    }
+
+    if (action === 'system-partner-preview') {
+        open_action_dialog('Podgląd panelu KS Stal Pleszew', `
+            <p class="action-info">Operator może otworzyć bezpieczny podgląd w kontekście wskazanego klubu. Tryb jest tylko do odczytu, wyraźnie oznaczony i zapisany w audycie — nie używa sesji partnera ani nie omija polityk tenantowych.</p>
+            <div class="dialog-actions"><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="button" data-action="system-open-partner-preview">Otwórz podgląd tylko do odczytu</button></div>
+        `, 'KONTROLOWANY PODGLĄD');
+        return;
+    }
+
+    if (['system-club-documents', 'system-review-step', 'system-review-license', 'system-review-bank', 'system-edit-club'].includes(action)) {
+        const system_club_dialogs = {
+            'system-club-documents': ['Dokumenty klubu', 'Umowa partnerska · podpisana<br>Licencja na markę · ważna do 12.09.2026<br>Potwierdzenie rachunku · zweryfikowane'],
+            'system-review-step': ['Weryfikacja organizacji', 'KRS 0000128456 · NIP 6170004182 · reprezentacja zgodna z dokumentami.'],
+            'system-review-license': ['Odnowienie licencji', 'Aktualna licencja wygasa 12.09.2026. Klub otrzymał przypomnienie; nowy dokument nie został jeszcze przekazany.'],
+            'system-review-bank': ['Weryfikacja rachunku', 'Rachunek PL •••• 0047 zweryfikowano 12.03.2026. Brak późniejszych zmian.'],
+            'system-edit-club': ['Edycja danych rozliczeniowych', 'Zmiana danych formalnych wymaga dokumentu źródłowego, uprawnienia operatora i wpisu audytowego.'],
+        }[action];
+        open_action_dialog(system_club_dialogs[0], `<p class="action-info">${system_club_dialogs[1]}</p><div class="dialog-actions"><button class="dialog-button primary" type="button" data-action-close>Zamknij</button></div>`, 'KARTA KLUBU');
+        return;
+    }
+
+    if (action === 'system-new-template' || action === 'system-template-detail') {
+        open_action_dialog(action === 'system-new-template' ? 'Nowy szablon katalogowy' : 'Koszulka sportowa · CAT-TS-001', `
+            <form class="action-form" data-action-form="system-catalog-template">
+                <label>Nazwa<input name="name" value="${action === 'system-new-template' ? '' : 'Koszulka sportowa'}" required></label>
+                <label>Producent<select name="producer"><option>ACTIVIO</option></select></label>
+                <label>Minimum bazowe brutto<input name="minimum" type="number" min="0" value="${action === 'system-new-template' ? '' : '69'}" required></label>
+                <label>Obowiązuje od<input name="effective" type="date" value="2026-08-01" required></label>
+                <label class="wide">Personalizacja<select name="personalization"><option>Numer + nazwisko</option><option>Napis</option><option>Brak</option></select></label>
+                <p class="action-form-note">Zmiana tworzy nową wersję minimum. Nie modyfikuje cen historycznych ani ceny klubu.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zapisz wersję</button></footer>
+            </form>
+        `, 'KATALOG ACTIVIO');
+        return;
+    }
+
+    if (action === 'system-price-impact') {
+        open_action_dialog('Wpływ minimum od 1 sierpnia', `
+            <div class="info-grid"><article><span>38</span><div><strong>Listingi koszulki</strong><p>Korzystają z dotkniętych wariantów.</p></div></article><article><span>3</span><div><strong>Konflikty cen</strong><p>Zostaną wstrzymane bez reakcji klubu.</p></div></article><article><span>35</span><div><strong>Bez konfliktu</strong><p>Cena detaliczna pozostaje poprawna.</p></div></article></div>
+        `, 'ANALIZA CEN');
+        return;
+    }
+
+    if (action === 'system-listing-review') {
+        open_action_dialog('Weryfikacja listingu', `
+            <div class="project-preview"><img src="${products.shirt.image}" alt="Projekt produktu"><div><strong>KS Stal · Koszulka · wersja 3</strong><p>Projekt zaakceptowany przez klub. Cena 129,00 zł; minimum wariantu od 01.08: 84,00 zł.</p></div></div>
+            <div class="tracking-list"><div><i>✓</i><span><strong>Prawa do marki</strong><small>Ważne do 12.09.2026</small></span></div><div><i>✓</i><span><strong>Cena i warianty</strong><small>Brak konfliktu w tym listingu</small></span></div><div><i>✓</i><span><strong>Plik produkcyjny</strong><small>Wersja 3 gotowa</small></span></div></div>
+            <div class="dialog-actions"><button class="dialog-button" type="button" data-action="system-listing-fix">Zwróć do poprawy</button><button class="dialog-button primary" type="button" data-action="system-listing-approve">Zatwierdź publikację</button></div>
+        `, 'LISTING ACTIVIO');
+        return;
+    }
+
+    if (action === 'system-order-detail') {
+        open_action_dialog('Pozycja AC/2026/1048 · 1', `
+            <div class="info-grid"><article><span>1</span><div><strong>ShopSystem</strong><p>Opłacone · transaction TX-1048 · shop ACTIVIO.</p></div></article><article><span>2</span><div><strong>Activio</strong><p>KS Stal · LST-014-001 v3 · snapshot ceny i personalizacji.</p></div></article><article><span>3</span><div><strong>Rozliczenie</strong><p>20,00 zł netto · oczekuje na dostawę i okres bezpieczeństwa.</p></div></article></div>
+            <p class="action-info">Produkcję, wysyłkę i dane klienta otwiera się w uprawnionym widoku ShopSystem. Activio nie utrzymuje ich drugiej kopii.</p>
+        `, 'KONTEKST POZYCJI');
+        return;
+    }
+
+    if (action === 'system-case-evidence') {
+        open_action_dialog('Dowody REK/2026/118', `<div class="project-preview"><img src="${products.mug.image}" alt="Zdjęcie reklamowanego produktu"><div><strong>2 pliki od klienta</strong><p>Wada nadruku widoczna po lewej stronie produktu. Dane klienta pozostają w sprawie BOK.</p></div></div>`, 'REKLAMACJA');
+        return;
+    }
+
+    if (action === 'system-reject-invoice') {
+        open_action_dialog('Zwróć dokument do klubu', `
+            <form class="action-form" data-action-form="system-reject-invoice">
+                <label class="wide">Powód<select name="reason"><option>Nieprawidłowa kwota</option><option>Nieprawidłowe dane</option><option>Nieczytelny dokument</option><option>Inny</option></select></label>
+                <label class="wide">Wiadomość<textarea name="message" required></textarea></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zwróć do poprawy</button></footer>
+            </form>
+        `, 'ROZLICZENIE');
+        return;
+    }
+
+    if (action === 'system-audit-detail') {
+        open_action_dialog('Zdarzenie cor-29ab17', `<div class="tracking-list"><div><i>✓</i><span><strong>ShopSystem · ORDER_ITEM_PAID</strong><small>17:42:13 · AC/2026/1048 · 1</small></span></div><div><i>!</i><span><strong>Activio · pierwsza próba</strong><small>17:42:14 · przejściowy błąd zapisu</small></span></div><div><i>✓</i><span><strong>Activio · retry 1</strong><small>17:43:02 · jeden wpis SET-014-1048-1</small></span></div></div>`, 'AUDYT INTEGRACJI');
+        return;
+    }
+
 }
 
 function download_blob(filename, content, type) {
@@ -1615,15 +1819,23 @@ function render_view(view_name, update_hash = true) {
     });
 
     const is_partner = partner_views.includes(next_view);
-    store_header.hidden = is_partner;
+    const is_system = system_views.includes(next_view);
+    store_header.hidden = is_partner || is_system;
     partner_header.hidden = !is_partner;
     partner_mobile_nav.hidden = !is_partner;
-    store_footer.hidden = is_partner;
+    system_header.hidden = !is_system;
+    system_mobile_nav.hidden = !is_system;
+    store_footer.hidden = is_partner || is_system;
 
     const active_partner_root = partner_nav_roots[next_view] || next_view;
+    const active_system_root = system_nav_roots[next_view] || next_view;
     document.querySelectorAll('[data-go]').forEach((button) => {
         const is_partner_navigation = button.closest('[data-partner-header], [data-partner-mobile-nav]');
-        button.classList.toggle('active', button.dataset.go === (is_partner_navigation ? active_partner_root : next_view));
+        const is_system_navigation = button.closest('[data-system-header], [data-system-mobile-nav]');
+        const active_view = is_partner_navigation
+            ? active_partner_root
+            : (is_system_navigation ? active_system_root : next_view);
+        button.classList.toggle('active', button.dataset.go === active_view);
     });
 
     render_assumptions(next_view);
@@ -1858,6 +2070,52 @@ document.addEventListener('click', (event) => {
         } else if (['remove-member', 'security-saved'].includes(action)) {
             close_action_dialog();
             show_toast(action === 'remove-member' ? 'Dostęp użytkownika został odebrany' : 'Ustawienia bezpieczeństwa zapisane');
+        } else if (['system-listing-fix', 'system-listing-approve'].includes(action)) {
+            close_action_dialog();
+            show_toast(action === 'system-listing-approve' ? 'Listing zatwierdzony do publikacji' : 'Listing zwrócony do poprawy z komentarzem operatora');
+        } else if (['system-case-reproduce', 'system-case-adjust'].includes(action)) {
+            const status = document.querySelector('[data-view="system-cases"] .case-detail .table-status');
+            status.textContent = action === 'system-case-adjust' ? 'Korekta utworzona' : 'Ponowna produkcja';
+            status.className = `table-status ${action === 'system-case-adjust' ? 'reversed' : 'production'}`;
+            action_button.closest('.dialog-actions').querySelectorAll('button').forEach((button) => button.disabled = true);
+            show_toast(action === 'system-case-adjust' ? 'Utworzono korektę −9,00 zł bez usuwania naliczenia' : 'Zlecono ponowną produkcję bez korekty klubu');
+        } else if (action === 'system-approve-settlement') {
+            const status = document.querySelector('[data-system-settlement-status]');
+            status.textContent = 'Zatwierdzone do wypłaty';
+            status.className = 'table-status available status-large';
+            action_button.textContent = 'Zatwierdzone';
+            action_button.disabled = true;
+            show_toast('Wypłata 1 279,20 zł zaplanowana na 5 sierpnia');
+        } else if (action === 'system-close-period') {
+            action_button.textContent = 'Okres lipca zamknięty';
+            action_button.disabled = true;
+            show_toast('Okres zamknięty; utworzono zestawienia dla 12 klubów');
+        } else if (action === 'system-retry-event') {
+            action_button.textContent = 'Ponowiono';
+            action_button.disabled = true;
+            action_button.closest('tr').querySelector('.table-status').textContent = 'Sukces';
+            action_button.closest('tr').querySelector('.table-status').className = 'table-status available';
+            show_toast('Zdarzenie ponowione idempotentnie — bez duplikatu');
+        } else if (action === 'system-reconciliation') {
+            action_button.textContent = 'Uzgodniono · 0 różnic';
+            action_button.disabled = true;
+            show_toast('Uzgodnienie ShopSystem ↔ Activio zakończone');
+        } else if (['system-export-operations', 'system-download-invoice', 'system-export-audit'].includes(action)) {
+            const system_files = {
+                'system-export-operations': ['activio-kolejka-operacyjna.csv', '\uFEFFPozycja;Klub;Status\nAC/2026/1048-1;KS Stal;W produkcji'],
+                'system-download-invoice': ['FV-07-2026.txt', 'Prototyp dokumentu FV/07/2026 · 1 279,20 zł brutto'],
+                'system-export-audit': ['activio-audyt-operacyjny.csv', '\uFEFFCzas;Źródło;Zdarzenie;Wynik\n17:42:13;ShopSystem;ORDER_ITEM_PAID;Sukces'],
+            };
+            const [filename, content] = system_files[action];
+            download_blob(filename, content, filename.endsWith('.csv') ? 'text/csv;charset=utf-8' : 'text/plain;charset=utf-8');
+            show_toast('Plik został przygotowany');
+        } else if (action === 'system-bulk-review') {
+            show_toast('Włączono tryb szybkiego przeglądu kolejki');
+        } else if (action === 'system-open-partner-preview') {
+            open_action_dialog('Podgląd tylko do odczytu', `
+                <div class="info-grid"><article><span>67</span><div><strong>Zamówienia w lipcu</strong><p>Dane wyłącznie KS Stal Pleszew.</p></div></article><article><span>94</span><div><strong>Sprzedane pozycje</strong><p>4 aktywne listingi klubowe.</p></div></article><article><span>1 286</span><div><strong>Naliczenie netto</strong><p>Przed zamknięciem okresu.</p></div></article></div>
+                <p class="action-info">To kontrolowany podgląd bez akcji partnera. Wejście zapisano w audycie operatora.</p>
+            `, 'KS STAL PLESZEW');
         } else {
             show_action(action, action_button);
         }
@@ -2110,6 +2368,10 @@ document.addEventListener('submit', (event) => {
         'bank-change': ['Zmiana rachunku zgłoszona', 'Weryfikacja rachunku przez ACTIVIO'],
         'contact-manager': ['Wiadomość wysłana', 'Odpowiedź opiekuna ACTIVIO'],
         'save-storefront': ['Treści przekazane', 'Weryfikacja i publikacja przez ACTIVIO'],
+        'system-new-club': ['Onboarding rozpoczęty', 'Weryfikacja organizacji i reprezentacji'],
+        'system-club-status': ['Decyzja zapisana', 'Aktualizacja procesów zależnych i powiadomienie klubu'],
+        'system-catalog-template': ['Wersja katalogu zapisana', 'Analiza wpływu na listingi klubowe'],
+        'system-reject-invoice': ['Dokument zwrócony do klubu', 'Oczekiwanie na poprawioną fakturę'],
     };
     const form_message = form_messages[form_type];
     open_action_dialog(
