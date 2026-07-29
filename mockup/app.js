@@ -16,7 +16,28 @@ const action_title = document.querySelector('[data-action-title]');
 const action_kicker = document.querySelector('[data-action-kicker]');
 const action_content = document.querySelector('[data-action-content]');
 
-const partner_views = ['partner-dashboard', 'partner-offer', 'partner-orders', 'partner-settlements'];
+const partner_views = [
+    'partner-dashboard',
+    'partner-offer',
+    'partner-listing',
+    'partner-orders',
+    'partner-order',
+    'partner-settlements',
+    'partner-settlement',
+    'partner-club',
+    'partner-brand',
+    'partner-team',
+    'partner-security',
+    'partner-notifications',
+];
+const partner_nav_roots = {
+    'partner-listing': 'partner-offer',
+    'partner-order': 'partner-orders',
+    'partner-settlement': 'partner-settlements',
+    'partner-brand': 'partner-club',
+    'partner-team': 'partner-club',
+    'partner-security': 'partner-club',
+};
 const valid_views = views.map((view) => view.dataset.view);
 const document_cache = new Map();
 const loaded_document_timestamp = Date.parse(document.lastModified) || Date.now();
@@ -429,6 +450,74 @@ const assumptions = {
             'Kwota staje się dostępna dopiero po ustalonym okresie bezpieczeństwa.',
             'Klub VAT wystawia fakturę i otrzymuje netto plus VAT; klub bez VAT wystawia dokument bez VAT i otrzymuje netto.',
             'Częstotliwość wypłat, próg minimalny i skutki ujemnego salda wymagają decyzji księgowej.',
+        ],
+    },
+    'partner-listing': {
+        title: 'Szczegóły produktu',
+        items: [
+            'Minimum ACTIVIO jest wersjonowane osobno dla wariantu i typu personalizacji.',
+            'Prognoza wynagrodzenia klubu nie wynika automatycznie z różnicy między ceną detaliczną a minimum.',
+            'Publikacja wymaga zaakceptowanego projektu, aktualnej licencji i poprawnej ceny.',
+            'Wstrzymanie listingu nie usuwa historii cen, projektów ani wcześniejszych zamówień.',
+        ],
+    },
+    'partner-order': {
+        title: 'Szczegóły zamówienia',
+        items: [
+            'Klub widzi wyłącznie własną pozycję, nie pełny mieszany koszyk.',
+            'Adres, telefon, e-mail i dane płatności kupującego pozostają po stronie ACTIVIO.',
+            'ACTIVIO obsługuje produkcję, dostawę, zwroty i reklamacje; klub widzi ich wpływ na rozliczenie.',
+            'Każde wejście w szczegóły pozycji podlega audytowi.',
+        ],
+    },
+    'partner-settlement': {
+        title: 'Okres rozliczeniowy',
+        items: [
+            'To miesięczne rozliczenie zobowiązania, nie portfel ani wypłata środków na żądanie.',
+            'ACTIVIO zamyka okres, klub przekazuje właściwy dokument, a wypłatę zatwierdza ACTIVIO.',
+            'Korekty pozostają osobnymi wpisami i są widoczne w zestawieniu.',
+            'Zmiana rachunku wymaga ponownego uwierzytelnienia i drugiego składnika.',
+        ],
+    },
+    'partner-club': {
+        title: 'Dane klubu i umowa',
+        items: [
+            'Dane formalne i podatkowe są weryfikowane przed uruchomieniem sprzedaży i rozliczeń.',
+            'Zmiana danych organizacji jest zgłoszeniem do weryfikacji, nie natychmiastową edycją rekordu.',
+            'Umowa określa model wynagrodzenia, częstotliwość rozliczeń i prawa do marki.',
+        ],
+    },
+    'partner-brand': {
+        title: 'Marka i witryna',
+        items: [
+            'Pliki marki są wersjonowane; produkty wskazują konkretną zaakceptowaną wersję.',
+            'Klub potwierdza prawo ACTIVIO do użycia nazwy, herbu i przekazanych treści.',
+            'Wygaśnięcie albo wycofanie licencji może wstrzymać zależne listingi.',
+            'Treści witryny publikuje ACTIVIO po sprawdzeniu.',
+        ],
+    },
+    'partner-team': {
+        title: 'Zespół i role',
+        items: [
+            'Każda osoba korzysta z własnego konta; współdzielenie loginu nie jest dopuszczone.',
+            'Role rozdzielają ofertę, rozliczenia, markę oraz administrację użytkownikami.',
+            'Eksporty i zmiany uprawnień są zapisywane w dzienniku audytowym.',
+        ],
+    },
+    'partner-security': {
+        title: 'Bezpieczeństwo',
+        items: [
+            'Dla administratora i księgowości wymagamy 2FA.',
+            'Zmiana rachunku bankowego wymaga ponownego podania hasła i kodu 2FA.',
+            'Logowania, eksporty, zmiany finansowe i dostęp do zamówień są audytowane.',
+        ],
+    },
+    'partner-notifications': {
+        title: 'Powiadomienia',
+        items: [
+            'Komunikaty prowadzą do konkretnego produktu, rozliczenia, zamówienia albo ustawienia.',
+            'Najważniejsze alerty dotyczą ceny minimalnej, dokumentów, praw do marki i bezpieczeństwa.',
+            'Oznaczenie jako przeczytane nie usuwa komunikatu ani śladu wysyłki.',
         ],
     },
     'project-hub': {
@@ -1088,16 +1177,114 @@ function show_action(action, source) {
         return;
     }
 
-    if (action === 'request-payout') {
-        open_action_dialog('Prośba o wypłatę', `
-            <form class="action-form" data-action-form="request-payout">
-                <p class="action-form-note">Do wypłaty: <strong>1 040,00 zł netto + 239,20 zł VAT</strong>. ACTIVIO zweryfikuje dokument rozliczeniowy i zatwierdzi wypłatę ręcznie.</p>
+    if (action === 'review-listing-project') {
+        open_action_dialog('Projekt koszulki klubowej', `
+            <div class="project-preview"><img src="${products.shirt.image}" alt="Projekt koszulki klubowej"><div><strong>Wersja 3 · zaakceptowana</strong><p>Herb: lewa pierś · numer i nazwisko: plecy · kolory zgodne z materiałem stal-pleszew-v4.svg.</p></div></div>
+            <div class="tracking-list">
+                <div><i>✓</i><span><strong>Akceptacja klubu</strong><small>18.06.2026 · Marek Kowalski</small></span></div>
+                <div><i>✓</i><span><strong>Weryfikacja ACTIVIO</strong><small>19.06.2026 · Anna Nowak</small></span></div>
+                <div><i>✓</i><span><strong>Publikacja</strong><small>20.06.2026 · wersja produkcyjna 3</small></span></div>
+            </div>
+        `, 'HISTORIA PROJEKTU');
+        return;
+    }
+
+    if (action === 'submit-settlement-document') {
+        open_action_dialog('Dokument za lipiec 2026', `
+            <form class="action-form" data-action-form="settlement-document">
+                <p class="action-form-note">Dokument powinien opiewać na <strong>1 040,00 zł netto + 239,20 zł VAT</strong>. W prototypie wybór pliku jest symulowany.</p>
                 <label class="wide">Numer faktury VAT<input name="invoice" required placeholder="FV/07/2026"></label>
-                <label class="wide">Oświadczenie<select name="confirmation" required><option value="">Wybierz…</option><option value="confirmed">Potwierdzam zgodność danych i rachunku</option></select></label>
-                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij do ACTIVIO</button></footer>
+                <label class="wide">Plik PDF<input name="file" type="text" required value="FV-07-2026.pdf"></label>
+                <label class="wide">Potwierdzenie<select name="confirmation" required><option value="">Wybierz…</option><option value="confirmed">Kwota i rachunek są prawidłowe</option></select></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Przekaż do weryfikacji</button></footer>
             </form>
         `, 'ROZLICZENIE MIESIĘCZNE');
+        return;
     }
+
+    if (action === 'edit-club-data') {
+        open_action_dialog('Zgłoś zmianę danych klubu', `
+            <form class="action-form" data-action-form="club-data-change">
+                <label>Zakres zmiany<select name="scope" required><option value="">Wybierz…</option><option>Dane rejestrowe</option><option>Status VAT</option><option>Reprezentant</option><option>Adres</option></select></label>
+                <label>Data obowiązywania<input name="date" type="date" required></label>
+                <label class="wide">Opis zmiany<textarea name="description" required placeholder="Podaj aktualne i nowe dane"></textarea></label>
+                <p class="action-form-note">Zmiana trafi do ACTIVIO do weryfikacji. Aktualne dane pozostaną aktywne do jej zakończenia.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij zgłoszenie</button></footer>
+            </form>
+        `, 'DANE FORMALNE');
+        return;
+    }
+
+    if (action === 'request-brand-change' || action === 'renew-license') {
+        open_action_dialog(action === 'renew-license' ? 'Odnowienie licencji' : 'Nowe materiały marki', `
+            <form class="action-form" data-action-form="brand-change">
+                <label>Rodzaj materiału<select name="type" required><option>Herb lub logo</option><option>Licencja / zgoda</option><option>Kolory marki</option><option>Treści witryny</option></select></label>
+                <label>Plik<input name="file" required value="${action === 'renew-license' ? 'licencja-stal-2027.pdf' : 'stal-pleszew-v5.svg'}"></label>
+                <label class="wide">Informacja dla ACTIVIO<textarea name="message" placeholder="Co się zmieniło i od kiedy materiał obowiązuje?"></textarea></label>
+                <p class="action-form-note">Nowa wersja nie zastąpi używanych materiałów do czasu weryfikacji i akceptacji.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Przekaż do weryfikacji</button></footer>
+            </form>
+        `, 'MARKA KLUBU');
+        return;
+    }
+
+    if (action === 'invite-member') {
+        open_action_dialog('Zaproś osobę do panelu', `
+            <form class="action-form" data-action-form="invite-member">
+                <label>Imię i nazwisko<input name="name" required autocomplete="name"></label>
+                <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+                <label class="wide">Rola<select name="role" required><option>Menedżer sklepu</option><option>Księgowość</option><option>Podgląd</option><option>Administrator</option></select></label>
+                <p class="action-form-note">Zaproszenie jest ważne 48 godzin. Nowy administrator musi włączyć 2FA przed uzyskaniem pełnego dostępu.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij zaproszenie</button></footer>
+            </form>
+        `, 'ZESPÓŁ KLUBU');
+        return;
+    }
+
+    if (action === 'member-details') {
+        open_action_dialog('Uprawnienia użytkownika', `
+            <form class="action-form" data-action-form="member-update">
+                <p class="action-form-note"><strong>Anna Nowak</strong> · anna@stalpleszew.pl</p>
+                <label class="wide">Rola<select name="role"><option>Menedżer sklepu</option><option>Księgowość</option><option>Podgląd</option><option>Administrator</option></select></label>
+                <footer><button class="dialog-button" type="button" data-action="remove-member">Odbierz dostęp</button><button class="dialog-button primary" type="submit">Zapisz rolę</button></footer>
+            </form>
+        `, 'ZESPÓŁ KLUBU');
+        return;
+    }
+
+    if (action === 'change-bank') {
+        open_action_dialog('Bezpieczna zmiana rachunku', `
+            <form class="action-form" data-action-form="bank-change">
+                <p class="action-form-note">Zmiana wstrzyma wypłatę do czasu weryfikacji nowego rachunku przez ACTIVIO.</p>
+                <label class="wide">Hasło<input name="password" type="password" required autocomplete="current-password"></label>
+                <label class="wide">Nowy IBAN<input name="iban" required placeholder="PL00 0000 0000 0000 0000 0000 0000"></label>
+                <label class="wide">Kod 2FA<input name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required placeholder="000000"></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Przekaż do weryfikacji</button></footer>
+            </form>
+        `, 'PONOWNE UWIERZYTELNIENIE');
+        return;
+    }
+
+    if (action === 'manage-2fa' || action === 'manage-sessions' || action === 'security-alerts') {
+        const security_content = {
+            'manage-2fa': ['Weryfikacja dwuetapowa', 'Aplikacja uwierzytelniająca jest aktywna. Zapisano 8 niewykorzystanych kodów odzyskiwania.'],
+            'manage-sessions': ['Aktywne sesje', 'MacBook Pro · Pleszew · teraz<br>iPhone · Pleszew · 12 minut temu'],
+            'security-alerts': ['Alerty bezpieczeństwa', 'Aktywne: nowe logowanie, eksport danych, zmiana rachunku i zmiana uprawnień.'],
+        }[action];
+        open_action_dialog(security_content[0], `<p class="action-info">${security_content[1]}</p><div class="dialog-actions"><button class="dialog-button" type="button" data-action-close>Zamknij</button><button class="dialog-button primary" type="button" data-action="security-saved">Zapisz ustawienia</button></div>`, 'BEZPIECZEŃSTWO');
+        return;
+    }
+
+    if (['contact-manager', 'save-storefront'].includes(action)) {
+        open_action_dialog(action === 'contact-manager' ? 'Wiadomość do opiekuna' : 'Publikacja treści witryny', `
+            <form class="action-form" data-action-form="${action}">
+                <label class="wide">${action === 'contact-manager' ? 'Wiadomość' : 'Informacja dla weryfikującego'}<textarea name="message" required>${action === 'save-storefront' ? 'Proszę opublikować zaktualizowane treści witryny.' : ''}</textarea></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij do ACTIVIO</button></footer>
+            </form>
+        `, action === 'contact-manager' ? 'KONTAKT' : 'WITRYNA KLUBU');
+        return;
+    }
+
 }
 
 function download_blob(filename, content, type) {
@@ -1433,8 +1620,10 @@ function render_view(view_name, update_hash = true) {
     partner_mobile_nav.hidden = !is_partner;
     store_footer.hidden = is_partner;
 
+    const active_partner_root = partner_nav_roots[next_view] || next_view;
     document.querySelectorAll('[data-go]').forEach((button) => {
-        button.classList.toggle('active', button.dataset.go === next_view);
+        const is_partner_navigation = button.closest('[data-partner-header], [data-partner-mobile-nav]');
+        button.classList.toggle('active', button.dataset.go === (is_partner_navigation ? active_partner_root : next_view));
     });
 
     render_assumptions(next_view);
@@ -1640,6 +1829,35 @@ document.addEventListener('click', (event) => {
             export_orders();
         } else if (action === 'print-settlement') {
             window.print();
+        } else if (action === 'toggle-listing') {
+            const status = document.querySelector('[data-listing-status]');
+            const is_active = status.textContent.trim() === 'Aktywna';
+            status.textContent = is_active ? 'Wstrzymana' : 'Aktywna';
+            status.className = `table-status ${is_active ? 'reversed' : 'available'}`;
+            action_button.textContent = is_active ? 'Wznów sprzedaż' : 'Wstrzymaj sprzedaż';
+            show_toast(is_active ? 'Listing został wstrzymany' : 'Listing przekazany do ponownej publikacji');
+        } else if (action === 'mark-all-read') {
+            document.querySelectorAll('.notification-list .unread').forEach((notification) => notification.classList.remove('unread'));
+            document.querySelectorAll('.partner-notification-button b').forEach((badge) => badge.textContent = '0');
+            show_toast('Wszystkie powiadomienia oznaczono jako przeczytane');
+        } else if (action === 'download-price-list') {
+            download_blob('activio-cennik-wariantow.csv', '\uFEFFWariant;Personalizacja;Minimum brutto;Cena sklepu brutto\n128-152;Numer i nazwisko;79,00;129,00\nS-XL;Numer i nazwisko;84,00;139,00', 'text/csv;charset=utf-8');
+            show_toast('Pobrano cennik wariantów');
+        } else if (action === 'export-settlement') {
+            download_blob('activio-rozliczenie-2026-07.csv', '\uFEFFTyp;Powiązanie;Produkt;Zmiana netto\nSprzedaż;AC/2026/1048;Koszulka klubowa;+20,00\nKorekta;AC/2026/0984;Bidon klubowy;-9,00', 'text/csv;charset=utf-8');
+            show_toast('Pobrano skład rozliczenia');
+        } else if (['download-contract', 'download-brand-asset', 'export-audit'].includes(action)) {
+            const files = {
+                'download-contract': ['ACT-CLUB-2026-014.txt', 'Umowa partnerska ACT/CLUB/2026/014 — podgląd prototypu'],
+                'download-brand-asset': ['stal-pleszew-v4.txt', 'Materiał marki stal-pleszew-v4.svg — podgląd prototypu'],
+                'export-audit': ['activio-audyt.csv', '\uFEFFData;Osoba;Zdarzenie\nDzisiaj 18:14;Marek Kowalski;Wyświetlenie zamówienia'],
+            };
+            const [filename, content] = files[action];
+            download_blob(filename, content, filename.endsWith('.csv') ? 'text/csv;charset=utf-8' : 'text/plain;charset=utf-8');
+            show_toast('Plik został przygotowany');
+        } else if (['remove-member', 'security-saved'].includes(action)) {
+            close_action_dialog();
+            show_toast(action === 'remove-member' ? 'Dostęp użytkownika został odebrany' : 'Ustawienia bezpieczeństwa zapisane');
         } else {
             show_action(action, action_button);
         }
@@ -1866,26 +2084,39 @@ document.addEventListener('submit', (event) => {
     const form_type = form.dataset.actionForm;
     const reference = `AC-${Date.now().toString().slice(-6)}`;
 
-    if (form_type === 'request-payout') {
-        const payout_button = document.querySelector('[data-action="request-payout"]');
-        payout_button.textContent = 'Prośba wysłana';
-        payout_button.disabled = true;
-        open_action_dialog('Prośba przekazana do ACTIVIO', `
+    if (form_type === 'settlement-document') {
+        const document_state = document.querySelector('[data-document-state]');
+        const settlement_status = document.querySelector('[data-settlement-status]');
+        document_state.classList.add('uploaded');
+        document_state.innerHTML = '<i>✓</i><strong>FV-07-2026.pdf</strong><p>Przekazano do ACTIVIO · trwa weryfikacja dokumentu</p><button class="button ghost" type="button" data-action="submit-settlement-document">Zastąp dokument</button>';
+        settlement_status.textContent = 'Weryfikacja dokumentu';
+        settlement_status.className = 'table-status production status-large';
+        open_action_dialog('Dokument przekazany', `
             <div class="tracking-list">
-                <div><i>✓</i><span><strong>Dokument zapisany</strong><small>Numer sprawy: ${reference}</small></span></div>
-                <div class="pending"><i>2</i><span><strong>Weryfikacja ACTIVIO</strong><small>Sprawdzenie faktury, salda i rachunku</small></span></div>
-                <div class="pending"><i>3</i><span><strong>Wypłata</strong><small>Po ręcznym zatwierdzeniu przez ACTIVIO</small></span></div>
+                <div><i>✓</i><span><strong>Faktura zapisana</strong><small>Numer sprawy: ${reference}</small></span></div>
+                <div class="pending"><i>2</i><span><strong>Weryfikacja ACTIVIO</strong><small>Kwota, dane i rachunek bankowy</small></span></div>
+                <div class="pending"><i>3</i><span><strong>Wypłata miesięczna</strong><small>Planowany termin: 05.08.2026</small></span></div>
             </div>
         `, 'ROZLICZENIE MIESIĘCZNE');
         return;
     }
 
     const is_join = form_type === 'join-club';
+    const form_messages = {
+        'club-data-change': ['Zmiana danych zgłoszona', 'Weryfikacja dokumentów i rejestrów'],
+        'brand-change': ['Materiał marki przekazany', 'Weryfikacja praw i jakości pliku'],
+        'invite-member': ['Zaproszenie wysłane', 'Aktywacja konta i konfiguracja 2FA'],
+        'member-update': ['Uprawnienia zapisane', 'Zmiana została zapisana w dzienniku audytowym'],
+        'bank-change': ['Zmiana rachunku zgłoszona', 'Weryfikacja rachunku przez ACTIVIO'],
+        'contact-manager': ['Wiadomość wysłana', 'Odpowiedź opiekuna ACTIVIO'],
+        'save-storefront': ['Treści przekazane', 'Weryfikacja i publikacja przez ACTIVIO'],
+    };
+    const form_message = form_messages[form_type];
     open_action_dialog(
-        is_join ? 'Zgłoszenie klubu przyjęte' : 'Formularz został wysłany',
+        is_join ? 'Zgłoszenie klubu przyjęte' : (form_message?.[0] || 'Formularz został wysłany'),
         `<div class="tracking-list">
             <div><i>✓</i><span><strong>${is_join ? 'Zgłoszenie zapisane' : 'Sprawa utworzona'}</strong><small>Numer: ${reference}</small></span></div>
-            <div class="pending"><i>2</i><span><strong>${is_join ? 'Weryfikacja organizacji i praw do marki' : 'Kontakt opiekuna ACTIVIO'}</strong><small>Odpowiedź na podany adres e-mail</small></span></div>
+            <div class="pending"><i>2</i><span><strong>${is_join ? 'Weryfikacja organizacji i praw do marki' : (form_message?.[1] || 'Kontakt opiekuna ACTIVIO')}</strong><small>Odpowiedź na podany adres e-mail</small></span></div>
             ${is_join ? '<div class="pending"><i>3</i><span><strong>Produkty, projekty i ceny</strong><small>Publikacja dopiero po akceptacji klubu i ACTIVIO</small></span></div>' : ''}
         </div>`,
         is_join ? 'ACTIVIO CLUB' : 'OFERTA DLA KLUBÓW',

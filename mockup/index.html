@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260728-16">
+    <meta name="activio-mockup-version" content="20260729-01">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260728-16">
+    <link rel="stylesheet" href="styles.css?v=20260729-01">
 </head>
 <body>
     <div class="prototype-bar">
@@ -52,15 +52,23 @@
             <div class="scenario-divider"></div>
             <button type="button" data-go="partner-dashboard"><span>10</span> Panel klubu</button>
             <button type="button" data-go="partner-offer"><span>11</span> Oferta i ceny</button>
-            <button type="button" data-go="partner-orders"><span>12</span> Zamówienia</button>
-            <button type="button" data-go="partner-settlements"><span>13</span> Rozliczenia</button>
+            <button type="button" data-go="partner-listing"><span>12</span> Szczegóły produktu</button>
+            <button type="button" data-go="partner-orders"><span>13</span> Zamówienia</button>
+            <button type="button" data-go="partner-order"><span>14</span> Szczegóły zamówienia</button>
+            <button type="button" data-go="partner-settlements"><span>15</span> Rozliczenia</button>
+            <button type="button" data-go="partner-settlement"><span>16</span> Okres rozliczeniowy</button>
+            <button type="button" data-go="partner-club"><span>17</span> Dane klubu</button>
+            <button type="button" data-go="partner-brand"><span>18</span> Marka i witryna</button>
+            <button type="button" data-go="partner-team"><span>19</span> Zespół i role</button>
+            <button type="button" data-go="partner-security"><span>20</span> Bezpieczeństwo</button>
+            <button type="button" data-go="partner-notifications"><span>21</span> Powiadomienia</button>
             <div class="scenario-divider"></div>
-            <button type="button" data-go="feedback-history"><span>14</span> Historia zmian</button>
-            <button type="button" data-go="project-hub"><span>15</span> O projekcie</button>
-            <button type="button" data-go="project-concept"><span>16</span> Koncepcja biznesowa</button>
-            <button type="button" data-go="project-assumptions"><span>17</span> Założenia produktu</button>
-            <button type="button" data-go="project-technical"><span>18</span> Dodatek techniczny</button>
-            <button type="button" data-go="project-research"><span>19</span> Research regulacyjny</button>
+            <button type="button" data-go="feedback-history"><span>22</span> Historia zmian</button>
+            <button type="button" data-go="project-hub"><span>23</span> O projekcie</button>
+            <button type="button" data-go="project-concept"><span>24</span> Koncepcja biznesowa</button>
+            <button type="button" data-go="project-assumptions"><span>25</span> Założenia produktu</button>
+            <button type="button" data-go="project-technical"><span>26</span> Dodatek techniczny</button>
+            <button type="button" data-go="project-research"><span>27</span> Research regulacyjny</button>
         </nav>
     </aside>
 
@@ -110,7 +118,9 @@
                 <button type="button" data-go="partner-offer">Oferta sklepu</button>
                 <button type="button" data-go="partner-orders">Zamówienia</button>
                 <button type="button" data-go="partner-settlements">Rozliczenia</button>
+                <button type="button" data-go="partner-club">Klub</button>
             </nav>
+            <button class="partner-notification-button" type="button" data-go="partner-notifications" aria-label="Powiadomienia">♢<b>3</b></button>
             <div class="partner-user">
                 <span>MK</span>
                 <div><strong>Marek Kowalski</strong><small>Administrator klubu</small></div>
@@ -121,6 +131,8 @@
             <button type="button" data-go="partner-offer">Oferta sklepu</button>
             <button type="button" data-go="partner-orders">Zamówienia</button>
             <button type="button" data-go="partner-settlements">Rozliczenia</button>
+            <button type="button" data-go="partner-club">Klub</button>
+            <button type="button" data-go="partner-notifications">Powiadomienia <b>3</b></button>
         </nav>
 
         <section class="view marketplace-view" data-view="marketplace">
@@ -841,9 +853,9 @@
             <div class="partner-page-head"><div><span class="eyebrow">CZWARTEK, 23 LIPCA</span><h1>Dzień dobry, Marek</h1><p>Twój sklep działa prawidłowo. Oto najważniejsze informacje.</p></div><button class="button primary" type="button" data-go="club" data-club-id="stal">Otwórz sklep ↗</button></div>
             <div class="metric-grid">
                 <article><span>Sprzedaż brutto w lipcu</span><strong>8 420,00 zł</strong><small class="positive">↑ 18,4% vs czerwiec</small></article>
-                <article><span>Należne klubowi netto</span><strong>1 286,00 zł</strong><small>1 040,00 zł netto dostępne</small></article>
-                <article><span>Zamówienia</span><strong>67</strong><small class="positive">↑ 11 nowych w tym tygodniu</small></article>
-                <article><span>Średni koszyk brutto</span><strong>125,67 zł</strong><small>1,4 produktu / zamówienie</small></article>
+                <article><span>Należne klubowi netto</span><strong>1 286,00 zł</strong><small>Po korektach: −9,00 zł</small></article>
+                <article><span>Zamówienia / sprzedane sztuki</span><strong>67 / 94</strong><small class="positive">↑ 11 zamówień w tym tygodniu</small></article>
+                <article><span>Średnia wartość pozycji brutto</span><strong>89,57 zł</strong><small>1,4 produktu / zamówienie</small></article>
             </div>
             <div class="dashboard-grid">
                 <article class="sales-chart">
@@ -864,10 +876,26 @@
                     <button class="button lime full" type="button" data-go="partner-settlements">Zobacz rozliczenie</button>
                 </article>
             </div>
+            <div class="partner-dashboard-secondary">
+                <article class="partner-panel">
+                    <div class="panel-heading"><div><span>Najlepiej sprzedające się</span><strong>Top produkty w lipcu</strong></div><button type="button" data-go="partner-offer">Cała oferta →</button></div>
+                    <ol class="ranking-list">
+                        <li><b>1</b><img src="../assets/products/koszulki-sportowe.jpg" alt=""><span><strong>Koszulka klubowa</strong><small>38 szt. · 4 902,00 zł brutto</small></span><em>760,00 zł netto</em></li>
+                        <li><b>2</b><img src="../assets/products/bluzy.jpg" alt=""><span><strong>Bluza klubowa</strong><small>19 szt. · 3 401,00 zł brutto</small></span><em>532,00 zł netto</em></li>
+                        <li><b>3</b><img src="../assets/products/kubki.jpg" alt=""><span><strong>Kubek Stalowej Rodziny</strong><small>15 szt. · 735,00 zł brutto</small></span><em>120,00 zł netto</em></li>
+                    </ol>
+                </article>
+                <article class="partner-panel alert-panel">
+                    <div class="panel-heading"><div><span>Wymagają uwagi</span><strong>3 sprawy</strong></div><button type="button" data-go="partner-notifications">Wszystkie →</button></div>
+                    <button type="button" data-go="partner-listing"><i>!</i><span><strong>Nowe minimum ceny od 1 sierpnia</strong><small>Ustal cenę koszulki do 31 lipca.</small></span></button>
+                    <button type="button" data-go="partner-settlement"><i>₿</i><span><strong>Dokument za lipiec</strong><small>Rozliczenie czeka na fakturę klubu.</small></span></button>
+                    <button type="button" data-go="partner-brand"><i>◇</i><span><strong>Licencja na herb</strong><small>Ważność kończy się za 45 dni.</small></span></button>
+                </article>
+            </div>
             <article class="recent-orders">
                 <div class="panel-heading"><div><span>Ostatnie zamówienia</span><strong>Sprzedaż Twoich produktów</strong></div><button type="button" data-go="partner-orders">Wszystkie zamówienia →</button></div>
                 <table><thead><tr><th>Zamówienie</th><th>Produkt</th><th>Wartość</th><th>Podstawa dla klubu (netto)</th><th>Status</th></tr></thead><tbody>
-                    <tr><td><strong>AC/2026/1048</strong><small>Dzisiaj, 17:42</small></td><td>Koszulka klubowa z personalizacją</td><td>129,00 zł</td><td><b>20,00 zł</b></td><td><span class="table-status production">W produkcji</span></td></tr>
+                    <tr data-go="partner-order"><td><button class="table-link" type="button" data-go="partner-order"><strong>AC/2026/1048</strong></button><small>Dzisiaj, 17:42</small></td><td>Koszulka klubowa z personalizacją</td><td>129,00 zł</td><td><b>20,00 zł</b></td><td><span class="table-status production">W produkcji</span></td></tr>
                     <tr><td><strong>AC/2026/1041</strong><small>Dzisiaj, 12:18</small></td><td>Bluza klubowa</td><td>179,00 zł</td><td><b>28,00 zł</b></td><td><span class="table-status paid">Opłacone</span></td></tr>
                     <tr><td><strong>AC/2026/1036</strong><small>Wczoraj, 18:04</small></td><td>Kubek Stalowej Rodziny</td><td>49,00 zł</td><td><b>8,00 zł</b></td><td><span class="table-status shipped">Wysłane</span></td></tr>
                 </tbody></table>
@@ -894,7 +922,7 @@
                             <label>Cena brutto w Twoim sklepie <span><input type="number" min="69" step="1" value="129" data-sale-price> zł</span></label>
                             <div class="price-result"><span>Kwota brutto ponad minimum</span><strong data-price-spread>60,00 zł</strong><small>To nie jest automatycznie wynagrodzenie klubu</small></div>
                         </div>
-                        <div class="offer-actions"><button type="button" data-go="product" data-product-id="shirt" data-club-id="stal">Podgląd produktu</button><button class="button primary" type="button" data-save-price>Zapisz cenę</button></div>
+                        <div class="offer-actions"><button type="button" data-go="partner-listing">Szczegóły i warianty</button><button class="button primary" type="button" data-save-price>Zapisz cenę</button></div>
                     </div>
                 </article>
                 <article class="offer-card" data-offer-item data-min-price="139">
@@ -941,7 +969,7 @@
             <div class="filter-bar"><label>⌕ <input placeholder="Numer zamówienia lub produkt"></label><button class="active" type="button">Wszystkie <b>67</b></button><button type="button">W produkcji <b>8</b></button><button type="button">Wysłane <b>51</b></button><button type="button">Problem <b>1</b></button></div>
             <article class="orders-table full-table">
                 <table><thead><tr><th>Zamówienie</th><th>Data</th><th>Produkt i personalizacja</th><th>Wartość pozycji</th><th>Podstawa dla klubu (netto)</th><th>Status</th></tr></thead><tbody>
-                    <tr><td><strong>AC/2026/1048</strong></td><td>23.07.2026<small>17:42</small></td><td><strong>Koszulka klubowa z personalizacją</strong><small>M · 10 · KOWALSKI</small></td><td>129,00 zł</td><td><b>20,00 zł</b></td><td><span class="table-status production">W produkcji</span></td></tr>
+                    <tr data-go="partner-order"><td><button class="table-link" type="button" data-go="partner-order"><strong>AC/2026/1048</strong></button></td><td>23.07.2026<small>17:42</small></td><td><strong>Koszulka klubowa z personalizacją</strong><small>M · 10 · KOWALSKI</small></td><td>129,00 zł</td><td><b>20,00 zł</b></td><td><span class="table-status production">W produkcji</span></td></tr>
                     <tr><td><strong>AC/2026/1041</strong></td><td>23.07.2026<small>12:18</small></td><td><strong>Bluza klubowa</strong><small>L · bez personalizacji</small></td><td>179,00 zł</td><td><b>28,00 zł</b></td><td><span class="table-status paid">Opłacone</span></td></tr>
                     <tr><td><strong>AC/2026/1036</strong></td><td>22.07.2026<small>18:04</small></td><td><strong>Kubek Stalowej Rodziny</strong><small>Napis: NAJLEPSZY TATA</small></td><td>49,00 zł</td><td><b>8,00 zł</b></td><td><span class="table-status shipped">Wysłane</span></td></tr>
                     <tr><td><strong>AC/2026/1029</strong></td><td>22.07.2026<small>09:31</small></td><td><strong>Bidon klubowy</strong><small>Numer: 7</small></td><td>59,00 zł</td><td><b>9,00 zł</b></td><td><span class="table-status issue">Reklamacja</span></td></tr>
@@ -954,15 +982,23 @@
         <section class="view partner-view" data-view="partner-settlements" hidden>
             <div class="partner-page-head"><div><span class="eyebrow">FINANSE KLUBU</span><h1>Rozliczenia</h1><p>Przejrzysty zapis każdej sprzedaży, korekty i wypłaty.</p></div><button class="button ghost" type="button" data-action="print-settlement">Drukuj / zapisz PDF</button></div>
             <div class="settlement-summary">
-                <article class="available"><span>Dostępne do wypłaty</span><strong>1 279,20 zł brutto</strong><small>1 040,00 zł netto + 239,20 zł VAT</small><button class="button lime" data-action="request-payout">Wyślij prośbę o wypłatę</button></article>
+                <article class="available"><span>Rozliczenie za lipiec</span><strong>1 279,20 zł brutto</strong><small>1 040,00 zł netto + 239,20 zł VAT</small><button class="button lime" data-go="partner-settlement">Przejdź do rozliczenia</button></article>
                 <article><span>Oczekujące netto</span><strong>246,00 zł</strong><small>Sprzedaż przed zakończeniem okresu bezpieczeństwa</small></article>
                 <article><span>Wypłacone netto łącznie</span><strong>8 740,00 zł</strong><small>Od uruchomienia sklepu · 8 wypłat</small></article>
             </div>
+            <article class="partner-panel settlement-periods">
+                <div class="panel-heading"><div><span>Okresy rozliczeniowe</span><strong>Historia miesięczna</strong></div><button type="button" data-go="partner-settlement">Otwórz lipiec →</button></div>
+                <div class="period-list">
+                    <button type="button" data-go="partner-settlement"><span><strong>Lipiec 2026</strong><small>67 zamówień · 94 sztuki</small></span><b>1 279,20 zł brutto</b><i class="table-status pending">Czeka na dokument</i></button>
+                    <button type="button" data-go="partner-settlement"><span><strong>Czerwiec 2026</strong><small>58 zamówień · 81 sztuk</small></span><b>1 456,32 zł brutto</b><i class="table-status shipped">Wypłacone 05.07</i></button>
+                    <button type="button" data-go="partner-settlement"><span><strong>Maj 2026</strong><small>49 zamówień · 66 sztuk</small></span><b>1 118,07 zł brutto</b><i class="table-status shipped">Wypłacone 05.06</i></button>
+                </div>
+            </article>
             <div class="settlement-rule tax-rule"><span>VAT</span><div><strong>KS Stal Pleszew: czynny podatnik VAT</strong><p>Klub wystawia fakturę na 1 040,00 zł netto + 239,20 zł VAT i otrzymuje 1 279,20 zł brutto. Klub bez VAT wystawia dokument bez VAT i otrzymuje kwotę netto.</p></div></div>
             <article class="ledger">
                 <div class="panel-heading"><div><span>Historia salda</span><strong>Lipiec 2026</strong></div><div class="ledger-legend"><span><i class="sale"></i>Sprzedaż</span><span><i class="adjustment"></i>Korekta</span><span><i class="payout"></i>Wypłata</span></div></div>
                 <table><thead><tr><th>Data</th><th>Zdarzenie</th><th>Powiązanie</th><th>Status</th><th>Zmiana netto</th><th>Saldo netto</th></tr></thead><tbody>
-                    <tr><td>23.07.2026<small>17:42</small></td><td><span class="ledger-icon sale">＋</span><strong>Sprzedaż produktu</strong><small>Koszulka klubowa z personalizacją</small></td><td>AC/2026/1048</td><td><span class="table-status pending">Oczekuje</span></td><td class="amount plus">+20,00 zł</td><td>1 286,00 zł</td></tr>
+                    <tr><td>23.07.2026<small>17:42</small></td><td><span class="ledger-icon sale">＋</span><strong>Sprzedaż produktu</strong><small>Koszulka klubowa z personalizacją</small></td><td><button class="table-link" type="button" data-go="partner-order">AC/2026/1048</button></td><td><span class="table-status pending">Oczekuje</span></td><td class="amount plus">+20,00 zł</td><td>1 286,00 zł</td></tr>
                     <tr><td>23.07.2026<small>12:18</small></td><td><span class="ledger-icon sale">＋</span><strong>Sprzedaż produktu</strong><small>Bluza klubowa</small></td><td>AC/2026/1041</td><td><span class="table-status pending">Oczekuje</span></td><td class="amount plus">+28,00 zł</td><td>1 266,00 zł</td></tr>
                     <tr><td>22.07.2026<small>11:06</small></td><td><span class="ledger-icon adjustment">−</span><strong>Korekta reklamacji</strong><small>Bidon klubowy</small></td><td>AC/2026/0984</td><td><span class="table-status reversed">Cofnięte</span></td><td class="amount minus">−9,00 zł</td><td>1 238,00 zł</td></tr>
                     <tr><td>20.07.2026<small>14:22</small></td><td><span class="ledger-icon sale">＋</span><strong>Sprzedaż produktu</strong><small>Koszulka klubowa z personalizacją</small></td><td>AC/2026/1018</td><td><span class="table-status available">Dostępne</span></td><td class="amount plus">+20,00 zł</td><td>1 247,00 zł</td></tr>
@@ -970,6 +1006,185 @@
                 </tbody></table>
             </article>
             <div class="settlement-rule"><span>i</span><div><strong>Robocza zasada rozliczeń</strong><p>Udział klubu staje się dostępny po dostarczeniu i zakończeniu ustalonego okresu bezpieczeństwa. Zwrot lub uznana reklamacja tworzy korektę, nigdy nie usuwa wcześniejszego wpisu.</p></div><button data-assumptions>Omów założenie</button></div>
+        </section>
+
+        <section class="view partner-view" data-view="partner-listing" hidden>
+            <div class="partner-breadcrumbs"><button type="button" data-go="partner-offer">← Oferta sklepu</button><span>/</span><strong>Koszulka klubowa</strong></div>
+            <div class="partner-page-head">
+                <div><span class="eyebrow">LISTING PRODUKTU</span><h1>Koszulka klubowa z personalizacją</h1><p>Cena, warianty, projekt i historia publikacji w jednym miejscu.</p></div>
+                <div class="head-actions"><button class="button ghost" type="button" data-go="product" data-product-id="shirt" data-club-id="stal">Podgląd w sklepie ↗</button><button class="button primary" type="button" data-action="toggle-listing">Wstrzymaj sprzedaż</button></div>
+            </div>
+            <div class="listing-layout">
+                <article class="partner-panel listing-product-card">
+                    <img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulka klubowa z personalizacją">
+                    <div><span class="table-status available" data-listing-status>Aktywna</span><h2>Koszulka klubowa</h2><p>SKU: ACT-STAL-TS-01 · Odzież klubowa</p><dl><div><dt>Sprzedano</dt><dd>38 szt.</dd></div><div><dt>Zwroty / korekty</dt><dd>1 szt.</dd></div><div><dt>Sezon</dt><dd>Całoroczny</dd></div></dl></div>
+                </article>
+                <article class="partner-panel listing-price-card" data-offer-item data-min-price="69">
+                    <div class="panel-heading"><div><span>Cena i rozliczenie</span><strong>Wariant bazowy</strong></div><span class="table-status pending">Zmiana od 01.08</span></div>
+                    <label class="detail-price-row">Minimum ACTIVIO brutto <output>69,00 zł</output></label>
+                    <label class="detail-price-row">Cena brutto w sklepie <span><input type="number" min="69" step="1" value="129" data-sale-price> zł</span></label>
+                    <div class="price-result"><span>Kwota brutto ponad minimum</span><strong data-price-spread>60,00 zł</strong><small>Prognozowane wynagrodzenie klubu: 20,00 zł netto / szt.</small></div>
+                    <button class="button primary full" type="button" data-save-price>Zapisz cenę</button>
+                </article>
+            </div>
+            <article class="partner-panel detail-section">
+                <div class="panel-heading"><div><span>Cennik wariantów</span><strong>Minimum zależy od wariantu i personalizacji</strong></div><button type="button" data-action="download-price-list">Pobierz cennik CSV</button></div>
+                <div class="table-scroll"><table><thead><tr><th>Wariant</th><th>Personalizacja</th><th>Minimum brutto</th><th>Cena sklepu brutto</th><th>Prognoza klubu netto</th><th>Status</th></tr></thead><tbody>
+                    <tr><td>128–152</td><td>Bez personalizacji</td><td>69,00 zł</td><td>109,00 zł</td><td>16,00 zł</td><td><span class="table-status available">Gotowe</span></td></tr>
+                    <tr><td>128–152</td><td>Numer + nazwisko</td><td>79,00 zł</td><td>129,00 zł</td><td>20,00 zł</td><td><span class="table-status available">Gotowe</span></td></tr>
+                    <tr><td>S–XL</td><td>Bez personalizacji</td><td>74,00 zł</td><td>119,00 zł</td><td>18,00 zł</td><td><span class="table-status available">Gotowe</span></td></tr>
+                    <tr><td>S–XL</td><td>Numer + nazwisko</td><td>84,00 zł</td><td>139,00 zł</td><td>22,00 zł</td><td><span class="table-status pending">Nowe minimum</span></td></tr>
+                </tbody></table></div>
+            </article>
+            <div class="two-column-panels">
+                <article class="partner-panel">
+                    <div class="panel-heading"><div><span>Projekt i marka</span><strong>Wersja 3 · zaakceptowana</strong></div><button type="button" data-action="review-listing-project">Zobacz projekt</button></div>
+                    <ul class="detail-list"><li><span>Herb</span><strong>stal-pleszew-v4.svg</strong></li><li><span>Kolory</span><strong>Granat #101933 · biel</strong></li><li><span>Akceptacja klubu</span><strong>18.06.2026 · Marek Kowalski</strong></li><li><span>Weryfikacja ACTIVIO</span><strong>19.06.2026 · Anna Nowak</strong></li></ul>
+                </article>
+                <article class="partner-panel">
+                    <div class="panel-heading"><div><span>Historia listingu</span><strong>Pełny ślad zmian</strong></div></div>
+                    <ol class="compact-timeline"><li><i>✓</i><span><strong>Opublikowano wersję 3</strong><small>20.06.2026 · ACTIVIO</small></span></li><li><i>3</i><span><strong>Cena zmieniona 119 → 129 zł</strong><small>03.07.2026 · Marek Kowalski</small></span></li><li><i>!</i><span><strong>Zapowiedziano nowe minimum</strong><small>28.07.2026 · obowiązuje od 01.08</small></span></li></ol>
+                </article>
+            </div>
+        </section>
+
+        <section class="view partner-view" data-view="partner-order" hidden>
+            <div class="partner-breadcrumbs"><button type="button" data-go="partner-orders">← Zamówienia</button><span>/</span><strong>AC/2026/1048</strong></div>
+            <div class="partner-page-head"><div><span class="eyebrow">POZYCJA KLUBOWA</span><h1>Zamówienie AC/2026/1048</h1><p>Pokazujemy wyłącznie pozycję przypisaną do KS Stal Pleszew.</p></div><span class="table-status production status-large">W produkcji</span></div>
+            <div class="order-detail-grid">
+                <article class="partner-panel order-product-summary">
+                    <img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulka klubowa">
+                    <div><span>Produkt</span><h2>Koszulka klubowa z personalizacją</h2><dl><div><dt>Wariant</dt><dd>M</dd></div><div><dt>Numer</dt><dd>10</dd></div><div><dt>Napis</dt><dd>KOWALSKI</dd></div><div><dt>Ilość</dt><dd>1 szt.</dd></div></dl></div>
+                </article>
+                <article class="partner-panel money-breakdown">
+                    <span>Rozliczenie pozycji</span><div><small>Wartość brutto</small><strong>129,00 zł</strong></div><div><small>Podstawa klubu netto</small><strong>20,00 zł</strong></div><div><small>VAT wynagrodzenia klubu</small><strong>4,60 zł</strong></div><div class="total"><small>Kwota brutto dla klubu</small><strong>24,60 zł</strong></div><button type="button" data-go="partner-settlements">Zobacz wpis w księdze →</button>
+                </article>
+            </div>
+            <div class="two-column-panels">
+                <article class="partner-panel">
+                    <div class="panel-heading"><div><span>Realizacja przez ACTIVIO</span><strong>Status pozycji</strong></div></div>
+                    <ol class="compact-timeline"><li><i>✓</i><span><strong>Płatność przyjęta</strong><small>23.07.2026 · 17:42</small></span></li><li><i>✓</i><span><strong>Personalizacja zweryfikowana</strong><small>23.07.2026 · automatyczna walidacja</small></span></li><li class="active"><i>3</i><span><strong>W produkcji</strong><small>Planowane zakończenie: 28.07.2026</small></span></li><li><i>4</i><span><strong>Wysyłka</strong><small>Planowane nadanie: 29–31.07</small></span></li></ol>
+                </article>
+                <article class="partner-panel">
+                    <div class="panel-heading"><div><span>Reklamacje i korekty</span><strong>Brak otwartych spraw</strong></div></div>
+                    <div class="empty-state compact"><i>✓</i><strong>Pozycja bez problemów</strong><p>Obsługę klienta, dostawę i reklamację prowadzi ACTIVIO. Klub zobaczy tu tylko wpływ sprawy na status i rozliczenie.</p></div>
+                </article>
+            </div>
+            <div class="privacy-note">ⓘ Dane kontaktowe, adres dostawy i pozostałe pozycje mieszanego koszyka nie są udostępniane klubowi. Dostęp do tej strony zapisuje się w dzienniku audytowym.</div>
+        </section>
+
+        <section class="view partner-view" data-view="partner-settlement" hidden>
+            <div class="partner-breadcrumbs"><button type="button" data-go="partner-settlements">← Rozliczenia</button><span>/</span><strong>Lipiec 2026</strong></div>
+            <div class="partner-page-head"><div><span class="eyebrow">OKRES ROZLICZENIOWY</span><h1>Lipiec 2026</h1><p>Zestawienie jest zamknięte. Wypłatę realizuje ACTIVIO po weryfikacji dokumentu.</p></div><span class="table-status pending status-large" data-settlement-status>Czeka na dokument</span></div>
+            <div class="settlement-detail-summary">
+                <article><span>Podstawa netto</span><strong>1 040,00 zł</strong><small>Po wszystkich korektach</small></article><article><span>VAT 23%</span><strong>239,20 zł</strong><small>Klub jest czynnym podatnikiem VAT</small></article><article class="emphasis"><span>Do wypłaty brutto</span><strong>1 279,20 zł</strong><small>Planowany termin: 05.08.2026</small></article>
+            </div>
+            <div class="settlement-workflow">
+                <article class="partner-panel">
+                    <div class="panel-heading"><div><span>Dokument rozliczeniowy</span><strong>Faktura VAT klubu</strong></div></div>
+                    <div class="document-drop" data-document-state><i>⇧</i><strong>Przekaż fakturę do ACTIVIO</strong><p>PDF, maks. 10 MB · wymagany numer i kwota zgodna z zestawieniem</p><button class="button primary" type="button" data-action="submit-settlement-document">Dodaj dokument</button></div>
+                </article>
+                <article class="partner-panel">
+                    <div class="panel-heading"><div><span>Wypłata</span><strong>Rachunek klubu</strong></div><button type="button" data-go="partner-security">Zmień bezpiecznie</button></div>
+                    <div class="bank-card"><span>Bank Spółdzielczy w Pleszewie</span><strong>PL •••• •••• •••• •••• 1284 0047</strong><small>Ostatnia weryfikacja: 12.03.2026 · zmiana wymaga ponownego logowania i 2FA</small></div>
+                </article>
+            </div>
+            <article class="partner-panel detail-section">
+                <div class="panel-heading"><div><span>Skład rozliczenia</span><strong>Sprzedaż i korekty</strong></div><button type="button" data-action="export-settlement">Eksportuj CSV</button></div>
+                <div class="table-scroll"><table><thead><tr><th>Typ</th><th>Powiązanie</th><th>Produkt</th><th>Status</th><th>Zmiana netto</th></tr></thead><tbody>
+                    <tr><td>Sprzedaż</td><td><button class="table-link" data-go="partner-order">AC/2026/1048</button></td><td>Koszulka klubowa</td><td><span class="table-status available">Rozliczona</span></td><td class="amount plus">+20,00 zł</td></tr>
+                    <tr><td>Sprzedaż</td><td>AC/2026/1041</td><td>Bluza klubowa</td><td><span class="table-status available">Rozliczona</span></td><td class="amount plus">+28,00 zł</td></tr>
+                    <tr><td>Korekta</td><td>AC/2026/0984</td><td>Bidon klubowy</td><td><span class="table-status reversed">Reklamacja uznana</span></td><td class="amount minus">−9,00 zł</td></tr>
+                </tbody></table></div>
+            </article>
+            <article class="partner-panel detail-section">
+                <div class="panel-heading"><div><span>Przebieg rozliczenia</span><strong>Miesięczny proces, nie wypłata na żądanie</strong></div></div>
+                <ol class="horizontal-steps"><li class="done"><i>✓</i><span><strong>Okres zamknięty</strong><small>31.07</small></span></li><li class="active"><i>2</i><span><strong>Dokument klubu</strong><small>oczekuje</small></span></li><li><i>3</i><span><strong>Weryfikacja ACTIVIO</strong><small>1–2 dni</small></span></li><li><i>4</i><span><strong>Wypłata</strong><small>do 05.08</small></span></li></ol>
+            </article>
+        </section>
+
+        <section class="view partner-view" data-view="partner-club" hidden>
+            <div class="partner-settings-nav"><button class="active" type="button" data-go="partner-club">Dane klubu</button><button type="button" data-go="partner-brand">Marka i witryna</button><button type="button" data-go="partner-team">Zespół i role</button><button type="button" data-go="partner-security">Bezpieczeństwo</button></div>
+            <div class="partner-page-head"><div><span class="eyebrow">USTAWIENIA PARTNERA</span><h1>Dane klubu i umowa</h1><p>Dane organizacji, status wdrożenia oraz informacje potrzebne do rozliczeń.</p></div><button class="button primary" type="button" data-action="edit-club-data">Zgłoś zmianę danych</button></div>
+            <div class="club-settings-layout">
+                <article class="partner-panel">
+                    <div class="panel-heading"><div><span>Organizacja</span><strong>KS Stal Pleszew</strong></div><span class="table-status available">Zweryfikowana</span></div>
+                    <dl class="definition-grid"><div><dt>Pełna nazwa</dt><dd>Klub Sportowy Stal Pleszew</dd></div><div><dt>Forma prawna</dt><dd>Stowarzyszenie kultury fizycznej</dd></div><div><dt>NIP</dt><dd>617 000 41 82</dd></div><div><dt>KRS</dt><dd>0000128456</dd></div><div><dt>Status VAT</dt><dd>Czynny podatnik VAT</dd></div><div><dt>Adres</dt><dd>ul. Sportowa 1, 63-300 Pleszew</dd></div><div><dt>Reprezentant</dt><dd>Marek Kowalski · Prezes</dd></div><div><dt>E-mail formalny</dt><dd>zarzad@stalpleszew.pl</dd></div></dl>
+                </article>
+                <article class="partner-panel onboarding-card">
+                    <div class="panel-heading"><div><span>Wdrożenie</span><strong>6 z 6 kroków zakończonych</strong></div><b>100%</b></div>
+                    <div class="progress-track"><i></i></div>
+                    <ul><li class="done">✓ Organizacja zweryfikowana</li><li class="done">✓ Umowa partnerska podpisana</li><li class="done">✓ Prawa do marki potwierdzone</li><li class="done">✓ Rachunek bankowy zweryfikowany</li><li class="done">✓ Produkty i ceny zaakceptowane</li><li class="done">✓ Sklep opublikowany</li></ul>
+                </article>
+            </div>
+            <div class="two-column-panels">
+                <article class="partner-panel"><div class="panel-heading"><div><span>Umowa partnerska</span><strong>ACT/CLUB/2026/014</strong></div><span class="table-status available">Aktywna</span></div><ul class="detail-list"><li><span>Podpisano</span><strong>12.03.2026</strong></li><li><span>Okres</span><strong>Bezterminowa · 1 mies. wypowiedzenia</strong></li><li><span>Rozliczenie</span><strong>Miesięczne</strong></li></ul><button class="button ghost full" type="button" data-action="download-contract">Pobierz podpisaną umowę</button></article>
+                <article class="partner-panel"><div class="panel-heading"><div><span>Kontakt ACTIVIO</span><strong>Anna Nowak</strong></div></div><p class="contact-lead">Opiekunka programu ACTIVIO Club</p><ul class="detail-list"><li><span>E-mail</span><strong>club@activio.pl</strong></li><li><span>Telefon</span><strong>+48 62 000 00 00</strong></li><li><span>Dostępność</span><strong>Pon.–pt. 8:00–16:00</strong></li></ul><button class="button ghost full" type="button" data-action="contact-manager">Napisz do opiekuna</button></article>
+            </div>
+        </section>
+
+        <section class="view partner-view" data-view="partner-brand" hidden>
+            <div class="partner-settings-nav"><button type="button" data-go="partner-club">Dane klubu</button><button class="active" type="button" data-go="partner-brand">Marka i witryna</button><button type="button" data-go="partner-team">Zespół i role</button><button type="button" data-go="partner-security">Bezpieczeństwo</button></div>
+            <div class="partner-page-head"><div><span class="eyebrow">MARKA KLUBU</span><h1>Materiały i witryna</h1><p>Kontroluj herb, licencję oraz treści oficjalnego sklepu.</p></div><button class="button primary" type="button" data-action="request-brand-change">Zgłoś nowe materiały</button></div>
+            <div class="brand-layout">
+                <article class="partner-panel brand-assets">
+                    <div class="panel-heading"><div><span>Herb główny</span><strong>Wersja produkcyjna</strong></div><span class="table-status available">Zaakceptowana</span></div>
+                    <div class="crest-preview"><img src="../assets/clubs/stal-pleszew.png" alt="Herb KS Stal Pleszew"><span><strong>stal-pleszew-v4.svg</strong><small>Wektor · CMYK · dodano 12.03.2026</small><button type="button" data-action="download-brand-asset">Pobierz plik</button></span></div>
+                    <div class="color-swatches"><span><i style="background:#101933"></i><b>#101933</b><small>Granat</small></span><span><i style="background:#ffffff"></i><b>#FFFFFF</b><small>Biel</small></span><span><i style="background:#d7ff45"></i><b>#D7FF45</b><small>Akcent</small></span></div>
+                </article>
+                <article class="partner-panel license-card">
+                    <div class="panel-heading"><div><span>Licencja na markę</span><strong>Prawo do użycia herbu i nazwy</strong></div><span class="table-status pending">45 dni</span></div>
+                    <dl class="detail-list"><div><dt>Zakres</dt><dd>Produkty, Market i materiały promocyjne ACTIVIO</dd></div><div><dt>Ważna do</dt><dd>12.09.2026</dd></div><div><dt>Dokument</dt><dd>LIC/STAL/2026/02.pdf</dd></div><div><dt>Osoba zatwierdzająca</dt><dd>Marek Kowalski</dd></div></dl>
+                    <button class="button primary full" type="button" data-action="renew-license">Przekaż odnowienie</button>
+                </article>
+            </div>
+            <article class="partner-panel storefront-editor">
+                <div class="panel-heading"><div><span>Witryna klubu</span><strong>Treści widoczne dla kibiców</strong></div><button type="button" data-go="club" data-club-id="stal">Podgląd strony ↗</button></div>
+                <div class="storefront-fields"><label>Nagłówek<input value="Oficjalny sklep KS Stal Pleszew" maxlength="80"></label><label class="wide">Opis klubu<textarea maxlength="300">Od 1924 roku gramy dla Pleszewa. Kupując tutaj, wspierasz szkolenie dzieci i młodzieży.</textarea></label><label>Facebook<input value="facebook.com/stalpleszew"></label><label>Instagram<input value="instagram.com/stalpleszew"></label></div>
+                <div class="form-actions"><small>Zmiany publikuje ACTIVIO po sprawdzeniu praw do treści.</small><button class="button primary" type="button" data-action="save-storefront">Przekaż do publikacji</button></div>
+            </article>
+            <article class="partner-panel detail-section"><div class="panel-heading"><div><span>Historia materiałów</span><strong>Wersje i akceptacje</strong></div></div><div class="version-list"><div><b>v4</b><span><strong>Herb produkcyjny SVG</strong><small>Zaakceptowany 12.03.2026</small></span><i class="table-status available">Aktualny</i></div><div><b>v3</b><span><strong>Herb PNG</strong><small>Wycofany 12.03.2026</small></span><i class="table-status reversed">Archiwalny</i></div></div></article>
+        </section>
+
+        <section class="view partner-view" data-view="partner-team" hidden>
+            <div class="partner-settings-nav"><button type="button" data-go="partner-club">Dane klubu</button><button type="button" data-go="partner-brand">Marka i witryna</button><button class="active" type="button" data-go="partner-team">Zespół i role</button><button type="button" data-go="partner-security">Bezpieczeństwo</button></div>
+            <div class="partner-page-head"><div><span class="eyebrow">DOSTĘP DO PANELU</span><h1>Zespół i role</h1><p>Każda osoba ma własne konto i tylko potrzebny zakres uprawnień.</p></div><button class="button primary" type="button" data-action="invite-member">＋ Zaproś osobę</button></div>
+            <div class="role-grid"><article><strong>Administrator</strong><p>Pełny dostęp, zespół, marka i dane rozliczeniowe.</p></article><article><strong>Menedżer sklepu</strong><p>Oferta, ceny, zamówienia i statystyki.</p></article><article><strong>Księgowość</strong><p>Rozliczenia, dokumenty i eksporty.</p></article><article><strong>Podgląd</strong><p>Tylko odczyt pulpitu i sprzedaży.</p></article></div>
+            <article class="partner-panel team-table">
+                <div class="panel-heading"><div><span>Użytkownicy</span><strong>4 aktywne konta</strong></div></div>
+                <div class="table-scroll"><table><thead><tr><th>Osoba</th><th>Rola</th><th>2FA</th><th>Ostatnia aktywność</th><th></th></tr></thead><tbody>
+                    <tr><td><span class="person-cell"><b>MK</b><span><strong>Marek Kowalski</strong><small>marek@stalpleszew.pl · Ty</small></span></span></td><td>Administrator</td><td><span class="table-status available">Włączone</span></td><td>Dzisiaj, 18:14</td><td><button class="table-link" type="button" data-action="member-details">Szczegóły</button></td></tr>
+                    <tr><td><span class="person-cell"><b>AN</b><span><strong>Anna Nowak</strong><small>anna@stalpleszew.pl</small></span></span></td><td>Menedżer sklepu</td><td><span class="table-status available">Włączone</span></td><td>Dzisiaj, 11:02</td><td><button class="table-link" type="button" data-action="member-details">Edytuj</button></td></tr>
+                    <tr><td><span class="person-cell"><b>JK</b><span><strong>Janina Kaczmarek</strong><small>ksiegowosc@stalpleszew.pl</small></span></span></td><td>Księgowość</td><td><span class="table-status pending">Do włączenia</span></td><td>22.07.2026</td><td><button class="table-link" type="button" data-action="member-details">Edytuj</button></td></tr>
+                    <tr><td><span class="person-cell"><b>PT</b><span><strong>Piotr Tomaszewski</strong><small>biuro@stalpleszew.pl</small></span></span></td><td>Podgląd</td><td><span class="table-status available">Włączone</span></td><td>18.07.2026</td><td><button class="table-link" type="button" data-action="member-details">Edytuj</button></td></tr>
+                </tbody></table></div>
+            </article>
+        </section>
+
+        <section class="view partner-view" data-view="partner-security" hidden>
+            <div class="partner-settings-nav"><button type="button" data-go="partner-club">Dane klubu</button><button type="button" data-go="partner-brand">Marka i witryna</button><button type="button" data-go="partner-team">Zespół i role</button><button class="active" type="button" data-go="partner-security">Bezpieczeństwo</button></div>
+            <div class="partner-page-head"><div><span class="eyebrow">BEZPIECZEŃSTWO</span><h1>Konto i audyt</h1><p>Chronimy dostęp do sprzedaży, marki i danych rozliczeniowych.</p></div><span class="security-score">92 / 100 · bardzo dobrze</span></div>
+            <div class="security-grid">
+                <article class="partner-panel"><i class="security-icon">✓</i><div><strong>Weryfikacja dwuetapowa</strong><p>Aplikacja uwierzytelniająca aktywna od 12.03.2026.</p></div><button type="button" data-action="manage-2fa">Zarządzaj</button></article>
+                <article class="partner-panel"><i class="security-icon">⌁</i><div><strong>Rachunek bankowy</strong><p>PL •••• 1284 0047 · zmiana wymaga hasła i 2FA.</p></div><button type="button" data-action="change-bank">Zmień bezpiecznie</button></article>
+                <article class="partner-panel"><i class="security-icon">◉</i><div><strong>Aktywne sesje</strong><p>2 urządzenia · MacBook i iPhone.</p></div><button type="button" data-action="manage-sessions">Sprawdź</button></article>
+                <article class="partner-panel"><i class="security-icon">✉</i><div><strong>Alerty bezpieczeństwa</strong><p>E-mail przy logowaniu, eksporcie i zmianach finansowych.</p></div><button type="button" data-action="security-alerts">Ustawienia</button></article>
+            </div>
+            <article class="partner-panel audit-log"><div class="panel-heading"><div><span>Dziennik audytowy</span><strong>Ostatnie zdarzenia</strong></div><button type="button" data-action="export-audit">Eksportuj</button></div><div class="table-scroll"><table><thead><tr><th>Data</th><th>Osoba</th><th>Zdarzenie</th><th>Kontekst</th></tr></thead><tbody>
+                <tr><td>Dzisiaj, 18:14</td><td>Marek Kowalski</td><td>Wyświetlenie zamówienia</td><td>AC/2026/1048 · IP 100.76.42.11</td></tr><tr><td>Dzisiaj, 11:02</td><td>Anna Nowak</td><td>Zmiana ceny listingu</td><td>Koszulka · 119 → 129 zł</td></tr><tr><td>23.07, 09:18</td><td>Janina Kaczmarek</td><td>Eksport rozliczenia</td><td>Lipiec 2026 · CSV</td></tr><tr><td>22.07, 16:05</td><td>System</td><td>Nowe minimum ACTIVIO</td><td>Koszulka S–XL + personalizacja</td></tr>
+            </tbody></table></div></article>
+        </section>
+
+        <section class="view partner-view" data-view="partner-notifications" hidden>
+            <div class="partner-page-head"><div><span class="eyebrow">CENTRUM INFORMACJI</span><h1>Powiadomienia</h1><p>Sprawy wymagające działania i historia komunikatów dla klubu.</p></div><button class="button ghost" type="button" data-action="mark-all-read">Oznacz wszystkie jako przeczytane</button></div>
+            <div class="notification-filters"><button class="active" type="button">Wszystkie <b>8</b></button><button type="button">Wymagają działania <b>3</b></button><button type="button">Oferta <b>2</b></button><button type="button">Rozliczenia <b>2</b></button><button type="button">Bezpieczeństwo <b>1</b></button></div>
+            <article class="partner-panel notification-list">
+                <button class="unread" type="button" data-go="partner-listing"><i class="notification-icon warning">!</i><span><small>DZISIAJ · OFERTA</small><strong>Ustal cenę koszulki przed zmianą minimum</strong><p>Od 1 sierpnia minimum dla wariantu S–XL z personalizacją wyniesie 84,00 zł brutto.</p></span><b>Otwórz →</b></button>
+                <button class="unread" type="button" data-go="partner-settlement"><i class="notification-icon money">₿</i><span><small>DZISIAJ · ROZLICZENIA</small><strong>Rozliczenie lipca czeka na dokument</strong><p>Przekaż fakturę VAT na 1 040,00 zł netto + 239,20 zł VAT.</p></span><b>Otwórz →</b></button>
+                <button class="unread" type="button" data-go="partner-brand"><i class="notification-icon brand">◇</i><span><small>WCZORAJ · MARKA</small><strong>Licencja na herb wygasa za 45 dni</strong><p>Przekaż aktualny dokument przed 12 września, aby uniknąć wstrzymania produktów.</p></span><b>Otwórz →</b></button>
+                <button type="button" data-go="partner-order"><i class="notification-icon sale">＋</i><span><small>23.07 · SPRZEDAŻ</small><strong>Nowe zamówienie produktu klubowego</strong><p>Koszulka klubowa · M · numer 10 · KOWALSKI.</p></span><b>Otwórz →</b></button>
+                <button type="button" data-go="partner-security"><i class="notification-icon security">✓</i><span><small>22.07 · BEZPIECZEŃSTWO</small><strong>Nowe logowanie z iPhone</strong><p>Urządzenie zostało potwierdzone kodem 2FA.</p></span><b>Otwórz →</b></button>
+            </article>
         </section>
 
         <section class="view feedback-history-view" data-view="feedback-history" data-feedback-ui data-html2canvas-ignore hidden>
@@ -1245,7 +1460,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260728-16"></script>
-    <script src="feedback.js?v=20260728-16"></script>
+    <script src="app.js?v=20260729-01"></script>
+    <script src="feedback.js?v=20260729-01"></script>
 </body>
 </html>
