@@ -47,6 +47,8 @@ const system_views = [
     'system-clubs',
     'system-club',
     'system-catalog',
+    'system-catalog-product',
+    'system-catalog-variant',
     'system-listings',
     'system-orders',
     'system-cases',
@@ -56,6 +58,8 @@ const system_views = [
 ];
 const system_nav_roots = {
     'system-club': 'system-clubs',
+    'system-catalog-product': 'system-catalog',
+    'system-catalog-variant': 'system-catalog',
     'system-cases': 'system-orders',
     'system-settlement': 'system-settlements',
 };
@@ -1465,6 +1469,109 @@ function show_action(action, source) {
         return;
     }
 
+    if (action === 'system-duplicate-template') {
+        open_action_dialog('Duplikuj szablon katalogowy', `
+            <form class="action-form" data-action-form="system-duplicate-template">
+                <p class="action-form-note">Kopia otrzyma nowy identyfikator i status roboczy. Nie przejmie listingów klubowych ani historii cen.</p>
+                <label class="wide">Nazwa kopii<input name="name" value="Koszulka sportowa — kopia" required></label>
+                <label>Producent<select name="producer"><option>ACTIVIO</option></select></label>
+                <label>Kopiuj warianty<select name="variants"><option>Tak, wszystkie 7 SKU</option><option>Nie</option></select></label>
+                <label class="wide">Kopiuj pliki produkcyjne<select name="files"><option>Tak, jako wersje robocze</option><option>Nie</option></select></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Utwórz kopię roboczą</button></footer>
+            </form>
+        `, 'KATALOG ACTIVIO');
+        return;
+    }
+
+    if (action === 'system-new-variant' || action === 'system-edit-variant') {
+        const editing = action === 'system-edit-variant';
+        open_action_dialog(editing ? 'Edytuj wariant CAT-TS-001-M' : 'Nowy wariant produktu', `
+            <form class="action-form" data-action-form="system-catalog-variant">
+                <label>Rozmiar<input name="size" value="${editing ? 'M' : ''}" required></label>
+                <label>Kolor bazowy<input name="color" value="${editing ? 'Biały · #FFFFFF' : ''}" required></label>
+                <label>Kod producenta<input name="producer_code" value="${editing ? 'ACT-TS-WHT-M' : ''}" required></label>
+                <label>EAN<input name="ean" value="${editing ? '5901234567812' : ''}"></label>
+                <label>Waga w gramach<input name="weight" type="number" min="1" value="${editing ? '180' : ''}" required></label>
+                <label>Lead time<select name="lead"><option>3–5 dni</option><option>5–7 dni</option><option>7–10 dni</option></select></label>
+                <p class="action-form-note">Zmiana danych wariantu tworzy wersję audytową. Identyfikatory użyte w zamówieniach pozostają niezmienne.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">${editing ? 'Zapisz wariant' : 'Utwórz wariant'}</button></footer>
+            </form>
+        `, 'WARIANT / SKU');
+        return;
+    }
+
+    if (action === 'system-new-minimum') {
+        open_action_dialog('Nowa wersja ceny minimalnej', `
+            <form class="action-form" data-action-form="system-catalog-minimum">
+                <label>Baza brutto<input name="base" type="number" min="0" step="0.01" value="69.00" required></label>
+                <label>Numer<input name="number" type="number" min="0" step="0.01" value="8.00" required></label>
+                <label>Nazwisko<input name="name_surcharge" type="number" min="0" step="0.01" value="7.00" required></label>
+                <label>Obowiązuje od<input name="effective" type="date" value="2026-08-01" required></label>
+                <label class="wide">Powód zmiany<textarea name="reason" required>Aktualizacja kosztu materiału i znakowania.</textarea></label>
+                <p class="action-form-note">System pokaże wpływ na listingi przed zapisem. Nowa wersja nie zmienia zamówień ani historycznych naliczeń.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zapisz i przeanalizuj wpływ</button></footer>
+            </form>
+        `, 'WERSJONOWANE MINIMUM');
+        return;
+    }
+
+    if (action === 'system-edit-personalization') {
+        open_action_dialog('Reguły personalizacji', `
+            <form class="action-form" data-action-form="system-catalog-personalization">
+                <label>Numer — minimum<input name="number_min" type="number" value="0" min="0" required></label>
+                <label>Numer — maksimum<input name="number_max" type="number" value="99" min="0" required></label>
+                <label>Nazwisko — min. znaków<input name="name_min" type="number" value="2" min="0" required></label>
+                <label>Nazwisko — maks. znaków<input name="name_max" type="number" value="14" min="1" required></label>
+                <label class="wide">Dozwolone znaki<select name="characters"><option>Litery, spacja i łącznik</option><option>Tylko litery</option></select></label>
+                <label class="wide">Moderacja<select name="moderation"><option>Automatyczna lista + ręczna obsługa wyjątku</option><option>Tylko ręczna</option></select></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zapisz nową wersję reguł</button></footer>
+            </form>
+        `, 'PERSONALIZACJA');
+        return;
+    }
+
+    if (action === 'system-edit-production') {
+        open_action_dialog('Parametry produkcyjne', `
+            <form class="action-form" data-action-form="system-catalog-production">
+                <label>Materiał<input name="material" value="Poliester 145 g/m²" required></label>
+                <label>Technologia<select name="technology"><option>Sublimacja + termotransfer</option><option>DTF</option><option>Sitodruk</option></select></label>
+                <label>Obszar nadruku<input name="area" value="280 × 360 mm" required></label>
+                <label>Profil koloru<select name="profile"><option>CMYK · FOGRA39</option><option>CMYK · FOGRA51</option></select></label>
+                <label class="wide">Instrukcja kontroli<textarea name="quality" required>Sprawdź plik, kontrast, treść personalizacji i pozycję nadruku.</textarea></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zapisz parametry</button></footer>
+            </form>
+        `, 'PRODUKCJA');
+        return;
+    }
+
+    if (action === 'system-catalog-upload-image' || action === 'system-catalog-upload-file') {
+        const image = action === 'system-catalog-upload-image';
+        open_action_dialog(image ? 'Dodaj zdjęcie katalogowe' : 'Nowa wersja pliku produkcyjnego', `
+            <form class="action-form" data-action-form="${image ? 'system-catalog-image' : 'system-catalog-file'}">
+                <label class="wide">Plik<input name="file" value="${image ? 'koszulka-detal-v2.jpg' : 'koszulka-sportowa-v7.ai'}" required></label>
+                <label>${image ? 'Rodzaj widoku' : 'Typ pliku'}<select name="type"><option>${image ? 'Detal produktu' : 'Plik produkcyjny'}</option><option>${image ? 'Widok główny' : 'Podgląd PDF'}</option><option>${image ? 'Przykład znakowania' : 'Tabela parametrów'}</option></select></label>
+                <label>${image ? 'Tekst alternatywny' : 'Numer wersji'}<input name="version" value="${image ? 'Detal materiału koszulki' : 'v7'}" required></label>
+                <label class="wide">Opis zmiany<textarea name="description" required>${image ? 'Nowe zdjęcie materiału i szwu bocznego.' : 'Aktualizacja obszaru bezpiecznego dla nazwiska.'}</textarea></label>
+                <p class="action-form-note">${image ? 'Nowe zdjęcie wymaga weryfikacji przed publikacją.' : 'Poprzedni plik pozostanie dostępny w historii i przy zamówieniach korzystających ze starszej wersji.'}</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Prześlij do weryfikacji</button></footer>
+            </form>
+        `, image ? 'GALERIA KATALOGOWA' : 'PLIKI PRODUKCYJNE');
+        return;
+    }
+
+    if (action === 'system-catalog-history') {
+        open_action_dialog('Pełna historia produktu CAT-TS-001', `
+            <div class="tracking-list">
+                <div><i>v6</i><span><strong>Minimum S–XL i pliki produkcyjne</strong><small>24.07.2026 · Anna Nowak · cor-cat-7821</small></span></div>
+                <div><i>v5</i><span><strong>Walidacja nazwiska do 14 znaków</strong><small>18.06.2026 · Piotr Lis · cor-cat-7144</small></span></div>
+                <div><i>v4</i><span><strong>Profil FOGRA39 i obszar nadruku</strong><small>02.04.2026 · Anna Nowak · cor-cat-5922</small></span></div>
+                <div><i>v3</i><span><strong>Tabela rozmiarów i tolerancje</strong><small>10.01.2026 · Marta Kowal · cor-cat-4110</small></span></div>
+            </div>
+            <p class="action-info">Każda wersja wskazuje operatora, czas, powód oraz obiekty zależne. Wersji użytej w zamówieniu nie można usunąć.</p>
+        `, 'AUDYT KATALOGU');
+        return;
+    }
+
     if (action === 'system-price-impact') {
         open_action_dialog('Wpływ minimum od 1 sierpnia', `
             <div class="info-grid"><article><span>38</span><div><strong>Listingi koszulki</strong><p>Korzystają z dotkniętych wariantów.</p></div></article><article><span>3</span><div><strong>Konflikty cen</strong><p>Zostaną wstrzymane bez reakcji klubu.</p></div></article><article><span>35</span><div><strong>Bez konfliktu</strong><p>Cena detaliczna pozostaje poprawna.</p></div></article></div>
@@ -2065,6 +2172,16 @@ document.addEventListener('click', (event) => {
         return;
     }
 
+    const catalog_image_button = event.target.closest('[data-catalog-image]');
+    if (catalog_image_button) {
+        const gallery = catalog_image_button.closest('.catalog-gallery');
+        gallery.querySelector('[data-catalog-main-image]').src = catalog_image_button.dataset.catalogImage;
+        gallery.querySelectorAll('[data-catalog-image]').forEach((button) => {
+            button.classList.toggle('active', button === catalog_image_button);
+        });
+        return;
+    }
+
     const action_button = event.target.closest('[data-action]');
     if (action_button) {
         event.preventDefault();
@@ -2143,6 +2260,9 @@ document.addEventListener('click', (event) => {
             const [filename, content] = system_files[action];
             download_blob(filename, content, filename.endsWith('.csv') ? 'text/csv;charset=utf-8' : 'text/plain;charset=utf-8');
             show_toast('Plik został przygotowany');
+        } else if (action === 'system-catalog-download-file') {
+            download_blob('koszulka-sportowa-v6.txt', 'Prototyp pliku produkcyjnego koszulka-sportowa-v6.ai · SHA-256 …8f24', 'text/plain;charset=utf-8');
+            show_toast('Pobrano aktywną wersję pliku katalogowego');
         } else if (action === 'system-bulk-review') {
             show_toast('Włączono tryb szybkiego przeglądu kolejki');
         } else if (action === 'system-open-partner-preview') {
@@ -2408,6 +2528,13 @@ document.addEventListener('submit', (event) => {
         'system-new-club': ['Onboarding rozpoczęty', 'Weryfikacja organizacji i reprezentacji'],
         'system-club-status': ['Decyzja zapisana', 'Aktualizacja procesów zależnych i powiadomienie klubu'],
         'system-catalog-template': ['Wersja katalogu zapisana', 'Analiza wpływu na listingi klubowe'],
+        'system-duplicate-template': ['Kopia robocza utworzona', 'Uzupełnienie danych i weryfikacja przed aktywacją'],
+        'system-catalog-variant': ['Wariant katalogowy zapisany', 'Walidacja SKU, parametrów i zależnych listingów'],
+        'system-catalog-minimum': ['Nowa wersja minimum zapisana', 'Analiza wpływu i powiadomienie dotkniętych klubów'],
+        'system-catalog-personalization': ['Reguły personalizacji zapisane', 'Walidacja istniejących projektów i listingów'],
+        'system-catalog-production': ['Parametry produkcyjne zapisane', 'Weryfikacja plików i instrukcji produkcyjnych'],
+        'system-catalog-image': ['Zdjęcie przekazane do weryfikacji', 'Kontrola jakości i publikacja w galerii'],
+        'system-catalog-file': ['Nowa wersja pliku zapisana', 'Kontrola techniczna przed oznaczeniem jako aktywna'],
         'system-reject-invoice': ['Dokument zwrócony do klubu', 'Oczekiwanie na poprawioną fakturę'],
     };
     const form_message = form_messages[form_type];
