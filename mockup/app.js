@@ -47,6 +47,7 @@ const system_views = [
     'system-clubs',
     'system-club',
     'system-catalog',
+    'system-catalog-guide',
     'system-catalog-product',
     'system-catalog-variant',
     'system-listings',
@@ -58,6 +59,7 @@ const system_views = [
 ];
 const system_nav_roots = {
     'system-club': 'system-clubs',
+    'system-catalog-guide': 'system-catalog',
     'system-catalog-product': 'system-catalog',
     'system-catalog-variant': 'system-catalog',
     'system-cases': 'system-orders',
@@ -1455,15 +1457,18 @@ function show_action(action, source) {
     }
 
     if (action === 'system-new-template' || action === 'system-template-detail') {
-        open_action_dialog(action === 'system-new-template' ? 'Nowy szablon katalogowy' : 'Koszulka sportowa · CAT-TS-001', `
+        const is_new_catalog_product = action === 'system-new-template';
+        open_action_dialog(is_new_catalog_product ? 'Dodaj produkt bazowy' : 'Koszulka sportowa · CAT-TS-001', `
             <form class="action-form" data-action-form="system-catalog-template">
-                <label>Nazwa<input name="name" value="${action === 'system-new-template' ? '' : 'Koszulka sportowa'}" required></label>
+                <p class="action-form-note">${is_new_catalog_product ? '<strong>Produkt bazowy opisuje to, co ACTIVIO produkuje.</strong> Nie jest ofertą konkretnego klubu. Po zapisaniu dodasz warianty, minima, personalizację, zdjęcia oraz pliki produkcyjne.' : 'Edytujesz wspólne dane produktu bazowego. Zmiana nie zastępuje klubowych projektów, zdjęć ani cen sprzedaży.'}</p>
+                <label>Nazwa produktu<input name="name" value="${is_new_catalog_product ? '' : 'Koszulka sportowa'}" required></label>
+                <label>Kategoria<select name="category"><option>Odzież sportowa</option><option>Odzież codzienna</option><option>Akcesoria</option><option>Gadżety</option></select></label>
                 <label>Producent<select name="producer"><option>ACTIVIO</option></select></label>
-                <label>Minimum bazowe brutto<input name="minimum" type="number" min="0" value="${action === 'system-new-template' ? '' : '69'}" required></label>
-                <label>Obowiązuje od<input name="effective" type="date" value="2026-08-01" required></label>
-                <label class="wide">Personalizacja<select name="personalization"><option>Numer + nazwisko</option><option>Napis</option><option>Brak</option></select></label>
-                <p class="action-form-note">Zmiana tworzy nową wersję minimum. Nie modyfikuje cen historycznych ani ceny klubu.</p>
-                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zapisz wersję</button></footer>
+                <label>Jednostka<select name="unit"><option>szt.</option><option>komplet</option><option>para</option></select></label>
+                <label>Stawka VAT<select name="vat"><option>23%</option><option>8%</option></select></label>
+                <label>Czas produkcji<select name="lead"><option>3–5 dni roboczych</option><option>5–7 dni roboczych</option><option>7–10 dni roboczych</option></select></label>
+                <label class="wide">Opis dla obsługi<textarea name="description" required>${is_new_catalog_product ? '' : 'Koszulka bazowa do klubowych projektów sportowych.'}</textarea></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">${is_new_catalog_product ? 'Utwórz wersję roboczą' : 'Zapisz dane produktu'}</button></footer>
             </form>
         `, 'KATALOG ACTIVIO');
         return;
@@ -2527,7 +2532,7 @@ document.addEventListener('submit', (event) => {
         'save-storefront': ['Treści przekazane', 'Weryfikacja i publikacja przez ACTIVIO'],
         'system-new-club': ['Onboarding rozpoczęty', 'Weryfikacja organizacji i reprezentacji'],
         'system-club-status': ['Decyzja zapisana', 'Aktualizacja procesów zależnych i powiadomienie klubu'],
-        'system-catalog-template': ['Wersja katalogu zapisana', 'Analiza wpływu na listingi klubowe'],
+        'system-catalog-template': ['Produkt bazowy zapisany', 'Uzupełnienie wariantów, minimum i plików przed aktywacją'],
         'system-duplicate-template': ['Kopia robocza utworzona', 'Uzupełnienie danych i weryfikacja przed aktywacją'],
         'system-catalog-variant': ['Wariant katalogowy zapisany', 'Walidacja SKU, parametrów i zależnych listingów'],
         'system-catalog-minimum': ['Nowa wersja minimum zapisana', 'Analiza wpływu i powiadomienie dotkniętych klubów'],

@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260729-04">
+    <meta name="activio-mockup-version" content="20260729-05">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260729-04">
+    <link rel="stylesheet" href="styles.css?v=20260729-05">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -70,21 +70,22 @@
             <button type="button" data-go="system-clubs"><span>23</span> Kluby i onboarding</button>
             <button type="button" data-go="system-club"><span>24</span> Karta klubu</button>
             <button type="button" data-go="system-catalog"><span>25</span> Katalog i minima</button>
-            <button type="button" data-go="system-catalog-product"><span>26</span> Karta produktu</button>
-            <button type="button" data-go="system-catalog-variant"><span>27</span> Karta wariantu / SKU</button>
-            <button type="button" data-go="system-listings"><span>28</span> Projekty i listingi</button>
-            <button type="button" data-go="system-orders"><span>29</span> Zamówienia i wyjątki</button>
-            <button type="button" data-go="system-cases"><span>30</span> Reklamacje i korekty</button>
-            <button type="button" data-go="system-settlements"><span>31</span> Rozliczenia klubów</button>
-            <button type="button" data-go="system-settlement"><span>32</span> Akceptacja wypłaty</button>
-            <button type="button" data-go="system-audit"><span>33</span> Audyt operacyjny</button>
+            <button type="button" data-go="system-catalog-guide"><span>26</span> Jak dodać produkt</button>
+            <button type="button" data-go="system-catalog-product"><span>27</span> Karta produktu</button>
+            <button type="button" data-go="system-catalog-variant"><span>28</span> Karta wariantu / SKU</button>
+            <button type="button" data-go="system-listings"><span>29</span> Projekty i listingi</button>
+            <button type="button" data-go="system-orders"><span>30</span> Zamówienia i wyjątki</button>
+            <button type="button" data-go="system-cases"><span>31</span> Reklamacje i korekty</button>
+            <button type="button" data-go="system-settlements"><span>32</span> Rozliczenia klubów</button>
+            <button type="button" data-go="system-settlement"><span>33</span> Akceptacja wypłaty</button>
+            <button type="button" data-go="system-audit"><span>34</span> Audyt operacyjny</button>
             <div class="scenario-divider"></div>
-            <button type="button" data-go="feedback-history"><span>34</span> Historia zmian</button>
-            <button type="button" data-go="project-hub"><span>35</span> O projekcie</button>
-            <button type="button" data-go="project-concept"><span>36</span> Koncepcja biznesowa</button>
-            <button type="button" data-go="project-assumptions"><span>37</span> Założenia produktu</button>
-            <button type="button" data-go="project-technical"><span>38</span> Dodatek techniczny</button>
-            <button type="button" data-go="project-research"><span>39</span> Research regulacyjny</button>
+            <button type="button" data-go="feedback-history"><span>35</span> Historia zmian</button>
+            <button type="button" data-go="project-hub"><span>36</span> O projekcie</button>
+            <button type="button" data-go="project-concept"><span>37</span> Koncepcja biznesowa</button>
+            <button type="button" data-go="project-assumptions"><span>38</span> Założenia produktu</button>
+            <button type="button" data-go="project-technical"><span>39</span> Dodatek techniczny</button>
+            <button type="button" data-go="project-research"><span>40</span> Research regulacyjny</button>
         </nav>
     </aside>
 
@@ -1305,17 +1306,56 @@
         </section>
 
         <section class="view system-view" data-view="system-catalog" hidden>
-            <div class="system-page-head"><div><span class="eyebrow">KATALOG CENTRALNY</span><h1>Produkty i ceny minimalne</h1><p>Szablony ACTIVIO, producenci, personalizacje i wersjonowane minima dla klubów.</p></div><button class="button primary" type="button" data-action="system-new-template">＋ Nowy szablon</button></div>
-            <div class="system-kpi-grid compact"><article><span>Aktywne szablony</span><strong>42</strong><small>8 kategorii</small></article><article><span>Warianty cenowe</span><strong>316</strong><small>Rozmiar × personalizacja</small></article><article><span>Zmiany zaplanowane</span><strong>12</strong><small>Od 1 sierpnia</small></article><article class="attention"><span>Konflikty cen</span><strong>3</strong><small>Listingi wymagają reakcji</small></article></div>
+            <div class="system-page-head"><div><span class="eyebrow">KATALOG CENTRALNY</span><h1>Produkty bazowe i ceny minimalne</h1><p>Wspólne produkty ACTIVIO, z których kluby tworzą własne oferty.</p></div><div class="head-actions"><button class="button ghost" type="button" data-go="system-catalog-guide">Jak działa katalog?</button><button class="button primary" type="button" data-action="system-new-template">＋ Dodaj produkt bazowy</button></div></div>
+            <div class="catalog-model-note">
+                <i>i</i>
+                <div><strong>Jeden produkt bazowy może być używany przez wiele klubów.</strong><p>Nie dodawaj osobnej koszulki dla każdego klubu. ACTIVIO tworzy produkt, warianty i minima raz; klub wybiera go z katalogu i tworzy własny listing z herbem, projektem, zdjęciami oraz ceną.</p></div>
+                <ol><li><b>1</b><span><strong>ACTIVIO</strong><small>Produkt bazowy</small></span></li><li><b>2</b><span><strong>Klub</strong><small>Wybór i personalizacja</small></span></li><li><b>3</b><span><strong>Listing</strong><small>Oferta konkretnego klubu</small></span></li></ol>
+                <button type="button" data-go="system-catalog-guide">Otwórz instrukcję →</button>
+            </div>
+            <div class="system-kpi-grid compact"><article><span>Aktywne produkty bazowe</span><strong>42</strong><small>8 kategorii</small></article><article><span>Warianty / SKU</span><strong>316</strong><small>Rozmiar × kolor</small></article><article><span>Zmiany zaplanowane</span><strong>12</strong><small>Od 1 sierpnia</small></article><article class="attention"><span>Konflikty cen</span><strong>3</strong><small>Listingi wymagają reakcji</small></article></div>
             <article class="system-panel">
                 <div class="system-filter-bar inside"><label>⌕ <input placeholder="Produkt, SKU lub producent"></label><select><option>Wszystkie kategorie</option><option>Odzież</option><option>Gadżety</option></select><select><option>Wszyscy producenci</option><option>ACTIVIO</option></select></div>
-                <div class="table-scroll"><table class="system-main-table"><thead><tr><th>Szablon</th><th>Producent</th><th>Warianty</th><th>Personalizacja</th><th>Minimum od</th><th>Listingi klubów</th><th>Status</th><th></th></tr></thead><tbody>
+                <div class="table-scroll"><table class="system-main-table"><thead><tr><th>Produkt bazowy</th><th>Producent</th><th>Warianty</th><th>Personalizacja</th><th>Minimum od</th><th>Oferty klubów</th><th>Status</th><th></th></tr></thead><tbody>
                     <tr><td><span class="product-cell"><img src="../assets/products/koszulki-sportowe.jpg" alt=""><span><strong>Koszulka sportowa</strong><small>CAT-TS-001</small></span></span></td><td>ACTIVIO</td><td>7 rozmiarów</td><td>Numer + nazwisko</td><td><strong>69,00 zł brutto</strong><small>84,00 zł S–XL z nadrukiem od 01.08</small></td><td>38 aktywnych</td><td><span class="table-status pending">Zmiana ceny</span></td><td><button class="table-link" data-go="system-catalog-product">Otwórz →</button></td></tr>
                     <tr><td><span class="product-cell"><img src="../assets/products/bluzy.jpg" alt=""><span><strong>Bluza z kapturem</strong><small>CAT-HD-002</small></span></span></td><td>ACTIVIO</td><td>7 rozmiarów</td><td>Napis opcjonalny</td><td><strong>139,00 zł brutto</strong></td><td>27 aktywnych</td><td><span class="table-status available">Aktywny</span></td><td><button class="table-link" data-go="system-catalog-product">Otwórz →</button></td></tr>
                     <tr><td><span class="product-cell"><img src="../assets/products/kubki.jpg" alt=""><span><strong>Kubek 330 ml</strong><small>CAT-MG-004</small></span></span></td><td>ACTIVIO</td><td>2 kolory</td><td>Imię / numer</td><td><strong>29,00 zł brutto</strong></td><td>31 aktywnych</td><td><span class="table-status available">Aktywny</span></td><td><button class="table-link" data-go="system-catalog-product">Otwórz →</button></td></tr>
                 </tbody></table></div>
             </article>
             <div class="system-rule-card"><i>i</i><div><strong>Zmiana minimum nigdy nie nadpisuje ceny listingu.</strong><p>Tworzy przyszłą wersję reguły, wskazuje dotknięte listingi i uruchamia termin reakcji klubu. W dniu wejścia system ponownie waliduje listing i ewentualnie go wstrzymuje.</p></div><button type="button" data-action="system-price-impact">Pokaż wpływ zmiany</button></div>
+        </section>
+
+        <section class="view system-view" data-view="system-catalog-guide" hidden>
+            <div class="system-breadcrumbs"><button type="button" data-go="system-catalog">← Katalog produktów</button><span>/</span><strong>Instrukcja obsługi</strong></div>
+            <div class="system-page-head"><div><span class="eyebrow">INSTRUKCJA DLA OBSŁUGI</span><h1>Jak dodać produkt do katalogu?</h1><p>Od produktu bazowego ACTIVIO do gotowych ofert klubowych.</p></div><button class="button primary" type="button" data-action="system-new-template">＋ Dodaj produkt bazowy</button></div>
+            <div class="system-scope-note catalog-guide-principle"><i>1→∞</i><div><strong>Produkt bazowy i oferta klubu to dwa różne obiekty.</strong><p>Produkt bazowy opisuje to, co ACTIVIO potrafi wyprodukować. Listing klubowy opisuje sposób sprzedaży tego produktu przez konkretny klub. Zmiana herbu, ceny lub zdjęć klubu nie wymaga tworzenia nowego produktu bazowego.</p></div></div>
+
+            <div class="catalog-guide-flow">
+                <article class="system-panel"><i>1</i><span>ACTIVIO</span><strong>Dodaj produkt bazowy</strong><p>Nazwa, kategoria, producent, zdjęcia neutralne i podstawowe zasady realizacji.</p><button type="button" data-action="system-new-template">Rozpocznij →</button></article>
+                <article class="system-panel"><i>2</i><span>ACTIVIO</span><strong>Dodaj warianty i minima</strong><p>SKU, rozmiary, kolory, dopłaty personalizacji i ceny minimalne.</p><button type="button" data-go="system-catalog-product">Zobacz kartę →</button></article>
+                <article class="system-panel"><i>3</i><span>KLUB</span><strong>Wybierz produkt</strong><p>Klub wybiera pozycję z katalogu, dostępne warianty i ustala własną cenę.</p><button type="button" data-go="partner-offer">Panel klubu →</button></article>
+                <article class="system-panel"><i>4</i><span>KLUB + ACTIVIO</span><strong>Przygotuj projekt</strong><p>Herb, kolory, mockupy i zdjęcia listingu przechodzą akceptację klubu oraz ACTIVIO.</p><button type="button" data-go="partner-listing">Zobacz projekt →</button></article>
+                <article class="system-panel"><i>5</i><span>ACTIVIO</span><strong>Opublikuj listing</strong><p>Końcowa kontrola praw do marki, plików, ceny oraz parametrów produkcyjnych.</p><button type="button" data-go="system-listings">Kolejka listingów →</button></article>
+            </div>
+
+            <div class="catalog-guide-columns">
+                <article class="system-panel catalog-guide-checklist">
+                    <div class="panel-heading"><div><span>Checklista operatora</span><strong>Nowy produkt bazowy</strong></div><b>0/6</b></div>
+                    <ol><li><i>1</i><span><strong>Dane i kategoria</strong><small>Nazwa handlowa, producent, VAT i czas produkcji.</small></span><button type="button" data-action="system-new-template">Uzupełnij</button></li><li><i>2</i><span><strong>Zdjęcia neutralne</strong><small>Bez herbu klubu; pokazują wspólny produkt bazowy.</small></span><button type="button" data-action="system-catalog-upload-image">Dodaj</button></li><li><i>3</i><span><strong>Warianty / SKU</strong><small>Rozmiary, kolory i kody producenta.</small></span><button type="button" data-action="system-new-variant">Dodaj</button></li><li><i>4</i><span><strong>Personalizacja</strong><small>Dozwolone pola, walidacja i dopłaty.</small></span><button type="button" data-action="system-edit-personalization">Ustaw</button></li><li><i>5</i><span><strong>Produkcja i pliki</strong><small>Technologia, obszary nadruku oraz aktywny plik.</small></span><button type="button" data-action="system-catalog-upload-file">Prześlij</button></li><li><i>6</i><span><strong>Ceny minimalne</strong><small>Wersja bazowa i minima dla konfiguracji.</small></span><button type="button" data-action="system-new-minimum">Ustaw</button></li></ol>
+                </article>
+                <article class="system-panel catalog-responsibility">
+                    <div class="panel-heading"><div><span>Podział odpowiedzialności</span><strong>Kto zarządza danymi?</strong></div></div>
+                    <div class="table-scroll"><table><thead><tr><th>Element</th><th>ACTIVIO</th><th>Klub</th></tr></thead><tbody><tr><td>Produkt, producent i SKU</td><td><span class="table-status available">Zarządza</span></td><td>Tylko wybiera</td></tr><tr><td>Cena minimalna</td><td><span class="table-status available">Ustala</span></td><td>Nie może obniżyć</td></tr><tr><td>Cena sprzedaży</td><td>Waliduje</td><td><span class="table-status paid">Ustala</span></td></tr><tr><td>Herb i kolory</td><td>Weryfikuje prawa</td><td><span class="table-status paid">Dostarcza</span></td></tr><tr><td>Plik produkcyjny</td><td><span class="table-status available">Zarządza</span></td><td>Akceptuje wygląd</td></tr><tr><td>Zdjęcia listingu</td><td>Tworzy / zatwierdza</td><td>Wybiera / proponuje</td></tr></tbody></table></div>
+                </article>
+            </div>
+
+            <article class="system-panel catalog-decision-guide">
+                <div class="panel-heading"><div><span>Najczęstsza decyzja</span><strong>Czy utworzyć nowy produkt bazowy?</strong></div></div>
+                <div>
+                    <section><i>✓</i><div><strong>Użyj istniejącego produktu</strong><p>Inny klub, herb, projekt, zdjęcia, cena sprzedaży albo wybór części istniejących wariantów.</p><button type="button" data-go="partner-offer">Przejdź do wyboru z katalogu</button></div></section>
+                    <section><i>＋</i><div><strong>Utwórz nowy produkt bazowy</strong><p>Inny fizyczny produkt, producent, materiał, technologia produkcji lub zestaw parametrów wymagający odrębnego SKU.</p><button type="button" data-action="system-new-template">Dodaj produkt bazowy</button></div></section>
+                </div>
+            </article>
         </section>
 
         <section class="view system-view" data-view="system-catalog-product" hidden>
@@ -1786,7 +1826,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260729-04"></script>
-    <script src="feedback.js?v=20260729-04"></script>
+    <script src="app.js?v=20260729-05"></script>
+    <script src="feedback.js?v=20260729-05"></script>
 </body>
 </html>
