@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260729-02">
+    <meta name="activio-mockup-version" content="20260729-03">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260729-02">
+    <link rel="stylesheet" href="styles.css?v=20260729-03">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="prototype-bar">
@@ -147,27 +150,45 @@
         </nav>
 
         <header class="system-header" data-system-header hidden>
-            <a class="system-brand" href="#system-dashboard" data-go="system-dashboard"><img src="../assets/brand/activio-logo.svg" alt="ACTIVIO"><span>System <b>Operacje</b></span></a>
-            <nav>
-                <button type="button" data-go="system-dashboard">Pulpit</button>
-                <button type="button" data-go="system-clubs">Kluby</button>
-                <button type="button" data-go="system-catalog">Katalog</button>
-                <button type="button" data-go="system-listings">Listingi</button>
-                <button type="button" data-go="system-orders">Operacje</button>
-                <button type="button" data-go="system-settlements">Rozliczenia</button>
-                <button type="button" data-go="system-audit">Audyt</button>
-            </nav>
-            <div class="system-user"><span>AN</span><div><strong>Anna Nowak</strong><small>Operator ACTIVIO</small></div></div>
+            <button type="button" data-prototype-menu title="Menu główne Systemu" aria-label="Menu główne Systemu">
+                <svg height="22" width="22" viewBox="0 0 32 32"><circle fill="currentColor" cx="6.45" cy="6.57" r="2.92"/><circle fill="currentColor" cx="6.45" cy="16" r="2.92"/><circle fill="currentColor" cx="6.45" cy="25.43" r="2.92"/><circle fill="currentColor" cx="16" cy="6.57" r="2.92"/><circle fill="currentColor" cx="16" cy="16" r="2.92"/><circle fill="currentColor" cx="16" cy="25.43" r="2.92"/><circle fill="currentColor" cx="25.55" cy="6.57" r="2.92"/><circle fill="currentColor" cx="25.55" cy="16" r="2.92"/><circle fill="currentColor" cx="25.55" cy="25.43" r="2.92"/></svg>
+            </button>
+            <button type="button" data-action="system-global-search" title="Wyszukiwarka globalna" aria-label="Wyszukiwarka globalna">
+                <svg height="22" width="22" viewBox="0 0 32 32"><circle fill="none" stroke="currentColor" stroke-width="2" cx="13.02" cy="13.06" r="10.28"/><line fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" x1="29.25" y1="29.22" x2="20.31" y2="20.28"/></svg>
+            </button>
+            <button class="active" type="button" data-go="system-dashboard" title="ACTIVIO" aria-label="ACTIVIO">
+                <svg height="24" width="24" viewBox="0 0 32 32"><path fill="currentColor" d="M12.84,6.75l-.51.88,12.84,9.55-.22-.38h0l-5.82-10.05c-1.03-1.74-3.27-2.32-5.01-1.29-.53.31-.98.76-1.29,1.29h.02ZM11.25,9.49l-3.14,5.44,13.3,10.43c1.07.91,2.39,1.48,3.79,1.65.98.1,1.94-.29,2.59-1.03.64-.78.87-1.8.65-2.78-.31-1.17-1.37-1.94-2.36-2.7l-14.82-11.01ZM30.52,22.86c.34,1.61-.09,3.28-1.16,4.53-1.06,1.24-2.66,1.9-4.29,1.76-1.83-.2-3.57-.93-4.98-2.11l-4.1-3.24-4.1,3.24c-1.42,1.18-3.15,1.91-4.98,2.11-2.85.21-5.33-1.93-5.54-4.78-.07-1.17.21-2.33.8-3.34L11,5.67c1.65-2.76,5.22-3.67,7.98-2.02.83.5,1.52,1.19,2.02,2.02l8.82,15.29c.34.59.58,1.23.71,1.9ZM7.04,16.8l-2.99,5.23c-.38.65-.56,1.39-.52,2.14.09,1.66,1.51,2.94,3.17,2.85,1.4-.17,2.71-.74,3.79-1.65l3.68-2.89-7.25-5.67Z"/></svg>
+            </button>
+            <span class="system-rail-spacer"></span>
+            <button type="button" data-action="system-settings" title="Ustawienia użytkownika" aria-label="Ustawienia użytkownika">
+                <svg height="22" width="22" viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M28.98,12.48l-3.44-5.96-1.38.8c-2.1,1.21-4.72-.3-4.72-2.73v-1.6h-6.88v1.6c0,2.42-2.62,3.94-4.72,2.73l-1.38-.8-3.44,5.96,1.38.8c2.1,1.21,2.1,4.24,0,5.45l-1.38.8,3.44,5.96,1.38-.8c2.1-1.21,4.72.3,4.72,2.73v1.6h6.88v-1.6c0-2.42,2.62-3.94,4.72-2.73l1.38.8,3.44-5.96-1.38-.8c-2.1-1.21-2.1-4.24,0-5.45l1.38-.8Z"/><circle fill="none" stroke="currentColor" stroke-width="2" cx="16" cy="16" r="3.82"/></svg>
+            </button>
         </header>
-        <nav class="system-mobile-nav" data-system-mobile-nav hidden aria-label="Nawigacja operacji ACTIVIO">
-            <button type="button" data-go="system-dashboard">Pulpit</button>
-            <button type="button" data-go="system-clubs">Kluby</button>
-            <button type="button" data-go="system-catalog">Katalog</button>
-            <button type="button" data-go="system-listings">Listingi</button>
-            <button type="button" data-go="system-orders">Operacje</button>
-            <button type="button" data-go="system-settlements">Rozliczenia</button>
-            <button type="button" data-go="system-audit">Audyt</button>
+        <nav class="system-mobile-nav" data-system-mobile-nav hidden aria-label="Nawigacja Systemu">
+            <div><button type="button" data-prototype-menu aria-label="Menu główne Systemu"><svg height="20" width="20" viewBox="0 0 32 32"><circle fill="currentColor" cx="6.45" cy="6.57" r="2.92"/><circle fill="currentColor" cx="6.45" cy="16" r="2.92"/><circle fill="currentColor" cx="6.45" cy="25.43" r="2.92"/><circle fill="currentColor" cx="16" cy="6.57" r="2.92"/><circle fill="currentColor" cx="16" cy="16" r="2.92"/><circle fill="currentColor" cx="16" cy="25.43" r="2.92"/><circle fill="currentColor" cx="25.55" cy="6.57" r="2.92"/><circle fill="currentColor" cx="25.55" cy="16" r="2.92"/><circle fill="currentColor" cx="25.55" cy="25.43" r="2.92"/></svg></button><button type="button" data-system-sidebar-toggle aria-label="Menu modułu ACTIVIO"><span></span><span></span><span></span></button></div>
+            <strong>ACTIVIO</strong>
+            <button type="button" data-action="system-global-search" aria-label="Wyszukiwarka globalna"><svg height="22" width="22" viewBox="0 0 32 32"><circle fill="none" stroke="currentColor" stroke-width="2" cx="13.02" cy="13.06" r="10.28"/><line fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" x1="29.25" y1="29.22" x2="20.31" y2="20.28"/></svg></button>
         </nav>
+        <aside class="system-module-sidebar" data-system-sidebar hidden aria-label="Menu modułu ACTIVIO">
+            <div class="system-module-title"><svg height="24" width="24" viewBox="0 0 32 32"><path fill="currentColor" d="M12.84,6.75l-.51.88,12.84,9.55-.22-.38h0l-5.82-10.05c-1.03-1.74-3.27-2.32-5.01-1.29-.53.31-.98.76-1.29,1.29h.02ZM11.25,9.49l-3.14,5.44,13.3,10.43c1.07.91,2.39,1.48,3.79,1.65.98.1,1.94-.29,2.59-1.03.64-.78.87-1.8.65-2.78-.31-1.17-1.37-1.94-2.36-2.7l-14.82-11.01ZM30.52,22.86c.34,1.61-.09,3.28-1.16,4.53-1.06,1.24-2.66,1.9-4.29,1.76-1.83-.2-3.57-.93-4.98-2.11l-4.1-3.24-4.1,3.24c-1.42,1.18-3.15,1.91-4.98,2.11-2.85.21-5.33-1.93-5.54-4.78-.07-1.17.21-2.33.8-3.34L11,5.67c1.65-2.76,5.22-3.67,7.98-2.02.83.5,1.52,1.19,2.02,2.02l8.82,15.29c.34.59.58,1.23.71,1.9ZM7.04,16.8l-2.99,5.23c-.38.65-.56,1.39-.52,2.14.09,1.66,1.51,2.94,3.17,2.85,1.4-.17,2.71-.74,3.79-1.65l3.68-2.89-7.25-5.67Z"/></svg><div><strong>ACTIVIO</strong><small>Operacje</small></div></div>
+            <nav>
+                <button type="button" data-go="system-dashboard"><svg viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M16,3.78c7.47,0,13.52,6.05,13.52,13.51,0,3.3-1.21,6.49-3.4,8.97l-.19.21c-.87.94-2.34,1-3.28.14-3.31-3.6-8.91-3.83-12.51-.52-.18.17-.35.34-.52.52-.87.95-2.33,1.01-3.28.14C.93,20.68,1.44,12.14,7.02,7.18c2.47-2.2,5.67-3.41,8.97-3.41Z"/><polygon fill="none" stroke="currentColor" stroke-width="2" points="18.16 14.94 15.21 17.26 15.96 17.92 18.16 14.94"/></svg><span>Pulpit</span></button>
+                <small>PARTNERZY</small>
+                <button type="button" data-go="system-clubs"><svg viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.74,12.77c0,3.1-2.51,5.61-5.61,5.61s-5.61-2.51-5.61-5.61,2.51-5.61,5.61-5.61,5.61,2.51,5.61,5.61Z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M17.51,17.78c-1.12.14-3.31.6-4.43.6s-3.31-.46-4.43-.6c-3.29-.41-6,2.45-6,5.76v1.67c0,.93.75,1.69,1.69,1.69h17.49c.93,0,1.69-.75,1.69-1.69v-1.67c0-3.31-2.71-6.17-6-5.76Z"/></svg><span>Kluby i onboarding</span><b>2</b></button>
+                <small>OFERTA</small>
+                <button type="button" data-go="system-catalog"><svg viewBox="0 0 32 32"><rect fill="none" stroke="currentColor" stroke-width="2" x="2.64" y="2.64" width="10.52" height="10.52" rx="1.28"/><rect fill="none" stroke="currentColor" stroke-width="2" x="18.84" y="2.64" width="10.52" height="10.52" rx="1.28"/><rect fill="none" stroke="currentColor" stroke-width="2" x="2.64" y="18.84" width="10.52" height="10.52" rx="1.28"/><circle fill="none" stroke="currentColor" stroke-width="2" cx="24.1" cy="24.1" r="5.26"/></svg><span>Katalog i minima</span></button>
+                <button type="button" data-go="system-listings"><svg viewBox="0 0 32 32"><polyline fill="none" stroke="currentColor" stroke-width="2" points="2.89 5.99 5.37 8.47 9.5 4.35"/><line fill="none" stroke="currentColor" stroke-width="2" x1="14.35" y1="6.99" x2="29.57" y2="6.99"/><polyline fill="none" stroke="currentColor" stroke-width="2" points="2.89 15.58 5.37 18.06 9.5 13.94"/><line fill="none" stroke="currentColor" stroke-width="2" x1="14.35" y1="16.58" x2="29.57" y2="16.58"/></svg><span>Projekty i listingi</span><b>7</b></button>
+                <small>SPRZEDAŻ</small>
+                <button type="button" data-go="system-orders"><svg viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-width="2" d="M23.45,29.46h-15.01c-1.55,0-2.81-1.26-2.81-2.81V5.36c0-1.55,1.26-2.81,2.81-2.81h10.8l7.03,7.28v16.81c0,1.55-1.26,2.81-2.81,2.81Z"/><line fill="none" stroke="currentColor" stroke-width="2" x1="11.54" y1="17.58" x2="20.58" y2="17.58"/><line fill="none" stroke="currentColor" stroke-width="2" x1="11.54" y1="23.64" x2="20.58" y2="23.64"/></svg><span>Zamówienia i wyjątki</span><b>7</b></button>
+                <button type="button" data-go="system-cases"><svg viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M24.89,5.85l-7.68-3.31c-.65-.28-1.39-.29-2.04-.03l-7.77,3.09c-.66.26-1.19.77-1.47,1.42l-3.31,7.68c-.28.65-.29,1.39-.03,2.04l3.09,7.77c.26.66.77,1.19,1.42,1.47l7.68,3.31c.65.28,1.39.29,2.04.03l7.77-3.09c.66-.26,1.19-.77,1.47-1.42l3.31-7.68c.28-.65.29-1.39.03-2.04l-3.09-7.77c-.26-.66-.77-1.19-1.42-1.47Z"/><line fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" x1="16" y1="10.44" x2="16" y2="15.92"/><line fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" x1="16.05" y1="21.29" x2="16.05" y2="21.32"/></svg><span>Reklamacje i korekty</span><b>2</b></button>
+                <small>FINANSE</small>
+                <button type="button" data-go="system-settlements"><svg viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M19.45,12.21c-1.49-.92-6.29-1.87-6.31,1.5-.02,2.6,6.63,1.5,6.63,4.76,0,3.08-4.31,2.7-7.27,1.5"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M27.96,10.07c-2.13-4.59-6.77-7.77-12.16-7.77-7.4,0-13.39,6-13.39,13.39M4.04,22.14c2.13,4.59,6.77,7.77,12.16,7.77,7.4,0,13.39-6,13.39-13.39"/></svg><span>Rozliczenia klubów</span><b>4</b></button>
+                <small>SYSTEM</small>
+                <button type="button" data-go="system-audit"><svg viewBox="0 0 32 32"><line fill="none" stroke="currentColor" stroke-width="2" x1="8.76" y1="9.86" x2="9.67" y2="9.86"/><line fill="none" stroke="currentColor" stroke-width="2" x1="15.09" y1="9.86" x2="22.97" y2="9.86"/><line fill="none" stroke="currentColor" stroke-width="2" x1="8.76" y1="15.93" x2="9.67" y2="15.93"/><line fill="none" stroke="currentColor" stroke-width="2" x1="15.09" y1="15.93" x2="22.97" y2="15.93"/><rect fill="none" stroke="currentColor" stroke-width="2" x="2.65" y="2.65" width="26.7" height="26.7" rx="3.23"/></svg><span>Audyt operacyjny</span><b>2</b></button>
+            </nav>
+            <div class="system-sidebar-user"><span>AN</span><div><strong>Anna Nowak</strong><small>Operator ACTIVIO</small></div></div>
+        </aside>
+        <div class="system-sidebar-backdrop" data-system-sidebar-toggle hidden></div>
 
         <section class="view marketplace-view" data-view="marketplace">
             <section class="service-offer">
@@ -1655,7 +1676,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260729-02"></script>
-    <script src="feedback.js?v=20260729-02"></script>
+    <script src="app.js?v=20260729-03"></script>
+    <script src="feedback.js?v=20260729-03"></script>
 </body>
 </html>

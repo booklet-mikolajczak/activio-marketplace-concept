@@ -4,6 +4,8 @@ const partner_header = document.querySelector('[data-partner-header]');
 const partner_mobile_nav = document.querySelector('[data-partner-mobile-nav]');
 const system_header = document.querySelector('[data-system-header]');
 const system_mobile_nav = document.querySelector('[data-system-mobile-nav]');
+const system_sidebar = document.querySelector('[data-system-sidebar]');
+const system_sidebar_backdrop = document.querySelector('.system-sidebar-backdrop');
 const store_footer = document.querySelector('[data-store-footer]');
 const scenario_rail = document.querySelector('[data-scenario-rail]');
 const scenario_backdrop = document.querySelector('.scenario-backdrop');
@@ -1384,6 +1386,25 @@ function show_action(action, source) {
         return;
     }
 
+    if (action === 'system-global-search') {
+        open_action_dialog('Wyszukiwarka Systemu', `
+            <label class="search-field"><span>⌕</span><input type="search" placeholder="Zamówienie, klub, listing lub rozliczenie" autofocus></label>
+            <div class="dialog-list">
+                <button type="button" data-go="system-club"><span>ACT</span><span><strong>KS Stal Pleszew</strong><small>Partner ACT-014</small></span><b>Otwórz →</b></button>
+                <button type="button" data-go="system-orders"><span>ZAM</span><span><strong>AC/2026/1048 · pozycja 1</strong><small>Koszulka klubowa · KS Stal</small></span><b>Otwórz →</b></button>
+                <button type="button" data-go="system-settlement"><span>FIN</span><span><strong>Lipiec 2026 · KS Stal</strong><small>1 279,20 zł brutto · do weryfikacji</small></span><b>Otwórz →</b></button>
+            </div>
+        `, 'SYSTEM');
+        return;
+    }
+
+    if (action === 'system-settings') {
+        open_action_dialog('Ustawienia użytkownika', `
+            <div class="info-grid"><article><span>AN</span><div><strong>Anna Nowak</strong><p>Operator ACTIVIO · motyw jasny.</p></div></article><article><span>7</span><div><strong>Skróty w Systemie</strong><p>ACTIVIO jest przypięte do lewego paska.</p></div></article></div>
+        `, 'SYSTEM');
+        return;
+    }
+
     if (action === 'system-new-club') {
         open_action_dialog('Nowy partner klubowy', `
             <form class="action-form" data-action-form="system-new-club">
@@ -1820,21 +1841,26 @@ function render_view(view_name, update_hash = true) {
 
     const is_partner = partner_views.includes(next_view);
     const is_system = system_views.includes(next_view);
+    document.body.classList.toggle('system-mode', is_system);
     store_header.hidden = is_partner || is_system;
     partner_header.hidden = !is_partner;
     partner_mobile_nav.hidden = !is_partner;
     system_header.hidden = !is_system;
     system_mobile_nav.hidden = !is_system;
+    system_sidebar.hidden = !is_system;
+    system_sidebar.classList.remove('open');
+    system_sidebar_backdrop.hidden = true;
     store_footer.hidden = is_partner || is_system;
 
     const active_partner_root = partner_nav_roots[next_view] || next_view;
     const active_system_root = system_nav_roots[next_view] || next_view;
     document.querySelectorAll('[data-go]').forEach((button) => {
         const is_partner_navigation = button.closest('[data-partner-header], [data-partner-mobile-nav]');
-        const is_system_navigation = button.closest('[data-system-header], [data-system-mobile-nav]');
+        const is_system_navigation = button.closest('[data-system-sidebar]');
+        const is_system_app_trigger = button.closest('[data-system-header]');
         const active_view = is_partner_navigation
             ? active_partner_root
-            : (is_system_navigation ? active_system_root : next_view);
+            : (is_system_navigation ? active_system_root : (is_system_app_trigger && is_system ? 'system-dashboard' : next_view));
         button.classList.toggle('active', button.dataset.go === active_view);
     });
 
@@ -1966,6 +1992,14 @@ function apply_order_filters() {
 document.addEventListener('click', (event) => {
     if (event.target === action_dialog || event.target.closest('[data-action-close]')) {
         close_action_dialog();
+        return;
+    }
+
+    const system_sidebar_toggle = event.target.closest('[data-system-sidebar-toggle]');
+    if (system_sidebar_toggle) {
+        const should_open = !system_sidebar.classList.contains('open');
+        system_sidebar.classList.toggle('open', should_open);
+        system_sidebar_backdrop.hidden = !should_open;
         return;
     }
 
@@ -2230,6 +2264,9 @@ document.addEventListener('click', (event) => {
     const go_button = event.target.closest('[data-go]');
     if (go_button) {
         event.preventDefault();
+        if (action_dialog.open) {
+            close_action_dialog();
+        }
         if (go_button.dataset.clubId && go_button.dataset.clubId !== 'activio') {
             update_club_context(go_button.dataset.clubId);
         }
