@@ -38,6 +38,11 @@
         reload_requested: false,
         load_error: '',
     };
+    const screenshot_scroll_lock = {
+        captures: 0,
+        value: '',
+        priority: '',
+    };
 
     function escape_html(value) {
         return String(value ?? '')
@@ -346,20 +351,63 @@
         ui.highlight.hidden = false;
     }
 
+    function lock_screenshot_scroll() {
+        const document_root = document.documentElement;
+
+        if (screenshot_scroll_lock.captures === 0) {
+            screenshot_scroll_lock.value = document_root.style.getPropertyValue('scroll-behavior');
+            screenshot_scroll_lock.priority = document_root.style.getPropertyPriority('scroll-behavior');
+        }
+
+        screenshot_scroll_lock.captures += 1;
+        document_root.style.setProperty('scroll-behavior', 'auto', 'important');
+    }
+
+    function unlock_screenshot_scroll() {
+        screenshot_scroll_lock.captures = Math.max(0, screenshot_scroll_lock.captures - 1);
+
+        if (screenshot_scroll_lock.captures > 0) {
+            return;
+        }
+
+        const document_root = document.documentElement;
+
+        if (screenshot_scroll_lock.value) {
+            document_root.style.setProperty(
+                'scroll-behavior',
+                screenshot_scroll_lock.value,
+                screenshot_scroll_lock.priority,
+            );
+        } else {
+            document_root.style.removeProperty('scroll-behavior');
+        }
+    }
+
     async function capture_screenshot(target) {
         if (typeof window.html2canvas !== 'function') {
             return '';
         }
 
+        const viewport = {
+            left: window.scrollX,
+            top: window.scrollY,
+            width: window.innerWidth,
+            height: window.innerHeight,
+        };
+
+        lock_screenshot_scroll();
+
         try {
             const target_rect = target.getBoundingClientRect();
             const canvas = await window.html2canvas(document.body, {
-                x: window.scrollX,
-                y: window.scrollY,
-                width: window.innerWidth,
-                height: window.innerHeight,
-                windowWidth: window.innerWidth,
-                windowHeight: window.innerHeight,
+                x: viewport.left,
+                y: viewport.top,
+                width: viewport.width,
+                height: viewport.height,
+                windowWidth: viewport.width,
+                windowHeight: viewport.height,
+                scrollX: viewport.left,
+                scrollY: viewport.top,
                 scale: 1,
                 useCORS: true,
                 allowTaint: false,
@@ -395,6 +443,8 @@
             return canvas.toDataURL('image/jpeg', .72);
         } catch {
             return '';
+        } finally {
+            unlock_screenshot_scroll();
         }
     }
 
