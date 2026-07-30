@@ -396,6 +396,22 @@ const assumptions = {
             'ACTIVIO jest jedynym sprzedawcą, a kluby są partnerami i licencjodawcami marki.',
         ],
     },
+    about: {
+        title: 'O ACTIVIO',
+        items: [
+            'Podstrona przedstawia ACTIVIO jako drukarnię i operatora całego procesu klubowego produktu.',
+            'Komunikacja obejmuje produkcję, personalizację, sprzedaż i wysyłkę, bez przypisywania klubom roli sprzedawcy.',
+            'Deklaracje o firmie i realizacji należy przed publikacją potwierdzić z właścicielem marki.',
+        ],
+    },
+    contact: {
+        title: 'Kontakt z ACTIVIO',
+        items: [
+            'Dane kontaktowe odpowiadają informacjom publikowanym obecnie na activio.pl.',
+            'Formularz rozdziela zapytania produktowe, program partnerski oraz sprawy istniejących zamówień.',
+            'W gotowym systemie wysłanie formularza wymaga obsługi zgód, polityki prywatności, ochrony antyspamowej i potwierdzenia dostarczenia.',
+        ],
+    },
     offer: {
         title: 'Oferta dla klubów',
         items: [
@@ -2814,6 +2830,14 @@ document.addEventListener('input', (event) => {
 });
 
 document.addEventListener('submit', (event) => {
+    const contact_form = event.target.closest('[data-contact-form]');
+    if (contact_form) {
+        event.preventDefault();
+        contact_form.reset();
+        show_toast('Wiadomość została przekazana do ACTIVIO');
+        return;
+    }
+
     const form = event.target.closest('[data-action-form]');
     if (!form) {
         return;

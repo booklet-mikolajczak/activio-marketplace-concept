@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260730-13">
+    <meta name="activio-mockup-version" content="20260730-15">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260730-13">
+    <link rel="stylesheet" href="styles.css?v=20260730-15">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -49,6 +49,8 @@
             <button type="button" data-go="offer"><span>02</span> Oferta dla klubów</button>
             <button type="button" data-go="clubs"><span>03</span> ACTIVIO Club</button>
             <button type="button" data-go="store"><span>04</span> Market</button>
+            <button type="button" data-go="about"><span>04A</span> O nas</button>
+            <button type="button" data-go="contact"><span>04B</span> Kontakt</button>
             <button type="button" data-go="club"><span>05</span> Sklep klubu</button>
             <button type="button" data-go="product"><span>06</span> Personalizacja</button>
             <button type="button" data-go="cart"><span>07</span> Mieszany koszyk</button>
@@ -140,6 +142,8 @@
                 <button type="button" data-go="offer">Oferta</button>
                 <button type="button" data-go="clubs">Kluby</button>
                 <button type="button" data-go="store">Market</button>
+                <button type="button" data-go="about">O nas</button>
+                <button type="button" data-go="contact">Kontakt</button>
             </nav>
             <div class="header-actions">
                 <button class="search-button" type="button" aria-label="Szukaj" data-action="search">⌕</button>
@@ -519,6 +523,79 @@
                         <b aria-hidden="true">↗</b>
                     </a>
                 </nav>
+            </section>
+        </section>
+
+        <section class="view about-view" data-view="about" hidden>
+            <div class="about-hero">
+                <div>
+                    <span class="eyebrow light">O ACTIVIO</span>
+                    <h1>Drukarnia, która rozumie sport.</h1>
+                    <p>Tworzymy personalizowane produkty dla klubów, trenerów, zawodników i kibiców — od pojedynczych realizacji po kompletne kolekcje i oficjalne sklepy.</p>
+                    <div class="hero-actions">
+                        <button class="button orange" type="button" data-go="offer">Poznaj ofertę</button>
+                        <button class="button white" type="button" data-go="contact">Porozmawiajmy →</button>
+                    </div>
+                </div>
+                <figure>
+                    <img src="../assets/hero/marketplace-merch-v2.png" alt="Personalizowane produkty sportowe ACTIVIO">
+                    <figcaption><strong>Od projektu do wysyłki</strong><small>Jeden partner dla klubowych produktów</small></figcaption>
+                </figure>
+            </div>
+            <section class="about-intro">
+                <div><span class="eyebrow">DRUKARNIA DLA AKTYWNYCH</span><h2>Łączymy produkcję, personalizację i sprzedaż.</h2></div>
+                <p>ACTIVIO pomaga klubom zachować spójne barwy bez organizowania własnego magazynu i zaplecza produkcyjnego. Przygotowujemy projekty, wykonujemy produkty, a w modelu ACTIVIO Club możemy również prowadzić ich sprzedaż i wysyłkę do kibiców.</p>
+            </section>
+            <section class="about-values">
+                <article><span>01</span><strong>Sport w centrum</strong><p>Projektujemy ofertę pod codzienne potrzeby klubów, akademii, trenerów i zawodników.</p></article>
+                <article><span>02</span><strong>Pełna personalizacja</strong><p>Herb, barwy, nazwisko, numer i zdjęcie stają się kontrolowaną częścią produktu.</p></article>
+                <article><span>03</span><strong>Obsługa całego procesu</strong><p>Od wyceny i projektu, przez produkcję, po pakowanie, wysyłkę i obsługę klienta.</p></article>
+            </section>
+            <section class="about-process">
+                <header><span class="eyebrow light">JAK PRACUJEMY</span><h2>Od pomysłu do gotowego produktu</h2></header>
+                <ol>
+                    <li><b>01</b><strong>Rozmawiamy</strong><p>Poznajemy klub, odbiorców i planowany sposób wykorzystania produktów.</p></li>
+                    <li><b>02</b><strong>Projektujemy</strong><p>Dobieramy technologię, warianty i przygotowujemy materiały do akceptacji.</p></li>
+                    <li><b>03</b><strong>Produkujemy</strong><p>Wykonujemy zamówienie i kontrolujemy zgodność personalizacji.</p></li>
+                    <li><b>04</b><strong>Dostarczamy</strong><p>Pakujemy i wysyłamy do klubu albo bezpośrednio do kibica.</p></li>
+                </ol>
+            </section>
+            <section class="about-cta">
+                <div><span class="eyebrow">MASZ POMYSŁ?</span><h2>Zamieńmy go w klubowy produkt.</h2></div>
+                <button class="button primary" type="button" data-go="contact">Skontaktuj się z ACTIVIO →</button>
+            </section>
+        </section>
+
+        <section class="view contact-view" data-view="contact" hidden>
+            <div class="contact-hero">
+                <span class="eyebrow light">KONTAKT I ZAMÓWIENIA</span>
+                <h1>Porozmawiajmy o Twoim klubie.</h1>
+                <p>Opowiedz, czego potrzebujesz. Pomożemy wybrać produkt, przygotować wycenę albo omówić uruchomienie sklepu klubowego.</p>
+            </div>
+            <section class="contact-shell">
+                <aside>
+                    <span class="eyebrow">BEZPOŚREDNI KONTAKT</span>
+                    <h2>Wybierz wygodny sposób.</h2>
+                    <a href="mailto:sport@activio.pl"><small>E-MAIL</small><strong>sport@activio.pl</strong><i>↗</i></a>
+                    <a href="tel:+48503163392"><small>TELEFON</small><strong>503 163 392</strong><i>↗</i></a>
+                    <p>Kontakt w sprawie produktów, wycen, zamówień oraz programu ACTIVIO Club.</p>
+                </aside>
+                <form class="contact-form" data-contact-form>
+                    <div class="contact-form-heading"><span class="eyebrow">NAPISZ DO NAS</span><h2>W czym możemy pomóc?</h2></div>
+                    <label>Imię i nazwisko<input name="name" type="text" autocomplete="name" required placeholder="Jan Kowalski"></label>
+                    <label>Klub lub organizacja<input name="organization" type="text" autocomplete="organization" placeholder="Nazwa klubu"></label>
+                    <label>E-mail<input name="email" type="email" autocomplete="email" required placeholder="kontakt@klub.pl"></label>
+                    <label>Telefon<input name="phone" type="tel" autocomplete="tel" placeholder="+48 000 000 000"></label>
+                    <label class="wide">Temat<select name="topic" required><option value="">Wybierz temat</option><option>Produkty i wycena</option><option>Otwarcie sklepu klubowego</option><option>Istniejące zamówienie</option><option>Inna sprawa</option></select></label>
+                    <label class="wide">Wiadomość<textarea name="message" required placeholder="Opisz krótko, czego potrzebujesz…"></textarea></label>
+                    <label class="contact-consent wide"><input name="consent" type="checkbox" required><span>Zgadzam się na kontakt w sprawie przesłanego zapytania.</span></label>
+                    <footer><small>W prototypie formularz symuluje wysłanie wiadomości.</small><button class="button primary" type="submit">Wyślij wiadomość →</button></footer>
+                </form>
+            </section>
+            <section class="contact-paths">
+                <article><span>01</span><div><small>CHCESZ ZAMÓWIĆ PRODUKTY?</small><strong>Sprawdź ofertę drukarni</strong></div><button type="button" data-go="offer">Zobacz ofertę →</button></article>
+                <article><span>02</span><div><small>CHCESZ OTWORZYĆ SKLEP?</small><strong>Poznaj ACTIVIO Club</strong></div><button type="button" data-go="club-program">Zobacz program →</button></article>
+                <article><span>03</span><div><small>PYTASZ O ZAMÓWIENIE?</small><strong>Odszukaj swój zakup</strong></div><button type="button" data-go="order-lookup">Sprawdź status →</button></article>
             </section>
         </section>
 
@@ -1931,7 +2008,7 @@
                 <div class="use-case-role-group" data-use-case-role="buyer">
                     <div class="use-case-role-head"><span class="use-case-role-icon">K</span><div><small>KUPUJĄCY · BEZ KONTA</small><h2>Zakup, status i reklamacja</h2></div><b>4 scenariusze</b></div>
                     <div class="use-case-grid">
-                        <article class="use-case-card" data-use-case-card="buyer-discovery"><header><span>UC-K01</span><b class="coverage-complete">Kompletny</b></header><h3>Znajdź klub i produkt</h3><p>Kupujący poznaje ACTIVIO, znajduje klub oraz przechodzi do jego oficjalnego sklepu.</p><ol><li><button type="button" data-go="marketplace">1. Strona główna</button></li><li><button type="button" data-go="offer">2. Oferta ACTIVIO</button></li><li><button type="button" data-go="clubs">3. Program i lista klubów</button></li><li><button type="button" data-go="club-program">4. Zasady ACTIVIO Club</button></li><li><button type="button" data-go="store">5. Market wszystkich klubów</button></li><li><button type="button" data-go="club">6. Sklep KS Stal</button></li></ol><footer><strong>Rezultat</strong><span>Produkt znaleziony w kontekście właściwego klubu.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="buyer-discovery"><header><span>UC-K01</span><b class="coverage-complete">Kompletny</b></header><h3>Poznaj ACTIVIO, klub i produkt</h3><p>Odwiedzający poznaje firmę i sposoby kontaktu, a następnie znajduje klub oraz przechodzi do jego oficjalnego sklepu.</p><ol><li><button type="button" data-go="marketplace">1. Strona główna</button></li><li><button type="button" data-go="about">2. O ACTIVIO</button></li><li><button type="button" data-go="contact">3. Kontakt</button></li><li><button type="button" data-go="offer">4. Oferta ACTIVIO</button></li><li><button type="button" data-go="clubs">5. Program i lista klubów</button></li><li><button type="button" data-go="club-program">6. Zasady ACTIVIO Club</button></li><li><button type="button" data-go="store">7. Market wszystkich klubów</button></li><li><button type="button" data-go="club">8. Sklep KS Stal</button></li></ol><footer><strong>Rezultat</strong><span>Firma, kontakt i produkt poznane w kontekście właściwego klubu.</span></footer></article>
                         <article class="use-case-card" data-use-case-card="buyer-purchase"><header><span>UC-K02</span><b class="coverage-complete">Kompletny</b></header><h3>Spersonalizuj i kup</h3><p>Kupujący konfiguruje produkt, łączy produkty dwóch klubów i płaci ACTIVIO.</p><ol><li><button type="button" data-go="product">1. Produkt i personalizacja</button></li><li><button type="button" data-go="cart">2. Mieszany koszyk</button></li><li><button type="button" data-go="checkout">3. Dostawa i płatność</button></li><li><button type="button" data-go="confirmation">4. Potwierdzenie zamówienia</button></li></ol><footer><strong>Rezultat</strong><span>Jedna płatność i jedna paczka od ACTIVIO.</span></footer></article>
                         <article class="use-case-card" data-use-case-card="buyer-track"><header><span>UC-K03</span><b class="coverage-complete">Kompletny</b></header><h3>Odszukaj zakup gościnny</h3><p>Klient wraca bez konta, podaje numer i e-mail, a następnie śledzi wspólną paczkę.</p><ol><li><button type="button" data-go="order-lookup">1. Odszukaj zamówienie</button></li><li><button type="button" data-go="customer-order">2. Status i pozycje</button></li><li><button type="button" data-go="customer-order" data-use-action="customer-carrier-track">3. Szczegóły dostawy</button></li></ol><footer><strong>Rezultat</strong><span>Status bez zakładania konta i bez kontaktu z klubem.</span></footer></article>
                         <article class="use-case-card" data-use-case-card="buyer-claim"><header><span>UC-K04</span><b class="coverage-complete">Kompletny</b></header><h3>Zgłoś problem z pozycją</h3><p>Klient wskazuje konkretny produkt, powód, oczekiwane rozwiązanie i dowody.</p><ol><li><button type="button" data-go="customer-order">1. Wybierz zamówienie</button></li><li><button type="button" data-go="customer-claim">2. Formularz reklamacji</button></li><li><button type="button" data-go="system-cases">3. Dalsza obsługa przez BOK</button></li></ol><footer><strong>Rezultat</strong><span>Zgłoszenie per pozycja, bez utraty prawa do reklamacji produktu personalizowanego.</span></footer></article>
@@ -2284,7 +2361,7 @@
         <footer data-store-footer>
             <button class="brand footer-brand" type="button" data-go="marketplace" aria-label="ACTIVIO — strona główna"><img class="brand-logo" src="../assets/brand/activio-logo.svg" alt="ACTIVIO"></button>
             <p>Oferta dla klubów, oficjalne sklepy partnerskie i wspólny Market.</p>
-            <nav><button data-go="marketplace">Strona główna</button><button data-go="offer">Oferta</button><button data-go="clubs">Kluby</button><button data-go="store">Market</button></nav>
+            <nav><button data-go="marketplace">Strona główna</button><button data-go="offer">Oferta</button><button data-go="clubs">Kluby</button><button data-go="store">Market</button><button data-go="about">O nas</button><button data-go="contact">Kontakt</button></nav>
             <small>Prototyp koncepcyjny · lipiec 2026</small>
         </footer>
     </main>
@@ -2363,15 +2440,24 @@
                 <div class="hero-layout-actions">
                     <span class="hero-layout-card hero-layout-print">
                         <img src="../assets/products/koszulki-sportowe.jpg" alt="">
-                        <small>DLA KLUBÓW</small><strong>Zamów druk i produkty</strong><i>Zobacz ofertę →</i>
+                        <small>DLA KLUBÓW</small>
+                        <strong>Zamów druk i produkty</strong>
+                        <p>Wszystko dla klubów sportowych, trenerów i organizacji. Gadżety, odzież i materiały promocyjne z możliwością pełnej personalizacji.</p>
+                        <i>Zobacz ofertę →</i>
                     </span>
                     <span class="hero-layout-card hero-layout-club">
                         <img src="../assets/products/bluzy.jpg" alt="">
-                        <small>PROGRAM PARTNERSKI</small><strong>Otwórz sklep klubowy</strong><i>Dołącz do ACTIVIO Club →</i>
+                        <small>PROGRAM PARTNERSKI</small>
+                        <strong>Otwórz sklep klubowy</strong>
+                        <p>Dołącz do nas. Uruchom oficjalny sklep klubu bez magazynu, pakowania i obsługi wysyłek.</p>
+                        <i>Dołącz do ACTIVIO Club →</i>
                     </span>
                     <span class="hero-layout-card hero-layout-market">
-                        <img src="../assets/products/kubki.jpg" alt="">
-                        <small>DLA KIBICÓW</small><strong>Kupuj we wspólnym Markecie</strong><i>Przejdź do Marketu →</i>
+                        <img src="../assets/hero/marketplace-merch-v2.png" alt="">
+                        <small>DLA KIBICÓW</small>
+                        <strong>Kupuj we wspólnym Markecie</strong>
+                        <p>Wszystkie kluby. Jeden koszyk. Odkrywaj produkty według kategorii i klubu.</p>
+                        <i>Przejdź do Marketu →</i>
                     </span>
                 </div>
             </article>
@@ -2446,7 +2532,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260730-13"></script>
-    <script src="feedback.js?v=20260730-13"></script>
+    <script src="app.js?v=20260730-15"></script>
+    <script src="feedback.js?v=20260730-15"></script>
 </body>
 </html>
