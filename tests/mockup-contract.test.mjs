@@ -68,12 +68,17 @@ test('use cases cover every functional view', () => {
 test('use case inventory contains complete paths for all roles', () => {
     const roles = unique_attribute_values(index_html, 'data-use-case-role');
     const cards = [...index_html.matchAll(
-        /<article class="use-case-card" data-use-case-card="([^"]+)">([\s\S]*?)<\/article>/g,
+        /<article class="use-case-card[^"]*" data-use-case-card="([^"]+)"([^>]*)>([\s\S]*?)<\/article>/g,
     )];
 
     assert.equal(roles.length, 11);
-    assert.equal(cards.length, 25);
-    cards.forEach(([_, identifier, card_html]) => {
+    const exception_cards = cards.filter(([_, __, attributes]) => (
+        attributes.includes('data-use-case-kind="exception"')
+    ));
+
+    assert.equal(cards.length, 47);
+    assert.equal(exception_cards.length, 22);
+    cards.forEach(([_, identifier, __, card_html]) => {
         assert.ok(
             unique_attribute_values(card_html, 'data-go').length >= 2,
             `${identifier} does not contain a complete path`,

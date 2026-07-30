@@ -35,6 +35,18 @@ const partner_views = [
     'partner-team',
     'partner-security',
     'partner-notifications',
+    'partner-listing-review',
+    'partner-price-conflict',
+    'partner-compliance',
+    'partner-settlement-problem',
+    'partner-orders-empty',
+    'partner-access-denied',
+];
+const partner_auth_views = [
+    'partner-login',
+    'partner-invite',
+    'partner-two-factor',
+    'partner-password-reset',
 ];
 const partner_nav_roots = {
     'partner-catalog': 'partner-offer',
@@ -45,6 +57,12 @@ const partner_nav_roots = {
     'partner-brand': 'partner-club',
     'partner-team': 'partner-club',
     'partner-security': 'partner-club',
+    'partner-listing-review': 'partner-offer',
+    'partner-price-conflict': 'partner-offer',
+    'partner-compliance': 'partner-club',
+    'partner-settlement-problem': 'partner-settlements',
+    'partner-orders-empty': 'partner-orders',
+    'partner-access-denied': 'partner-dashboard',
 };
 const system_views = [
     'system-dashboard',
@@ -61,6 +79,12 @@ const system_views = [
     'system-settlement',
     'system-audit',
     'system-users',
+    'system-order-exception',
+    'system-case-resolution',
+    'system-club-suspension',
+    'system-catalog-impact',
+    'system-settlement-problem',
+    'system-integrations',
 ];
 const system_nav_roots = {
     'system-club': 'system-clubs',
@@ -69,6 +93,11 @@ const system_nav_roots = {
     'system-catalog-variant': 'system-catalog',
     'system-cases': 'system-orders',
     'system-settlement': 'system-settlements',
+    'system-order-exception': 'system-orders',
+    'system-case-resolution': 'system-orders',
+    'system-club-suspension': 'system-clubs',
+    'system-catalog-impact': 'system-catalog',
+    'system-settlement-problem': 'system-settlements',
 };
 const valid_views = views.map((view) => view.dataset.view);
 const document_cache = new Map();
@@ -678,12 +707,37 @@ const assumptions = {
     },
 };
 
+Object.assign(assumptions, {
+    'payment-failed': { title: 'Nieudana płatność', items: ['Nieudana próba nie uruchamia produkcji ani naliczenia klubu.', 'Ponowienie dotyczy tego samego koszyka i nie może pobrać kwoty podwójnie.'] },
+    'order-not-found': { title: 'Nie znaleziono zamówienia', items: ['Komunikat nie ujawnia, czy numer albo e-mail istnieje.', 'Odzyskanie numeru odbywa się przez zweryfikowany kanał klienta.'] },
+    'customer-order-problem': { title: 'Niewykonalna pozycja', items: ['Decyzję podejmujemy per pozycja mieszanego koszyka.', 'Częściowy zwrot i korekta klubowa są osobnymi zapisami.'] },
+    'customer-return': { title: 'Zwrot standardowego produktu', items: ['Odstąpienie dotyczy produktu niewykonanego według specyfikacji klienta.', 'Produkt personalizowany nadal może podlegać reklamacji.'] },
+    'partner-login': { title: 'Logowanie partnera', items: ['Każda osoba ma indywidualne konto.', 'Panel partnera korzysta z istniejącego mechanizmu logowania, jeśli potwierdzi to spike techniczny.'] },
+    'partner-invite': { title: 'Aktywacja zaproszenia', items: ['Zaproszenie jest jednorazowe i przypisane do osoby oraz roli.', 'Aktywacja ownera kończy się konfiguracją 2FA.'] },
+    'partner-two-factor': { title: 'Weryfikacja dwuetapowa', items: ['Owner i księgowość wymagają drugiego składnika.', 'Odzyskanie 2FA wymaga osobnej weryfikacji tożsamości.'] },
+    'partner-password-reset': { title: 'Reset hasła', items: ['Komunikat nie potwierdza istnienia konta.', 'Zmiana hasła unieważnia pozostałe sesje i nie omija 2FA.'] },
+    'partner-listing-review': { title: 'Listing zwrócony do poprawy', items: ['Odrzucona wersja pozostaje w historii.', 'Ponowne przekazanie tworzy nową wersję projektu.'] },
+    'partner-price-conflict': { title: 'Konflikt ceny minimalnej', items: ['ACTIVIO nie nadpisuje ceny ustalonej przez klub.', 'Brak reakcji wstrzymuje tylko dotknięty wariant.'] },
+    'partner-compliance': { title: 'Wygasłe prawa do marki', items: ['Wygaśnięcie licencji blokuje nową sprzedaż zależnych listingów.', 'Opłacone zamówienia zachowują utrwaloną wersję licencji.'] },
+    'partner-settlement-problem': { title: 'Problem rozliczenia', items: ['Odrzucony dokument jest zastępowany nową wersją.', 'Klub nie ponawia samodzielnie wypłaty na niezweryfikowany rachunek.'] },
+    'partner-orders-empty': { title: 'Pusty stan sprzedaży', items: ['Pusty widok wskazuje następne sensowne działanie.', 'Klub nadal nie tworzy dowolnego produktu poza katalogiem ACTIVIO.'] },
+    'partner-access-denied': { title: 'Brak uprawnienia', items: ['Kontrola działa na poziomie akcji i zasobu, nie tylko widoczności przycisku.', 'Niedozwolona próba pozostawia ślad audytowy.'] },
+    'system-order-exception': { title: 'Wyjątek realizacji', items: ['ShopSystem pozostaje źródłem produkcji, a ACTIVIO prowadzi decyzję biznesową.', 'Anulowanie jednej pozycji nie usuwa pozostałych pozycji ani historii.'] },
+    'system-case-resolution': { title: 'Decyzja reklamacyjna', items: ['Skutek finansowy zależy od przyczyny i odpowiedzialności.', 'Decyzja jest zapisana per pozycja i nie usuwa pierwotnego naliczenia.'] },
+    'system-club-suspension': { title: 'Zawieszenie partnera', items: ['Zakres blokady jest jawny i analizowany przed zapisem.', 'Zamówienia w toku, historia oraz ledger nie znikają.'] },
+    'system-catalog-impact': { title: 'Archiwizacja produktu bazowego', items: ['Produkt używany przez kluby wymaga analizy wpływu i planu migracji.', 'Snapshoty i opłacone zamówienia pozostają odtwarzalne.'] },
+    'system-settlement-problem': { title: 'Nieudana wypłata', items: ['Nieudana próba nie tworzy nowego zobowiązania.', 'Ponowienie wymaga zweryfikowanego rachunku, nowej próby i audytu.'] },
+    'system-integrations': { title: 'Integracje i ponowienia', items: ['Każde ponowienie jest idempotentne i powiązane z correlation ID.', 'Operator sprawdza skutek biznesowy przed ręcznym ponowieniem.'] },
+});
+
 let current_view = 'marketplace';
 let current_club_id = 'stal';
 let current_product_id = 'shirt';
 let current_product_club_id = 'stal';
 let order_status_filter = 'wszystkie';
 let order_search_phrase = '';
+let use_case_role_filter = 'all';
+let use_case_kind_filter = 'all';
 let cart_items = [
     {
         key: 'stal-shirt-m-10-kowalski',
@@ -1289,6 +1343,87 @@ function show_action(action, source) {
                 <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij wiadomość</button></footer>
             </form>
         `, 'OBSŁUGA KLIENTA');
+        return;
+    }
+
+    if (action === 'retry-payment') {
+        open_action_dialog('Ponów płatność 190,99 zł', `
+            <p class="action-info">Utworzymy nową próbę płatności dla tego samego koszyka. Poprzednia próba PAY/2026/8841 pozostanie odrzucona.</p>
+            <div class="dialog-list"><button type="button" data-go="confirmation"><span class="dialog-icon">B</span><span><strong>BLIK</strong><small>Nowa jednorazowa próba</small></span><b>Wybierz →</b></button><button type="button" data-go="confirmation"><span class="dialog-icon">▣</span><span><strong>Karta lub szybki przelew</strong><small>Przez operatora płatności</small></span><b>Wybierz →</b></button></div>
+        `, 'PŁATNOŚĆ');
+        return;
+    }
+
+    if (action === 'change-payment-method') {
+        open_action_dialog('Wybierz inną metodę płatności', '<p class="action-info">Koszyk pozostaje zarezerwowany. Zmiana metody nie tworzy drugiego zamówienia ani naliczenia dla klubu.</p><div class="dialog-actions"><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="button" data-action="retry-payment">Wybierz metodę</button></div>', 'PŁATNOŚĆ');
+        return;
+    }
+
+    if (action === 'cancel-failed-payment') {
+        open_action_dialog('Anulować nieopłacone zamówienie?', '<p class="action-info">Nie pobrano środków, nie uruchomiono produkcji i nie powstało naliczenie klubowe. Koszyk przestanie być zarezerwowany.</p><div class="dialog-actions"><button class="dialog-button" type="button" data-action-close>Wróć</button><button class="dialog-button primary" type="button" data-go="store">Anuluj i wróć do Marketu</button></div>', 'ANULOWANIE');
+        return;
+    }
+
+    if (action === 'customer-partial-cancel') {
+        open_action_dialog('Decyzja została zapisana', '<div class="tracking-list"><div><i>✓</i><span><strong>Kubek anulowany</strong><small>Zwrot 49,00 zł tą samą metodą płatności</small></span></div><div class="pending"><i>2</i><span><strong>Koszulka trafi do wysyłki</strong><small>Dostawa pozostaje bez zmiany</small></span></div><div class="pending"><i>3</i><span><strong>Korekta KKS Kalisz</strong><small>Osobny, odwracalny wpis rozliczeniowy</small></span></div></div><div class="dialog-actions"><button class="dialog-button primary" type="button" data-go="customer-order">Wróć do zamówienia</button></div>', 'CZĘŚCIOWE ANULOWANIE');
+        return;
+    }
+
+    if (action === 'customer-refund-details') {
+        open_action_dialog('Zwrot za jedną pozycję', '<p class="action-info">ACTIVIO zwróci 49,00 zł tą samą metodą płatności. Dostawa 12,99 zł pozostaje, ponieważ pozostała część zamówienia zostanie wysłana.</p>', 'ZWROT ŚRODKÓW');
+        return;
+    }
+
+    if (action === 'partner-recovery-code' || action === 'partner-two-factor-help') {
+        const recovery = action === 'partner-recovery-code';
+        open_action_dialog(recovery ? 'Użyj kodu odzyskiwania' : 'Odzyskaj dostęp do 2FA', recovery
+            ? '<form class="action-form" data-action-form="partner-recovery-code"><label class="wide">Kod odzyskiwania<input value="ACTV-4F8K-91PL" required></label><footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zweryfikuj kod</button></footer></form>'
+            : '<p class="action-info">Administrator klubu nie może wyłączyć 2FA innej osobie. ACTIVIO zweryfikuje tożsamość i reprezentację przed odzyskaniem konta.</p><div class="dialog-actions"><button class="dialog-button primary" type="button" data-action-close>Rozumiem</button></div>', 'BEZPIECZEŃSTWO');
+        return;
+    }
+
+    if (action === 'partner-listing-comment') {
+        open_action_dialog('Pytanie do operatora katalogu', '<form class="action-form" data-action-form="partner-listing-comment"><label class="wide">Wiadomość<textarea required>Czy zaakceptowany herb SVG v4 zostanie automatycznie podpięty do projektu?</textarea></label><footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij pytanie</button></footer></form>', 'LISTING LST-014-018');
+        return;
+    }
+
+    if (action === 'partner-resubmit-listing') {
+        open_action_dialog('Przekaż poprawioną wersję', '<form class="action-form" data-action-form="partner-resubmit-listing"><label>Herb<select><option>stal-pleszew-v4.svg · zaakceptowany</option></select></label><label>Projekt<input value="koszulka-stal-v3.pdf" required></label><label class="wide">Opis zmian<textarea>Podmieniono herb na SVG i poprawiono margines napisu w rozmiarze 152.</textarea></label><footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Przekaż v3</button></footer></form>', 'PONOWNA WERYFIKACJA');
+        return;
+    }
+
+    if (action === 'partner-pause-conflicting-variant') {
+        open_action_dialog('Wstrzymać wariant S–XL?', '<p class="action-info">Wariant przestanie być dostępny 1 sierpnia. Pozostałe warianty i wcześniejsze zamówienia pozostaną bez zmian.</p><div class="dialog-actions"><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="button" data-action="confirm-pause-conflicting-variant">Wstrzymaj wariant</button></div>', 'CENA MINIMALNA');
+        return;
+    }
+
+    if (action === 'partner-payout-details') {
+        open_action_dialog('Historia prób wypłaty', '<div class="tracking-list"><div><i>✓</i><span><strong>Zlecenie utworzone</strong><small>29.07 · PAYOUT-1184</small></span></div><div><i>!</i><span><strong>Bank odrzucił przelew</strong><small>30.07 · AC01 · rachunek zamknięty</small></span></div><div class="pending"><i>3</i><span><strong>Oczekiwanie na nowy rachunek</strong><small>Bez automatycznego ponowienia</small></span></div></div>', 'WYPŁATA');
+        return;
+    }
+
+    if (action === 'partner-request-access') {
+        open_action_dialog('Prośba wysłana do administratora klubu', '<p class="action-info">Marek Kowalski otrzyma prośbę o uprawnienie club.finance.manage. Do czasu decyzji dostęp pozostaje zablokowany.</p>', 'UPRAWNIENIA');
+        return;
+    }
+
+    if (action === 'system-order-technical-log') {
+        open_action_dialog('Log ShopSystem · pozycja 2', '<pre class="action-code">17:42:15 ORDER_ITEM_ACCEPTED\n17:44:09 MATERIAL_BATCH_CHECK\n17:44:09 PROD_MATERIAL_BLOCKED\n17:44:10 ACTIVIO_EXCEPTION_CREATED</pre><p class="action-info">Identyfikator korelacji: cor-29ab17. Personalizacja i snapshot pliku pozostały zapisane.</p>', 'REALIZACJA');
+        return;
+    }
+
+    if (action === 'system-offboard-operator') {
+        open_action_dialog('Natychmiast zakończ dostęp operatora', '<form class="action-form" data-action-form="system-offboard-operator"><label class="wide">Operator<select><option>Tomasz Wrona · Finanse</option></select></label><label class="wide">Powód<select><option>Zakończenie współpracy</option><option>Incydent bezpieczeństwa</option><option>Zmiana zakresu obowiązków</option></select></label><label class="wide">Uzasadnienie<textarea required>Zakończenie współpracy z dniem 30.07.2026.</textarea></label><p class="action-form-note">Konto zostanie zablokowane, wszystkie sesje i tokeny unieważnione, a historia działań zachowana.</p><footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zablokuj i zakończ sesje</button></footer></form>', 'BEZPIECZEŃSTWO');
+        return;
+    }
+
+    if (action === 'system-retry-integration') {
+        open_action_dialog('Bezpieczne ponowienie zdarzenia', '<p class="action-info">Najpierw sprawdzono, że naliczenie SET-014-1048-1 nie powstało. Ponowienie użyje event ID evt-29ab17 oraz tego samego idempotency key.</p><div class="dialog-actions"><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="button" data-action="confirm-integration-retry">Ponów teraz</button></div>', 'INTEGRACJE');
+        return;
+    }
+
+    if (action === 'system-integration-detail') {
+        open_action_dialog('SHIPMENT_STATUS_SYNC · evt-81ff02', '<p class="action-info">Trzecia próba zakończyła się HTTP 503. Następna automatyczna próba za 8 minut; status klienta pozostaje na ostatniej potwierdzonej wartości.</p>', 'INTEGRACJE');
         return;
     }
 
@@ -2030,6 +2165,29 @@ function render_assumptions(view_name) {
     assumption_content.innerHTML = `<ul>${data.items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
 }
 
+function apply_use_case_filters() {
+    let has_visible_exception = false;
+    document.querySelectorAll('[data-use-case-role]').forEach((group) => {
+        const role_matches = use_case_role_filter === 'all'
+            || group.dataset.useCaseRole === use_case_role_filter;
+        let has_visible_card = false;
+        group.querySelectorAll('[data-use-case-card]').forEach((card) => {
+            const kind = card.dataset.useCaseKind || 'core';
+            const kind_matches = use_case_kind_filter === 'all' || kind === use_case_kind_filter;
+            card.hidden = !kind_matches;
+            has_visible_card ||= kind_matches;
+            if (role_matches && kind_matches && kind === 'exception') {
+                has_visible_exception = true;
+            }
+        });
+        group.hidden = !role_matches || !has_visible_card;
+    });
+    const exception_heading = document.querySelector('.use-case-section-heading');
+    if (exception_heading) {
+        exception_heading.hidden = !has_visible_exception;
+    }
+}
+
 function render_view(view_name, update_hash = true) {
     let next_view = valid_views.includes(view_name) ? view_name : 'marketplace';
     if (next_view === 'checkout' && cart_items.length === 0) {
@@ -2044,8 +2202,10 @@ function render_view(view_name, update_hash = true) {
 
     const is_partner = partner_views.includes(next_view);
     const is_system = system_views.includes(next_view);
+    const is_partner_auth = partner_auth_views.includes(next_view);
     document.body.classList.toggle('system-mode', is_system);
-    store_header.hidden = is_partner || is_system;
+    document.body.classList.toggle('partner-auth-mode', is_partner_auth);
+    store_header.hidden = is_partner || is_system || is_partner_auth;
     partner_header.hidden = !is_partner;
     partner_mobile_nav.hidden = !is_partner;
     system_header.hidden = !is_system;
@@ -2053,7 +2213,7 @@ function render_view(view_name, update_hash = true) {
     system_sidebar.hidden = !is_system;
     system_sidebar.classList.remove('open');
     system_sidebar_backdrop.hidden = true;
-    store_footer.hidden = is_partner || is_system;
+    store_footer.hidden = is_partner || is_system || is_partner_auth;
 
     const active_partner_root = partner_nav_roots[next_view] || next_view;
     const active_system_root = system_nav_roots[next_view] || next_view;
@@ -2270,13 +2430,21 @@ document.addEventListener('click', (event) => {
 
     const use_case_filter = event.target.closest('[data-use-case-filter]');
     if (use_case_filter) {
-        const role = use_case_filter.dataset.useCaseFilter;
+        use_case_role_filter = use_case_filter.dataset.useCaseFilter;
         document.querySelectorAll('[data-use-case-filter]').forEach((button) => {
             button.classList.toggle('active', button === use_case_filter);
         });
-        document.querySelectorAll('[data-use-case-role]').forEach((group) => {
-            group.hidden = role !== 'all' && group.dataset.useCaseRole !== role;
+        apply_use_case_filters();
+        return;
+    }
+
+    const use_case_kind_button = event.target.closest('[data-use-case-kind-filter]');
+    if (use_case_kind_button) {
+        use_case_kind_filter = use_case_kind_button.dataset.useCaseKindFilter;
+        document.querySelectorAll('[data-use-case-kind-filter]').forEach((button) => {
+            button.classList.toggle('active', button === use_case_kind_button);
         });
+        apply_use_case_filters();
         return;
     }
 
@@ -2401,6 +2569,12 @@ document.addEventListener('click', (event) => {
         } else if (action === 'system-user-block') {
             close_action_dialog();
             show_toast('Konto operatora zostało zablokowane, a aktywne sesje zakończone');
+        } else if (action === 'confirm-pause-conflicting-variant') {
+            close_action_dialog();
+            show_toast('Wariant S–XL zostanie wstrzymany 1 sierpnia');
+        } else if (action === 'confirm-integration-retry') {
+            close_action_dialog();
+            show_toast('Zdarzenie evt-29ab17 przetworzono bez utworzenia duplikatu');
         } else if (action === 'system-bulk-review') {
             show_toast('Włączono tryb szybkiego przeglądu kolejki');
         } else if (action === 'system-open-partner-preview') {
@@ -2637,9 +2811,30 @@ document.addEventListener('submit', (event) => {
     const form_type = form.dataset.actionForm;
     const reference = `AC-${Date.now().toString().slice(-6)}`;
 
+    if (form_type === 'partner-login' || form_type === 'partner-invite') {
+        render_view('partner-two-factor');
+        show_toast(form_type === 'partner-invite' ? 'Konto utworzone — skonfiguruj drugi składnik' : 'Hasło poprawne — potwierdź drugi składnik');
+        return;
+    }
+
+    if (form_type === 'partner-two-factor' || form_type === 'partner-recovery-code') {
+        close_action_dialog();
+        render_view('partner-dashboard');
+        show_toast('Bezpieczne logowanie zakończone');
+        return;
+    }
+
+    if (form_type === 'partner-password-reset') {
+        open_action_dialog('Jeśli konto istnieje, link został wysłany', '<p class="action-info">Link jest ważny przez 30 minut i może zostać użyty tylko raz. Po zmianie hasła zakończymy pozostałe sesje.</p><div class="dialog-actions"><button class="dialog-button primary" type="button" data-go="partner-login">Wróć do logowania</button></div>', 'RESET HASŁA');
+        return;
+    }
+
     if (form_type === 'customer-order-lookup') {
-        render_view('customer-order');
-        show_toast('Zamówienie AC/2026/1048 zostało odnalezione');
+        const order_number = form.elements.order_number.value.trim().toUpperCase();
+        const email = form.elements.email.value.trim().toLowerCase();
+        const found = order_number === 'AC/2026/1048' && email === 'jan.kowalski@example.pl';
+        render_view(found ? 'customer-order' : 'order-not-found');
+        show_toast(found ? 'Zamówienie AC/2026/1048 zostało odnalezione' : 'Nie znaleziono zamówienia dla podanych danych');
         return;
     }
 
@@ -2653,6 +2848,11 @@ document.addEventListener('submit', (event) => {
             <p class="action-info">Personalizacja nie wyłącza prawa do reklamacji. Klub otrzyma wyłącznie informację o statusie i ewentualnej korekcie rozliczenia.</p>
             <div class="dialog-actions"><button class="dialog-button primary" type="button" data-go="customer-order">Wróć do zamówienia</button></div>
         `, 'REKLAMACJA');
+        return;
+    }
+
+    if (form_type === 'customer-return') {
+        open_action_dialog('Zwrot ZW/2026/044 został utworzony', '<div class="tracking-list"><div><i>✓</i><span><strong>Kod nadania wygenerowany</strong><small>Wyślemy go także e-mailem</small></span></div><div class="pending"><i>2</i><span><strong>Oczekiwanie na produkt</strong><small>Nadaj paczkę w ciągu 14 dni</small></span></div><div class="pending"><i>3</i><span><strong>Kontrola i zwrot 59,00 zł</strong><small>Tą samą metodą płatności</small></span></div></div>', 'ZWROT');
         return;
     }
 
@@ -2696,6 +2896,11 @@ document.addEventListener('submit', (event) => {
         'save-storefront': ['Treści przekazane', 'Weryfikacja i publikacja przez ACTIVIO'],
         'customer-order-help': ['Wiadomość została wysłana', 'Sprawdź skrzynkę i folder ze spamem'],
         'customer-contact': ['Wiadomość trafiła do BOK', 'Odpowiedź ACTIVIO na podany adres e-mail'],
+        'partner-listing-comment': ['Pytanie wysłane', 'Odpowiedź operatora katalogu'],
+        'partner-resubmit-listing': ['Wersja v3 przekazana', 'Ponowna weryfikacja projektu przez ACTIVIO'],
+        'partner-save-compliant-price': ['Nowa cena zapisana', 'Walidacja w dniu wejścia minimum'],
+        'partner-renew-license': ['Dokument licencyjny przekazany', 'Weryfikacja praw przez ACTIVIO'],
+        'partner-replace-settlement-document': ['Poprawiony dokument przekazany', 'Ponowna kontrola kwoty, VAT i danych'],
         'system-new-club': ['Onboarding rozpoczęty', 'Weryfikacja organizacji i reprezentacji'],
         'system-club-status': ['Decyzja zapisana', 'Aktualizacja procesów zależnych i powiadomienie klubu'],
         'system-catalog-template': ['Produkt bazowy zapisany', 'Uzupełnienie wariantów, minimum i plików przed aktywacją'],
@@ -2710,6 +2915,12 @@ document.addEventListener('submit', (event) => {
         'system-user-update': ['Dostęp operatora zapisany', 'Zmiana roli została dodana do audytu'],
         'system-role-update': ['Rola systemowa zapisana', 'Ponowna ocena efektywnych uprawnień operatorów'],
         'system-access-review': ['Przegląd dostępu zakończony', 'Decyzja i uzasadnienie zostały zapisane w audycie'],
+        'system-offboard-operator': ['Dostęp operatora zakończony', 'Wszystkie sesje i tokeny zostały unieważnione'],
+        'system-order-exception': ['Decyzja dla pozycji zapisana', 'Powiadomienie klienta i korekta rozliczenia'],
+        'system-case-resolution': ['Decyzja reklamacyjna zapisana', 'Uruchomienie wybranego rozwiązania i skutku finansowego'],
+        'system-club-suspension': ['Zakres partnera został zawieszony', 'Powiadomienie klubu i zabezpieczenie procesów w toku'],
+        'system-archive-product': ['Archiwizacja została zaplanowana', 'Powiadomienie klubów i migracja zależnych listingów'],
+        'system-payout-retry': ['Ponowienie wypłaty zlecone', 'Kontrola wyniku banku bez nowego zobowiązania'],
         'system-reject-invoice': ['Dokument zwrócony do klubu', 'Oczekiwanie na poprawioną fakturę'],
     };
     const form_message = form_messages[form_type];
@@ -2717,7 +2928,7 @@ document.addEventListener('submit', (event) => {
         is_join ? 'Zgłoszenie klubu przyjęte' : (form_message?.[0] || 'Formularz został wysłany'),
         `<div class="tracking-list">
             <div><i>✓</i><span><strong>${is_join ? 'Zgłoszenie zapisane' : 'Sprawa utworzona'}</strong><small>Numer: ${reference}</small></span></div>
-            <div class="pending"><i>2</i><span><strong>${is_join ? 'Weryfikacja organizacji i praw do marki' : (form_message?.[1] || 'Kontakt opiekuna ACTIVIO')}</strong><small>Odpowiedź na podany adres e-mail</small></span></div>
+            <div class="pending"><i>2</i><span><strong>${is_join ? 'Weryfikacja organizacji i praw do marki' : (form_message?.[1] || 'Kontakt opiekuna ACTIVIO')}</strong><small>${form_type.startsWith('system-') ? 'Działanie i uzasadnienie zapisano w audycie' : 'Status będzie widoczny w odpowiednim widoku'}</small></span></div>
             ${is_join ? '<div class="pending"><i>3</i><span><strong>Produkty, projekty i ceny</strong><small>Publikacja dopiero po akceptacji klubu i ACTIVIO</small></span></div>' : ''}
         </div>`,
         is_join ? 'ACTIVIO CLUB' : 'OFERTA DLA KLUBÓW',
