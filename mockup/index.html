@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260730-16">
+    <meta name="activio-mockup-version" content="20260730-17">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260730-16">
+    <link rel="stylesheet" href="styles.css?v=20260730-17">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -239,7 +239,7 @@
                     </div>
                     <button class="prototype-hero-options" type="button" data-action="show-hero-concepts">
                         <span>Materiał projektowy</span>
-                        Porównaj 3 nowe warianty
+                        Zobacz projekt nagłówka
                     </button>
                 </div>
                 <div class="service-switcher">
@@ -275,8 +275,8 @@
 
             <section class="hero-concepts-review" data-hero-concepts hidden>
                 <header>
-                    <div><span>Materiał projektowy</span><strong>Trzy warianty zgodne ze stylem strony</strong></div>
-                    <button type="button" data-action="hide-hero-concepts">Zamknij porównanie ×</button>
+                    <div><span>Materiał projektowy</span><strong>Docelowy układ nagłówka</strong></div>
+                    <button type="button" data-action="hide-hero-concepts">Zamknij projekt ×</button>
                 </header>
                 <div data-hero-concepts-content></div>
             </section>
@@ -2382,56 +2382,10 @@
     </dialog>
 
     <template data-hero-concepts-template>
-        <p class="hero-concepts-note">Obecny header pozostaje na stronie. Poniższe warianty używają tej samej palety, typografii, zdjęć, promieni i stylu kart co reszta prototypu. Każdy zachowuje trzy wejścia: drukarnia, sklep klubowy i wspólny Market.</p>
+        <p class="hero-concepts-note">Docelowy nagłówek zachowuje trzy wejścia: drukarnia, sklep klubowy i wspólny Market. Używa tej samej palety, typografii, zdjęć, promieni i stylu kart co reszta prototypu.</p>
         <div class="hero-concepts">
-            <article class="hero-concept-theme hero-layout hero-layout-columns">
-                <div class="hero-concept-label"><span>01</span><strong>Układ kolumnowy</strong><small>Trzy równe wejścia</small></div>
-                <header class="hero-layout-heading">
-                    <span>ACTIVIO · DRUKARNIA DLA AKTYWNYCH</span>
-                    <h3>Drukarnia dla aktywnych</h3>
-                    <p>Wszystko dla klubów sportowych, trenerów i kibiców — od produkcji po własny sklep i wspólny Market.</p>
-                </header>
-                <div class="hero-layout-actions">
-                    <span class="hero-layout-card hero-layout-print">
-                        <img src="../assets/products/koszulki-sportowe.jpg" alt="">
-                        <small>DLA KLUBÓW</small><strong>Zamów druk i produkty</strong><i>Zobacz ofertę →</i>
-                    </span>
-                    <span class="hero-layout-card hero-layout-club">
-                        <img src="../assets/products/bluzy.jpg" alt="">
-                        <small>PROGRAM PARTNERSKI</small><strong>Otwórz sklep klubowy</strong><i>Dołącz do ACTIVIO Club →</i>
-                    </span>
-                    <span class="hero-layout-card hero-layout-market">
-                        <img src="../assets/products/kubki.jpg" alt="">
-                        <small>DLA KIBICÓW</small><strong>Kupuj we wspólnym Markecie</strong><i>Przejdź do Marketu →</i>
-                    </span>
-                </div>
-            </article>
-
-            <article class="hero-concept-theme hero-layout hero-layout-sidebar">
-                <div class="hero-concept-label"><span>02</span><strong>Układ boczny</strong><small>Nagłówek i lista wejść</small></div>
-                <header class="hero-layout-heading">
-                    <span>ACTIVIO · DRUKARNIA DLA AKTYWNYCH</span>
-                    <h3>Drukarnia dla aktywnych</h3>
-                    <p>Wszystko dla klubów sportowych, trenerów i kibiców — od produkcji po własny sklep i wspólny Market.</p>
-                </header>
-                <div class="hero-layout-actions">
-                    <span class="hero-layout-card hero-layout-print">
-                        <img src="../assets/products/koszulki-sportowe.jpg" alt="">
-                        <small>DLA KLUBÓW</small><strong>Zamów druk i produkty</strong><i>Zobacz ofertę →</i>
-                    </span>
-                    <span class="hero-layout-card hero-layout-club">
-                        <img src="../assets/products/bluzy.jpg" alt="">
-                        <small>PROGRAM PARTNERSKI</small><strong>Otwórz sklep klubowy</strong><i>Dołącz do ACTIVIO Club →</i>
-                    </span>
-                    <span class="hero-layout-card hero-layout-market">
-                        <img src="../assets/products/kubki.jpg" alt="">
-                        <small>DLA KIBICÓW</small><strong>Kupuj we wspólnym Markecie</strong><i>Przejdź do Marketu →</i>
-                    </span>
-                </div>
-            </article>
-
             <article class="hero-concept-theme hero-layout hero-layout-bento">
-                <div class="hero-concept-label"><span>03</span><strong>Układ bento</strong><small>Jedno wejście wyróżnione</small></div>
+                <div class="hero-concept-label"><span>03</span><strong>Wybrany układ bento</strong><small>Jedno wejście wyróżnione</small></div>
                 <header class="hero-layout-heading">
                     <span>ACTIVIO · DRUKARNIA DLA AKTYWNYCH</span>
                     <h3>Drukarnia dla aktywnych</h3>
@@ -2532,7 +2486,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260730-16"></script>
-    <script src="feedback.js?v=20260730-16"></script>
+    <script src="app.js?v=20260730-17"></script>
+    <script src="feedback.js?v=20260730-17"></script>
 </body>
 </html>
