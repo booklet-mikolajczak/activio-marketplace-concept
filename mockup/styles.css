@@ -2954,38 +2954,41 @@ td small { display: block; color: var(--muted); font-size: 8px; }
 .action-dialog-content { padding: 24px 28px 28px; }
 .hero-concepts-note { margin: 0 0 18px; padding: 12px 14px; border: 1px solid #e5c94c; border-radius: 9px; color: #624f00; background: var(--prototype-yellow-soft); font-size: 11px; }
 .hero-concepts { display: grid; gap: 20px; }
-.hero-concept-theme { position: relative; min-height: 370px; overflow: hidden; border-radius: var(--radius); box-shadow: 0 12px 32px rgba(17,32,64,.12); }
+.hero-concept-theme { position: relative; min-height: 440px; overflow: hidden; border-radius: var(--radius); box-shadow: 0 12px 32px rgba(17,32,64,.12); }
 .hero-concept-label { position: absolute; z-index: 3; top: 14px; left: 14px; width: max-content; max-width: calc(100% - 28px); display: grid; grid-template-columns: auto auto; gap: 0 8px; align-items: center; padding: 8px 10px; border: 1px solid rgba(255,255,255,.28); border-radius: 8px; color: #fff; background: rgba(13,17,35,.62); backdrop-filter: blur(8px); }
 .hero-concept-label span { grid-row: 1/3; font-size: 18px; font-weight: 900; }
 .hero-concept-label strong { font-size: 9px; }
 .hero-concept-label small { color: rgba(255,255,255,.7); font-size: 7px; }
 .hero-layout { color: var(--ink); background: #f2f5fa; }
 .hero-layout-heading > span { color: var(--primary); font-size: 8px; font-weight: 900; letter-spacing: .14em; }
-.hero-layout-heading h3 { margin: 5px 0 0; font-size: 42px; line-height: .96; letter-spacing: -.05em; }
-.hero-layout-heading p { max-width: 460px; margin: 13px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.hero-layout-heading h3 { margin: 5px 0 0; font-size: 22px; line-height: 1; letter-spacing: -.035em; }
+.hero-layout-heading p { max-width: 520px; margin: 8px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .hero-layout-actions { display: grid; gap: 12px; }
-.hero-layout-card { position: relative; min-width: 0; min-height: 180px; display: flex; align-items: flex-start; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 18px; border-radius: var(--radius); color: #fff; background: #102247; isolation: isolate; }
+.hero-layout-card { position: relative; min-width: 0; min-height: 250px; display: flex; align-items: flex-start; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 22px; border-radius: var(--radius); color: #fff; background: #102247; isolation: isolate; }
 .hero-layout-card::after { position: absolute; z-index: -1; inset: 0; content: ""; background: linear-gradient(180deg, rgba(10,18,42,.08), rgba(8,16,38,.96)); }
 .hero-layout-card img { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; opacity: .5; object-fit: cover; }
 .hero-layout-card small { color: rgba(255,255,255,.72); font-size: 7px; font-weight: 850; letter-spacing: .12em; }
-.hero-layout-card strong { margin-top: 3px; font-size: 16px; letter-spacing: -.025em; }
-.hero-layout-card i { margin-top: 10px; color: #fff; font-size: 8px; font-style: normal; font-weight: 850; }
+.hero-layout-card strong { max-width: 360px; margin-top: 5px; font-size: 31px; line-height: .98; letter-spacing: -.045em; }
+.hero-layout-card i { margin-top: 16px; color: #fff; font-size: 9px; font-style: normal; font-weight: 850; }
 .hero-layout-club::after { background: linear-gradient(180deg, rgba(75,17,91,.12), rgba(55,15,76,.96)); }
 .hero-layout-market::after { background: linear-gradient(180deg, rgba(11,55,85,.1), rgba(7,37,62,.96)); }
 .hero-layout-columns { padding-bottom: 24px; }
-.hero-layout-columns .hero-layout-heading, .hero-layout-bento .hero-layout-heading { display: grid; grid-template-columns: minmax(0, 1fr) 420px; grid-template-rows: auto auto; column-gap: 40px; align-items: end; padding: 72px 28px 22px; }
+.hero-layout-columns .hero-layout-heading, .hero-layout-bento .hero-layout-heading { display: grid; grid-template-columns: minmax(0, 1fr) 520px; grid-template-rows: auto auto; column-gap: 40px; align-items: end; padding: 70px 28px 17px; }
 .hero-layout-columns .hero-layout-heading p, .hero-layout-bento .hero-layout-heading p { grid-column: 2; grid-row: 1/3; margin: 0; }
 .hero-layout-columns .hero-layout-actions { grid-template-columns: repeat(3, 1fr); padding: 0 24px; }
-.hero-layout-sidebar { display: grid; grid-template-columns: minmax(0, .8fr) minmax(500px, 1.2fr); }
+.hero-layout-sidebar { display: grid; grid-template-columns: minmax(280px, .52fr) minmax(620px, 1.48fr); }
 .hero-layout-sidebar .hero-layout-heading { display: flex; align-items: flex-start; flex-direction: column; justify-content: center; padding: 76px 32px 32px; }
 .hero-layout-sidebar .hero-layout-actions { grid-template-rows: repeat(3, 1fr); padding: 24px; }
-.hero-layout-sidebar .hero-layout-card { min-height: 96px; padding: 13px 17px; }
+.hero-layout-sidebar .hero-layout-card { min-height: 120px; padding: 15px 20px; }
 .hero-layout-sidebar .hero-layout-card img { object-position: center 42%; }
-.hero-layout-sidebar .hero-layout-card i { margin-top: 5px; }
+.hero-layout-sidebar .hero-layout-card strong { max-width: 540px; font-size: 28px; }
+.hero-layout-sidebar .hero-layout-card i { margin-top: 7px; }
 .hero-layout-bento { padding-bottom: 24px; }
 .hero-layout-bento .hero-layout-actions { grid-template-columns: 1.08fr .92fr; grid-template-rows: 1fr 1fr; padding: 0 24px; }
 .hero-layout-bento .hero-layout-card { min-height: 0; }
-.hero-layout-bento .hero-layout-card:first-child { grid-row: 1/3; min-height: 250px; }
+.hero-layout-bento .hero-layout-card:first-child { grid-row: 1/3; min-height: 320px; }
+.hero-layout-bento .hero-layout-card:first-child strong { max-width: 500px; font-size: 46px; }
+.hero-layout-bento .hero-layout-card:not(:first-child) strong { max-width: 420px; font-size: 27px; }
 .action-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .action-form label { display: grid; gap: 6px; color: #586273; font-size: 10px; font-weight: 800; }
 .action-form label.wide, .action-form .action-form-note, .action-form footer { grid-column: 1/-1; }
@@ -3339,19 +3342,22 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     .action-dialog header h2 { font-size: 23px; }
     .action-dialog-content { padding: 18px; }
     .hero-concept-theme { min-height: 0; }
-    .hero-layout-heading h3 { font-size: 39px; }
+    .hero-layout-heading h3 { font-size: 22px; }
     .hero-layout-columns .hero-layout-heading, .hero-layout-bento .hero-layout-heading { display: block; padding: 78px 20px 20px; }
-    .hero-layout-columns .hero-layout-heading p, .hero-layout-bento .hero-layout-heading p { margin-top: 13px; }
+    .hero-layout-columns .hero-layout-heading p, .hero-layout-bento .hero-layout-heading p { margin-top: 8px; }
     .hero-layout-columns .hero-layout-actions { grid-template-columns: 1fr; padding: 0 18px; }
-    .hero-layout-card { min-height: 180px; }
+    .hero-layout-card { min-height: 210px; }
+    .hero-layout-card strong { font-size: 32px; }
     .hero-layout-sidebar { grid-template-columns: 1fr; }
-    .hero-layout-sidebar .hero-layout-heading { min-height: 300px; padding: 78px 22px 30px; }
+    .hero-layout-sidebar .hero-layout-heading { min-height: 220px; padding: 78px 22px 24px; }
     .hero-layout-sidebar .hero-layout-actions { grid-template-rows: none; padding: 18px; }
-    .hero-layout-sidebar .hero-layout-card { min-height: 145px; }
-    .hero-layout-bento .hero-layout-actions { grid-template-columns: 1fr 1fr; grid-template-rows: 1.15fr .85fr; padding: 0 18px; }
-    .hero-layout-bento .hero-layout-card:first-child { grid-column: 1/-1; grid-row: auto; min-height: 190px; }
-    .hero-layout-bento .hero-layout-card:not(:first-child) { min-height: 165px; }
-    .hero-layout-bento .hero-layout-card strong { font-size: 13px; }
+    .hero-layout-sidebar .hero-layout-card { min-height: 180px; }
+    .hero-layout-sidebar .hero-layout-card strong { font-size: 28px; }
+    .hero-layout-bento .hero-layout-actions { grid-template-columns: 1fr; grid-template-rows: none; padding: 0 18px; }
+    .hero-layout-bento .hero-layout-card:first-child { grid-column: auto; grid-row: auto; min-height: 240px; }
+    .hero-layout-bento .hero-layout-card:first-child strong { font-size: 38px; }
+    .hero-layout-bento .hero-layout-card:not(:first-child) { min-height: 190px; }
+    .hero-layout-bento .hero-layout-card:not(:first-child) strong { font-size: 28px; }
     .club-hero { padding: 45px 18px; }
     .seller-strip { margin: 14px 18px; }
     .club-hero-inner { grid-template-columns: 1fr; }
