@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260730-10">
+    <meta name="activio-mockup-version" content="20260730-11">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260730-10">
+    <link rel="stylesheet" href="styles.css?v=20260730-11">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -235,7 +235,7 @@
                     </div>
                     <button class="prototype-hero-options" type="button" data-action="show-hero-concepts">
                         <span>Materiał projektowy</span>
-                        Porównaj nowe warianty
+                        Porównaj 3 nowe warianty
                     </button>
                 </div>
                 <div class="service-switcher">
@@ -271,7 +271,7 @@
 
             <section class="hero-concepts-review" data-hero-concepts hidden>
                 <header>
-                    <div><span>Materiał projektowy</span><strong>Jasny kierunek i trzy nowe rozwinięcia</strong></div>
+                    <div><span>Materiał projektowy</span><strong>Trzy warianty zgodne ze stylem strony</strong></div>
                     <button type="button" data-action="hide-hero-concepts">Zamknij porównanie ×</button>
                 </header>
                 <div data-hero-concepts-content></div>
@@ -2305,86 +2305,75 @@
     </dialog>
 
     <template data-hero-concepts-template>
-        <p class="hero-concepts-note">Obecny header pozostaje na stronie. Jasne bento zachowujemy jako punkt odniesienia; trzy kolejne warianty rozwijają jego prosty podział na drukarnię, sklep klubowy i Market.</p>
+        <p class="hero-concepts-note">Obecny header pozostaje na stronie. Poniższe warianty używają tej samej palety, typografii, zdjęć, promieni i stylu kart co reszta prototypu. Każdy zachowuje trzy wejścia: drukarnia, sklep klubowy i wspólny Market.</p>
         <div class="hero-concepts">
-            <article class="hero-concept hero-concept-bento hero-concept-reference">
-                <div class="hero-concept-label"><span>00</span><strong>Kierunek referencyjny</strong><small>Jasne bento</small></div>
-                <div class="hero-concept-copy">
-                    <span>JEDEN EKOSYSTEM · TRZY MOŻLIWOŚCI</span>
-                    <h3>Wybierz swoją<br>drogę do ACTIVIO.</h3>
-                    <p>Oferta odpowiada osobno na potrzeby klubu, partnera prowadzącego sklep i kibica.</p>
-                </div>
-                <div class="hero-concept-bento-grid">
-                    <span class="hero-concept-bento-print">
+            <article class="hero-concept-theme hero-theme-row">
+                <div class="hero-concept-label"><span>01</span><strong>Trzy wejścia</strong><small>Panoramiczne karty</small></div>
+                <header class="hero-theme-heading">
+                    <span>ACTIVIO · DRUKARNIA DLA AKTYWNYCH</span>
+                    <h3>Drukarnia dla aktywnych</h3>
+                    <p>Wszystko dla klubów sportowych, trenerów i kibiców — od produkcji po własny sklep i wspólny Market.</p>
+                </header>
+                <div class="hero-theme-row-cards">
+                    <span class="hero-theme-card hero-theme-print">
                         <img src="../assets/products/koszulki-sportowe.jpg" alt="">
-                        <small>DLA KLUBÓW</small><strong>Druk i produkty</strong><i>Stroje, gadżety i personalizacja</i>
+                        <small>DLA KLUBÓW</small><strong>Zamów druk i produkty</strong><i>Zobacz ofertę →</i>
                     </span>
-                    <span class="hero-concept-bento-shop">
-                        <img src="../assets/products/karty-zawodnika.jpg" alt="">
-                        <small>PROGRAM PARTNERSKI</small><strong>Otwórz sklep klubowy</strong><i>My produkujemy i wysyłamy</i>
+                    <span class="hero-theme-card hero-theme-club">
+                        <img src="../assets/products/bluzy.jpg" alt="">
+                        <small>PROGRAM PARTNERSKI</small><strong>Otwórz sklep klubowy</strong><i>Dołącz do ACTIVIO Club →</i>
                     </span>
-                    <span class="hero-concept-bento-market">
+                    <span class="hero-theme-card hero-theme-market">
                         <img src="../assets/products/kubki.jpg" alt="">
-                        <small>DLA KIBICÓW</small><strong>Wspólny Market</strong><i>Kupuj barwy wielu klubów</i>
+                        <small>DLA KIBICÓW</small><strong>Kupuj we wspólnym Markecie</strong><i>Przejdź do Marketu →</i>
                     </span>
                 </div>
             </article>
 
-            <article class="hero-concept hero-concept-triad">
-                <div class="hero-concept-label"><span>01</span><strong>Trzy duże wejścia</strong><small>Karty odbiorców</small></div>
-                <div class="hero-concept-intro">
-                    <span>ACTIVIO DLA CAŁEGO KLUBOWEGO ŚWIATA</span>
-                    <h3>Co chcesz zrobić?</h3>
-                    <p>Jedno pytanie prowadzi każdą grupę prosto do właściwego miejsca.</p>
+            <article class="hero-concept-theme hero-theme-bento">
+                <div class="hero-concept-label"><span>02</span><strong>Jeden ekosystem</strong><small>Bento ACTIVIO</small></div>
+                <div class="hero-theme-bento-main">
+                    <span>DRUKARNIA · SKLEPY KLUBOWE · MARKET</span>
+                    <h3>Drukarnia dla aktywnych</h3>
+                    <p>Wszystko dla klubów sportowych, trenerów i kibiców — od produkcji po własny sklep i wspólny Market.</p>
                 </div>
-                <div class="hero-triad-grid">
-                    <span>
+                <div class="hero-theme-bento-actions">
+                    <span class="hero-theme-card hero-theme-print">
                         <img src="../assets/products/koszulki-sportowe.jpg" alt="">
-                        <small>JESTEM KLUBEM</small><strong>Chcę zamówić produkty</strong><i>Poznaj drukarnię →</i>
+                        <small>DLA KLUBÓW</small><strong>Druk i produkty</strong><i>Zobacz ofertę →</i>
                     </span>
-                    <span>
-                        <img src="../assets/products/karty-zawodnika.jpg" alt="">
-                        <small>REPREZENTUJĘ KLUB</small><strong>Chcę otworzyć sklep</strong><i>Dołącz do programu →</i>
+                    <span class="hero-theme-card hero-theme-club">
+                        <img src="../assets/products/bluzy.jpg" alt="">
+                        <small>PROGRAM PARTNERSKI</small><strong>Własny sklep klubu</strong><i>Otwórz sklep →</i>
                     </span>
-                    <span>
+                    <span class="hero-theme-card hero-theme-market">
                         <img src="../assets/products/kubki.jpg" alt="">
-                        <small>JESTEM KIBICEM</small><strong>Chcę kupić klubowe barwy</strong><i>Wejdź do Marketu →</i>
+                        <small>DLA KIBICÓW</small><strong>Wspólny Market</strong><i>Idź na zakupy →</i>
                     </span>
                 </div>
             </article>
 
-            <article class="hero-concept hero-concept-flow">
-                <div class="hero-concept-label"><span>02</span><strong>Historia ekosystemu</strong><small>Prosty przepływ</small></div>
-                <div class="hero-concept-intro">
-                    <span>OD POMYSŁU DO KIBICA</span>
-                    <h3>ACTIVIO wprawia klubowe barwy w ruch.</h3>
-                    <p>Trzy usługi pokazane jako jeden czytelny proces.</p>
-                </div>
-                <div class="hero-flow-paths">
-                    <span><b>01</b><small>DRUKARNIA</small><strong>Tworzymy produkty dla klubu</strong><i>Zamów druk →</i></span>
-                    <span><b>02</b><small>SKLEP KLUBOWY</small><strong>Uruchamiamy sprzedaż bez magazynu</strong><i>Otwórz sklep →</i></span>
-                    <span><b>03</b><small>WSPÓLNY MARKET</small><strong>Kibice kupują barwy wielu klubów</strong><i>Idź na zakupy →</i></span>
-                </div>
-            </article>
-
-            <article class="hero-concept hero-concept-directory">
-                <div class="hero-concept-label"><span>03</span><strong>Menu możliwości</strong><small>Jasny katalog</small></div>
-                <div class="hero-directory-copy">
-                    <span>DRUKUJ · SPRZEDAWAJ · KUPUJ</span>
-                    <h3>Wszystko dla sportu.<br>Jedno ACTIVIO.</h3>
-                    <p>Najważniejsze możliwości są jednocześnie główną nawigacją nagłówka.</p>
-                </div>
-                <div class="hero-directory-menu">
-                    <span><b>01</b><small>DLA KLUBÓW</small><strong>Zamów druk i produkty</strong><i>→</i></span>
-                    <span><b>02</b><small>PROGRAM PARTNERSKI</small><strong>Otwórz własny sklep</strong><i>→</i></span>
+            <article class="hero-concept-theme hero-theme-band">
+                <div class="hero-concept-label"><span>03</span><strong>Jedna marka</strong><small>Ciemny pas usług</small></div>
+                <header class="hero-theme-band-heading">
+                    <div>
+                        <span>ACTIVIO</span>
+                        <h3>Drukarnia dla aktywnych</h3>
+                    </div>
+                    <p>Wszystko dla klubów sportowych, trenerów i kibiców — od produkcji po własny sklep i wspólny Market.</p>
+                </header>
+                <div class="hero-theme-band-actions">
                     <span>
-                        <b>03</b><small>DLA KIBICÓW</small><strong>Kupuj we wspólnym Markecie</strong><i>→</i>
-                        <em>
-                            <img src="../assets/clubs/stal-pleszew.png" alt="KS Stal Pleszew">
-                            <img src="../assets/clubs/kks-kalisz.webp" alt="KKS Kalisz">
-                            <img src="../assets/clubs/pogon-nowe-skalmierzyce.webp" alt="KS Pogoń">
-                            <img src="../assets/clubs/jarota-jarocin.png" alt="JKS Jarota Jarocin">
-                        </em>
+                        <b>01</b><small>DRUKARNIA DLA KLUBÓW</small>
+                        <strong>Zamów produkty</strong><i>Zobacz ofertę →</i>
+                    </span>
+                    <span>
+                        <b>02</b><small>ACTIVIO CLUB</small>
+                        <strong>Otwórz własny sklep</strong><i>Dołącz do programu →</i>
+                    </span>
+                    <span>
+                        <b>03</b><small>MARKET DLA KIBICÓW</small>
+                        <strong>Kupuj klubowe barwy</strong><i>Przejdź do Marketu →</i>
                     </span>
                 </div>
             </article>
@@ -2459,7 +2448,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260730-10"></script>
-    <script src="feedback.js?v=20260730-10"></script>
+    <script src="app.js?v=20260730-11"></script>
+    <script src="feedback.js?v=20260730-11"></script>
 </body>
 </html>
