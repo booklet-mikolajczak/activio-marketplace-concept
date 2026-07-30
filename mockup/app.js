@@ -2486,7 +2486,19 @@ document.addEventListener('click', (event) => {
     if (action_button) {
         event.preventDefault();
         const action = action_button.dataset.action;
-        if (action === 'focus-club-list') {
+        if (action === 'show-hero-concepts') {
+            const concepts = document.querySelector('[data-hero-concepts]');
+            const content = concepts.querySelector('[data-hero-concepts-content]');
+            if (!content.childElementCount) {
+                content.innerHTML = document.querySelector('[data-hero-concepts-template]').innerHTML;
+            }
+            concepts.hidden = false;
+            window.requestAnimationFrame(() => concepts.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+        } else if (action === 'hide-hero-concepts') {
+            const concepts = document.querySelector('[data-hero-concepts]');
+            concepts.hidden = true;
+            document.querySelector('.prototype-hero-options').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else if (action === 'focus-club-list') {
             document.querySelector('[data-view="clubs"] .club-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else if (action === 'export-orders') {
             export_orders();
