@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260729-05">
+    <meta name="activio-mockup-version" content="20260730-01">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260729-05">
+    <link rel="stylesheet" href="styles.css?v=20260730-01">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -23,6 +23,7 @@
             <span>Nie jest to finalny branding ani gotowy produkt</span>
         </div>
         <button class="prototype-project" type="button" data-go="project-hub">O projekcie</button>
+        <button class="prototype-use-cases" type="button" data-go="use-cases">Scenariusze użycia</button>
         <button class="prototype-changelog" type="button" data-go="feedback-history">Historia zmian</button>
         <button class="prototype-refresh" type="button" data-refresh-latest title="Pobierz najnowszą wersję prototypu">
             <span>↻</span><time data-version-time>Sprawdzam…</time>
@@ -43,6 +44,7 @@
         </div>
         <p>Przeklikaj pełną ścieżkę klienta i partnera klubowego.</p>
         <nav>
+            <button type="button" data-go="use-cases"><span>00</span> Scenariusze użycia</button>
             <button type="button" data-go="marketplace"><span>01</span> Strona główna</button>
             <button type="button" data-go="offer"><span>02</span> Oferta dla klubów</button>
             <button type="button" data-go="clubs"><span>03</span> ACTIVIO Club</button>
@@ -52,9 +54,14 @@
             <button type="button" data-go="cart"><span>07</span> Mieszany koszyk</button>
             <button type="button" data-go="checkout"><span>08</span> Checkout</button>
             <button type="button" data-go="confirmation"><span>09</span> Potwierdzenie</button>
+            <button type="button" data-go="order-lookup"><span>09A</span> Odszukaj zamówienie</button>
+            <button type="button" data-go="customer-order"><span>09B</span> Status zamówienia</button>
+            <button type="button" data-go="customer-claim"><span>09C</span> Zgłoszenie problemu</button>
             <div class="scenario-divider"></div>
             <button type="button" data-go="partner-dashboard"><span>10</span> Panel klubu</button>
             <button type="button" data-go="partner-offer"><span>11</span> Oferta i ceny</button>
+            <button type="button" data-go="partner-catalog"><span>11A</span> Katalog dla klubu</button>
+            <button type="button" data-go="partner-listing-create"><span>11B</span> Utworzenie listingu</button>
             <button type="button" data-go="partner-listing"><span>12</span> Szczegóły produktu</button>
             <button type="button" data-go="partner-orders"><span>13</span> Zamówienia</button>
             <button type="button" data-go="partner-order"><span>14</span> Szczegóły zamówienia</button>
@@ -79,6 +86,7 @@
             <button type="button" data-go="system-settlements"><span>32</span> Rozliczenia klubów</button>
             <button type="button" data-go="system-settlement"><span>33</span> Akceptacja wypłaty</button>
             <button type="button" data-go="system-audit"><span>34</span> Audyt operacyjny</button>
+            <button type="button" data-go="system-users"><span>34A</span> Operatorzy i role</button>
             <div class="scenario-divider"></div>
             <button type="button" data-go="feedback-history"><span>35</span> Historia zmian</button>
             <button type="button" data-go="project-hub"><span>36</span> O projekcie</button>
@@ -115,6 +123,7 @@
             </nav>
             <div class="header-actions">
                 <button class="search-button" type="button" aria-label="Szukaj" data-action="search">⌕</button>
+                <button class="order-lookup-link" type="button" data-go="order-lookup">Moje zamówienie</button>
                 <button class="cart-button" type="button" data-go="cart">
                     Koszyk <span data-cart-count>2</span>
                 </button>
@@ -188,6 +197,8 @@
                 <button type="button" data-go="system-settlements"><svg viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M19.45,12.21c-1.49-.92-6.29-1.87-6.31,1.5-.02,2.6,6.63,1.5,6.63,4.76,0,3.08-4.31,2.7-7.27,1.5"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M27.96,10.07c-2.13-4.59-6.77-7.77-12.16-7.77-7.4,0-13.39,6-13.39,13.39M4.04,22.14c2.13,4.59,6.77,7.77,12.16,7.77,7.4,0,13.39-6,13.39-13.39"/></svg><span>Rozliczenia klubów</span><b>4</b></button>
                 <small>SYSTEM</small>
                 <button type="button" data-go="system-audit"><svg viewBox="0 0 32 32"><line fill="none" stroke="currentColor" stroke-width="2" x1="8.76" y1="9.86" x2="9.67" y2="9.86"/><line fill="none" stroke="currentColor" stroke-width="2" x1="15.09" y1="9.86" x2="22.97" y2="9.86"/><line fill="none" stroke="currentColor" stroke-width="2" x1="8.76" y1="15.93" x2="9.67" y2="15.93"/><line fill="none" stroke="currentColor" stroke-width="2" x1="15.09" y1="15.93" x2="22.97" y2="15.93"/><rect fill="none" stroke="currentColor" stroke-width="2" x="2.65" y="2.65" width="26.7" height="26.7" rx="3.23"/></svg><span>Audyt operacyjny</span><b>2</b></button>
+                <small>ADMINISTRACJA</small>
+                <button type="button" data-go="system-users"><svg viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.74,12.77c0,3.1-2.51,5.61-5.61,5.61s-5.61-2.51-5.61-5.61,2.51-5.61,5.61-5.61,5.61,2.51,5.61,5.61Z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M17.51,17.78c-1.12.14-3.31.6-4.43.6s-3.31-.46-4.43-.6c-3.29-.41-6,2.45-6,5.76v1.67c0,.93.75,1.69,1.69,1.69h17.49c.93,0,1.69-.75,1.69-1.69v-1.67c0-3.31-2.71-6.17-6-5.76Z"/></svg><span>Operatorzy i role</span><b>8</b></button>
             </nav>
             <div class="system-sidebar-user"><span>AN</span><div><strong>Anna Nowak</strong><small>Operator ACTIVIO</small></div></div>
         </aside>
@@ -903,7 +914,73 @@
                 <div class="order-number"><span>Numer zamówienia</span><strong>AC/2026/1048</strong></div>
                 <div class="order-timeline"><div class="done"><i>✓</i><span><strong>Opłacone</strong><small>23 lipca, 17:42</small></span></div><b></b><div class="active"><i>2</i><span><strong>Produkcja</strong><small>3–5 dni roboczych</small></span></div><b></b><div><i>3</i><span><strong>Wysyłka</strong><small>29–31 lipca</small></span></div></div>
                 <div class="impact-card"><span>♥</span><div><strong>Wsparcie dla Klubów: <span data-cart-support>28,00 zł brutto</span></strong><small data-cart-support-split>Wsparcie dla Klubów: KS Stal Pleszew 20,00 zł brutto · KKS Kalisz 8,00 zł brutto</small></div></div>
-                <div class="confirmation-actions"><button class="button primary" data-go="store">Wróć do sklepu</button><button class="button ghost" type="button" data-action="track-order">Śledź zamówienie</button></div>
+                <div class="confirmation-actions"><button class="button primary" data-go="store">Wróć do sklepu</button><button class="button ghost" type="button" data-go="customer-order">Śledź zamówienie</button></div>
+            </div>
+        </section>
+
+        <section class="view narrow-view customer-service-view" data-view="order-lookup" hidden>
+            <div class="customer-service-shell">
+                <div class="customer-service-intro">
+                    <span class="eyebrow">ZAKUP GOŚCINNY</span>
+                    <h1>Odszukaj swoje zamówienie</h1>
+                    <p>Nie potrzebujesz konta. Podaj numer zamówienia i adres e-mail użyty podczas zakupu.</p>
+                </div>
+                <article class="customer-access-card">
+                    <form class="checkout-form" data-action-form="customer-order-lookup">
+                        <label>Numer zamówienia<input name="order_number" value="AC/2026/1048" required autocomplete="off"></label>
+                        <label>Adres e-mail<input name="email" type="email" value="jan.kowalski@example.pl" required autocomplete="email"></label>
+                        <button class="button primary full" type="submit">Pokaż zamówienie</button>
+                    </form>
+                    <div class="privacy-note">ⓘ Link do zamówienia jest chroniony danymi podanymi przy zakupie. Klub nie otrzymuje Twojego adresu, telefonu ani danych dostawy.</div>
+                </article>
+                <div class="customer-help-links"><button type="button" data-action="customer-order-help">Nie pamiętam numeru zamówienia</button><button type="button" data-go="store">Wróć do Marketu</button></div>
+            </div>
+        </section>
+
+        <section class="view customer-order-view" data-view="customer-order" hidden>
+            <div class="customer-order-shell">
+                <div class="breadcrumbs"><button type="button" data-go="order-lookup">← Inne zamówienie</button><span>/</span><strong>AC/2026/1048</strong></div>
+                <div class="checkout-head customer-order-head">
+                    <div><span class="eyebrow">TWOJE ZAMÓWIENIE</span><h1>AC/2026/1048</h1><p>Złożone 23 lipca 2026 · płatność 190,99 zł brutto</p></div>
+                    <span class="table-status production status-large">W produkcji</span>
+                </div>
+                <div class="customer-order-grid">
+                    <div>
+                        <article class="customer-order-status">
+                            <div class="panel-heading"><div><span>Status wspólnej paczki</span><strong>Produkcja dwóch pozycji</strong></div><small>Aktualizacja: dziś, 10:18</small></div>
+                            <ol class="customer-order-timeline"><li class="done"><i>✓</i><span><strong>Płatność przyjęta</strong><small>23.07 · 17:42</small></span></li><li class="active"><i>2</i><span><strong>Produkcja</strong><small>Najpóźniej do 28.07</small></span></li><li><i>3</i><span><strong>Pakowanie wspólnej paczki</strong><small>Po zakończeniu obu produktów</small></span></li><li><i>4</i><span><strong>Wysyłka</strong><small>Planowane nadanie 29–31.07</small></span></li></ol>
+                            <div class="shipping-note"><span>▣</span><div><strong>Paczkomat PPL01M</strong><small>ul. Poznańska 12, Pleszew · numer przesyłki pojawi się po nadaniu</small></div><button type="button" data-action="customer-carrier-track">Szczegóły dostawy</button></div>
+                        </article>
+                        <article class="customer-order-items">
+                            <div class="panel-heading"><div><span>Pozycje zamówienia</span><strong>Dwa kluby · jedna paczka</strong></div></div>
+                            <div class="customer-order-item"><img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulka KS Stal"><div><small>KS Stal Pleszew</small><strong>Koszulka klubowa z personalizacją</strong><span>M · numer 10 · KOWALSKI · 1 szt.</span></div><b>129,00 zł</b><span class="table-status production">W produkcji</span></div>
+                            <div class="customer-order-item"><img src="../assets/products/kubki.jpg" alt="Kubek KKS Kalisz"><div><small>KKS Kalisz</small><strong>Kubek klubowy</strong><span>Napis: JAN · 1 szt.</span></div><b>49,00 zł</b><span class="table-status paid">Projekt gotowy</span></div>
+                        </article>
+                    </div>
+                    <aside class="customer-order-summary">
+                        <span>Podsumowanie</span><div><small>Produkty</small><b>178,00 zł</b></div><div><small>Dostawa</small><b>12,99 zł</b></div><div class="total"><strong>Razem brutto</strong><strong>190,99 zł</strong></div>
+                        <p><strong>Sprzedawca: ACTIVIO.</strong><br>Obsługujemy płatność, produkcję, dostawę i reklamację całego zamówienia.</p>
+                        <button class="button ghost full" type="button" data-action="customer-download-receipt">Pobierz potwierdzenie</button>
+                        <button class="button primary full" type="button" data-go="customer-claim">Zgłoś problem</button>
+                        <button class="customer-contact-link" type="button" data-action="customer-contact">Skontaktuj się z obsługą</button>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section class="view customer-claim-view" data-view="customer-claim" hidden>
+            <div class="customer-claim-shell">
+                <div class="breadcrumbs"><button type="button" data-go="customer-order">← Zamówienie AC/2026/1048</button><span>/</span><strong>Nowe zgłoszenie</strong></div>
+                <div class="customer-claim-heading"><span class="eyebrow">OBSŁUGA PRZEZ ACTIVIO</span><h1>Zgłoś problem z produktem</h1><p>Rozpatrujemy reklamację także wtedy, gdy produkt był personalizowany. Najpierw wskaż konkretną pozycję.</p></div>
+                <div class="customer-claim-layout">
+                    <form class="customer-claim-form" data-action-form="customer-claim">
+                        <fieldset><legend>1. Wybierz pozycję</legend><label class="claim-product-option"><input type="radio" name="item" value="shirt" checked><img src="../assets/products/koszulki-sportowe.jpg" alt=""><span><strong>Koszulka KS Stal</strong><small>M · 10 · KOWALSKI</small></span></label><label class="claim-product-option"><input type="radio" name="item" value="mug"><img src="../assets/products/kubki.jpg" alt=""><span><strong>Kubek KKS Kalisz</strong><small>Napis: JAN</small></span></label></fieldset>
+                        <fieldset><legend>2. Opisz problem</legend><div class="form-grid"><label>Rodzaj problemu<select name="reason" required><option value="">Wybierz…</option><option>Błąd produkcji lub nadruku</option><option>Uszkodzenie w transporcie</option><option>Niezgodność z zamówieniem</option><option>Błąd wpisany przeze mnie</option><option>Inny problem</option></select></label><label>Oczekiwane rozwiązanie<select name="resolution" required><option>Ponowna produkcja</option><option>Naprawa / poprawka</option><option>Zwrot środków</option><option>Kontakt z obsługą</option></select></label><label class="wide">Opis<textarea name="description" required placeholder="Napisz, co się stało i kiedy zauważyłeś problem"></textarea></label><label class="wide">Zdjęcia lub dokumenty<input name="files" value="zdjecie-produktu-1.jpg"></label></div></fieldset>
+                        <label class="checkout-confirm"><input type="checkbox" required><span>Potwierdzam, że podane informacje dotyczą wskazanej pozycji i są zgodne ze stanem faktycznym.</span></label>
+                        <footer><button class="button ghost" type="button" data-go="customer-order">Anuluj</button><button class="button primary" type="submit">Wyślij zgłoszenie</button></footer>
+                    </form>
+                    <aside class="customer-claim-help"><span>Co wydarzy się dalej?</span><ol><li><i>1</i><div><strong>ACTIVIO sprawdzi zgłoszenie</strong><p>Oddzielimy błąd klienta, produkcji i dostawy.</p></div></li><li><i>2</i><div><strong>Otrzymasz decyzję e-mailem</strong><p>Możemy poprosić o dodatkowe zdjęcia.</p></div></li><li><i>3</i><div><strong>Rozwiążemy problem</strong><p>Poprawka, ponowna produkcja albo zwrot środków.</p></div></li></ol><p>Klub zobaczy wyłącznie status oraz ewentualny wpływ na rozliczenie — bez Twoich danych kontaktowych.</p></aside>
+                </div>
             </div>
         </section>
 
@@ -963,7 +1040,7 @@
         <section class="view partner-view" data-view="partner-offer" hidden>
             <div class="partner-page-head">
                 <div><span class="eyebrow">TWÓJ SKLEP</span><h1>Oferta i ceny</h1><p>Wybierasz produkty ACTIVIO i sam ustalasz ich cenę detaliczną.</p></div>
-                <button class="button ghost" type="button" data-action="partner-catalog">＋ Dodaj produkt z katalogu</button>
+                <button class="button ghost" type="button" data-go="partner-catalog">＋ Dodaj produkt z katalogu</button>
             </div>
             <div class="pricing-rule-card">
                 <span>i</span>
@@ -1020,6 +1097,48 @@
                     </div>
                 </article>
             </div>
+        </section>
+
+        <section class="view partner-view" data-view="partner-catalog" hidden>
+            <div class="partner-breadcrumbs"><button type="button" data-go="partner-offer">← Oferta sklepu</button><span>/</span><strong>Katalog ACTIVIO</strong></div>
+            <div class="partner-page-head"><div><span class="eyebrow">KONTROLOWANY KATALOG</span><h1>Wybierz produkt do swojego sklepu</h1><p>ACTIVIO odpowiada za produkt i produkcję. Ty wybierasz ofertę, projekt klubowy oraz cenę.</p></div><button class="button ghost" type="button" data-go="system-catalog-guide">Jak działa katalog?</button></div>
+            <div class="pricing-rule-card partner-catalog-rule"><span>i</span><div><strong>Nie tworzysz produktu od zera.</strong><p>Każda pozycja pochodzi ze wspólnego katalogu ACTIVIO. Po wyborze skonfigurujesz dostępne warianty, personalizację, materiały marki oraz własną cenę — nie niższą od minimum.</p></div></div>
+            <div class="partner-catalog-toolbar"><label>⌕ <input type="search" placeholder="Nazwa produktu lub kategoria"></label><div><button class="active" type="button" data-partner-catalog-filter="all">Wszystkie</button><button type="button" data-partner-catalog-filter="clothing">Odzież</button><button type="button" data-partner-catalog-filter="gifts">Gadżety</button><button type="button" data-partner-catalog-filter="accessories">Akcesoria</button></div></div>
+            <div class="partner-catalog-grid">
+                <article data-partner-catalog-product="clothing"><img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulka sportowa"><div><span>ODZIEŻ SPORTOWA</span><strong>Koszulka sportowa</strong><p>7 rozmiarów · numer i nazwisko · produkcja 3–5 dni</p><dl><div><dt>Minimum od</dt><dd>69,00 zł</dd></div><div><dt>Kluby korzystające</dt><dd>12</dd></div></dl><button class="button primary full" type="button" data-go="partner-listing-create">Wybierz produkt</button></div></article>
+                <article data-partner-catalog-product="clothing"><img src="../assets/products/bluzy.jpg" alt="Bluza z kapturem"><div><span>ODZIEŻ CODZIENNA</span><strong>Bluza z kapturem</strong><p>7 rozmiarów · napis opcjonalny · produkcja 4–6 dni</p><dl><div><dt>Minimum od</dt><dd>139,00 zł</dd></div><div><dt>Kluby korzystające</dt><dd>9</dd></div></dl><button class="button primary full" type="button" data-go="partner-listing-create">Wybierz produkt</button></div></article>
+                <article data-partner-catalog-product="gifts"><img src="../assets/products/kubki.jpg" alt="Kubek 330 ml"><div><span>GADŻETY</span><strong>Kubek 330 ml</strong><p>2 kolory · imię lub numer · produkcja 2–4 dni</p><dl><div><dt>Minimum od</dt><dd>29,00 zł</dd></div><div><dt>Kluby korzystające</dt><dd>14</dd></div></dl><button class="button primary full" type="button" data-go="partner-listing-create">Wybierz produkt</button></div></article>
+                <article data-partner-catalog-product="accessories"><img src="../assets/products/activio-club-torba.jpg" alt="Torba sportowa"><div><span>AKCESORIA</span><strong>Torba sportowa</strong><p>1 rozmiar · herb i nazwa klubu · produkcja 5–7 dni</p><dl><div><dt>Minimum od</dt><dd>69,00 zł</dd></div><div><dt>Kluby korzystające</dt><dd>6</dd></div></dl><button class="button primary full" type="button" data-go="partner-listing-create">Wybierz produkt</button></div></article>
+            </div>
+        </section>
+
+        <section class="view partner-view" data-view="partner-listing-create" hidden>
+            <div class="partner-breadcrumbs"><button type="button" data-go="partner-catalog">← Katalog ACTIVIO</button><span>/</span><strong>Nowa oferta klubowa</strong></div>
+            <div class="partner-page-head"><div><span class="eyebrow">NOWY LISTING KLUBU</span><h1>Koszulka sportowa dla KS Stal</h1><p>Konfigurujesz ofertę swojego klubu. Produkt bazowy i zasady produkcji pozostają po stronie ACTIVIO.</p></div><span class="table-status pending status-large">Wersja robocza</span></div>
+            <ol class="listing-create-steps"><li class="active"><i>1</i><span><strong>Konfiguracja</strong><small>Warianty i cena</small></span></li><li><i>2</i><span><strong>Projekt</strong><small>Herb i grafika</small></span></li><li><i>3</i><span><strong>Akceptacja</strong><small>Klub + ACTIVIO</small></span></li><li><i>4</i><span><strong>Publikacja</strong><small>Oferta w sklepie</small></span></li></ol>
+            <form class="listing-create-layout" data-action-form="partner-listing-create">
+                <div>
+                    <article class="partner-panel listing-base-product">
+                        <div class="panel-heading"><div><span>Produkt bazowy ACTIVIO</span><strong>CAT-TS-001</strong></div><button type="button" data-go="partner-catalog">Zmień</button></div>
+                        <div><img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulka sportowa"><span><strong>Koszulka sportowa</strong><p>Poliester 145 g/m² · sublimacja + termotransfer · produkcja 3–5 dni</p><small>ACTIVIO zarządza produktem, SKU, plikami produkcyjnymi i cenami minimalnymi.</small></span></div>
+                    </article>
+                    <article class="partner-panel listing-create-section">
+                        <div class="panel-heading"><div><span>1. Warianty</span><strong>Co udostępniasz klientom?</strong></div></div>
+                        <div class="variant-check-grid"><label><input type="checkbox" checked>128</label><label><input type="checkbox" checked>140</label><label><input type="checkbox" checked>152</label><label><input type="checkbox" checked>S</label><label><input type="checkbox" checked>M</label><label><input type="checkbox" checked>L</label><label><input type="checkbox" checked>XL</label></div>
+                    </article>
+                    <article class="partner-panel listing-create-section">
+                        <div class="panel-heading"><div><span>2. Personalizacja</span><strong>Opcje dozwolone przez ACTIVIO</strong></div></div>
+                        <div class="listing-option-list"><label><input type="checkbox" checked><span><strong>Numer zawodnika</strong><small>0–99 · dopłata zawarta w minimum wariantu</small></span></label><label><input type="checkbox" checked><span><strong>Nazwisko lub pseudonim</strong><small>2–14 znaków · kontrolowana treść</small></span></label><label><input type="checkbox" checked disabled><span><strong>Herb KS Stal</strong><small>Z zatwierdzonego materiału marki · wymagany</small></span></label></div>
+                    </article>
+                    <article class="partner-panel listing-create-section">
+                        <div class="panel-heading"><div><span>3. Materiały i projekt</span><strong>Wersja dla KS Stal</strong></div><button type="button" data-go="partner-brand">Materiały marki</button></div>
+                        <div class="listing-brand-selection"><img src="../assets/clubs/stal-pleszew.png" alt="Herb KS Stal"><div><strong>stal-pleszew-v4.svg</strong><p>Zaakceptowany materiał produkcyjny · licencja ważna do 12.09.2026</p></div><span class="table-status available">Wybrany</span></div>
+                        <label class="wide">Wskazówki dla grafika ACTIVIO<textarea name="design_notes">Herb na lewej piersi, granat jako kolor dominujący, nazwa klubu z tyłu pod kołnierzem.</textarea></label>
+                    </article>
+                </div>
+                <aside class="partner-panel listing-create-summary">
+                    <span>4. Cena i publikacja</span><img src="../assets/products/activio-club-koszulka.png" alt="Przykładowy projekt koszulki klubowej"><label>Proponowana nazwa<input name="listing_name" value="Koszulka klubowa z personalizacją" required></label><label>Cena brutto w sklepie<span><input name="price" type="number" min="84" value="129" required> zł</span></label><div><small>Najwyższe minimum konfiguracji</small><strong>84,00 zł</strong></div><div><small>Kwota brutto ponad minimum</small><strong>45,00 zł</strong></div><p>To nie jest automatycznie wynagrodzenie klubu. Prognozę netto pokażemy przed publikacją.</p><label class="checkout-confirm"><input type="checkbox" required><span>Potwierdzam wybór produktu, wariantów i materiału marki.</span></label><button class="button primary full" type="submit">Przekaż do przygotowania projektu</button><button class="button ghost full" type="button" data-go="partner-catalog">Zapisz i wróć później</button></aside>
+            </form>
         </section>
 
         <section class="view partner-view" data-view="partner-orders" hidden>
@@ -1553,6 +1672,143 @@
             <div class="system-rule-card"><i>✓</i><div><strong>Ponowienie jest idempotentne.</strong><p>Używa tego samego klucza zdarzenia i pozycji. Nie może utworzyć drugiego naliczenia, wypłaty ani korekty.</p></div><button type="button" data-action="system-reconciliation">Uruchom uzgodnienie kontrolne</button></div>
         </section>
 
+        <section class="view system-view" data-view="system-users" hidden>
+            <div class="system-page-head"><div><span class="eyebrow">ADMINISTRACJA SYSTEMU</span><h1>Operatorzy i role ACTIVIO</h1><p>Dostęp pracowników do katalogu, BOK, finansów, partnerów oraz konfiguracji.</p></div><button class="button primary" type="button" data-action="system-invite-operator">＋ Zaproś operatora</button></div>
+            <div class="system-kpi-grid compact"><article><span>Aktywni operatorzy</span><strong>8</strong><small>Wszyscy z włączonym 2FA</small></article><article><span>Role operacyjne</span><strong>5</strong><small>Najmniejszy wymagany zakres</small></article><article><span>Sesje dzisiaj</span><strong>11</strong><small>3 urządzenia zarządzane</small></article><article class="attention"><span>Przegląd dostępu</span><strong>2</strong><small>Uprawnienia do potwierdzenia</small></article></div>
+            <article class="system-panel">
+                <div class="system-filter-bar inside"><label>⌕ <input placeholder="Imię, e-mail lub rola"></label><select><option>Wszystkie role</option><option>Administrator</option><option>Operacje partnerów</option><option>Katalog</option><option>BOK</option><option>Finanse</option></select><select><option>Aktywni</option><option>Zablokowani</option><option>Zaproszeni</option></select></div>
+                <div class="table-scroll"><table class="system-main-table"><thead><tr><th>Operator</th><th>Rola główna</th><th>Zakres</th><th>2FA</th><th>Ostatnia aktywność</th><th>Status</th><th></th></tr></thead><tbody>
+                    <tr><td><span class="person-cell"><b>AN</b><span><strong>Anna Nowak</strong><small>anna.nowak@activio.pl</small></span></span></td><td>Administrator</td><td>Pełny panel ACTIVIO</td><td><span class="table-status available">Włączone</span></td><td>Teraz<small>MacBook · Pleszew</small></td><td><span class="table-status available">Aktywna</span></td><td><button class="table-link" type="button" data-action="system-user-detail">Szczegóły →</button></td></tr>
+                    <tr><td><span class="person-cell"><b>PL</b><span><strong>Piotr Lis</strong><small>piotr.lis@activio.pl</small></span></span></td><td>Katalog</td><td>Produkty, minima, listingi</td><td><span class="table-status available">Włączone</span></td><td>Dzisiaj, 09:18</td><td><span class="table-status available">Aktywna</span></td><td><button class="table-link" type="button" data-action="system-user-detail">Szczegóły →</button></td></tr>
+                    <tr><td><span class="person-cell"><b>MK</b><span><strong>Magda Kaczmarek</strong><small>magda.k@activio.pl</small></span></span></td><td>BOK</td><td>Zamówienia i reklamacje</td><td><span class="table-status available">Włączone</span></td><td>Wczoraj, 16:42</td><td><span class="table-status pending">Przegląd roli</span></td><td><button class="table-link" type="button" data-action="system-user-detail">Szczegóły →</button></td></tr>
+                    <tr><td><span class="person-cell"><b>TW</b><span><strong>Tomasz Wrona</strong><small>tomasz.w@activio.pl</small></span></span></td><td>Finanse</td><td>Rozliczenia i wypłaty</td><td><span class="table-status available">Włączone</span></td><td>25.07, 12:05</td><td><span class="table-status reversed">Zablokowana</span></td><td><button class="table-link" type="button" data-action="system-user-detail">Szczegóły →</button></td></tr>
+                </tbody></table></div>
+            </article>
+            <div class="system-users-grid">
+                <article class="system-panel">
+                    <div class="panel-heading"><div><span>Role systemowe</span><strong>Zakres odpowiedzialności</strong></div><button type="button" data-action="system-role-detail">Edytuj role</button></div>
+                    <div class="system-role-list"><button type="button" data-action="system-role-detail"><i>ADM</i><span><strong>Administrator</strong><small>Operatorzy, konfiguracja, pełny audyt</small></span><b>2</b></button><button type="button" data-action="system-role-detail"><i>OPS</i><span><strong>Operacje partnerów</strong><small>Onboarding, kluby i publikacja</small></span><b>2</b></button><button type="button" data-action="system-role-detail"><i>CAT</i><span><strong>Katalog</strong><small>Produkty, SKU, minima i listingi</small></span><b>2</b></button><button type="button" data-action="system-role-detail"><i>BOK</i><span><strong>Obsługa klienta</strong><small>Zamówienia, reklamacje i decyzje</small></span><b>3</b></button><button type="button" data-action="system-role-detail"><i>FIN</i><span><strong>Finanse</strong><small>Rozliczenia, dokumenty i wypłaty</small></span><b>2</b></button></div>
+                </article>
+                <article class="system-panel access-review">
+                    <div class="panel-heading"><div><span>Kontrola dostępu</span><strong>Wymagane działania</strong></div></div>
+                    <div><span><strong>Magda Kaczmarek</strong><small>Rola BOK rozszerzona czasowo o eksport</small></span><button type="button" data-action="system-access-review">Sprawdź</button></div><div><span><strong>Piotr Lis</strong><small>Przegląd kwartalny do 31.07</small></span><button type="button" data-action="system-access-review">Sprawdź</button></div>
+                    <div class="catalog-readiness"><i>✓</i><span><strong>2FA wymagane dla wszystkich</strong><small>Brak aktywnych kont bez drugiego składnika.</small></span></div>
+                </article>
+            </div>
+            <div class="system-rule-card"><i>i</i><div><strong>Uprawnienia są przypisane do osoby, nie współdzielonego konta.</strong><p>Zmiany ról, blokady, eksporty oraz działania finansowe trafiają do nieedytowalnego audytu. Administrator nie może usunąć własnego ostatniego dostępu administracyjnego.</p></div><button type="button" data-go="system-audit">Otwórz audyt</button></div>
+        </section>
+
+        <section class="view use-cases-view" data-view="use-cases" hidden>
+            <div class="use-cases-hero">
+                <div><span class="eyebrow light">INTERAKTYWNA MAPA GOTOWEGO PRODUKTU</span><h1>Scenariusze użycia</h1><p>Każdy scenariusz prowadzi przez ekrany i akcje konkretnego typu użytkownika. Kliknij dowolny krok, aby uruchomić go w prototypie.</p></div>
+                <aside><div><span>Typy użytkowników</span><strong>11</strong></div><div><span>Scenariusze</span><strong>25</strong></div><div><span>Pokryte widoki produktu</span><strong data-use-case-coverage>—</strong></div><small>Zakres pilotażu: Polska, PLN, zakup gościnny i ACTIVIO jako sprzedawca.</small></aside>
+            </div>
+            <div class="use-cases-content">
+                <div class="use-cases-intro"><div><span class="eyebrow">SPIS I TEST NAWIGACJI</span><h2>Od kupującego do administratora</h2></div><p>Widoki żółte służą do pracy nad prototypem. Wszystkie kroki poniżej prowadzą do rzeczywistych ekranów produktu, panelu klubu albo modułu ACTIVIO w Systemie.</p></div>
+                <div class="use-case-filters" data-use-case-filters>
+                    <button class="active" type="button" data-use-case-filter="all">Wszyscy</button>
+                    <button type="button" data-use-case-filter="buyer">Kupujący</button>
+                    <button type="button" data-use-case-filter="club-owner">Administrator klubu</button>
+                    <button type="button" data-use-case-filter="club-manager">Menedżer sklepu</button>
+                    <button type="button" data-use-case-filter="club-accountant">Księgowość klubu</button>
+                    <button type="button" data-use-case-filter="club-viewer">Podgląd klubu</button>
+                    <button type="button" data-use-case-filter="partner-ops">Operacje partnerów</button>
+                    <button type="button" data-use-case-filter="catalog">Operator katalogu</button>
+                    <button type="button" data-use-case-filter="bok">BOK</button>
+                    <button type="button" data-use-case-filter="finance">Finanse ACTIVIO</button>
+                    <button type="button" data-use-case-filter="fulfillment">Realizacja</button>
+                    <button type="button" data-use-case-filter="admin">Administrator Systemu</button>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="buyer">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">K</span><div><small>KUPUJĄCY · BEZ KONTA</small><h2>Zakup, status i reklamacja</h2></div><b>4 scenariusze</b></div>
+                    <div class="use-case-grid">
+                        <article class="use-case-card" data-use-case-card="buyer-discovery"><header><span>UC-K01</span><b class="coverage-complete">Kompletny</b></header><h3>Znajdź klub i produkt</h3><p>Kupujący poznaje ACTIVIO, znajduje klub oraz przechodzi do jego oficjalnego sklepu.</p><ol><li><button type="button" data-go="marketplace">1. Strona główna</button></li><li><button type="button" data-go="offer">2. Oferta ACTIVIO</button></li><li><button type="button" data-go="clubs">3. Program i lista klubów</button></li><li><button type="button" data-go="club-program">4. Zasady ACTIVIO Club</button></li><li><button type="button" data-go="store">5. Market wszystkich klubów</button></li><li><button type="button" data-go="club">6. Sklep KS Stal</button></li></ol><footer><strong>Rezultat</strong><span>Produkt znaleziony w kontekście właściwego klubu.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="buyer-purchase"><header><span>UC-K02</span><b class="coverage-complete">Kompletny</b></header><h3>Spersonalizuj i kup</h3><p>Kupujący konfiguruje produkt, łączy produkty dwóch klubów i płaci ACTIVIO.</p><ol><li><button type="button" data-go="product">1. Produkt i personalizacja</button></li><li><button type="button" data-go="cart">2. Mieszany koszyk</button></li><li><button type="button" data-go="checkout">3. Dostawa i płatność</button></li><li><button type="button" data-go="confirmation">4. Potwierdzenie zamówienia</button></li></ol><footer><strong>Rezultat</strong><span>Jedna płatność i jedna paczka od ACTIVIO.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="buyer-track"><header><span>UC-K03</span><b class="coverage-complete">Kompletny</b></header><h3>Odszukaj zakup gościnny</h3><p>Klient wraca bez konta, podaje numer i e-mail, a następnie śledzi wspólną paczkę.</p><ol><li><button type="button" data-go="order-lookup">1. Odszukaj zamówienie</button></li><li><button type="button" data-go="customer-order">2. Status i pozycje</button></li><li><button type="button" data-go="customer-order" data-use-action="customer-carrier-track">3. Szczegóły dostawy</button></li></ol><footer><strong>Rezultat</strong><span>Status bez zakładania konta i bez kontaktu z klubem.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="buyer-claim"><header><span>UC-K04</span><b class="coverage-complete">Kompletny</b></header><h3>Zgłoś problem z pozycją</h3><p>Klient wskazuje konkretny produkt, powód, oczekiwane rozwiązanie i dowody.</p><ol><li><button type="button" data-go="customer-order">1. Wybierz zamówienie</button></li><li><button type="button" data-go="customer-claim">2. Formularz reklamacji</button></li><li><button type="button" data-go="system-cases">3. Dalsza obsługa przez BOK</button></li></ol><footer><strong>Rezultat</strong><span>Zgłoszenie per pozycja, bez utraty prawa do reklamacji produktu personalizowanego.</span></footer></article>
+                    </div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="club-owner">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">AK</span><div><small>ADMINISTRATOR / OWNER KLUBU</small><h2>Organizacja, marka i dostęp</h2></div><b>3 scenariusze</b></div>
+                    <div class="use-case-grid">
+                        <article class="use-case-card" data-use-case-card="owner-organization"><header><span>UC-AK01</span><b class="coverage-complete">Kompletny</b></header><h3>Utrzymuj dane klubu</h3><p>Administrator kontroluje umowę, dane formalne, rachunek i gotowość organizacji.</p><ol><li><button type="button" data-go="partner-dashboard">1. Pulpit klubu</button></li><li><button type="button" data-go="partner-club">2. Dane i umowa</button></li><li><button type="button" data-go="partner-security" data-use-action="change-bank">3. Bezpieczna zmiana rachunku</button></li></ol><footer><strong>Rezultat</strong><span>Zmiana finansowa z ponownym uwierzytelnieniem i audytem.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="owner-brand"><header><span>UC-AK02</span><b class="coverage-complete">Kompletny</b></header><h3>Zarządzaj marką i witryną</h3><p>Klub przekazuje prawa, herb, kolory oraz treści sklepu do weryfikacji ACTIVIO.</p><ol><li><button type="button" data-go="partner-brand">1. Materiały marki</button></li><li><button type="button" data-go="partner-brand" data-use-action="request-brand-change">2. Nowa wersja materiału</button></li><li><button type="button" data-go="club">3. Podgląd sklepu klubu</button></li></ol><footer><strong>Rezultat</strong><span>Wersjonowany materiał i kontrolowana publikacja.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="owner-access"><header><span>UC-AK03</span><b class="coverage-complete">Kompletny</b></header><h3>Zarządzaj zespołem i bezpieczeństwem</h3><p>Każda osoba ma własne konto, rolę i wymagany poziom ochrony.</p><ol><li><button type="button" data-go="partner-team">1. Zespół i role</button></li><li><button type="button" data-go="partner-team" data-use-action="invite-member">2. Zaproś osobę</button></li><li><button type="button" data-go="partner-security">3. 2FA, sesje i audyt</button></li><li><button type="button" data-go="partner-notifications">4. Alerty bezpieczeństwa</button></li></ol><footer><strong>Rezultat</strong><span>Dostęp zgodny z zasadą najmniejszych uprawnień.</span></footer></article>
+                    </div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="club-manager">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">MS</span><div><small>MENEDŻER SKLEPU KLUBU</small><h2>Oferta, cena i sprzedaż</h2></div><b>4 scenariusze</b></div>
+                    <div class="use-case-grid">
+                        <article class="use-case-card" data-use-case-card="manager-results"><header><span>UC-MS01</span><b class="coverage-complete">Kompletny</b></header><h3>Sprawdź wyniki sklepu</h3><p>Menedżer analizuje sprzedaż, produkty i sprawy wymagające reakcji.</p><ol><li><button type="button" data-go="partner-dashboard">1. Pulpit i KPI</button></li><li><button type="button" data-go="partner-notifications">2. Alerty operacyjne</button></li><li><button type="button" data-go="partner-orders">3. Sprzedaż produktów</button></li></ol><footer><strong>Rezultat</strong><span>Widok wyników bez danych kontaktowych kupujących.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="manager-listing"><header><span>UC-MS02</span><b class="coverage-complete">Kompletny</b></header><h3>Dodaj produkt z katalogu</h3><p>Klub wybiera produkt bazowy i tworzy własny listing bez definiowania producenta.</p><ol><li><button type="button" data-go="partner-offer">1. Oferta sklepu</button></li><li><button type="button" data-go="partner-catalog">2. Katalog ACTIVIO</button></li><li><button type="button" data-go="partner-listing-create">3. Konfiguracja listingu</button></li><li><button type="button" data-go="partner-listing">4. Gotowy listing</button></li></ol><footer><strong>Rezultat</strong><span>Projekt przekazany do weryfikacji i publikacji.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="manager-price"><header><span>UC-MS03</span><b class="coverage-complete">Kompletny</b></header><h3>Zmień cenę lub widoczność</h3><p>Klub ustala cenę powyżej minimum i może kontrolowanie wstrzymać sprzedaż.</p><ol><li><button type="button" data-go="partner-offer">1. Ceny całej oferty</button></li><li><button type="button" data-go="partner-listing">2. Cena per wariant</button></li><li><button type="button" data-go="partner-listing" data-use-action="toggle-listing">3. Wstrzymanie listingu</button></li></ol><footer><strong>Rezultat</strong><span>Cena poprawna względem aktywnego minimum.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="manager-order"><header><span>UC-MS04</span><b class="coverage-complete">Kompletny</b></header><h3>Sprawdź sprzedaż konkretnej pozycji</h3><p>Klub widzi produkt, personalizację, status i wpływ finansowy — bez pełnego koszyka.</p><ol><li><button type="button" data-go="partner-orders">1. Lista zamówień</button></li><li><button type="button" data-go="partner-order">2. Pozycja klubowa</button></li><li><button type="button" data-go="partner-settlements">3. Powiązany ledger</button></li></ol><footer><strong>Rezultat</strong><span>Identyfikacja pozycji przy zachowaniu prywatności klienta.</span></footer></article>
+                    </div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="club-accountant">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">KSI</span><div><small>KSIĘGOWOŚĆ KLUBU</small><h2>Rozliczenie i dokument</h2></div><b>2 scenariusze</b></div>
+                    <div class="use-case-grid">
+                        <article class="use-case-card" data-use-case-card="accountant-ledger"><header><span>UC-KS01</span><b class="coverage-complete">Kompletny</b></header><h3>Uzgodnij saldo klubu</h3><p>Księgowość przechodzi od sprzedaży i korekt do zamkniętego okresu.</p><ol><li><button type="button" data-go="partner-settlements">1. Saldo i historia</button></li><li><button type="button" data-go="partner-order">2. Źródłowa pozycja</button></li><li><button type="button" data-go="partner-settlement">3. Okres miesięczny</button></li></ol><footer><strong>Rezultat</strong><span>Każda kwota ma źródło i historię korekt.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="accountant-document"><header><span>UC-KS02</span><b class="coverage-complete">Kompletny</b></header><h3>Przekaż dokument do wypłaty</h3><p>Klub otrzymuje właściwą podstawę, przekazuje fakturę i śledzi weryfikację.</p><ol><li><button type="button" data-go="partner-settlement">1. Kwota i warunki</button></li><li><button type="button" data-go="partner-settlement" data-use-action="submit-settlement-document">2. Przekazanie dokumentu</button></li><li><button type="button" data-go="system-settlement">3. Weryfikacja ACTIVIO</button></li></ol><footer><strong>Rezultat</strong><span>Dokument powiązany z właściwym okresem i rachunkiem.</span></footer></article>
+                    </div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="club-viewer">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">P</span><div><small>ROLA PODGLĄDU KLUBU</small><h2>Bezpieczny odczyt wyników</h2></div><b>1 scenariusz</b></div>
+                    <div class="use-case-grid"><article class="use-case-card" data-use-case-card="viewer-read"><header><span>UC-P01</span><b class="coverage-complete">Kompletny</b></header><h3>Sprawdź wyniki bez edycji</h3><p>Osoba z rolą viewer może analizować pulpit i sprzedaż, ale nie zmienia ceny, marki ani wypłat.</p><ol><li><button type="button" data-go="partner-dashboard">1. Pulpit tylko do odczytu</button></li><li><button type="button" data-go="partner-orders">2. Sprzedaż produktów</button></li><li><button type="button" data-go="partner-team">3. Zakres roli</button></li></ol><footer><strong>Rezultat</strong><span>Odczyt danych klubu bez uprawnień mutujących.</span></footer></article></div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="partner-ops">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">OP</span><div><small>ACTIVIO · OPERACJE PARTNERÓW</small><h2>Onboarding i utrzymanie klubu</h2></div><b>2 scenariusze</b></div>
+                    <div class="use-case-grid">
+                        <article class="use-case-card" data-use-case-card="ops-onboarding"><header><span>UC-OP01</span><b class="coverage-complete">Kompletny</b></header><h3>Uruchom nowy klub</h3><p>Operator zakłada partnera i prowadzi go przez organizację, umowę, markę i publikację.</p><ol><li><button type="button" data-go="system-dashboard" data-use-action="system-new-club">1. Dodaj klub</button></li><li><button type="button" data-go="system-clubs">2. Kolejka onboardingu</button></li><li><button type="button" data-go="system-club">3. Karta i checklista klubu</button></li><li><button type="button" data-go="system-listings">4. Pierwsze listingi</button></li></ol><footer><strong>Rezultat</strong><span>Klub aktywny dopiero po spełnieniu wszystkich warunków.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="ops-control"><header><span>UC-OP02</span><b class="coverage-complete">Kompletny</b></header><h3>Ogranicz lub sprawdź partnera</h3><p>Operator weryfikuje dokumenty, licencję, rachunek i może zmienić status klubu.</p><ol><li><button type="button" data-go="system-clubs">1. Lista partnerów</button></li><li><button type="button" data-go="system-club">2. Dane partnera</button></li><li><button type="button" data-go="system-club" data-use-action="system-club-status">3. Decyzja o statusie</button></li><li><button type="button" data-go="system-audit">4. Ślad decyzji</button></li></ol><footer><strong>Rezultat</strong><span>Kontrolowana blokada bez usunięcia danych i historii.</span></footer></article>
+                    </div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="catalog">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">KAT</span><div><small>ACTIVIO · OPERATOR KATALOGU</small><h2>Produkty bazowe i listingi</h2></div><b>2 scenariusze</b></div>
+                    <div class="use-case-grid">
+                        <article class="use-case-card" data-use-case-card="catalog-base"><header><span>UC-KAT01</span><b class="coverage-complete">Kompletny</b></header><h3>Dodaj produkt bazowy</h3><p>Operator tworzy wspólny produkt, warianty, personalizację, pliki i ceny minimalne.</p><ol><li><button type="button" data-go="system-catalog-guide">1. Instrukcja procesu</button></li><li><button type="button" data-go="system-catalog">2. Katalog centralny</button></li><li><button type="button" data-go="system-catalog-product">3. Karta produktu</button></li><li><button type="button" data-go="system-catalog-variant">4. Wariant i minimum</button></li></ol><footer><strong>Rezultat</strong><span>Produkt gotowy do wyboru przez wiele klubów.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="catalog-listing"><header><span>UC-KAT02</span><b class="coverage-complete">Kompletny</b></header><h3>Zweryfikuj klubowy listing</h3><p>Operator kontroluje markę, projekt, warianty, pliki oraz cenę przed publikacją.</p><ol><li><button type="button" data-go="system-listings">1. Kolejka listingów</button></li><li><button type="button" data-go="system-listings" data-use-action="system-listing-review">2. Weryfikacja projektu</button></li><li><button type="button" data-go="partner-listing">3. Widok klubu</button></li><li><button type="button" data-go="product">4. Widok klienta</button></li></ol><footer><strong>Rezultat</strong><span>Opublikowana, wersjonowana oferta konkretnego klubu.</span></footer></article>
+                    </div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="bok">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">BOK</span><div><small>ACTIVIO · OBSŁUGA KLIENTA</small><h2>Zamówienia, wyjątki i reklamacje</h2></div><b>2 scenariusze</b></div>
+                    <div class="use-case-grid">
+                        <article class="use-case-card" data-use-case-card="bok-order"><header><span>UC-BOK01</span><b class="coverage-complete">Kompletny</b></header><h3>Wyjaśnij status zamówienia</h3><p>BOK łączy widok klienta z kontekstem pozycji, klubu i realizacji w ShopSystem.</p><ol><li><button type="button" data-go="customer-order">1. To, co widzi klient</button></li><li><button type="button" data-go="system-orders">2. Kolejka operacyjna</button></li><li><button type="button" data-go="system-orders" data-use-action="system-order-detail">3. Kontekst pozycji</button></li></ol><footer><strong>Rezultat</strong><span>Spójna odpowiedź bez tworzenia drugiego systemu zamówień.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="bok-claim"><header><span>UC-BOK02</span><b class="coverage-complete">Kompletny</b></header><h3>Rozpatrz reklamację</h3><p>BOK ocenia przyczynę i wybiera poprawkę, ponowną produkcję albo korektę finansową.</p><ol><li><button type="button" data-go="customer-claim">1. Zgłoszenie klienta</button></li><li><button type="button" data-go="system-cases">2. Sprawa BOK</button></li><li><button type="button" data-go="system-cases" data-use-action="system-case-evidence">3. Dowody</button></li><li><button type="button" data-go="partner-order">4. Skutek widoczny klubowi</button></li></ol><footer><strong>Rezultat</strong><span>Decyzja per pozycja i odwracalny wpis korekty.</span></footer></article>
+                    </div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="finance">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">FIN</span><div><small>ACTIVIO · FINANSE</small><h2>Okresy, dokumenty i wypłaty</h2></div><b>2 scenariusze</b></div>
+                    <div class="use-case-grid">
+                        <article class="use-case-card" data-use-case-card="finance-close"><header><span>UC-FIN01</span><b class="coverage-complete">Kompletny</b></header><h3>Zamknij okres rozliczeniowy</h3><p>Finanse kontrolują sprzedaże, korekty i blokady przed wystawieniem zestawień.</p><ol><li><button type="button" data-go="system-settlements">1. Lista okresów klubów</button></li><li><button type="button" data-go="system-settlements" data-use-action="system-close-period">2. Zamknięcie okresu</button></li><li><button type="button" data-go="partner-settlement">3. Zestawienie dla klubu</button></li></ol><footer><strong>Rezultat</strong><span>Powtarzalne zestawienie z nieedytowalnego ledgera.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="finance-payout"><header><span>UC-FIN02</span><b class="coverage-complete">Kompletny</b></header><h3>Zweryfikuj i zatwierdź wypłatę</h3><p>Operator sprawdza dokument, VAT, rachunek, saldo i ślad akceptacji.</p><ol><li><button type="button" data-go="system-settlement">1. Kontrola wypłaty</button></li><li><button type="button" data-go="system-settlement" data-use-action="system-approve-settlement">2. Decyzja operatora</button></li><li><button type="button" data-go="system-audit">3. Audyt decyzji</button></li></ol><footer><strong>Rezultat</strong><span>Wypłata zatwierdzona przez uprawnioną osobę.</span></footer></article>
+                    </div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="fulfillment">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">R</span><div><small>REALIZACJA / PRODUKCJA · SHOPSystem</small><h2>Przekazanie do istniejącego modułu</h2></div><b>1 scenariusz</b></div>
+                    <div class="use-case-grid"><article class="use-case-card" data-use-case-card="fulfillment-handoff"><header><span>UC-R01</span><b class="coverage-integrated">Integracja</b></header><h3>Zrealizuj pozycję ACTIVIO</h3><p>Moduł ACTIVIO przekazuje identyfikator, wariant, personalizację i wersję pliku. Produkcja oraz wysyłka pozostają w istniejącym ShopSystem.</p><ol><li><button type="button" data-go="system-orders">1. Kontekst ACTIVIO</button></li><li><button type="button" data-go="system-orders" data-use-action="system-order-detail">2. Powiązanie z ShopSystem</button></li><li><button type="button" data-go="customer-order">3. Uproszczony status klienta</button></li><li><button type="button" data-go="partner-order">4. Uproszczony status klubu</button></li></ol><footer><strong>Rezultat</strong><span>Jedno źródło realizacji, bez kopiowania danych produkcyjnych.</span></footer></article></div>
+                </div>
+
+                <div class="use-case-role-group" data-use-case-role="admin">
+                    <div class="use-case-role-head"><span class="use-case-role-icon">AS</span><div><small>ADMINISTRATOR SYSTEMU ACTIVIO</small><h2>Dostęp, audyt i ciągłość operacji</h2></div><b>2 scenariusze</b></div>
+                    <div class="use-case-grid">
+                        <article class="use-case-card" data-use-case-card="admin-access"><header><span>UC-AS01</span><b class="coverage-complete">Kompletny</b></header><h3>Zarządzaj operatorami i rolami</h3><p>Administrator zaprasza pracownika, nadaje najmniejszy zakres i kontroluje 2FA.</p><ol><li><button type="button" data-go="system-users">1. Operatorzy i role</button></li><li><button type="button" data-go="system-users" data-use-action="system-invite-operator">2. Zaproszenie operatora</button></li><li><button type="button" data-go="system-users" data-use-action="system-user-detail">3. Szczegóły dostępu</button></li><li><button type="button" data-go="system-audit">4. Audyt zmian</button></li></ol><footer><strong>Rezultat</strong><span>Indywidualne konta, 2FA i pełny ślad uprawnień.</span></footer></article>
+                        <article class="use-case-card" data-use-case-card="admin-health"><header><span>UC-AS02</span><b class="coverage-complete">Kompletny</b></header><h3>Kontroluj integralność systemu</h3><p>Administrator monitoruje kolejki, błędy integracji i uzgadnia dane z ShopSystem.</p><ol><li><button type="button" data-go="system-dashboard">1. Zdrowie operacji</button></li><li><button type="button" data-go="system-audit">2. Zdarzenia i błędy</button></li><li><button type="button" data-go="system-audit" data-use-action="system-reconciliation">3. Uzgodnienie kontrolne</button></li><li><button type="button" data-go="system-users">4. Dostęp administratorów</button></li></ol><footer><strong>Rezultat</strong><span>Brak różnic i kontrolowane, idempotentne ponowienia.</span></footer></article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="view feedback-history-view" data-view="feedback-history" data-feedback-ui data-html2canvas-ignore hidden>
             <div class="feedback-history-hero">
                 <div>
@@ -1826,7 +2082,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260729-05"></script>
-    <script src="feedback.js?v=20260729-05"></script>
+    <script src="app.js?v=20260730-01"></script>
+    <script src="feedback.js?v=20260730-01"></script>
 </body>
 </html>

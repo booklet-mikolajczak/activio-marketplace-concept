@@ -23,6 +23,8 @@ const action_content = document.querySelector('[data-action-content]');
 const partner_views = [
     'partner-dashboard',
     'partner-offer',
+    'partner-catalog',
+    'partner-listing-create',
     'partner-listing',
     'partner-orders',
     'partner-order',
@@ -35,6 +37,8 @@ const partner_views = [
     'partner-notifications',
 ];
 const partner_nav_roots = {
+    'partner-catalog': 'partner-offer',
+    'partner-listing-create': 'partner-offer',
     'partner-listing': 'partner-offer',
     'partner-order': 'partner-orders',
     'partner-settlement': 'partner-settlements',
@@ -56,6 +60,7 @@ const system_views = [
     'system-settlements',
     'system-settlement',
     'system-audit',
+    'system-users',
 ];
 const system_nav_roots = {
     'system-club': 'system-clubs',
@@ -1252,6 +1257,41 @@ function show_action(action, source) {
         return;
     }
 
+    if (action === 'customer-order-help') {
+        open_action_dialog('Odzyskaj numer zamówienia', `
+            <form class="action-form" data-action-form="customer-order-help">
+                <p class="action-form-note">Podaj adres e-mail użyty przy zakupie. Wyślemy listę numerów zamówień z ostatnich 90 dni.</p>
+                <label class="wide">Adres e-mail<input name="email" type="email" value="jan.kowalski@example.pl" required autocomplete="email"></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij numery zamówień</button></footer>
+            </form>
+        `, 'ZAKUP GOŚCINNY');
+        return;
+    }
+
+    if (action === 'customer-carrier-track') {
+        open_action_dialog('Dostawa zamówienia AC/2026/1048', `
+            <div class="tracking-list">
+                <div><i>✓</i><span><strong>Paczkomat PPL01M potwierdzony</strong><small>ul. Poznańska 12, Pleszew</small></span></div>
+                <div class="pending"><i>2</i><span><strong>Oczekiwanie na zakończenie produkcji</strong><small>Numer przesyłki zostanie nadany po skompletowaniu obu pozycji.</small></span></div>
+                <div class="pending"><i>3</i><span><strong>Powiadomienie e-mail i SMS</strong><small>Wyśle je przewoźnik po umieszczeniu paczki w automacie.</small></span></div>
+            </div>
+            <p class="action-info">W MVP całe zamówienie jest wysyłane jedną paczką. Termin zależy od najwolniejszej pozycji.</p>
+        `, 'DOSTAWA');
+        return;
+    }
+
+    if (action === 'customer-contact') {
+        open_action_dialog('Kontakt z obsługą ACTIVIO', `
+            <form class="action-form" data-action-form="customer-contact">
+                <label class="wide">Temat<select name="topic"><option>Status produkcji lub dostawy</option><option>Zmiana przed rozpoczęciem produkcji</option><option>Płatność lub dokument</option><option>Inna sprawa</option></select></label>
+                <label class="wide">Wiadomość<textarea name="message" required>Proszę o informację dotyczącą zamówienia AC/2026/1048.</textarea></label>
+                <p class="action-form-note">Kontakt obsługuje ACTIVIO, nie klub. Numer zamówienia zostanie dołączony automatycznie.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij wiadomość</button></footer>
+            </form>
+        `, 'OBSŁUGA KLIENTA');
+        return;
+    }
+
     if (action === 'club-story') {
         const club = clubs[current_club_id];
         open_action_dialog(club.name, `
@@ -1408,6 +1448,57 @@ function show_action(action, source) {
         open_action_dialog('Ustawienia użytkownika', `
             <div class="info-grid"><article><span>AN</span><div><strong>Anna Nowak</strong><p>Operator ACTIVIO · motyw jasny.</p></div></article><article><span>7</span><div><strong>Skróty w Systemie</strong><p>ACTIVIO jest przypięte do lewego paska.</p></div></article></div>
         `, 'SYSTEM');
+        return;
+    }
+
+    if (action === 'system-invite-operator') {
+        open_action_dialog('Zaproś operatora ACTIVIO', `
+            <form class="action-form" data-action-form="system-invite-operator">
+                <label>Imię i nazwisko<input name="name" required autocomplete="name"></label>
+                <label>E-mail służbowy<input name="email" type="email" required autocomplete="email"></label>
+                <label class="wide">Rola<select name="role" required><option>Operacje partnerów</option><option>Katalog</option><option>Obsługa klienta</option><option>Finanse</option><option>Administrator</option></select></label>
+                <label class="wide">Data wygaśnięcia dostępu<input name="expires" type="date"></label>
+                <p class="action-form-note">Operator aktywuje indywidualne konto, ustawia hasło i konfiguruje 2FA przed pierwszym dostępem do danych.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij zaproszenie</button></footer>
+            </form>
+        `, 'ADMINISTRACJA SYSTEMU');
+        return;
+    }
+
+    if (action === 'system-user-detail') {
+        open_action_dialog('Anna Nowak · dostęp operatora', `
+            <form class="action-form" data-action-form="system-user-update">
+                <p class="action-form-note"><strong>anna.nowak@activio.pl</strong> · konto aktywne · 2FA włączone · ostatnie logowanie teraz.</p>
+                <label class="wide">Rola główna<select name="role"><option>Administrator</option><option>Operacje partnerów</option><option>Katalog</option><option>Obsługa klienta</option><option>Finanse</option></select></label>
+                <label class="wide">Dodatkowy zakres<select name="scope"><option>Brak — zakres roli głównej</option><option>Czasowy eksport danych</option><option>Podgląd rozliczeń</option></select></label>
+                <div class="info-grid wide"><article><span>✓</span><div><strong>2FA aktywne</strong><p>Aplikacja uwierzytelniająca · 8 kodów odzyskiwania.</p></div></article><article><span>2</span><div><strong>Aktywne sesje</strong><p>MacBook · iPhone służbowy.</p></div></article></div>
+                <footer><button class="dialog-button" type="button" data-action="system-user-block">Zablokuj konto</button><button class="dialog-button primary" type="submit">Zapisz dostęp</button></footer>
+            </form>
+        `, 'OPERATOR ACTIVIO');
+        return;
+    }
+
+    if (action === 'system-role-detail') {
+        open_action_dialog('Rola: Operator katalogu', `
+            <form class="action-form" data-action-form="system-role-update">
+                <p class="action-form-note">Rola obejmuje wyłącznie zadania katalogowe. Działania finansowe i administracyjne pozostają niedostępne.</p>
+                <label class="wide">Nazwa roli<input name="name" value="Katalog" required></label>
+                <div class="role-permission-grid wide"><label><input type="checkbox" checked> Produkty bazowe i SKU</label><label><input type="checkbox" checked> Ceny minimalne</label><label><input type="checkbox" checked> Weryfikacja listingów</label><label><input type="checkbox"> Rozliczenia klubów</label><label><input type="checkbox"> Reklamacje</label><label><input type="checkbox"> Operatorzy i role</label></div>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zapisz rolę</button></footer>
+            </form>
+        `, 'ROLE I UPRAWNIENIA');
+        return;
+    }
+
+    if (action === 'system-access-review') {
+        open_action_dialog('Przegląd dostępu operatora', `
+            <form class="action-form" data-action-form="system-access-review">
+                <p class="action-form-note"><strong>Magda Kaczmarek · BOK</strong><br>Czasowy eksport danych przyznano 02.07.2026 do obsługi reklamacji zbiorczej.</p>
+                <label class="wide">Decyzja<select name="decision"><option>Usuń dodatkowy eksport</option><option>Przedłuż do wskazanej daty</option><option>Pozostaw bez zmian</option></select></label>
+                <label class="wide">Uzasadnienie<textarea name="reason" required>Cel dostępu został zakończony.</textarea></label>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Zapisz przegląd</button></footer>
+            </form>
+        `, 'KONTROLA DOSTĘPU');
         return;
     }
 
@@ -2177,6 +2268,42 @@ document.addEventListener('click', (event) => {
         return;
     }
 
+    const use_case_filter = event.target.closest('[data-use-case-filter]');
+    if (use_case_filter) {
+        const role = use_case_filter.dataset.useCaseFilter;
+        document.querySelectorAll('[data-use-case-filter]').forEach((button) => {
+            button.classList.toggle('active', button === use_case_filter);
+        });
+        document.querySelectorAll('[data-use-case-role]').forEach((group) => {
+            group.hidden = role !== 'all' && group.dataset.useCaseRole !== role;
+        });
+        return;
+    }
+
+    const use_case_action_step = event.target.closest('[data-use-action]');
+    if (use_case_action_step) {
+        event.preventDefault();
+        render_view(use_case_action_step.dataset.go);
+        window.requestAnimationFrame(() => {
+            document.querySelector(
+                `[data-view="${use_case_action_step.dataset.go}"] [data-action="${use_case_action_step.dataset.useAction}"]`,
+            )?.click();
+        });
+        return;
+    }
+
+    const partner_catalog_filter = event.target.closest('[data-partner-catalog-filter]');
+    if (partner_catalog_filter) {
+        const category = partner_catalog_filter.dataset.partnerCatalogFilter;
+        document.querySelectorAll('[data-partner-catalog-filter]').forEach((button) => {
+            button.classList.toggle('active', button === partner_catalog_filter);
+        });
+        document.querySelectorAll('[data-partner-catalog-product]').forEach((product) => {
+            product.hidden = category !== 'all' && product.dataset.partnerCatalogProduct !== category;
+        });
+        return;
+    }
+
     const catalog_image_button = event.target.closest('[data-catalog-image]');
     if (catalog_image_button) {
         const gallery = catalog_image_button.closest('.catalog-gallery');
@@ -2268,6 +2395,12 @@ document.addEventListener('click', (event) => {
         } else if (action === 'system-catalog-download-file') {
             download_blob('koszulka-sportowa-v6.txt', 'Prototyp pliku produkcyjnego koszulka-sportowa-v6.ai · SHA-256 …8f24', 'text/plain;charset=utf-8');
             show_toast('Pobrano aktywną wersję pliku katalogowego');
+        } else if (action === 'customer-download-receipt') {
+            download_blob('potwierdzenie-AC-2026-1048.txt', 'ACTIVIO · zamówienie AC/2026/1048 · 190,99 zł brutto · opłacone 23.07.2026', 'text/plain;charset=utf-8');
+            show_toast('Pobrano potwierdzenie zamówienia');
+        } else if (action === 'system-user-block') {
+            close_action_dialog();
+            show_toast('Konto operatora zostało zablokowane, a aktywne sesje zakończone');
         } else if (action === 'system-bulk-review') {
             show_toast('Włączono tryb szybkiego przeglądu kolejki');
         } else if (action === 'system-open-partner-preview') {
@@ -2504,6 +2637,37 @@ document.addEventListener('submit', (event) => {
     const form_type = form.dataset.actionForm;
     const reference = `AC-${Date.now().toString().slice(-6)}`;
 
+    if (form_type === 'customer-order-lookup') {
+        render_view('customer-order');
+        show_toast('Zamówienie AC/2026/1048 zostało odnalezione');
+        return;
+    }
+
+    if (form_type === 'customer-claim') {
+        open_action_dialog('Zgłoszenie zostało przyjęte', `
+            <div class="tracking-list">
+                <div><i>✓</i><span><strong>Sprawa REK/2026/121 zapisana</strong><small>Koszulka KS Stal · zamówienie AC/2026/1048</small></span></div>
+                <div class="pending"><i>2</i><span><strong>Weryfikacja przez BOK ACTIVIO</strong><small>Odpowiedź e-mailem najpóźniej w ciągu 2 dni roboczych</small></span></div>
+                <div class="pending"><i>3</i><span><strong>Rozwiązanie</strong><small>Poprawka, ponowna produkcja albo zwrot środków</small></span></div>
+            </div>
+            <p class="action-info">Personalizacja nie wyłącza prawa do reklamacji. Klub otrzyma wyłącznie informację o statusie i ewentualnej korekcie rozliczenia.</p>
+            <div class="dialog-actions"><button class="dialog-button primary" type="button" data-go="customer-order">Wróć do zamówienia</button></div>
+        `, 'REKLAMACJA');
+        return;
+    }
+
+    if (form_type === 'partner-listing-create') {
+        open_action_dialog('Produkt przekazany do przygotowania', `
+            <div class="tracking-list">
+                <div><i>✓</i><span><strong>Wersja robocza LST-014-018 utworzona</strong><small>Koszulka sportowa · 7 wariantów · cena 129,00 zł</small></span></div>
+                <div class="pending"><i>2</i><span><strong>Projekt ACTIVIO</strong><small>Herb KS Stal i wskazówki trafiły do grafika</small></span></div>
+                <div class="pending"><i>3</i><span><strong>Akceptacja klubu i ACTIVIO</strong><small>Publikacja dopiero po obu decyzjach</small></span></div>
+            </div>
+            <div class="dialog-actions"><button class="dialog-button" type="button" data-go="partner-offer">Wróć do oferty</button><button class="dialog-button primary" type="button" data-go="partner-listing">Otwórz listing</button></div>
+        `, 'NOWA OFERTA KLUBU');
+        return;
+    }
+
     if (form_type === 'settlement-document') {
         const document_state = document.querySelector('[data-document-state]');
         const settlement_status = document.querySelector('[data-settlement-status]');
@@ -2530,6 +2694,8 @@ document.addEventListener('submit', (event) => {
         'bank-change': ['Zmiana rachunku zgłoszona', 'Weryfikacja rachunku przez ACTIVIO'],
         'contact-manager': ['Wiadomość wysłana', 'Odpowiedź opiekuna ACTIVIO'],
         'save-storefront': ['Treści przekazane', 'Weryfikacja i publikacja przez ACTIVIO'],
+        'customer-order-help': ['Wiadomość została wysłana', 'Sprawdź skrzynkę i folder ze spamem'],
+        'customer-contact': ['Wiadomość trafiła do BOK', 'Odpowiedź ACTIVIO na podany adres e-mail'],
         'system-new-club': ['Onboarding rozpoczęty', 'Weryfikacja organizacji i reprezentacji'],
         'system-club-status': ['Decyzja zapisana', 'Aktualizacja procesów zależnych i powiadomienie klubu'],
         'system-catalog-template': ['Produkt bazowy zapisany', 'Uzupełnienie wariantów, minimum i plików przed aktywacją'],
@@ -2540,6 +2706,10 @@ document.addEventListener('submit', (event) => {
         'system-catalog-production': ['Parametry produkcyjne zapisane', 'Weryfikacja plików i instrukcji produkcyjnych'],
         'system-catalog-image': ['Zdjęcie przekazane do weryfikacji', 'Kontrola jakości i publikacja w galerii'],
         'system-catalog-file': ['Nowa wersja pliku zapisana', 'Kontrola techniczna przed oznaczeniem jako aktywna'],
+        'system-invite-operator': ['Zaproszenie operatora wysłane', 'Aktywacja konta i obowiązkowa konfiguracja 2FA'],
+        'system-user-update': ['Dostęp operatora zapisany', 'Zmiana roli została dodana do audytu'],
+        'system-role-update': ['Rola systemowa zapisana', 'Ponowna ocena efektywnych uprawnień operatorów'],
+        'system-access-review': ['Przegląd dostępu zakończony', 'Decyzja i uzasadnienie zostały zapisane w audycie'],
         'system-reject-invoice': ['Dokument zwrócony do klubu', 'Oczekiwanie na poprawioną fakturę'],
     };
     const form_message = form_messages[form_type];
@@ -2647,6 +2817,30 @@ document.querySelectorAll('select[data-store-club], select[data-store-sort]').fo
 document.querySelectorAll('[data-sale-price]').forEach((input) => {
     input.addEventListener('input', () => update_offer_price(input));
 });
+
+const non_functional_views = new Set([
+    'use-cases',
+    'feedback-history',
+    'project-hub',
+    'project-concept',
+    'project-assumptions',
+    'project-technical',
+    'project-research',
+]);
+const scenario_routes = new Set(
+    [...document.querySelectorAll('[data-use-case-card] [data-go]')]
+        .map((button) => button.dataset.go),
+);
+const functional_views = valid_views.filter((view) => !non_functional_views.has(view));
+const covered_functional_views = functional_views.filter((view) => scenario_routes.has(view));
+const coverage_output = document.querySelector('[data-use-case-coverage]');
+if (coverage_output) {
+    coverage_output.textContent = `${covered_functional_views.length}/${functional_views.length}`;
+    const missing_views = functional_views.filter((view) => !scenario_routes.has(view));
+    coverage_output.title = missing_views.length > 0
+        ? `Brak w scenariuszach: ${missing_views.join(', ')}`
+        : 'Każdy widok produktu występuje w co najmniej jednym scenariuszu';
+}
 
 refresh_button.addEventListener('click', reload_latest);
 
