@@ -711,6 +711,12 @@ main { min-height: calc(100vh - 46px); }
 .club-program-benefits article > span { color: var(--accent); font-size: 10px; font-weight: 950; }
 .club-program-benefits strong { margin-top: auto; font-size: 19px; }
 .club-program-benefits p { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.clubs-program-summary { padding-bottom: 40px; }
+.clubs-program-summary .section-heading > div { max-width: 790px; }
+.clubs-program-summary .section-heading p { max-width: 750px; margin: 14px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.clubs-program-summary .section-heading .button { flex: 0 0 auto; align-self: flex-end; }
+.clubs-program-benefits { grid-template-columns: repeat(4, 1fr); }
+.clubs-program-benefits article { min-height: 190px; }
 .club-program-steps {
     display: grid;
     grid-template-columns: .78fr 1.22fr;
@@ -3390,6 +3396,7 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     .club-program-hero aside { padding: 22px; }
     .club-program-benefits { grid-template-columns: 1fr; }
     .club-program-benefits article { min-height: 180px; }
+    .clubs-program-summary .section-heading .button { width: 100%; align-self: stretch; }
     .club-program-steps { gap: 30px; padding: 58px 20px; }
     .club-program-steps h2 { font-size: 39px; }
     .club-program-steps ol { grid-template-columns: 1fr; }
