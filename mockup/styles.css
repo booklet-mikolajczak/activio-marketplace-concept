@@ -1486,21 +1486,6 @@ dd { margin: 0; }
 .alert-panel > button span { display: grid; }
 .alert-panel > button strong { font-size: 10px; }
 .alert-panel > button small { color: var(--muted); font-size: 8px; }
-[data-view="partner-dashboard"] .metric-grid span { font-size: 12px; }
-[data-view="partner-dashboard"] .metric-grid small { font-size: 11px; }
-[data-view="partner-dashboard"] .panel-heading span { font-size: 11px; }
-[data-view="partner-dashboard"] .panel-heading strong { font-size: 17px; }
-[data-view="partner-dashboard"] .panel-heading button { font-size: 12px; }
-[data-view="partner-dashboard"] .chart-labels, [data-view="partner-dashboard"] .chart-axis { font-size: 10px; }
-[data-view="partner-dashboard"] .payout-card > small, [data-view="partner-dashboard"] .payout-card > div { font-size: 12px; }
-[data-view="partner-dashboard"] .ranking-list li > b { font-size: 11px; }
-[data-view="partner-dashboard"] .ranking-list span strong, [data-view="partner-dashboard"] .ranking-list em { font-size: 12px; }
-[data-view="partner-dashboard"] .ranking-list span small { font-size: 10px; }
-[data-view="partner-dashboard"] .alert-panel > button strong { font-size: 12px; }
-[data-view="partner-dashboard"] .alert-panel > button small { font-size: 10px; }
-[data-view="partner-dashboard"] th { font-size: 10px; }
-[data-view="partner-dashboard"] td { font-size: 12px; }
-[data-view="partner-dashboard"] td small, [data-view="partner-dashboard"] .table-status { font-size: 10px; }
 .recent-orders tr[data-go] { cursor: pointer; }
 .recent-orders tr[data-go]:hover td, .orders-table tr[data-go]:hover td { background: #f7f9fc; }
 table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; }
@@ -1703,6 +1688,78 @@ td small { display: block; color: var(--muted); font-size: 8px; }
 .notification-list strong { margin: 3px 0; font-size: 11px; }
 .notification-list p { margin: 0; color: var(--muted); font-size: 9px; }
 .notification-list > button > b { color: var(--primary); font-size: 9px; }
+
+/* Partner panel readability baseline. */
+.partner-brand span, .partner-user small { font-size: 11px; }
+.partner-header nav button { font-size: 13px; }
+.partner-user > span { font-size: 11px; }
+.partner-user strong { font-size: 12px; }
+.partner-view { font-size: 14px; }
+.partner-view .eyebrow { font-size: 10px; }
+.partner-view small { font-size: 11px; line-height: 1.45; }
+.partner-view label { font-size: 12px; }
+.partner-view th { font-size: 11px; }
+.partner-view td { font-size: 12px; }
+.partner-view td small { font-size: 11px; }
+.partner-view .table-status { font-size: 10px; }
+.partner-view .partner-breadcrumbs, .partner-view .status-large { font-size: 11px; }
+.partner-view .panel-heading span { font-size: 11px; }
+.partner-view .panel-heading strong { font-size: 17px; }
+.partner-view .panel-heading button, .partner-view .panel-heading select { font-size: 12px; }
+.partner-view .pricing-rule-card p, .partner-view .pricing-rule-card button { font-size: 12px; }
+.partner-view .offer-title > div span { font-size: 11px; }
+.partner-view .offer-title > div strong { font-size: 17px; }
+.partner-view .price-editor > label { font-size: 11px; }
+.partner-view .price-editor output { font-size: 13px; }
+.partner-view .price-editor label > span { font-size: 12px; }
+.partner-view .price-editor input { font-size: 14px; }
+.partner-view .price-result > span, .partner-view .price-result small { font-size: 11px; }
+.partner-view .price-result strong { font-size: 19px; }
+.partner-view .offer-actions > button:first-child, .partner-view .offer-actions .button { font-size: 12px; }
+.partner-view .metric-grid span { font-size: 12px; }
+.partner-view .metric-grid small { font-size: 11px; }
+.partner-view .chart-labels, .partner-view .chart-axis { font-size: 10px; }
+.partner-view .payout-card > small, .partner-view .payout-card > div { font-size: 12px; }
+.partner-view .ranking-list li > b { font-size: 11px; }
+.partner-view .ranking-list span strong { font-size: 13px; }
+.partner-view .ranking-list em { font-size: 12px; }
+.partner-view .alert-panel > button i { font-size: 11px; }
+.partner-view .alert-panel > button strong { font-size: 13px; }
+.partner-view .filter-bar button, .partner-view .privacy-note { font-size: 12px; }
+.partner-view .settlement-summary span { font-size: 12px; }
+.partner-view .settlement-summary button, .partner-view .settlement-rule p, .partner-view .settlement-rule button { font-size: 12px; }
+.partner-view .period-list strong, .partner-view .period-list b { font-size: 13px; }
+.partner-view .listing-product-card p { font-size: 13px; }
+.partner-view .listing-product-card dt, .partner-view .order-product-summary dt, .partner-view .definition-grid dt { font-size: 11px; }
+.partner-view .listing-product-card dd, .partner-view .order-product-summary dd, .partner-view .definition-grid dd { font-size: 13px; }
+.partner-view .detail-price-row, .partner-view .detail-list li, .partner-view .detail-list > div { font-size: 12px; }
+.partner-view .compact-timeline i { font-size: 10px; }
+.partner-view .compact-timeline strong { font-size: 12px; }
+.partner-view .order-product-summary > div > span, .partner-view .money-breakdown > span { font-size: 11px; }
+.partner-view .money-breakdown strong { font-size: 13px; }
+.partner-view .money-breakdown button, .partner-view .empty-state.compact p { font-size: 12px; }
+.partner-view .settlement-detail-summary span, .partner-view .settlement-detail-summary small { font-size: 11px; }
+.partner-view .document-drop p { font-size: 12px; }
+.partner-view .bank-card span, .partner-view .bank-card small { font-size: 11px; }
+.partner-view .horizontal-steps i { font-size: 10px; }
+.partner-view .horizontal-steps strong { font-size: 12px; }
+.partner-view .partner-settings-nav button { font-size: 12px; }
+.partner-view .onboarding-card li, .partner-view .contact-lead { font-size: 12px; }
+.partner-view .crest-preview button, .partner-view .security-grid article button { font-size: 12px; }
+.partner-view .color-swatches b { font-size: 11px; }
+.partner-view .color-swatches small { font-size: 11px; }
+.partner-view .storefront-fields label { font-size: 12px; }
+.partner-view .version-list span strong { font-size: 12px; }
+.partner-view .version-list span small { font-size: 11px; }
+.partner-view .role-grid strong, .partner-view .security-grid article strong { font-size: 13px; }
+.partner-view .role-grid p, .partner-view .security-grid article p { font-size: 12px; }
+.partner-view .person-cell > b { font-size: 10px; }
+.partner-view .security-score { font-size: 11px; }
+.partner-view .notification-filters button { font-size: 12px; }
+.partner-view .notification-list small { font-size: 11px; }
+.partner-view .notification-list strong { font-size: 13px; }
+.partner-view .notification-list p { font-size: 12px; }
+.partner-view .notification-list > button > b { font-size: 11px; }
 
 .system-header { position: sticky; z-index: 80; top: 46px; height: 76px; display: flex; align-items: center; gap: 28px; padding: 0 max(28px, calc((100vw - 1340px) / 2)); border-bottom: 1px solid #283247; color: #fff; background: #111827; }
 .system-brand { display: flex; gap: 14px; align-items: center; color: #fff; text-decoration: none; }
@@ -2738,6 +2795,33 @@ td small { display: block; color: var(--muted); font-size: 8px; }
 .catalog-impact-grid .system-kpi-grid { margin: 0 0 12px; }
 .danger-button { background: var(--system-red) !important; }
 .action-code { margin: 0 0 14px; padding: 14px; overflow-x: auto; border-radius: 7px; color: #dbe8ff; background: #111827; font-size: 10px; line-height: 1.7; }
+
+/* Partner views declared after the shared panel styles follow the same scale. */
+.partner-view dt { font-size: 11px; }
+.partner-view dd { font-size: 13px; }
+.partner-view .ranking-list span small, .partner-view .alert-panel > button small { font-size: 11px; }
+.partner-view .partner-catalog-toolbar button { font-size: 12px; }
+.partner-view .partner-catalog-grid article span { font-size: 11px; }
+.partner-view .partner-catalog-grid article strong { font-size: 16px; }
+.partner-view .partner-catalog-grid article p, .partner-view .partner-catalog-grid article dl div { font-size: 12px; }
+.partner-view .listing-create-steps i { font-size: 10px; }
+.partner-view .listing-create-steps strong { font-size: 12px; }
+.partner-view .listing-create-steps small { font-size: 11px; }
+.partner-view .listing-base-product span p, .partner-view .listing-base-product span small { font-size: 12px; }
+.partner-view .variant-check-grid label, .partner-view .listing-create-section > label, .partner-view .listing-create-summary > label { font-size: 12px; }
+.partner-view .listing-option-list strong { font-size: 13px; }
+.partner-view .listing-option-list small { font-size: 11px; }
+.partner-view .listing-brand-selection p { font-size: 12px; }
+.partner-view .listing-create-summary > span { font-size: 11px; }
+.partner-view .listing-create-summary > div, .partner-view .listing-create-summary > p { font-size: 12px; }
+.partner-view .review-issue-list strong, .partner-view .impact-list strong { font-size: 13px; }
+.partner-view .review-issue-list p, .partner-view .impact-list small { font-size: 12px; }
+.partner-view .conflict-product dl div, .partner-view .compliance-impact li { font-size: 12px; }
+.partner-view .price-conflict-form > label:not(.confirmation-check), .partner-view .compliance-renewal > label:not(.confirmation-check), .partner-view .settlement-problem-grid form > label { font-size: 12px; }
+.partner-view .exception-reason p { font-size: 12px; }
+.partner-view .empty-state-panel p, .partner-view .access-denied-panel p { font-size: 13px; }
+.partner-view .access-denied-panel dl div { font-size: 12px; }
+.partner-view .action-info { font-size: 12px; }
 
 .use-cases-view { color: var(--prototype-ink); background: #fff; }
 .use-cases-hero {
