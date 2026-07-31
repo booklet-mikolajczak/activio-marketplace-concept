@@ -1114,7 +1114,7 @@ main { min-height: calc(100vh - 46px); }
     border: 1px solid rgba(255,255,255,.28);
     border-radius: 10px;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 850;
     text-decoration: none;
     transition: border-color .2s, background .2s, transform .2s;
