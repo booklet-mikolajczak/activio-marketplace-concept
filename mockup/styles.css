@@ -2989,7 +2989,7 @@ td small { display: block; color: var(--muted); font-size: 8px; }
 .hero-layout-bento .hero-layout-primary-action::after { font-size: .72em; content: "→"; }
 .hero-layout-bento .hero-layout-primary-action:hover { background: var(--accent-dark); box-shadow: 0 14px 34px rgba(7,14,35,.3); transform: translateY(-2px); }
 .hero-layout-bento .hero-layout-primary-action:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-.hero-layout-bento .hero-layout-card p { max-width: 650px; margin: 13px 0 0; color: rgba(255,255,255,.9); font-size: 17px; font-weight: 560; line-height: 1.48; }
+.hero-layout-bento .hero-layout-card p { max-width: 650px; margin: 13px 0 0; color: rgba(255,255,255,.9); font-size: 20px; font-weight: 560; line-height: 1.44; }
 .hero-layout-bento .hero-layout-card:not(:first-child) p { margin-top: 7px; font-size: 14px; line-height: 1.4; }
 .hero-layout-bento .hero-layout-card i { margin-top: 11px; }
 .hero-layout-bento .hero-layout-card:first-child img { object-position: 50% 0; }
@@ -3467,6 +3467,7 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     .hero-layout-bento .hero-layout-card:not(:first-child) strong { font-size: 28px; }
     .hero-layout-bento .hero-layout-primary-action { font-size: 20px; }
     .hero-layout-bento .hero-layout-card p, .hero-layout-bento .hero-layout-card:not(:first-child) p { font-size: 15px; }
+    .hero-layout-bento .hero-layout-card:first-child p { font-size: 17px; }
     .club-hero { padding: 45px 18px; }
     .seller-strip { margin: 14px 18px; }
     .club-hero-inner { grid-template-columns: 1fr; }
