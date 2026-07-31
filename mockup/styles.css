@@ -683,7 +683,12 @@ main { min-height: calc(100vh - 46px); }
 .service-hero > div { max-width: 760px; }
 .service-hero h1 { margin: 12px 0 20px; font-size: clamp(46px, 5vw, 72px); line-height: .98; letter-spacing: -.055em; }
 .service-hero p { max-width: 650px; margin: 0 0 28px; color: rgba(255,255,255,.78); font-size: 17px; }
-.offer-service-hero { background: linear-gradient(120deg, #111c39, #0f5bd7); }
+.offer-service-hero {
+    background:
+        linear-gradient(90deg, rgba(12, 21, 48, .98) 0%, rgba(14, 37, 89, .9) 46%, rgba(10, 37, 91, .38) 73%, rgba(5, 18, 44, .12) 100%),
+        url("../assets/hero/activio-offer-hero-v1.png") center / cover no-repeat;
+}
+.offer-service-hero > div { max-width: 650px; }
 .clubs-service-hero {
     background:
         linear-gradient(90deg, rgba(20, 14, 45, .96) 0%, rgba(45, 17, 72, .84) 46%, rgba(33, 12, 54, .24) 74%, rgba(20, 11, 35, .14) 100%),
@@ -876,7 +881,6 @@ main { min-height: calc(100vh - 46px); }
 .store-intro h1 { margin: 8px 0 15px; font-size: clamp(46px, 5vw, 72px); line-height: .98; letter-spacing: -.055em; }
 .store-intro p { max-width: 650px; color: #aeb7c7; font-size: 16px; }
 .store-catalog { padding-top: 45px; }
-.store-price-note { margin: 0 0 18px; color: var(--muted); font-size: 11px; font-weight: 750; }
 .store-filter-bar {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -3519,6 +3523,7 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     #clubs { padding: 58px 18px; }
     .service-hero { min-height: 0; padding: 58px 20px; }
     .service-hero h1, .store-intro h1 { font-size: 45px; }
+    .offer-service-hero { background: linear-gradient(120deg, #111c39, #0f5bd7); }
     .clubs-service-hero { background: linear-gradient(120deg, #24133f, #8f135e); }
     .club-program-hero { padding: 58px 20px; }
     .club-program-hero h1 { font-size: 45px; }
