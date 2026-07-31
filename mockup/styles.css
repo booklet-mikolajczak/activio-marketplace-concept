@@ -803,14 +803,14 @@ main { min-height: calc(100vh - 46px); }
     scrollbar-width: thin;
     scrollbar-color: #b9c3d3 transparent;
 }
-.offer-tree > strong { display: block; margin-bottom: 15px; font-size: 11px; }
+.offer-tree > strong { display: block; margin-bottom: 15px; font-size: 13px; }
 .offer-tree nav, .offer-tree nav div { display: grid; }
 .offer-tree nav { gap: 14px; }
 .offer-tree nav div { gap: 5px; padding-top: 12px; border-top: 1px solid var(--line); }
 .offer-tree nav div:first-child { padding-top: 0; border-top: 0; }
-.offer-tree button { padding: 0 0 0 12px; border: 0; color: var(--muted); background: transparent; font-size: 9px; line-height: 1.35; text-align: left; cursor: pointer; }
+.offer-tree button { padding: 0 0 0 12px; border: 0; color: var(--muted); background: transparent; font-size: 11px; line-height: 1.35; text-align: left; cursor: pointer; }
 .offer-tree button:hover { color: var(--primary); }
-.offer-tree nav div button:first-child { padding-left: 0; color: var(--ink); font-size: 10px; font-weight: 900; }
+.offer-tree nav div button:first-child { padding-left: 0; color: var(--ink); font-size: 12px; font-weight: 900; }
 .offer-products { display: grid; gap: 82px; }
 .offer-products > section { display: grid; gap: 12px; scroll-margin-top: 150px; }
 .offer-products header { display: flex; gap: 18px; align-items: center; margin-bottom: 10px; }
