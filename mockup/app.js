@@ -3061,6 +3061,20 @@ document.querySelectorAll('select[data-store-club], select[data-store-sort]').fo
     });
 });
 
+document.querySelector('[data-store-club-search]')?.addEventListener('input', (event) => {
+    const hidden_select = document.querySelector('select[data-store-club]');
+    const query = event.target.value.trim().toLocaleLowerCase('pl-PL');
+    const club_options = [...hidden_select.options].filter((option) => !['all', '__none__'].includes(option.value));
+    const exact_match = club_options.find((option) => option.textContent.trim().toLocaleLowerCase('pl-PL') === query);
+    const partial_matches = club_options.filter((option) => option.textContent.trim().toLocaleLowerCase('pl-PL').includes(query));
+
+    hidden_select.value = query === ''
+        ? 'all'
+        : (exact_match?.value || (partial_matches.length === 1 ? partial_matches[0].value : '__none__'));
+    store_show_all = false;
+    render_store_products();
+});
+
 document.querySelectorAll('[data-sale-price]').forEach((input) => {
     input.addEventListener('input', () => update_offer_price(input));
 });

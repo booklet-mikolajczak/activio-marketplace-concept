@@ -684,7 +684,12 @@ main { min-height: calc(100vh - 46px); }
 .service-hero h1 { margin: 12px 0 20px; font-size: clamp(46px, 5vw, 72px); line-height: .98; letter-spacing: -.055em; }
 .service-hero p { max-width: 650px; margin: 0 0 28px; color: rgba(255,255,255,.78); font-size: 17px; }
 .offer-service-hero { background: linear-gradient(120deg, #111c39, #0f5bd7); }
-.clubs-service-hero { background: linear-gradient(120deg, var(--brand-purple), var(--brand-pink)); }
+.clubs-service-hero {
+    background:
+        linear-gradient(90deg, rgba(20, 14, 45, .96) 0%, rgba(45, 17, 72, .84) 46%, rgba(33, 12, 54, .24) 74%, rgba(20, 11, 35, .14) 100%),
+        url("../assets/hero/activio-club-partner-hero-v1.png") center / cover no-repeat;
+}
+.clubs-service-hero > div { max-width: 620px; }
 .club-program-hero {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
@@ -857,16 +862,26 @@ main { min-height: calc(100vh - 46px); }
 .offer-contact-form footer { margin: 0; padding: 0; color: inherit; background: transparent; }
 .offer-contact-form .dialog-button.primary { min-height: 46px; padding: 0 22px; border-color: #ff6841; background: #ff6841; }
 
-.store-intro { padding: 75px max(28px, calc((100vw - 1184px) / 2)); color: #fff; background: var(--dark-bg); }
+.store-intro {
+    min-height: 440px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 75px max(28px, calc((100vw - 1184px) / 2));
+    color: #fff;
+    background:
+        linear-gradient(90deg, rgba(5, 15, 33, .97) 0%, rgba(7, 21, 45, .88) 47%, rgba(7, 16, 34, .25) 75%, rgba(5, 12, 28, .12) 100%),
+        url("../assets/hero/activio-market-hero-v1.png") center / cover no-repeat;
+}
 .store-intro h1 { margin: 8px 0 15px; font-size: clamp(46px, 5vw, 72px); line-height: .98; letter-spacing: -.055em; }
 .store-intro p { max-width: 650px; color: #aeb7c7; font-size: 16px; }
 .store-catalog { padding-top: 45px; }
 .store-price-note { margin: 0 0 18px; color: var(--muted); font-size: 11px; font-weight: 750; }
 .store-filter-bar {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 190px 190px;
-    gap: 16px;
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
     margin-bottom: 30px;
     padding: 18px;
     border: 1px solid var(--line);
@@ -881,6 +896,11 @@ main { min-height: calc(100vh - 46px); }
 .store-filter-bar .chip { min-height: 40px; padding: 9px 14px; border-color: transparent; background: #f2f5f9; }
 .store-filter-bar .chip:hover { border-color: #bed0ee; background: #eaf1fd; }
 .store-filter-bar .chip.active { border-color: var(--primary); background: var(--primary); }
+.store-filter-controls { display: grid; grid-template-columns: minmax(280px, 1fr) 240px; gap: 14px; padding-top: 16px; border-top: 1px solid var(--line); }
+.store-club-search { position: relative; display: block; }
+.store-club-search::before { position: absolute; z-index: 1; left: 12px; top: 50%; content: "⌕"; color: var(--primary); font-size: 18px; transform: translateY(-54%); pointer-events: none; }
+.store-club-search input { width: 100%; min-height: 42px; padding: 8px 36px; border: 1px solid var(--line); border-radius: 8px; outline: 0; background: #fff; font-size: 13px; font-weight: 700; }
+.store-club-search input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(18, 101, 218, .12); }
 .store-filter-bar select { width: 100%; min-height: 40px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-size: 12px; font-weight: 700; text-transform: none; }
 .store-shelf { margin-top: 56px; }
 .store-shelf:first-of-type { margin-top: 44px; }
@@ -3202,27 +3222,27 @@ td small { display: block; color: var(--muted); font-size: 8px; }
 .contact-shell aside h2 { margin: 7px 0 28px; font-size: 39px; line-height: 1.05; letter-spacing: -.04em; }
 .contact-shell aside > a { position: relative; display: grid; padding: 18px 42px 18px 0; border-top: 1px solid var(--line); color: var(--ink); text-decoration: none; }
 .contact-shell aside > a:last-of-type { border-bottom: 1px solid var(--line); }
-.contact-shell aside > a small { color: var(--primary); font-size: 8px; font-weight: 900; letter-spacing: .12em; }
+.contact-shell aside > a small { color: var(--primary); font-size: 11px; font-weight: 900; letter-spacing: .12em; }
 .contact-shell aside > a strong { margin-top: 3px; font-size: 18px; }
 .contact-shell aside > a i { position: absolute; top: 50%; right: 10px; color: var(--primary); font-style: normal; transform: translateY(-50%); }
-.contact-shell aside > p { margin: 25px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.contact-shell aside > p { margin: 25px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
 .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 30px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); }
 .contact-form-heading, .contact-form .wide, .contact-form footer { grid-column: 1/-1; }
 .contact-form-heading { margin-bottom: 8px; }
 .contact-form-heading h2 { margin: 5px 0 0; font-size: 31px; letter-spacing: -.035em; }
-.contact-form label { display: grid; gap: 6px; color: #586273; font-size: 9px; font-weight: 850; }
+.contact-form label { display: grid; gap: 7px; color: #586273; font-size: 13px; font-weight: 850; }
 .contact-form input, .contact-form select, .contact-form textarea { width: 100%; padding: 12px 13px; border: 1px solid #ccd3dd; border-radius: 8px; color: var(--ink); background: #fff; font: inherit; }
 .contact-form textarea { min-height: 125px; resize: vertical; }
 .contact-form .contact-consent { display: flex; gap: 9px; align-items: flex-start; font-weight: 650; }
 .contact-consent input { width: 16px; height: 16px; flex: 0 0 auto; margin-top: 1px; }
 .contact-form footer { display: flex; justify-content: space-between; gap: 20px; align-items: center; margin: 4px 0 0; padding: 0; color: inherit; background: transparent; }
-.contact-form footer small { max-width: 270px; color: var(--muted); font-size: 8px; }
+.contact-form footer small { max-width: 290px; color: var(--muted); font-size: 11px; line-height: 1.45; }
 .contact-paths { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 0 max(28px, calc((100vw - 1184px) / 2)) 90px; }
 .contact-paths article { min-width: 0; display: grid; grid-template-columns: 36px 1fr; gap: 0 13px; align-items: center; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: #f2f5fa; }
 .contact-paths article > span { grid-row: 1/3; color: var(--primary); font-size: 20px; font-weight: 900; }
 .contact-paths article div { display: grid; }
-.contact-paths small { color: var(--muted); font-size: 7px; font-weight: 900; letter-spacing: .1em; }
-.contact-paths strong { margin-top: 3px; font-size: 15px; }
+.contact-paths small { color: var(--muted); font-size: 10px; font-weight: 900; letter-spacing: .1em; }
+.contact-paths strong { margin-top: 3px; font-size: 17px; }
 .contact-paths button { grid-column: 2; justify-self: start; margin-top: 15px; padding: 0; border: 0; color: var(--primary); background: transparent; font-size: 9px; font-weight: 900; cursor: pointer; }
 
 .toast {
@@ -3288,8 +3308,7 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     .club-program-steps { grid-template-columns: 1fr; gap: 38px; }
     .club-program-economics { grid-template-columns: 1fr; gap: 38px; }
     .club-program-economics aside { width: min(480px, 100%); }
-    .store-filter-bar { grid-template-columns: 1fr 1fr; }
-    .store-category-filter { grid-column: 1/-1; }
+    .store-filter-bar { grid-template-columns: 1fr; }
     .how-section { grid-template-columns: 1fr; }
     .social-proof-section { grid-template-columns: 1fr; gap: 38px; }
     .social-proof-copy > p { max-width: 650px; }
@@ -3500,6 +3519,7 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     #clubs { padding: 58px 18px; }
     .service-hero { min-height: 0; padding: 58px 20px; }
     .service-hero h1, .store-intro h1 { font-size: 45px; }
+    .clubs-service-hero { background: linear-gradient(120deg, #24133f, #8f135e); }
     .club-program-hero { padding: 58px 20px; }
     .club-program-hero h1 { font-size: 45px; }
     .club-program-hero > div > p { font-size: 14px; }
@@ -3550,9 +3570,10 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     .offer-contact h2 { font-size: 39px; }
     .offer-contact-form { grid-template-columns: 1fr; padding: 18px; }
     .offer-contact-form label.wide, .offer-contact-form footer { grid-column: auto; }
-    .store-intro { padding: 58px 20px; }
+    .store-intro { min-height: 0; padding: 58px 20px; background: var(--dark-bg); }
     .store-filter-bar { grid-template-columns: 1fr; }
     .store-category-filter { grid-column: auto; }
+    .store-filter-controls { grid-template-columns: 1fr; }
     .store-filter-bar .chips { grid-column: auto; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
     .store-filter-bar .chip { flex: 0 0 auto; }
     .store-filter-bar select { width: 100%; }
