@@ -784,6 +784,7 @@ main { min-height: calc(100vh - 46px); }
 .offer-catalog > .section-heading { max-width: 780px; }
 .offer-catalog > .section-heading p { margin: 12px 0 0; color: var(--muted); font-size: 13px; }
 .offer-category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 72px; }
+.content-section.offer-catalog { padding-top: 24px; }
 .offer-category-grid button {
     position: relative;
     min-height: 220px;
@@ -880,7 +881,7 @@ main { min-height: calc(100vh - 46px); }
 }
 .store-intro h1 { margin: 8px 0 15px; font-size: clamp(46px, 5vw, 72px); line-height: .98; letter-spacing: -.055em; }
 .store-intro p { max-width: 650px; color: #aeb7c7; font-size: 16px; }
-.store-catalog { padding-top: 45px; }
+.content-section.store-catalog { padding-top: 24px; }
 .store-filter-bar {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
