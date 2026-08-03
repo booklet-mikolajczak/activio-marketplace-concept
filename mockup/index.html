@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260731-16">
+    <meta name="activio-mockup-version" content="20260803-03">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260731-16">
+    <link rel="stylesheet" href="styles.css?v=20260803-03">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -973,6 +973,15 @@
                             <button type="button">128</button><button type="button">140</button><button type="button">152</button><button type="button">S</button><button class="selected" type="button">M</button><button type="button">L</button><button type="button">XL</button>
                         </div>
                     </fieldset>
+                    <fieldset data-photo-upload-field hidden>
+                        <legend><span>Zdjęcie do projektu</span><span>JPG lub PNG</span></legend>
+                        <label class="product-photo-upload">
+                            <input type="file" accept="image/jpeg,image/png" data-product-photo-input>
+                            <span aria-hidden="true">＋</span>
+                            <strong data-product-photo-label>Wybierz zdjęcie z urządzenia</strong>
+                        </label>
+                        <small>W gotowym systemie pokażemy wymagania jakościowe, kadrowanie i akceptację projektu.</small>
+                    </fieldset>
                     <fieldset>
                         <legend><span data-number-label>Numer zawodnika</span><span data-number-count>2/2</span></legend>
                         <input type="text" maxlength="2" value="10" inputmode="numeric" aria-label="Numer zawodnika" data-number-input>
@@ -1337,13 +1346,13 @@
 
         <section class="view partner-view" data-view="partner-listing-create" hidden>
             <div class="partner-breadcrumbs"><button type="button" data-go="partner-catalog">← Katalog ACTIVIO</button><span>/</span><strong>Nowa oferta klubowa</strong></div>
-            <div class="partner-page-head"><div><span class="eyebrow">NOWY LISTING KLUBU</span><h1>Koszulka sportowa dla KS Stal</h1><p>Konfigurujesz ofertę swojego klubu. Produkt bazowy i zasady produkcji pozostają po stronie ACTIVIO.</p></div><span class="table-status pending status-large">Wersja robocza</span></div>
+            <div class="partner-page-head"><div><span class="eyebrow">NOWY LISTING KLUBU</span><h1>Koszulka bawełniana z imieniem i numerem dla KS Stal</h1><p>Konfigurujesz ofertę swojego klubu. Produkt bazowy i zasady produkcji pozostają po stronie ACTIVIO.</p></div><span class="table-status pending status-large">Wersja robocza</span></div>
             <ol class="listing-create-steps"><li class="active"><i>1</i><span><strong>Konfiguracja</strong><small>Warianty i cena</small></span></li><li><i>2</i><span><strong>Projekt</strong><small>Herb i grafika</small></span></li><li><i>3</i><span><strong>Akceptacja</strong><small>Klub + ACTIVIO</small></span></li><li><i>4</i><span><strong>Publikacja</strong><small>Oferta w sklepie</small></span></li></ol>
             <form class="listing-create-layout" data-action-form="partner-listing-create">
                 <div>
                     <article class="partner-panel listing-base-product">
-                        <div class="panel-heading"><div><span>Produkt bazowy ACTIVIO</span><strong>CAT-TS-001</strong></div><button type="button" data-go="partner-catalog">Zmień</button></div>
-                        <div><img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulka sportowa"><span><strong>Koszulka sportowa</strong><p>Poliester 145 g/m² · sublimacja + termotransfer · produkcja 3–5 dni</p><small>ACTIVIO zarządza produktem, SKU, plikami produkcyjnymi i cenami minimalnymi.</small></span></div>
+                        <div class="panel-heading"><div><span>Produkt bazowy ACTIVIO</span><strong>CAT-KB-010</strong></div><button type="button" data-go="partner-catalog">Zmień</button></div>
+                        <div><img src="../assets/products/activio-koszulka-bawelniana.jpg" alt="Koszulka bawełniana z imieniem i numerem"><span><strong>Koszulka bawełniana z imieniem i numerem</strong><p>7 rozmiarów · imię + numer · produkcja 3–5 dni</p><small>ACTIVIO zarządza produktem, SKU, plikami produkcyjnymi i cenami minimalnymi.</small></span></div>
                     </article>
                     <article class="partner-panel listing-create-section">
                         <div class="panel-heading"><div><span>1. Warianty</span><strong>Co udostępniasz klientom?</strong></div></div>
@@ -1360,7 +1369,7 @@
                     </article>
                 </div>
                 <aside class="partner-panel listing-create-summary">
-                    <span>4. Cena i publikacja</span><img src="../assets/products/activio-club-koszulka.png" alt="Przykładowy projekt koszulki klubowej"><label>Proponowana nazwa<input name="listing_name" value="Koszulka klubowa z personalizacją" required></label><label>Cena brutto w sklepie<span><input name="price" type="number" min="84" value="129" required> zł</span></label><div><small>Najwyższe minimum konfiguracji</small><strong>84,00 zł</strong></div><div><small>Kwota brutto ponad minimum</small><strong>45,00 zł</strong></div><p>To nie jest automatycznie wynagrodzenie klubu. Prognozę netto pokażemy przed publikacją.</p><label class="checkout-confirm"><input type="checkbox" required><span>Potwierdzam wybór produktu, wariantów i materiału marki.</span></label><button class="button primary full" type="submit">Przekaż do przygotowania projektu</button><button class="button ghost full" type="button" data-go="partner-catalog">Zapisz i wróć później</button></aside>
+                    <span>4. Cena i publikacja</span><img src="../assets/products/activio-koszulka-bawelniana.jpg" alt="Przykładowy projekt koszulki klubowej"><label>Proponowana nazwa<input name="listing_name" value="Koszulka bawełniana z imieniem i numerem" required></label><label>Cena brutto w sklepie<span><input name="price" type="number" min="59" value="79" required> zł</span></label><div><small>Najwyższe minimum konfiguracji</small><strong>59,00 zł</strong></div><div><small>Kwota brutto ponad minimum</small><strong>20,00 zł</strong></div><p>To nie jest automatycznie wynagrodzenie klubu. Prognozę netto pokażemy przed publikacją.</p><label class="checkout-confirm"><input type="checkbox" required><span>Potwierdzam wybór produktu, wariantów i materiału marki.</span></label><button class="button primary full" type="submit">Przekaż do przygotowania projektu</button><button class="button ghost full" type="button" data-go="partner-catalog">Zapisz i wróć później</button></aside>
             </form>
         </section>
 
@@ -1742,20 +1751,20 @@
         </section>
 
         <section class="view system-view" data-view="system-catalog-product" hidden>
-            <div class="system-breadcrumbs"><button type="button" data-go="system-catalog">← Katalog</button><span>/</span><strong>CAT-TS-001</strong></div>
+            <div class="system-breadcrumbs"><button type="button" data-go="system-catalog">← Katalog</button><span>/</span><strong>CAT-KB-010</strong></div>
             <div class="system-page-head catalog-detail-head">
-                <div class="catalog-detail-title"><img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulka sportowa"><div><span class="eyebrow">SZABLON KATALOGOWY · CAT-TS-001</span><h1>Koszulka sportowa</h1><p>Produkt bazowy ACTIVIO dla klubowych projektów i listingów.</p></div></div>
+                <div class="catalog-detail-title"><img src="../assets/products/activio-koszulka-bawelniana.jpg" alt="Koszulka bawełniana z imieniem i numerem"><div><span class="eyebrow">SZABLON KATALOGOWY · CAT-KB-010</span><h1>Koszulka bawełniana z imieniem i numerem</h1><p>Produkt bazowy ACTIVIO dla klubowych projektów i listingów.</p></div></div>
                 <div class="head-actions"><span class="table-status available status-large">Aktywny</span><button class="button ghost" type="button" data-action="system-template-detail">Edytuj dane</button><button class="button primary" type="button" data-action="system-duplicate-template">Duplikuj</button></div>
             </div>
-            <div class="system-kpi-grid compact catalog-kpis"><article><span>Warianty SKU</span><strong>7</strong><small>128–XL</small></article><article><span>Aktywne listingi</span><strong>38</strong><small>12 klubów</small></article><article><span>Minimum bazowe</span><strong>69,00 zł</strong><small>Brutto · bez personalizacji</small></article><article class="attention"><span>Zmiana zaplanowana</span><strong>01.08</strong><small>3 listingi do reakcji</small></article></div>
+            <div class="system-kpi-grid compact catalog-kpis"><article><span>Warianty SKU</span><strong>7</strong><small>128–XL</small></article><article><span>Aktywne listingi</span><strong>15</strong><small>15 klubów</small></article><article><span>Minimum bazowe</span><strong>59,00 zł</strong><small>Brutto · wartość przykładowa</small></article><article class="attention"><span>Cennik</span><strong>Do decyzji</strong><small>Minimum wymaga potwierdzenia</small></article></div>
 
             <div class="catalog-product-overview">
                 <article class="system-panel catalog-media-panel">
                     <div class="panel-heading"><div><span>Galeria katalogowa</span><strong>Materiały referencyjne</strong></div><button type="button" data-action="system-catalog-upload-image">Dodaj zdjęcie</button></div>
                     <div class="catalog-gallery">
-                        <div class="catalog-gallery-main"><img src="../assets/products/koszulki-sportowe.jpg" alt="Koszulka sportowa — widok główny" data-catalog-main-image></div>
+                        <div class="catalog-gallery-main"><img src="../assets/products/activio-koszulka-bawelniana.jpg" alt="Koszulka bawełniana — widok główny" data-catalog-main-image></div>
                         <div class="catalog-gallery-thumbs">
-                            <button class="active" type="button" data-catalog-image="../assets/products/koszulki-sportowe.jpg"><img src="../assets/products/koszulki-sportowe.jpg" alt="Widok główny"></button>
+                            <button class="active" type="button" data-catalog-image="../assets/products/activio-koszulka-bawelniana.jpg"><img src="../assets/products/activio-koszulka-bawelniana.jpg" alt="Widok główny"></button>
                             <button type="button" data-catalog-image="../assets/products/activio-club-koszulka.png"><img src="../assets/products/activio-club-koszulka.png" alt="Przykład znakowania klubowego"></button>
                             <button type="button" data-catalog-image="../assets/products/activio-koszulka-bawelniana.jpg"><img src="../assets/products/activio-koszulka-bawelniana.jpg" alt="Detal materiału"></button>
                         </div>
@@ -1764,7 +1773,7 @@
                 <article class="system-panel catalog-facts">
                     <div class="panel-heading"><div><span>Dane podstawowe</span><strong>Definicja produktu</strong></div><button type="button" data-action="system-template-detail">Edytuj</button></div>
                     <dl>
-                        <div><dt>Kategoria</dt><dd>Odzież sportowa</dd></div>
+                        <div><dt>Kategoria</dt><dd>Dla zawodnika</dd></div>
                         <div><dt>Producent</dt><dd>ACTIVIO</dd></div>
                         <div><dt>Jednostka</dt><dd>szt.</dd></div>
                         <div><dt>Stawka VAT</dt><dd>23%</dd></div>
@@ -1780,9 +1789,9 @@
             <article class="system-panel catalog-section" id="catalog-product-variants">
                 <div class="panel-heading"><div><span>Warianty i minima</span><strong>7 aktywnych SKU</strong></div><button type="button" data-action="system-new-variant">＋ Dodaj wariant</button></div>
                 <div class="table-scroll"><table class="system-main-table catalog-variant-table"><thead><tr><th>SKU / wariant</th><th>Stan</th><th>Baza brutto</th><th>Numer</th><th>Nazwisko</th><th>Pełna personalizacja</th><th>Listingi</th><th></th></tr></thead><tbody>
-                    <tr><td><strong>CAT-TS-001-128</strong><small>Rozmiar 128 · biały</small></td><td><span class="table-status available">Aktywny</span></td><td>69,00 zł</td><td>+8,00 zł</td><td>+7,00 zł</td><td><strong>84,00 zł</strong></td><td>4</td><td><button class="table-link" type="button" data-go="system-catalog-variant">Otwórz →</button></td></tr>
-                    <tr><td><strong>CAT-TS-001-M</strong><small>Rozmiar M · biały</small></td><td><span class="table-status pending">Nowe minimum 01.08</span></td><td>69,00 zł</td><td>+8,00 zł</td><td>+7,00 zł</td><td><strong>84,00 zł</strong></td><td>18</td><td><button class="table-link" type="button" data-go="system-catalog-variant">Otwórz →</button></td></tr>
-                    <tr><td><strong>CAT-TS-001-XL</strong><small>Rozmiar XL · biały</small></td><td><span class="table-status available">Aktywny</span></td><td>74,00 zł</td><td>+8,00 zł</td><td>+7,00 zł</td><td><strong>89,00 zł</strong></td><td>6</td><td><button class="table-link" type="button" data-go="system-catalog-variant">Otwórz →</button></td></tr>
+                    <tr><td><strong>CAT-KB-010-128</strong><small>Rozmiar 128 · czarny</small></td><td><span class="table-status available">Aktywny</span></td><td>59,00 zł</td><td>+5,00 zł</td><td>+5,00 zł</td><td><strong>69,00 zł</strong></td><td>4</td><td><button class="table-link" type="button" data-go="system-catalog-variant">Otwórz →</button></td></tr>
+                    <tr><td><strong>CAT-KB-010-M</strong><small>Rozmiar M · czarny</small></td><td><span class="table-status pending">Cena do potwierdzenia</span></td><td>59,00 zł</td><td>+5,00 zł</td><td>+5,00 zł</td><td><strong>69,00 zł</strong></td><td>8</td><td><button class="table-link" type="button" data-go="system-catalog-variant">Otwórz →</button></td></tr>
+                    <tr><td><strong>CAT-KB-010-XL</strong><small>Rozmiar XL · czarny</small></td><td><span class="table-status available">Aktywny</span></td><td>64,00 zł</td><td>+5,00 zł</td><td>+5,00 zł</td><td><strong>74,00 zł</strong></td><td>3</td><td><button class="table-link" type="button" data-go="system-catalog-variant">Otwórz →</button></td></tr>
                 </tbody></table></div>
             </article>
 
@@ -1793,14 +1802,14 @@
                 </article>
                 <article class="system-panel catalog-definition-card">
                     <div class="panel-heading"><div><span>Produkcja</span><strong>Technologia i kontrola</strong></div><button type="button" data-action="system-edit-production">Edytuj</button></div>
-                    <dl><div><dt>Materiał</dt><dd>Poliester 145 g/m²</dd></div><div><dt>Technologia</dt><dd>Sublimacja + termotransfer</dd></div><div><dt>Obszar nadruku</dt><dd>Plecy 280 × 360 mm</dd></div><div><dt>Profil koloru</dt><dd>CMYK · FOGRA39</dd></div><div><dt>Kontrola</dt><dd>Plik, kontrast, treść, pozycja</dd></div><div><dt>Pakowanie</dt><dd>Indywidualny worek + etykieta SKU</dd></div></dl>
+                    <dl><div><dt>Materiał</dt><dd>Bawełna · gramatura do potwierdzenia</dd></div><div><dt>Technologia</dt><dd>Nadruk DTF</dd></div><div><dt>Obszar nadruku</dt><dd>Przód i plecy</dd></div><div><dt>Profil koloru</dt><dd>CMYK · FOGRA39</dd></div><div><dt>Kontrola</dt><dd>Plik, kontrast, treść, pozycja</dd></div><div><dt>Pakowanie</dt><dd>Indywidualny worek + etykieta SKU</dd></div></dl>
                 </article>
             </div>
 
             <div class="catalog-files-grid">
                 <article class="system-panel catalog-files">
                     <div class="panel-heading"><div><span>Pliki produkcyjne</span><strong>3 aktywne pliki</strong></div><button type="button" data-action="system-catalog-upload-file">Prześlij wersję</button></div>
-                    <div class="catalog-file-row"><i>AI</i><span><strong>koszulka-sportowa-v6.ai</strong><small>12,4 MB · produkcja · SHA-256 …8f24</small></span><b>v6</b><button type="button" data-action="system-catalog-download-file">Pobierz</button></div>
+                    <div class="catalog-file-row"><i>AI</i><span><strong>koszulka-bawelniana-v1.ai</strong><small>8,4 MB · produkcja · SHA-256 …8f24</small></span><b>v1</b><button type="button" data-action="system-catalog-download-file">Pobierz</button></div>
                     <div class="catalog-file-row"><i>PDF</i><span><strong>szablon-podglad-v6.pdf</strong><small>2,1 MB · podgląd dla projektu klubowego</small></span><b>v6</b><button type="button" data-action="system-catalog-download-file">Pobierz</button></div>
                     <div class="catalog-file-row"><i>CSV</i><span><strong>tabela-rozmiarow-v3.csv</strong><small>8 KB · wymiary i tolerancje</small></span><b>v3</b><button type="button" data-action="system-catalog-download-file">Pobierz</button></div>
                 </article>
@@ -1812,9 +1821,9 @@
         </section>
 
         <section class="view system-view" data-view="system-catalog-variant" hidden>
-            <div class="system-breadcrumbs"><button type="button" data-go="system-catalog">← Katalog</button><span>/</span><button type="button" data-go="system-catalog-product">Koszulka sportowa</button><span>/</span><strong>CAT-TS-001-M</strong></div>
+            <div class="system-breadcrumbs"><button type="button" data-go="system-catalog">← Katalog</button><span>/</span><button type="button" data-go="system-catalog-product">Koszulka bawełniana</button><span>/</span><strong>CAT-KB-010-M</strong></div>
             <div class="system-page-head">
-                <div><span class="eyebrow">WARIANT KATALOGOWY · SKU</span><h1>Koszulka sportowa · M</h1><p>Parametry wariantu, wersjonowane minima i wpływ na klubowe listingi.</p></div>
+                <div><span class="eyebrow">WARIANT KATALOGOWY · SKU</span><h1>Koszulka bawełniana · M</h1><p>Parametry wariantu, wersjonowane minima i wpływ na klubowe listingi.</p></div>
                 <div class="head-actions"><span class="table-status pending status-large">Zmiana 01.08</span><button class="button ghost" type="button" data-action="system-edit-variant">Edytuj wariant</button><button class="button primary" type="button" data-action="system-new-minimum">Nowa wersja minimum</button></div>
             </div>
             <div class="system-kpi-grid compact"><article><span>Minimum obecne</span><strong>79,00 zł</strong><small>Pełna personalizacja</small></article><article><span>Minimum od 01.08</span><strong>84,00 zł</strong><small>+5,00 zł · +6,3%</small></article><article><span>Aktywne listingi</span><strong>18</strong><small>8 klubów</small></article><article class="attention"><span>Konflikty</span><strong>3</strong><small>Cena klubu poniżej minimum</small></article></div>
@@ -1826,7 +1835,7 @@
                     <p class="action-info">Cena klubu nadal jest ustalana niezależnie. System jedynie nie pozwoli opublikować lub utrzymać listingu poniżej aktywnego minimum wariantu.</p>
                 </article>
                 <article class="system-panel variant-facts">
-                    <div class="panel-heading"><div><span>Identyfikacja i produkcja</span><strong>CAT-TS-001-M</strong></div><button type="button" data-action="system-edit-variant">Edytuj</button></div>
+                    <div class="panel-heading"><div><span>Identyfikacja i produkcja</span><strong>CAT-KB-010-M</strong></div><button type="button" data-action="system-edit-variant">Edytuj</button></div>
                     <dl><div><dt>Rozmiar</dt><dd>M</dd></div><div><dt>Kolor bazowy</dt><dd>Biały · #FFFFFF</dd></div><div><dt>Kod producenta</dt><dd>ACT-TS-WHT-M</dd></div><div><dt>EAN</dt><dd>5901234567812</dd></div><div><dt>Waga</dt><dd>180 g</dd></div><div><dt>Format nadruku</dt><dd>280 × 360 mm</dd></div><div><dt>Lead time</dt><dd>3–5 dni</dd></div><div><dt>Status</dt><dd>Aktywny</dd></div></dl>
                 </article>
             </div>
@@ -2540,7 +2549,7 @@
     </dialog>
 
     <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260731-16"></script>
-    <script src="feedback.js?v=20260731-16"></script>
+    <script src="app.js?v=20260803-03"></script>
+    <script src="feedback.js?v=20260803-03"></script>
 </body>
 </html>

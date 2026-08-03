@@ -40,6 +40,51 @@ test('mockup assets use the declared version', () => {
     assert.deepEqual(versioned_assets, [version, version, version]);
 });
 
+test('final starting catalog contains all approved products', () => {
+    const catalog_source = app_js.slice(
+        app_js.indexOf('const final_catalog = ['),
+        app_js.indexOf('const catalog_categories = ['),
+    );
+    const product_ids = [...catalog_source.matchAll(/\{ id: '([^']+)'/g)]
+        .map((match) => match[1]);
+    const expected_ids = [
+        'player-labels',
+        'lesson-plan',
+        'jersey-keyring',
+        'jersey-magnet',
+        'car-jersey',
+        'shoe-labels',
+        'coaster',
+        'mug',
+        'playercard',
+        'shirt',
+        'clock',
+        'photo-puzzle',
+        'photo-canvas',
+        'poster',
+        'calendar',
+    ];
+
+    assert.deepEqual(product_ids, expected_ids);
+    [
+        'Naklejki i naprasowanki dla zawodnika',
+        'Plan lekcji',
+        'Brelok koszulka',
+        'Magnes koszulka',
+        'Koszulka do samochodu',
+        'Naklejki na buty',
+        'Podkładka',
+        'Kubek pasiak',
+        'Karta FIFA',
+        'Koszulka bawełniana z imieniem i numerem',
+        'Zegar ścienny',
+        'FotoPuzzle ze zdjęciem',
+        'FotoObraz',
+        'FotoPlakat',
+        'FotoKalendarz',
+    ].forEach((name) => assert.ok(app_js.includes(`name: '${name}'`), name));
+});
+
 test('use cases cover every functional view', () => {
     const use_cases_start = index_html.indexOf('<section class="view use-cases-view"');
     const use_cases_end = index_html.indexOf('<section class="view feedback-history-view"', use_cases_start);

@@ -49,6 +49,28 @@ Historia pozycji zachowuje klub, produkt, wariant, personalizację, zaakceptowan
 
 Każde założenie wymaga potwierdzenia biznesowego, prawnego albo operacyjnego przed pilotażem.
 
+### Finalny katalog startowy
+
+Lista przekazana 3 sierpnia 2026 jest nadrzędna wobec wcześniejszych przykładów produktów w koncepcji i prototypie:
+
+1. Naklejki i naprasowanki dla zawodnika — herb oraz 1, 2 albo 3 linie tekstu.
+2. Plan lekcji.
+3. Brelok koszulka.
+4. Magnes koszulka.
+5. Koszulka do samochodu.
+6. Naklejki na buty.
+7. Podkładka.
+8. Kubek pasiak.
+9. Karta FIFA.
+10. Koszulka bawełniana z imieniem i numerem.
+11. Zegar ścienny.
+12. FotoPuzzle ze zdjęciem.
+13. FotoObraz.
+14. FotoPlakat.
+15. FotoKalendarz.
+
+Kategorie widoczne w interfejsie są wyłącznie warstwą nawigacyjną nad tą listą. Ceny sprzedaży, minima, warianty, formaty i terminy pokazane obecnie w prototypie są przykładowe do czasu przekazania finalnego cennika oraz specyfikacji produkcyjnej.
+
 ## 3. Problem, który rozwiązujemy
 
 Kluby przyjmują zamówienia przez wiadomości, telefony, arkusze i kartki. Powoduje to:

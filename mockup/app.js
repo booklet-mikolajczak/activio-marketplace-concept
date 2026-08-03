@@ -387,6 +387,220 @@ const products = {
     },
 };
 
+Object.assign(products, {
+    'player-labels': {
+        name: 'Naklejki i naprasowanki dla zawodnika',
+        price: 29,
+        image: '../assets/products/activio-naprasowanki.webp',
+        lead: 'Personalizowany zestaw z herbem klubu oraz jedną, dwiema albo trzema liniami tekstu.',
+        option_label: 'Wariant zestawu',
+        options: ['Herb + 1 linia', 'Herb + 2 linie', 'Herb + 3 linie'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Imię i nazwisko',
+        has_size_guide: false,
+    },
+    'lesson-plan': {
+        name: 'Plan lekcji',
+        price: 29,
+        image: '../assets/products/activio-plan-lekcji-concept.webp',
+        lead: 'Klubowy plan lekcji z herbem, imieniem zawodnika i miejscem na tygodniowy rozkład zajęć.',
+        option_label: 'Format',
+        options: ['A4', 'A3'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Imię i nazwisko',
+        has_size_guide: false,
+    },
+    'jersey-keyring': {
+        name: 'Brelok koszulka',
+        price: 25,
+        image: '../assets/products/breloki.jpg',
+        lead: 'Brelok w kształcie klubowej koszulki z barwami drużyny, herbem, numerem i nazwiskiem.',
+        option_label: 'Wykończenie',
+        options: ['Błyszczące', 'Matowe'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Nazwisko',
+        has_size_guide: false,
+    },
+    'jersey-magnet': {
+        name: 'Magnes koszulka',
+        price: 25,
+        image: '../assets/products/activio-magnes-koszulka-concept.webp',
+        lead: 'Magnes w kształcie klubowej koszulki, personalizowany barwami, herbem, numerem i nazwiskiem.',
+        option_label: 'Wykończenie',
+        options: ['Błyszczące', 'Matowe'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Nazwisko',
+        has_size_guide: false,
+    },
+    'car-jersey': {
+        name: 'Koszulka do samochodu',
+        price: 39,
+        image: '../assets/products/activio-koszulka-samochod-concept.webp',
+        lead: 'Miniaturowa koszulka klubowa do zawieszenia w samochodzie z numerem i nazwiskiem zawodnika.',
+        option_label: 'Wariant zawieszki',
+        options: ['Lusterko', 'Szyba boczna'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Nazwisko',
+        has_size_guide: false,
+    },
+    'shoe-labels': {
+        name: 'Naklejki na buty',
+        price: 19,
+        image: '../assets/products/activio-naklejki-buty-concept.webp',
+        lead: 'Odporne naklejki do oznaczania obuwia zawodnika: herb, numer oraz krótki podpis.',
+        option_label: 'Liczba naklejek',
+        options: ['8 szt.', '16 szt.', '24 szt.'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Imię lub inicjały',
+        has_size_guide: false,
+    },
+    coaster: {
+        name: 'Podkładka',
+        price: 29,
+        image: '../assets/products/activio-podkladka.webp',
+        lead: 'Personalizowana podkładka z klubowym motywem, herbem i wybranym podpisem.',
+        option_label: 'Kształt',
+        options: ['Okrągła', 'Kwadratowa'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Krótki napis',
+        has_size_guide: false,
+    },
+    mug: {
+        name: 'Kubek pasiak',
+        price: 49,
+        image: '../assets/products/activio-kubek-pasiak-concept.webp',
+        lead: 'Ceramiczny kubek w klubowe pasy, uzupełniony herbem i personalizacją zawodnika.',
+        option_label: 'Pojemność',
+        options: ['330 ml', '450 ml'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Imię lub nazwisko',
+        has_size_guide: false,
+    },
+    playercard: {
+        name: 'Karta FIFA',
+        price: 79,
+        image: '../assets/products/activio-karty-zawodnika.jpg',
+        lead: 'Personalizowana karta zawodnika ze zdjęciem, herbem, numerem, nazwiskiem i statystykami.',
+        option_label: 'Format',
+        options: ['A5', 'A4'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Imię i nazwisko',
+        requires_photo: true,
+        has_size_guide: false,
+    },
+    shirt: {
+        name: 'Koszulka bawełniana z imieniem i numerem',
+        price: 79,
+        image: '../assets/products/activio-koszulka-bawelniana.jpg',
+        lead: 'Prosta bawełniana koszulka klubowa z herbem oraz imieniem i numerem zawodnika.',
+        option_label: 'Rozmiar',
+        options: ['128', '140', '152', 'S', 'M', 'L', 'XL'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Imię lub nazwisko',
+        has_size_guide: true,
+    },
+    clock: {
+        name: 'Zegar ścienny',
+        price: 89,
+        image: '../assets/products/activio-zegar.jpg',
+        lead: 'Personalizowany zegar ścienny z herbem i klubową grafiką, gotowy do zawieszenia.',
+        option_label: 'Rozmiar',
+        options: ['30 × 30 cm', '40 × 40 cm'],
+        number_label: 'Numer zawodnika',
+        name_label: 'Krótka dedykacja',
+        has_size_guide: false,
+    },
+    'photo-puzzle': {
+        name: 'FotoPuzzle ze zdjęciem',
+        price: 59,
+        image: '../assets/products/activio-fotopuzzle-concept.webp',
+        lead: 'Puzzle ze zdjęciem zawodnika albo drużyny, przygotowane jako klubowy prezent.',
+        option_label: 'Liczba elementów',
+        options: ['48', '120', '300'],
+        number_label: 'Rok',
+        number_max_length: 4,
+        name_label: 'Podpis zdjęcia',
+        requires_photo: true,
+        has_size_guide: false,
+    },
+    'photo-canvas': {
+        name: 'FotoObraz',
+        price: 119,
+        image: '../assets/products/activio-fotoobraz-concept.webp',
+        lead: 'Zdjęcie zawodnika albo drużyny wydrukowane na płótnie i naciągnięte na blejtram.',
+        option_label: 'Format',
+        options: ['30 × 40 cm', '40 × 60 cm', '50 × 70 cm'],
+        number_label: 'Rok',
+        number_max_length: 4,
+        name_label: 'Podpis zdjęcia',
+        requires_photo: true,
+        has_size_guide: false,
+    },
+    poster: {
+        name: 'FotoPlakat',
+        price: 49,
+        image: '../assets/products/activio-plakaty.jpg',
+        lead: 'Personalizowany plakat ze zdjęciem zawodnika, drużyny albo klubowego wydarzenia.',
+        option_label: 'Format',
+        options: ['A3', 'A2', 'B2'],
+        number_label: 'Rok',
+        number_max_length: 4,
+        name_label: 'Tytuł lub podpis',
+        requires_photo: true,
+        has_size_guide: false,
+    },
+    calendar: {
+        name: 'FotoKalendarz',
+        price: 59,
+        image: '../assets/products/activio-kalendarze.jpg',
+        lead: 'Klubowy kalendarz ze zdjęciem zawodnika albo drużyny i wybranym podpisem.',
+        option_label: 'Format',
+        options: ['A4', 'A3'],
+        number_label: 'Rok',
+        number_max_length: 4,
+        name_label: 'Nazwa drużyny',
+        requires_photo: true,
+        has_size_guide: false,
+    },
+});
+
+const final_catalog = [
+    { id: 'player-labels', sku: 'CAT-NN-001', category: 'personalization', category_label: 'Personalizacja zawodnika', minimum: 19, variants: '3 układy tekstu', personalization: 'Herb + 1/2/3 linie', production: '2–4 dni', clubs: 14, popularity: 93 },
+    { id: 'lesson-plan', sku: 'CAT-PL-002', category: 'gifts', category_label: 'Gadżety użytkowe', minimum: 19, variants: '2 formaty', personalization: 'Herb + imię', production: '2–4 dni', clubs: 11, popularity: 78 },
+    { id: 'jersey-keyring', sku: 'CAT-BK-003', category: 'mini', category_label: 'Mini koszulki', minimum: 15, variants: '2 wykończenia', personalization: 'Numer + nazwisko', production: '2–4 dni', clubs: 15, popularity: 96 },
+    { id: 'jersey-magnet', sku: 'CAT-MK-004', category: 'mini', category_label: 'Mini koszulki', minimum: 15, variants: '2 wykończenia', personalization: 'Numer + nazwisko', production: '2–4 dni', clubs: 13, popularity: 89 },
+    { id: 'car-jersey', sku: 'CAT-KS-005', category: 'mini', category_label: 'Mini koszulki', minimum: 25, variants: '2 zawieszki', personalization: 'Numer + nazwisko', production: '3–5 dni', clubs: 12, popularity: 87 },
+    { id: 'shoe-labels', sku: 'CAT-NB-006', category: 'personalization', category_label: 'Personalizacja zawodnika', minimum: 12, variants: '3 zestawy', personalization: 'Herb + numer + imię', production: '2–3 dni', clubs: 10, popularity: 82 },
+    { id: 'coaster', sku: 'CAT-PD-007', category: 'gifts', category_label: 'Gadżety użytkowe', minimum: 19, variants: '2 kształty', personalization: 'Herb + podpis', production: '2–4 dni', clubs: 9, popularity: 74 },
+    { id: 'mug', sku: 'CAT-KP-008', category: 'gifts', category_label: 'Gadżety użytkowe', minimum: 29, variants: '2 pojemności', personalization: 'Herb + imię + numer', production: '2–4 dni', clubs: 15, popularity: 94 },
+    { id: 'playercard', sku: 'CAT-KF-009', category: 'player', category_label: 'Dla zawodnika', minimum: 49, variants: '2 formaty', personalization: 'Zdjęcie + dane + statystyki', production: '3–5 dni', clubs: 14, popularity: 98 },
+    { id: 'shirt', sku: 'CAT-KB-010', category: 'player', category_label: 'Dla zawodnika', minimum: 59, variants: '7 rozmiarów', personalization: 'Imię + numer', production: '3–5 dni', clubs: 15, popularity: 97 },
+    { id: 'clock', sku: 'CAT-ZS-011', category: 'decor', category_label: 'Dekoracje', minimum: 69, variants: '2 rozmiary', personalization: 'Herb + grafika', production: '3–5 dni', clubs: 12, popularity: 85 },
+    { id: 'photo-puzzle', sku: 'CAT-FP-012', category: 'photo', category_label: 'Foto produkty', minimum: 39, variants: '3 liczby elementów', personalization: 'Zdjęcie + podpis', production: '3–5 dni', clubs: 8, popularity: 81 },
+    { id: 'photo-canvas', sku: 'CAT-FO-013', category: 'photo', category_label: 'Foto produkty', minimum: 89, variants: '3 formaty', personalization: 'Zdjęcie + podpis', production: '4–6 dni', clubs: 7, popularity: 76 },
+    { id: 'poster', sku: 'CAT-FL-014', category: 'photo', category_label: 'Foto produkty', minimum: 29, variants: '3 formaty', personalization: 'Zdjęcie + podpis', production: '2–4 dni', clubs: 11, popularity: 83 },
+    { id: 'calendar', sku: 'CAT-FK-015', category: 'photo', category_label: 'Foto produkty', minimum: 39, variants: '2 formaty', personalization: 'Zdjęcie + podpis', production: '3–5 dni', clubs: 13, popularity: 91 },
+].map((entry, index) => ({ ...entry, newness: 15 - index }));
+
+const catalog_categories = [
+    { id: 'personalization', label: 'Personalizacja zawodnika', lead: 'Oznacz sprzęt i przygotuj zestaw dla zawodnika.' },
+    { id: 'mini', label: 'Mini koszulki', lead: 'Klubowe koszulki w formie breloka, magnesu i zawieszki.' },
+    { id: 'gifts', label: 'Gadżety użytkowe', lead: 'Produkty używane w szkole, domu i klubie.' },
+    { id: 'player', label: 'Dla zawodnika', lead: 'Personalizowane produkty z imieniem, numerem i zdjęciem.' },
+    { id: 'decor', label: 'Dekoracje', lead: 'Klubowe elementy do pokoju zawodnika i kibica.' },
+    { id: 'photo', label: 'Foto produkty', lead: 'Zdjęcia drużyny i zawodnika w kilku gotowych formatach.' },
+];
+
+const concept_product_ids = new Set([
+    'lesson-plan',
+    'jersey-magnet',
+    'car-jersey',
+    'shoe-labels',
+    'mug',
+    'photo-puzzle',
+    'photo-canvas',
+]);
+
 const assumptions = {
     marketplace: {
         title: 'Strona główna ACTIVIO',
@@ -416,9 +630,11 @@ const assumptions = {
         title: 'Oferta dla klubów',
         items: [
             'Oferta to usługa druku i produkcji kierowana bezpośrednio do organizacji sportowych.',
-            'Katalog odwzorowuje sześć kategorii activio.pl: kafle, boczne drzewo produktów i pełną listę one-page.',
+            'Katalog zawiera 15 pozycji z finalnej listy produktowej przekazanej 3 sierpnia 2026.',
+            'Kategorie są warstwą nawigacyjną prototypu; lista produktów jest źródłem nadrzędnym.',
             'Produkt prowadzi do formularza zapytania B2B z uzupełnionym tematem, nie do koszyka konsumenckiego.',
             'Katalog i producenci są kontrolowani przez ACTIVIO.',
+            'Pokazane ceny i minima są przykładowe do czasu przekazania finalnego cennika.',
         ],
     },
     clubs: {
@@ -933,6 +1149,9 @@ function escape_html(value) {
 
 function cart_item_details(item) {
     const details = [item.option];
+    if (item.photo) {
+        details.push(`zdjęcie ${item.photo}`);
+    }
     if (item.number) {
         details.push(`numer ${item.number}`);
     }
@@ -1124,10 +1343,178 @@ function update_club_context(club_id) {
         image.alt = `Herb ${club.name}`;
     });
     document.querySelector('[data-club-intro]').textContent = club.intro;
-    document.querySelector('[data-club-product-count]').textContent = `${club.products} produktów`;
+    document.querySelector('[data-club-product-count]').textContent = `${final_catalog.length} produktów`;
     document.querySelector('[data-club-since]').textContent = `RAZEM OD ${club.since}`;
     document.querySelector('[data-club-academy-count]').textContent = String(club.academy_count);
     document.querySelector('.club-hero').style.background = club.gradient;
+}
+
+function final_catalog_entry(product_id) {
+    return final_catalog.find((entry) => entry.id === product_id) || final_catalog[0];
+}
+
+function catalog_club_markup(club_id) {
+    const club = clubs[club_id];
+    const logo_class = club_id === 'activio' ? 'mini-activio-logo' : 'mini-club-logo';
+    const label = club_id === 'activio' ? '' : ` ${escape_html(club.name)}`;
+
+    return `<img class="${logo_class}" src="${club.logo}" alt="${escape_html(club.name)}">${label}`;
+}
+
+function catalog_product_card(entry, club_id, context = 'store') {
+    const product = products[entry.id];
+    const club = clubs[club_id];
+    const category_label = entry.category_label;
+    const common = `class="product-card" data-go="product" data-product-id="${entry.id}" data-category="${entry.category}" data-price="${product.price}" data-popularity="${entry.popularity}" data-newness="${entry.newness}" role="link" tabindex="0"`;
+    const store_data = context === 'store'
+        ? ` data-club-id="${club_id}" data-store-product="${entry.id}-${club_id}" data-feedback-id="store:product:${entry.id}-${club_id}" data-store-category="${entry.category}" data-store-club="${club_id}"`
+        : '';
+    const club_data = context === 'marketplace' ? ` data-club-id="${club_id}"` : '';
+    const label = context === 'club'
+        ? escape_html(category_label)
+        : catalog_club_markup(club_id);
+    const badge = ['player-labels', 'shirt', 'playercard', 'shoe-labels'].includes(entry.id)
+        ? '<span class="art-label">PERSONALIZUJ</span>'
+        : '';
+    const concept_badge = concept_product_ids.has(entry.id)
+        ? '<span class="concept-image-label">WIZUALIZACJA</span>'
+        : '';
+
+    return `<article ${common}${store_data}${club_data}>
+        <div class="product-art">${badge}${concept_badge}<img class="product-photo" src="${product.image}" alt="${escape_html(product.name)} — ${escape_html(club.name)}" loading="lazy"></div>
+        <div class="product-meta"><span class="product-club">${label}</span><h3>${escape_html(product.name)}</h3><div><strong>${format_price(product.price)}</strong><span>${escape_html(entry.personalization)}</span></div></div>
+    </article>`;
+}
+
+function render_final_offer_catalog() {
+    const category_grid = document.querySelector('.offer-category-grid');
+    const tree = document.querySelector('.offer-tree nav');
+    const browser = document.querySelector('.offer-products');
+
+    category_grid.innerHTML = catalog_categories.map((category, index) => {
+        const entries = final_catalog.filter((entry) => entry.category === category.id);
+        const image = products[entries[0].id].image;
+        return `<button type="button" data-scroll-to="offer-category-${category.id}"><img src="${image}" alt=""><span>${String(index + 1).padStart(2, '0')}</span><strong>${escape_html(category.label)}</strong><small>${entries.length} ${entries.length === 1 ? 'produkt' : 'produkty'} ↓</small></button>`;
+    }).join('');
+
+    tree.innerHTML = catalog_categories.map((category) => {
+        const links = final_catalog
+            .filter((entry) => entry.category === category.id)
+            .map((entry) => `<button type="button" data-scroll-to="offer-${entry.id}">${escape_html(products[entry.id].name)}</button>`)
+            .join('');
+        return `<div><button type="button" data-scroll-to="offer-category-${category.id}">${escape_html(category.label)}</button>${links}</div>`;
+    }).join('');
+
+    browser.innerHTML = catalog_categories.map((category, index) => {
+        const entries = final_catalog.filter((entry) => entry.category === category.id);
+        const articles = entries.map((entry) => {
+            const product = products[entry.id];
+            const concept_badge = concept_product_ids.has(entry.id)
+                ? '<span class="concept-image-label">WIZUALIZACJA</span>'
+                : '';
+            return `<article id="offer-${entry.id}">${concept_badge}<img src="${product.image}" alt="${escape_html(product.name)}"><div><small>REALIZACJA ${escape_html(entry.production)}</small><h3>${escape_html(product.name)}</h3><p>${escape_html(product.lead)}</p><strong>od ${format_price(entry.minimum)} / szt.</strong><button type="button" data-offer-question="${escape_html(product.name)}">Zapytaj o produkt →</button></div></article>`;
+        }).join('');
+        return `<section id="offer-category-${category.id}"><header><span>${String(index + 1).padStart(2, '0')}</span><div><small>${escape_html(category.label)}</small><h2>${escape_html(category.lead)}</h2></div></header>${articles}</section>`;
+    }).join('');
+}
+
+function render_final_catalogs() {
+    const club_cycle = ['stal', 'kks', 'pogon', 'jarota'];
+    const store_container = document.querySelector('[data-store-products="popular"]');
+    const club_container = document.querySelector('.club-products');
+    const marketplace_container = document.querySelector('.marketplace-view .product-section .product-grid');
+
+    store_container.innerHTML = final_catalog
+        .map((entry, index) => catalog_product_card(entry, club_cycle[index % club_cycle.length], 'store'))
+        .join('');
+    club_container.innerHTML = final_catalog
+        .map((entry) => catalog_product_card(entry, 'stal', 'club'))
+        .join('');
+    marketplace_container.innerHTML = [...final_catalog]
+        .sort((left, right) => right.popularity - left.popularity)
+        .slice(0, 6)
+        .map((entry, index) => catalog_product_card(entry, club_cycle[index % club_cycle.length], 'marketplace'))
+        .join('');
+
+    const project_note = '<aside class="catalog-prototype-note"><strong>FINALNA LISTA · DANE ROBOCZE</strong><span>Produkty są zatwierdzone. Ceny, minima, warianty i terminy są przykładowe. Żółte oznaczenie „Wizualizacja” wskazuje wygenerowane zdjęcie koncepcyjne.</span></aside>';
+    [
+        document.querySelector('.offer-catalog > .section-heading'),
+        document.querySelector('[data-view="partner-catalog"] .partner-page-head'),
+        document.querySelector('[data-view="system-catalog"] .system-page-head'),
+    ].forEach((anchor) => anchor.insertAdjacentHTML('afterend', project_note));
+
+    const filter_buttons = catalog_categories
+        .map((category) => `<button class="chip" type="button" data-store-filter="${category.id}">${escape_html(category.label)}</button>`)
+        .join('');
+    document.querySelector('.store-category-filter .chips').innerHTML = `<button class="chip active" type="button" data-store-filter="all">Wszystko</button>${filter_buttons}`;
+    document.querySelector('.marketplace-view .product-section .chips').innerHTML = `<button class="chip active" type="button" data-product-filter="all">Wszystko</button>${catalog_categories.map((category) => `<button class="chip" type="button" data-product-filter="${category.id}">${escape_html(category.label)}</button>`).join('')}`;
+    document.querySelector('.club-tabs').innerHTML = `<button class="active" type="button" data-club-filter="all">Wszystkie</button>${catalog_categories.map((category) => `<button type="button" data-club-filter="${category.id}">${escape_html(category.label)}</button>`).join('')}<span data-club-product-count>${final_catalog.length} produktów</span>`;
+
+    const partner_filters = document.querySelector('.partner-catalog-toolbar > div');
+    partner_filters.innerHTML = `<button class="active" type="button" data-partner-catalog-filter="all">Wszystkie</button>${catalog_categories.map((category) => `<button type="button" data-partner-catalog-filter="${category.id}">${escape_html(category.label)}</button>`).join('')}`;
+    document.querySelector('.partner-catalog-grid').innerHTML = final_catalog.map((entry) => {
+        const product = products[entry.id];
+        return `<article data-partner-catalog-product="${entry.category}" data-catalog-search="${escape_html(`${product.name} ${entry.category_label}`.toLocaleLowerCase('pl-PL'))}"><img src="${product.image}" alt="${escape_html(product.name)}"><div><span>${escape_html(entry.category_label)}</span><strong>${escape_html(product.name)}</strong><p>${escape_html(entry.variants)} · ${escape_html(entry.personalization)} · produkcja ${escape_html(entry.production)}</p><dl><div><dt>Minimum od</dt><dd>${format_price(entry.minimum)}</dd></div><div><dt>Kluby korzystające</dt><dd>${entry.clubs}</dd></div></dl><button class="button primary full" type="button" data-go="partner-listing-create" data-product-id="${entry.id}">Wybierz produkt</button></div></article>`;
+    }).join('');
+
+    const active_offer_ids = ['shirt', 'mug', 'playercard', 'jersey-keyring', 'calendar'];
+    document.querySelector('[data-view="partner-offer"] .offer-grid').innerHTML = active_offer_ids.map((product_id, index) => {
+        const entry = final_catalog_entry(product_id);
+        const product = products[product_id];
+        const spread = product.price - entry.minimum;
+        return `<article class="offer-card" data-offer-item data-min-price="${entry.minimum}">
+            <img src="${product.image}" alt="${escape_html(product.name)}" loading="lazy">
+            <div class="offer-card-main"><div class="offer-title"><div><span>${escape_html(entry.category_label)}</span><strong>${escape_html(product.name)}</strong></div><span class="table-status ${index === 4 ? 'pending' : 'available'}">${index === 4 ? 'Projekt' : 'Aktywna'}</span></div>
+            <div class="price-editor"><label>Minimum ACTIVIO brutto <output>${format_price(entry.minimum)}</output></label><label>Cena brutto w Twoim sklepie <span><input type="number" min="${entry.minimum}" step="1" value="${product.price}" data-sale-price> zł</span></label><div class="price-result"><span>Kwota brutto ponad minimum</span><strong data-price-spread>${format_price(spread)}</strong><small>Wartości przykładowe · to nie jest automatycznie wynagrodzenie klubu</small></div></div>
+            <div class="offer-actions"><button type="button" data-go="product" data-product-id="${product_id}" data-club-id="stal">Podgląd produktu</button><button class="button primary" type="button" data-save-price>Zapisz cenę</button></div></div>
+        </article>`;
+    }).join('');
+
+    const system_view = document.querySelector('[data-view="system-catalog"]');
+    system_view.querySelector('.system-kpi-grid').innerHTML = `<article><span>Aktywne produkty bazowe</span><strong>${final_catalog.length}</strong><small>${catalog_categories.length} kategorii</small></article><article><span>Warianty katalogowe</span><strong>36</strong><small>Formaty i zestawy</small></article><article><span>Ceny do potwierdzenia</span><strong>${final_catalog.length}</strong><small>Wartości przykładowe</small></article><article class="attention"><span>Braki w finalnym cenniku</span><strong>${final_catalog.length}</strong><small>Minima wymagają decyzji</small></article>`;
+    system_view.querySelector('.system-main-table tbody').innerHTML = final_catalog.map((entry) => {
+        const product = products[entry.id];
+        return `<tr><td><span class="product-cell"><img src="${product.image}" alt=""><span><strong>${escape_html(product.name)}</strong><small>${entry.sku}</small></span></span></td><td>ACTIVIO</td><td>${escape_html(entry.variants)}</td><td>${escape_html(entry.personalization)}</td><td><strong>${format_price(entry.minimum)} brutto</strong><small>wartość przykładowa</small></td><td>${entry.clubs} klubów</td><td><span class="table-status pending">Cena do potwierdzenia</span></td><td><button class="table-link" type="button" data-action="system-catalog-summary" data-product-id="${entry.id}">Podgląd →</button></td></tr>`;
+    }).join('');
+    const category_select = system_view.querySelector('.system-filter-bar select');
+    category_select.innerHTML = `<option>Wszystkie kategorie</option>${catalog_categories.map((category) => `<option>${escape_html(category.label)}</option>`).join('')}`;
+
+    render_final_offer_catalog();
+}
+
+function filter_partner_catalog() {
+    const category = document.querySelector('[data-partner-catalog-filter].active')?.dataset.partnerCatalogFilter || 'all';
+    const phrase = document.querySelector('.partner-catalog-toolbar input')?.value.trim().toLocaleLowerCase('pl-PL') || '';
+
+    document.querySelectorAll('[data-partner-catalog-product]').forEach((product) => {
+        product.hidden = (category !== 'all' && product.dataset.partnerCatalogProduct !== category)
+            || (phrase !== '' && !product.dataset.catalogSearch.includes(phrase));
+    });
+}
+
+function update_partner_listing_context(product_id) {
+    const entry = final_catalog_entry(product_id);
+    const product = products[entry.id];
+    const view = document.querySelector('[data-view="partner-listing-create"]');
+    const base = view.querySelector('.listing-base-product');
+    const summary = view.querySelector('.listing-create-summary');
+
+    view.querySelector('.partner-page-head h1').textContent = `${product.name} dla KS Stal`;
+    base.querySelector('.panel-heading strong').textContent = entry.sku;
+    base.querySelector(':scope > div > img').src = product.image;
+    base.querySelector(':scope > div > img').alt = product.name;
+    base.querySelector(':scope > div > span > strong').textContent = product.name;
+    base.querySelector(':scope > div > span > p').textContent = `${entry.variants} · ${entry.personalization} · produkcja ${entry.production}`;
+    view.querySelector('.variant-check-grid').innerHTML = product.options.map((option) => `<label><input type="checkbox" checked>${escape_html(option)}</label>`).join('');
+    summary.querySelector('img').src = product.image;
+    summary.querySelector('img').alt = `Przykładowy projekt: ${product.name}`;
+    summary.querySelector('input[name="listing_name"]').value = product.name;
+    const price = summary.querySelector('input[name="price"]');
+    price.min = String(entry.minimum);
+    price.value = String(product.price);
+    const totals = summary.querySelectorAll(':scope > div strong');
+    totals[0].textContent = format_price(entry.minimum);
+    totals[1].textContent = format_price(product.price - entry.minimum);
 }
 
 function update_product_context(product_id, club_id = current_club_id) {
@@ -1163,6 +1550,12 @@ function update_product_context(product_id, club_id = current_club_id) {
     document.querySelector('[data-option-label]').textContent = product.option_label;
     document.querySelector('[data-number-label]').textContent = product.number_label;
     document.querySelector('[data-name-label]').textContent = product.name_label;
+    const number_max_length = product.number_max_length || 2;
+    number_input.maxLength = number_max_length;
+    const photo_upload_field = document.querySelector('[data-photo-upload-field]');
+    photo_upload_field.hidden = !product.requires_photo;
+    product_photo_input.value = '';
+    product_photo_label.textContent = 'Wybierz zdjęcie z urządzenia';
     document.querySelector('[data-size-guide-button]').hidden = !product.has_size_guide;
     document.querySelector('.size-options').innerHTML = product.options
         .map((option) => `<button${option === 'M' || (!product.options.includes('M') && option === product.options[0]) ? ' class="selected"' : ''} type="button">${escape_html(option)}</button>`)
@@ -1186,7 +1579,7 @@ function update_product_context(product_id, club_id = current_club_id) {
     name_input.value = '';
     number_preview.textContent = '—';
     name_preview.textContent = 'TWÓJ NAPIS';
-    document.querySelector('[data-number-count]').textContent = '0/2';
+    document.querySelector('[data-number-count]').textContent = `0/${number_max_length}`;
     document.querySelector('[data-name-count]').textContent = '0/14';
     personalization_confirm.checked = false;
     add_cart_button.disabled = true;
@@ -1224,9 +1617,10 @@ function render_search_results(phrase = '') {
     const search_products = [
         ['shirt', 'stal'],
         ['mug', 'kks'],
-        ['bag', 'pogon'],
-        ['stickers', 'jarota'],
-        ['hoodie', 'activio'],
+        ['playercard', 'pogon'],
+        ['jersey-keyring', 'jarota'],
+        ['photo-puzzle', 'stal'],
+        ['clock', 'kks'],
     ];
     const normalized_phrase = phrase.trim().toLocaleLowerCase('pl-PL');
     const results = search_products.filter(([product_id, club_id]) => {
@@ -1243,6 +1637,20 @@ function render_search_results(phrase = '') {
 
 function show_action(action, source) {
     const topic = source.dataset.inquiryTopic || 'Oferta dla klubu';
+
+    if (action === 'system-catalog-summary') {
+        const entry = final_catalog_entry(source.dataset.productId);
+        const product = products[entry.id];
+        open_action_dialog(product.name, `
+            <div class="project-preview"><img src="${product.image}" alt="${escape_html(product.name)}"><div><strong>${entry.sku} · ${escape_html(entry.category_label)}</strong><p>${escape_html(product.lead)}</p></div></div>
+            <div class="info-grid">
+                <article><span>${escape_html(entry.variants)}</span><div><strong>Warianty</strong><p>${escape_html(product.options.join(' · '))}</p></div></article>
+                <article><span>${format_price(entry.minimum)}</span><div><strong>Przykładowe minimum brutto</strong><p>Wymaga potwierdzenia w finalnym cenniku.</p></div></article>
+            </div>
+            <p class="action-info"><strong>Personalizacja:</strong> ${escape_html(entry.personalization)} · produkcja ${escape_html(entry.production)} · ${entry.clubs} klubów korzysta z produktu.</p>
+        `, 'KATALOG CENTRALNY');
+        return;
+    }
 
     if (action === 'search') {
         open_action_dialog('Znajdź produkt lub klub', `
@@ -1459,8 +1867,8 @@ function show_action(action, source) {
             <p class="action-info">Klub wybiera z kontrolowanego katalogu. Nie dodaje własnych dostawców ani dowolnych produktów.</p>
             <div class="dialog-list">
                 ${search_result_button('mug', 'stal').replace('<button ', '<button data-catalog-add="mug" ')}
-                ${search_result_button('bag', 'stal').replace('<button ', '<button data-catalog-add="bag" ')}
-                ${search_result_button('stickers', 'stal').replace('<button ', '<button data-catalog-add="stickers" ')}
+                ${search_result_button('playercard', 'stal').replace('<button ', '<button data-catalog-add="playercard" ')}
+                ${search_result_button('photo-puzzle', 'stal').replace('<button ', '<button data-catalog-add="photo-puzzle" ')}
             </div>
         `, 'PANEL KLUBU');
         return;
@@ -2478,13 +2886,10 @@ document.addEventListener('click', (event) => {
 
     const partner_catalog_filter = event.target.closest('[data-partner-catalog-filter]');
     if (partner_catalog_filter) {
-        const category = partner_catalog_filter.dataset.partnerCatalogFilter;
         document.querySelectorAll('[data-partner-catalog-filter]').forEach((button) => {
             button.classList.toggle('active', button === partner_catalog_filter);
         });
-        document.querySelectorAll('[data-partner-catalog-product]').forEach((product) => {
-            product.hidden = category !== 'all' && product.dataset.partnerCatalogProduct !== category;
-        });
+        filter_partner_catalog();
         return;
     }
 
@@ -2736,6 +3141,9 @@ document.addEventListener('click', (event) => {
                 go_button.dataset.clubId || current_club_id,
             );
         }
+        if (go_button.dataset.go === 'partner-listing-create' && go_button.dataset.productId) {
+            update_partner_listing_context(go_button.dataset.productId);
+        }
         render_view(go_button.dataset.go);
         return;
     }
@@ -2975,11 +3383,14 @@ const number_input = document.querySelector('[data-number-input]');
 const name_input = document.querySelector('[data-name-input]');
 const number_preview = document.querySelector('[data-preview-number]');
 const name_preview = document.querySelector('[data-preview-name]');
+const product_photo_input = document.querySelector('[data-product-photo-input]');
+const product_photo_label = document.querySelector('[data-product-photo-label]');
 
 number_input.addEventListener('input', () => {
-    number_input.value = number_input.value.replace(/\D/g, '').slice(0, 2);
+    const max_length = number_input.maxLength > 0 ? number_input.maxLength : 2;
+    number_input.value = number_input.value.replace(/\D/g, '').slice(0, max_length);
     number_preview.textContent = number_input.value || '—';
-    document.querySelector('[data-number-count]').textContent = `${number_input.value.length}/2`;
+    document.querySelector('[data-number-count]').textContent = `${number_input.value.length}/${max_length}`;
 });
 
 name_input.addEventListener('input', () => {
@@ -2991,8 +3402,17 @@ name_input.addEventListener('input', () => {
 const personalization_confirm = document.querySelector('[data-personalization-confirm]');
 const add_cart_button = document.querySelector('[data-add-cart]');
 
-personalization_confirm.addEventListener('change', () => {
-    add_cart_button.disabled = !personalization_confirm.checked;
+function validate_product_configuration() {
+    const product = products[current_product_id] || products.shirt;
+    const has_required_photo = !product.requires_photo || product_photo_input.files.length > 0;
+    add_cart_button.disabled = !personalization_confirm.checked || !has_required_photo;
+}
+
+personalization_confirm.addEventListener('change', validate_product_configuration);
+
+product_photo_input.addEventListener('change', () => {
+    product_photo_label.textContent = product_photo_input.files[0]?.name || 'Wybierz zdjęcie z urządzenia';
+    validate_product_configuration();
 });
 
 add_cart_button.addEventListener('click', () => {
@@ -3006,6 +3426,7 @@ add_cart_button.addEventListener('click', () => {
         club_id: current_product_club_id,
         product_id: current_product_id,
         option,
+        photo: product_photo_input.files[0]?.name || '',
         number: number_input.value,
         name: name_input.value,
         quantity: 1,
@@ -3014,6 +3435,7 @@ add_cart_button.addEventListener('click', () => {
         item.club_id === cart_item.club_id
         && item.product_id === cart_item.product_id
         && item.option === cart_item.option
+        && item.photo === cart_item.photo
         && item.number === cart_item.number
         && item.name === cart_item.name
     ));
@@ -3074,6 +3496,10 @@ document.querySelector('[data-store-club-search]')?.addEventListener('input', (e
     store_show_all = false;
     render_store_products();
 });
+
+document.querySelector('.partner-catalog-toolbar input')?.addEventListener('input', filter_partner_catalog);
+
+render_final_catalogs();
 
 document.querySelectorAll('[data-sale-price]').forEach((input) => {
     input.addEventListener('input', () => update_offer_price(input));
