@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260803-03">
+    <meta name="activio-mockup-version" content="20260805-01">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260803-03">
+    <link rel="stylesheet" href="styles.css?v=20260805-01">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -24,12 +24,8 @@
         </div>
         <button class="prototype-project" type="button" data-go="project-hub">O projekcie</button>
         <button class="prototype-use-cases" type="button" data-go="use-cases">Scenariusze użycia</button>
-        <button class="prototype-changelog" type="button" data-go="feedback-history">Historia zmian</button>
         <button class="prototype-refresh" type="button" data-refresh-latest title="Pobierz najnowszą wersję prototypu">
             <span>↻</span><time data-version-time>Sprawdzam…</time>
-        </button>
-        <button class="prototype-feedback" type="button" data-feedback-open data-feedback-ui data-html2canvas-ignore aria-expanded="false" aria-controls="feedback-panel">
-            <span>Uwagi</span><span class="prototype-feedback-count" data-feedback-count>0</span>
         </button>
         <button class="prototype-assumptions" type="button" data-assumptions aria-expanded="false" aria-controls="assumption-drawer">
             <span class="status-dot"></span>
@@ -110,7 +106,6 @@
             <button type="button" data-go="system-settlement-problem"><span>34F</span> Wyjątek wypłaty</button>
             <button type="button" data-go="system-integrations"><span>34G</span> Integracje i ponowienia</button>
             <div class="scenario-divider"></div>
-            <button type="button" data-go="feedback-history"><span>35</span> Historia zmian</button>
             <button type="button" data-go="project-hub"><span>36</span> O projekcie</button>
             <button type="button" data-go="project-concept"><span>37</span> Koncepcja biznesowa</button>
             <button type="button" data-go="project-assumptions"><span>38</span> Założenia produktu</button>
@@ -2213,30 +2208,6 @@
             </div>
         </section>
 
-        <section class="view feedback-history-view" data-view="feedback-history" data-feedback-ui data-html2canvas-ignore hidden>
-            <div class="feedback-history-hero">
-                <div>
-                    <span class="eyebrow light">WSPÓLNA RECENZJA PROJEKTU</span>
-                    <h1>Historia uwag<br>i wprowadzonych zmian</h1>
-                    <p>Każda decyzja zachowuje oryginalną uwagę, status oraz zapis działań wykonanych w mockupie i dokumentacji.</p>
-                </div>
-                <aside>
-                    <span>Uwagi poza odrzuconymi</span>
-                    <strong data-feedback-history-count>—</strong>
-                    <small>Odrzucone uwagi testowe są pomijane.</small>
-                </aside>
-            </div>
-            <div class="feedback-history-content">
-                <div class="feedback-history-intro">
-                    <div><span class="eyebrow">DZIENNIK DECYZJI</span><h2>Od komentarza do wdrożenia</h2></div>
-                    <p>Historia jest generowana bezpośrednio z trwałej bazy uwag. Zmiana wersji mockupu nie usuwa wpisów ani wykonanych działań.</p>
-                </div>
-                <div class="feedback-changelog" data-feedback-changelog>
-                    <p class="feedback-history-empty">Wczytywanie historii…</p>
-                </div>
-            </div>
-        </section>
-
         <section class="view project-hub-view" data-view="project-hub" hidden>
             <div class="project-hero">
                 <div>
@@ -2246,7 +2217,6 @@
                     <div class="hero-actions">
                         <button class="button lime" type="button" data-go="project-concept">Czytaj koncepcję biznesową</button>
                         <button class="button ghost light" type="button" data-go="project-assumptions">Zobacz założenia produktu</button>
-                        <button class="button ghost light" type="button" data-go="feedback-history">Historia zmian</button>
                     </div>
                 </div>
                 <aside class="project-status-card">
@@ -2481,75 +2451,7 @@
         </div>
     </template>
 
-    <div class="feedback-backdrop" data-feedback-backdrop data-feedback-ui data-html2canvas-ignore hidden></div>
-    <aside class="feedback-panel" id="feedback-panel" data-feedback-panel data-feedback-ui data-html2canvas-ignore aria-hidden="true" inert>
-        <header class="feedback-panel-head">
-            <div>
-                <span class="eyebrow">WSPÓLNA RECENZJA</span>
-                <h2>Uwagi do prototypu</h2>
-            </div>
-            <button type="button" data-feedback-close aria-label="Zamknij uwagi">×</button>
-        </header>
-        <p class="feedback-intro">Wskaż dowolny fragment ekranu i opisz, co warto zmienić. Uwagi pozostaną po publikacji kolejnych wersji.</p>
-        <button class="feedback-select-button" type="button" data-feedback-select>
-            <span>＋</span> Wskaż fragment strony
-        </button>
-        <div class="feedback-filters">
-            <label>Widok
-                <select data-feedback-scope>
-                    <option value="view">Bieżący ekran</option>
-                    <option value="all">Wszystkie ekrany</option>
-                </select>
-            </label>
-            <label>Status
-                <select data-feedback-status>
-                    <option value="open">Otwarte</option>
-                    <option value="all">Wszystkie</option>
-                    <option value="new">Nowe</option>
-                    <option value="in_progress">W realizacji</option>
-                    <option value="resolved">Rozwiązane</option>
-                    <option value="rejected">Odrzucone</option>
-                </select>
-            </label>
-        </div>
-        <div class="feedback-list" data-feedback-list aria-live="polite">
-            <p class="feedback-empty">Ładowanie uwag…</p>
-        </div>
-    </aside>
-
-    <div class="feedback-highlight" data-feedback-highlight data-feedback-ui data-html2canvas-ignore hidden></div>
-    <div class="feedback-pins" data-feedback-pins data-feedback-ui data-html2canvas-ignore></div>
-
-    <dialog class="feedback-dialog" data-feedback-dialog data-feedback-ui data-html2canvas-ignore aria-labelledby="feedback-dialog-title">
-        <form method="dialog" data-feedback-form>
-            <header>
-                <div>
-                    <span class="eyebrow">NOWA UWAGA</span>
-                    <h2 id="feedback-dialog-title">Co chcesz przekazać?</h2>
-                </div>
-                <button type="button" data-feedback-cancel aria-label="Zamknij">×</button>
-            </header>
-            <div class="feedback-target" data-feedback-target></div>
-            <label class="feedback-field">Podpis
-                <input type="text" name="author" maxlength="80" autocomplete="name" placeholder="Imię lub rola" required>
-            </label>
-            <label class="feedback-field">Komentarz
-                <textarea name="comment" maxlength="4000" rows="5" placeholder="Co jest niejasne, czego brakuje albo co warto zmienić?" required></textarea>
-            </label>
-            <label class="feedback-screenshot-option">
-                <input type="checkbox" name="include_screenshot" checked>
-                Dołącz zrzut bieżącego ekranu
-            </label>
-            <p class="feedback-form-error" data-feedback-form-error role="alert" hidden></p>
-            <footer>
-                <button class="feedback-cancel" type="button" data-feedback-cancel>Anuluj</button>
-                <button class="feedback-submit" type="submit">Dodaj uwagę</button>
-            </footer>
-        </form>
-    </dialog>
-
-    <script src="vendor/html2canvas/html2canvas.min.js?v=1.4.1"></script>
-    <script src="app.js?v=20260803-03"></script>
-    <script src="feedback.js?v=20260803-03"></script>
+    <script src="app.js?v=20260805-01"></script>
+    <script defer src="/website-feedback-loader.js"></script>
 </body>
 </html>

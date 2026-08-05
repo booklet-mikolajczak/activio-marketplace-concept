@@ -2,9 +2,7 @@ import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { createServer, request as node_request } from 'node:http';
-import { mkdtemp, rm } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { resolve } from 'node:path';
 import test from 'node:test';
 
 async function free_port() {
@@ -63,8 +61,27 @@ async function wait_for_server(child, stderr) {
     });
 }
 
+async function stop_server(child) {
+    if (child.exitCode !== null || child.signalCode !== null) {
+        return;
+    }
+    const exit = once(child, 'exit');
+    child.kill('SIGTERM');
+    const stopped = await Promise.race([
+        exit,
+        new Promise((resolve_timeout) => {
+            const timeout = setTimeout(() => resolve_timeout(false), 2000);
+            timeout.unref();
+        }),
+    ]);
+    if (stopped === false && child.exitCode === null && child.signalCode === null) {
+        const killed = once(child, 'exit');
+        child.kill('SIGKILL');
+        await killed;
+    }
+}
+
 test('uses form session for browsers and keeps Basic Auth for scripts', { timeout: 10000 }, async () => {
-    const feedback_dir = await mkdtemp(join(tmpdir(), 'activio-server-auth-'));
     const port = await free_port();
     const user = 'panel-user';
     const password = 'test-password-123';
@@ -76,8 +93,11 @@ test('uses form session for browsers and keeps Basic Auth for scripts', { timeou
             ACTIVIO_DEMO_PORT: String(port),
             ACTIVIO_DEMO_USER: user,
             ACTIVIO_DEMO_PASSWORD: password,
-            ACTIVIO_FEEDBACK_DIR: feedback_dir,
             ACTIVIO_TRUST_PROXY: 'true',
+            ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT: 'true',
+            ACTIVIO_WEBSITE_FEEDBACK_HOST: 'https://feedback.example.test',
+            ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY: 'activio-club-concept',
+            ACTIVIO_WEBSITE_FEEDBACK_VERSION: '2026-08-05.1',
         },
         stdio: ['ignore', 'pipe', 'pipe'],
     });
@@ -140,10 +160,15 @@ test('uses form session for browsers and keeps Basic Auth for scripts', { timeou
             },
         });
         assert.equal(login_with_valid_basic.status, 200);
-        const valid_basic_after_stale_login = await request(`${base}/api/feedback?status=all`, {
+        const valid_basic_after_stale_login = await request(`${base}/website-feedback-loader.js`, {
             headers: { Authorization: `Basic ${basic}` },
         });
         assert.equal(valid_basic_after_stale_login.status, 200);
+        const integration_source = await valid_basic_after_stale_login.text();
+        assert.match(integration_source, /"host":"https:\/\/feedback\.example\.test"/);
+        assert.match(integration_source, /\/widget\/v1\/loader\.js/);
+        assert.match(integration_source, /activio-club-concept/);
+        assert.match(integration_source, /feedbackDevelopment/);
 
         const invalid = await request(`${base}/login`, {
             method: 'POST',
@@ -208,10 +233,13 @@ test('uses form session for browsers and keeps Basic Auth for scripts', { timeou
         });
         assert.equal(session_ignores_stale_basic.status, 200);
 
-        const scripted = await request(`${base}/api/feedback?status=all`, {
+        const scripted = await request(`${base}/website-feedback-loader.js`, {
             headers: { Authorization: `Basic ${basic}` },
         });
         assert.equal(scripted.status, 200);
+        const scripted_source = await scripted.text();
+        assert.match(scripted_source, /\/website-feedback\/widget\/v1\/loader\.js/);
+        assert.match(scripted_source, /2026-08-05\.1/);
 
         const api_unauthorized = await raw_request(`${base}/api/feedback?status=all`);
         assert.equal(api_unauthorized.status, 401);
@@ -259,24 +287,24 @@ test('uses form session for browsers and keeps Basic Auth for scripts', { timeou
         assert.equal(foreign_origin.status, 403);
 
         for (let attempt = 0; attempt < 9; attempt += 1) {
-            const failed_basic = await request(`${base}/api/feedback?status=all`, {
+            const failed_basic = await request(`${base}/website-feedback-loader.js`, {
                 headers: { Authorization: `Basic ${wrong_basic}` },
             });
             assert.equal(failed_basic.status, 401);
         }
         const valid_basic_clears_failures = await request(
-            `${base}/api/feedback?status=all`,
+            `${base}/website-feedback-loader.js`,
             { headers: { Authorization: `Basic ${basic}` } },
         );
         assert.equal(valid_basic_clears_failures.status, 200);
 
         for (let attempt = 0; attempt < 10; attempt += 1) {
-            const failed_basic = await request(`${base}/api/feedback?status=all`, {
+            const failed_basic = await request(`${base}/website-feedback-loader.js`, {
                 headers: { Authorization: `Basic ${wrong_basic}` },
             });
             assert.equal(failed_basic.status, 401);
         }
-        const limited_basic = await request(`${base}/api/feedback?status=all`, {
+        const limited_basic = await request(`${base}/website-feedback-loader.js`, {
             headers: { Authorization: `Basic ${wrong_basic}` },
         });
         assert.equal(limited_basic.status, 429);
@@ -329,6 +357,94 @@ test('uses form session for browsers and keeps Basic Auth for scripts', { timeou
                 await killed;
             }
         }
-        await rm(feedback_dir, { recursive: true, force: true });
+    }
+});
+
+test('feedback bootstrap stays dormant without a configured host', { timeout: 10000 }, async () => {
+    const port = await free_port();
+    const user = 'panel-user';
+    const password = 'test-password-123';
+    const child = spawn(process.execPath, ['server.mjs'], {
+        cwd: resolve(import.meta.dirname, '..'),
+        env: {
+            ...process.env,
+            ACTIVIO_DEMO_HOST: '127.0.0.1',
+            ACTIVIO_DEMO_PORT: String(port),
+            ACTIVIO_DEMO_USER: user,
+            ACTIVIO_DEMO_PASSWORD: password,
+            ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT: 'false',
+            ACTIVIO_WEBSITE_FEEDBACK_HOST: '',
+            ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY: 'activio-club-concept',
+            ACTIVIO_WEBSITE_FEEDBACK_VERSION: '2026-08-05.1',
+        },
+        stdio: ['ignore', 'pipe', 'pipe'],
+    });
+    let stderr = '';
+    child.stderr.on('data', (chunk) => {
+        stderr = `${stderr}${chunk}`.slice(-8000);
+    });
+
+    try {
+        await wait_for_server(child, () => stderr);
+        const base = `http://127.0.0.1:${port}`;
+        const basic = Buffer.from(`${user}:${password}`).toString('base64');
+        const headers = { Authorization: `Basic ${basic}` };
+        const unauthorized_loader = await raw_request(`${base}/website-feedback-loader.js`);
+        assert.equal(unauthorized_loader.status, 401);
+        const loader = await request(`${base}/website-feedback-loader.js`, { headers });
+
+        assert.equal(loader.status, 200);
+        assert.equal(await loader.text(), "'use strict';\n");
+
+        const removed_api = await request(`${base}/api/feedback`, { headers });
+        assert.equal(removed_api.status, 404);
+        const removed_api_write = await request(`${base}/api/feedback`, {
+            method: 'POST',
+            headers,
+        });
+        assert.equal(removed_api_write.status, 405);
+    } finally {
+        await stop_server(child);
+    }
+});
+
+test('production bootstrap never requests a development session', { timeout: 10000 }, async () => {
+    const port = await free_port();
+    const user = 'panel-user';
+    const password = 'test-password-123';
+    const child = spawn(process.execPath, ['server.mjs'], {
+        cwd: resolve(import.meta.dirname, '..'),
+        env: {
+            ...process.env,
+            ACTIVIO_DEMO_HOST: '127.0.0.1',
+            ACTIVIO_DEMO_PORT: String(port),
+            ACTIVIO_DEMO_USER: user,
+            ACTIVIO_DEMO_PASSWORD: password,
+            ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT: 'false',
+            ACTIVIO_WEBSITE_FEEDBACK_HOST: 'https://feedback.example.test',
+            ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY: 'activio-club-concept',
+            ACTIVIO_WEBSITE_FEEDBACK_VERSION: '2026-08-05.1',
+        },
+        stdio: ['ignore', 'pipe', 'pipe'],
+    });
+    let stderr = '';
+    child.stderr.on('data', (chunk) => {
+        stderr = `${stderr}${chunk}`.slice(-8000);
+    });
+
+    try {
+        await wait_for_server(child, () => stderr);
+        const base = `http://127.0.0.1:${port}`;
+        const basic = Buffer.from(`${user}:${password}`).toString('base64');
+        const loader = await request(`${base}/website-feedback-loader.js`, {
+            headers: { Authorization: `Basic ${basic}` },
+        });
+        const source = await loader.text();
+
+        assert.equal(loader.status, 200);
+        assert.match(source, /"development":false/);
+        assert.doesNotMatch(source, /feedbackDevelopment/);
+    } finally {
+        await stop_server(child);
     }
 });

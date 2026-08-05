@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, readdir, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -33,6 +33,39 @@ test('materializes comment kinds and filters statuses', async () => {
         assert.equal(store.list({ status: 'resolved' }).length, 1);
     } finally {
         store.database?.close();
+        await rm(directory, { recursive: true });
+    }
+});
+
+test('read-only archive mode neither creates nor mutates data', async () => {
+    const directory = await mkdtemp(join(tmpdir(), 'activio-feedback-readonly-'));
+    const missing_store = new FeedbackStore(join(directory, 'missing'));
+
+    try {
+        await assert.rejects(missing_store.initialize({ read_only: true }));
+        await assert.rejects(stat(missing_store.database_path));
+
+        const writer = new FeedbackStore(directory);
+        await writer.initialize();
+        const feedback = await writer.create({ author: 'Test', comment: 'Archiwum', view: 'store' });
+        writer.database?.close();
+
+        const reader = new FeedbackStore(directory);
+        await reader.initialize({ read_only: true });
+        assert.equal(reader.get(feedback.id).comment, 'Archiwum');
+        const screenshots_before = await readdir(reader.screenshot_dir);
+        assert.throws(() => reader.append_event(feedback.id, 'comment_added', {
+            author: 'Test',
+            comment: 'Niedozwolony zapis',
+        }));
+        await assert.rejects(reader.create(
+            { author: 'Test', comment: 'Niedozwolony zapis', view: 'store' },
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+        ));
+        assert.deepEqual(await readdir(reader.screenshot_dir), screenshots_before);
+        reader.database?.close();
+    } finally {
+        missing_store.database?.close();
         await rm(directory, { recursive: true });
     }
 });

@@ -33,11 +33,15 @@ test('every declared action has an application handler', () => {
 test('mockup assets use the declared version', () => {
     const version = index_html.match(/name="activio-mockup-version" content="([^"]+)"/)?.[1];
     const versioned_assets = [
-        ...index_html.matchAll(/(?:href|src)="(?:styles\.css|app\.js|feedback\.js)\?v=([^"]+)"/g),
+        ...index_html.matchAll(/(?:href|src)="(?:styles\.css|app\.js)\?v=([^"]+)"/g),
     ].map((match) => match[1]);
 
     assert.ok(version);
-    assert.deepEqual(versioned_assets, [version, version, version]);
+    assert.deepEqual(versioned_assets, [version, version]);
+    assert.match(index_html, /<script defer src="\/website-feedback-loader\.js"><\/script>/);
+    assert.doesNotMatch(index_html, /feedback\.js/);
+    assert.doesNotMatch(index_html, /vendor\/html2canvas/);
+    assert.doesNotMatch(index_html, /data-feedback-ui/);
 });
 
 test('final starting catalog contains all approved products', () => {
@@ -87,10 +91,9 @@ test('final starting catalog contains all approved products', () => {
 
 test('use cases cover every functional view', () => {
     const use_cases_start = index_html.indexOf('<section class="view use-cases-view"');
-    const use_cases_end = index_html.indexOf('<section class="view feedback-history-view"', use_cases_start);
+    const use_cases_end = index_html.indexOf('<section class="view project-hub-view"', use_cases_start);
     const use_cases_html = index_html.slice(use_cases_start, use_cases_end);
     const meta_views = new Set([
-        'feedback-history',
         'project-assumptions',
         'project-concept',
         'project-hub',

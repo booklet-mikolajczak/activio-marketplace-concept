@@ -52,13 +52,15 @@ Przycisk „Założenia ekranu” wyjaśnia decyzje ukryte pod każdym widokiem.
 
 ## Zbieranie uwag
 
-Przycisk „Uwagi” otwiera panel recenzji. Recenzent wybiera „Wskaż fragment strony”, klika element albo zaznacza tekst i dodaje komentarz. Do uwagi może zostać dołączony screenshot z obramowaniem wskazanego miejsca.
+Prototyp osadza uniwersalny Website Feedback przez chroniony bootstrap
+`/website-feedback-loader.js`. Widget pozwala wskazać element lub tekst, dodać opcjonalny screenshot,
+odpowiedzieć, opisać wykonane działanie i zmienić status. Uwagi przechowuje centralny backend MySQL,
+nie ten katalog ani serwer Node.
 
-Odpowiedź pod uwagą może zostać oznaczona jako wykonane działanie. Takie wpisy są wyróżnione w panelu i trafiają do sekcji „Podjęte działania” na stronie „Historia zmian”. Zwykłe odpowiedzi pozostają częścią dyskusji. Odrzucone uwagi nie są pokazywane w publicznej historii.
-
-Każda uwaga ma kilka kotwic: identyfikator elementu, selektor, treść i położenie. Po zmianie mockupu system próbuje ponownie odnaleźć element. Nierozpoznana kotwica nie usuwa komentarza — uwaga i screenshot nadal są dostępne w panelu.
-
-Uwagi zapisuje chroniony serwer, nie pliki statyczne. Nie należy uruchamiać recenzji przez zwykły serwer plików, bo panel nie zapisze danych.
+Host, klucz projektu, wersję i tryb development ustawia się zmiennymi
+`ACTIVIO_WEBSITE_FEEDBACK_*`. Bez skonfigurowanego hosta bootstrap nie pobiera zewnętrznych zasobów.
+Stary panel, lokalny `html2canvas`, endpoint `/api/feedback` i widok „Historia zmian” są nieaktywne;
+istniejące dane pozostają w archiwum opisanym w głównym `README.md`.
 
 ## Aktualność prototypu
 
@@ -70,7 +72,7 @@ Przycisk `↻`:
 - dodaje unikalny parametr `fresh`,
 - wymusza ponowne pobranie prototypu.
 
-Mockup sprawdza `Last-Modified` i `ETag` plików HTML, CSS, obu plików JS oraz dwóch dokumentów Markdown co 30 sekund i po powrocie do karty. Gdy wykryje zmianę, przycisk pokazuje „Nowa wersja”.
+Mockup sprawdza `Last-Modified` i `ETag` plików HTML, CSS, `app.js` oraz trzech dokumentów Markdown co 30 sekund i po powrocie do karty. Gdy wykryje zmianę, przycisk pokazuje „Nowa wersja”.
 
 ## Co testować z użytkownikami
 

@@ -901,14 +901,6 @@ const assumptions = {
             'Materiały opisują rekomendacje i pytania do decyzji, a nie zatwierdzoną specyfikację implementacyjną.',
         ],
     },
-    'feedback-history': {
-        title: 'Historia uwag i zmian',
-        items: [
-            'Widok jest zasilany tą samą trwałą bazą co panel uwag i nie duplikuje komentarzy w kodzie mockupu.',
-            'Odrzucone uwagi testowe są pomijane.',
-            'Odpowiedzi opisują podjęte działania, a status wskazuje, czy wdrożenie zostało zakończone.',
-        ],
-    },
     'project-concept': {
         title: 'Koncepcja biznesowa',
         items: [
@@ -1040,7 +1032,6 @@ async function fetch_version_state() {
         './',
         'styles.css',
         'app.js',
-        'feedback.js',
         '../docs/activio_business_concept.md',
         '../docs/activio_technical_concept.md',
         '../docs/activio_marketplace_research.md',
@@ -2665,6 +2656,15 @@ function render_view(view_name, update_hash = true) {
     }));
 }
 
+window.addEventListener('website-feedback:navigate', (event) => {
+    const view_name = event.detail?.viewId;
+    if (!valid_views.includes(view_name)) {
+        return;
+    }
+    event.preventDefault();
+    render_view(view_name);
+});
+
 function render_store_products() {
     const containers = {
         popular: document.querySelector('[data-store-products="popular"]'),
@@ -3507,7 +3507,6 @@ document.querySelectorAll('[data-sale-price]').forEach((input) => {
 
 const non_functional_views = new Set([
     'use-cases',
-    'feedback-history',
     'project-hub',
     'project-concept',
     'project-assumptions',

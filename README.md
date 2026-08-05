@@ -13,9 +13,11 @@ activio-club-concept/
 │   ├── index.html
 │   ├── styles.css
 │   ├── app.js
-│   ├── feedback.js
-│   ├── vendor/
+│   ├── feedback.js          # nieaktywny kod legacy
+│   ├── vendor/              # nieaktywne html2canvas legacy
 │   └── .htaccess
+├── lib/feedback-store.mjs   # odczyt archiwum legacy
+├── scripts/feedback-report.mjs
 ├── docs/
 │   ├── activio_business_concept.md
 │   ├── activio_technical_concept.md
@@ -57,44 +59,38 @@ ACTIVIO_DEMO_PORT=8090 \
 
 ## Uwagi użytkowników
 
-Przycisk „Uwagi” pozwala:
+Prototyp korzysta z uniwersalnego widgetu Website Feedback hostowanego poza tym repozytorium. Lokalny serwer wystawia tylko mały, konfigurowany bootstrap `/website-feedback-loader.js`; bez hosta nie ładuje żadnych zewnętrznych zasobów.
 
-- wskazać dowolny element lub zaznaczony tekst;
-- dodać komentarz i automatyczny screenshot;
-- zobaczyć pinezki na właściwych ekranach;
-- odpowiadać i zmieniać status: nowa, w realizacji, rozwiązana, odrzucona.
-
-Widok „Historia zmian” odczytuje tę samą bazę, pomija uwagi odrzucone i pokazuje przy każdej uwadze działania wdrożeniowe. Zwykła odpowiedź i wykonane działanie są odrębnymi typami wpisu, dlatego pytanie w dyskusji nie jest prezentowane jako zrealizowana poprawka.
-
-Zdarzenia są append-only: aplikacja dopisuje nowe wpisy, nie aktualizuje ani nie usuwa wcześniejszych. Dane nie znajdują się w repozytorium mockupu, dlatego zmiana, publikacja lub podmiana jego plików ich nie kasuje.
-
-Domyślne miejsce:
-
-```text
-/home/bartek/Desktop/activio-club-feedback/
-├── feedback-events.sqlite
-└── screenshots/
-```
-
-Można je zmienić przez `ACTIVIO_FEEDBACK_DIR`. Ten katalog należy osobno backupować i nie umieszczać w katalogu publicznym.
-
-Odczyt otwartych uwag dla zespołu lub Codex:
+Konfiguracja lokalna:
 
 ```bash
-node scripts/feedback-report.mjs
+ACTIVIO_DEMO_PASSWORD='własne-mocne-hasło' \
+ACTIVIO_WEBSITE_FEEDBACK_HOST='http://system3-website-feedback.booklet.ubu' \
+ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY='activio-club-concept' \
+ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT=true \
+./scripts/serve-protected.sh
+```
+
+Origin `http://127.0.0.1:8080` musi być dodany do projektu w Website Feedback. Pokazany host HTTP
+jest wyłącznie lokalny; strona opublikowana przez HTTPS wymaga również hosta Feedback pod HTTPS,
+inaczej przeglądarka zablokuje mixed content. Flaga developerska jedynie prosi API o sesję; API
+akceptuje ją wyłącznie w środowisku development i dla dozwolonego originu. Na produkcji ustaw
+`ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT=false`; recenzent uruchamia panel ważnym tokenem w fragmencie URL.
+
+Uwagi, screenshoty, odpowiedzi, działania i statusy przechowuje centralny backend Website Feedback. Stary lokalny endpoint `/api/feedback` nie jest już wystawiany, a lokalny `html2canvas` nie jest ładowany.
+
+Dotychczasowe lokalne dane nie są usuwane ani automatycznie mieszane z nowymi projektami. Pozostają archiwum w sąsiednim `activio-club-feedback/`; czytnik otwiera istniejącą bazę wyłącznie do odczytu i zgłasza błąd, gdy jej nie znajdzie:
+
+```bash
 node scripts/feedback-report.mjs --status all
-node scripts/feedback-report.mjs --view marketplace
 node scripts/feedback-report.mjs --json
 ```
 
-Test magazynu uwag:
+Inną lokalizację wskaż przez `ACTIVIO_FEEDBACK_DIR`. Jeśli obok bazy istnieją pliki
+`feedback-events.sqlite-wal` i `feedback-events.sqlite-shm`, backup musi obejmować komplet trzech
+plików. Przed kopiowaniem samej bazy należy najpierw wykonać kontrolowany checkpoint SQLite.
 
-```bash
-node --test tests/feedback-store.test.mjs
-node --test tests/server-auth.test.mjs
-```
-
-System jest przeznaczony dla zaproszonych recenzentów znających wspólne hasło. Podpis autora jest deklaratywny, a nie potwierdzony osobnym kontem użytkownika.
+Pliki `mockup/feedback.js`, `mockup/vendor/` i magazyn w `lib/` są zachowane wyłącznie jako nieaktywny materiał legacy oraz czytnik archiwum. `index.html` ich nie ładuje, a serwer nie wystawia starego API.
 
 ## Publikacja
 
@@ -106,7 +102,7 @@ Najprostszy wariant tymczasowy:
 2. skierować Cloudflare Quick Tunnel na `http://127.0.0.1:8080`;
 3. udostępnić adres HTTPS, login i hasło.
 
-Dla stałego hostingu potrzebny jest proces Node z trwałym wolumenem na bazę i screenshoty, np. mały VPS za Cloudflare Tunnel/Access. Sam Cloudflare Pages nie obsłuży zapisu uwag. `robots.txt` i `noindex` ograniczają indeksowanie, ale nie zastępują uwierzytelnienia.
+Dla stałego hostingu potrzebny jest proces Node, np. mały VPS za Cloudflare Tunnel/Access. `robots.txt` i `noindex` ograniczają indeksowanie, ale nie zastępują uwierzytelnienia.
 
 Na maszynie Ubuntu projekt może działać jako restartowalna usługa za obecnym Traefikiem:
 
@@ -116,7 +112,7 @@ cp .env.example .env
 docker compose up -d
 ```
 
-`compose.yml` montuje kod tylko do odczytu, a trwałe dane zapisuje w sąsiednim `activio-club-feedback`.
+`compose.yml` montuje kod tylko do odczytu i nie montuje archiwum legacy, ponieważ serwer go nie używa. Konfigurację Website Feedback podaj w `.env`.
 
 ### Tymczasowy adres publiczny
 
@@ -128,7 +124,11 @@ Najprostszy sposób udostępnienia prototypu osobom poza Tailscale:
 
 Skrypt uruchamia Cloudflare Quick Tunnel i pokazuje losowy adres `https://…trycloudflare.com`. Nie trzeba mieć konta Cloudflare. Terminal musi pozostać otwarty; `Ctrl+C` wyłącza publiczny dostęp. Przy następnym uruchomieniu adres będzie inny.
 
-Publiczny adres nadal wymaga loginu i hasła z `.env`. Do stałego adresu potrzebny jest nazwany Cloudflare Tunnel albo zwykły hosting procesu Node z trwałym wolumenem.
+Każdy nowy origin tunelu trzeba dodać do projektu Website Feedback przed uruchomieniem widgetu.
+Do regularnych recenzji wygodniejszy jest stały origin, ponieważ polityka CORS celowo nie obsługuje
+wildcardów.
+
+Publiczny adres nadal wymaga loginu i hasła z `.env`. Do stałego adresu potrzebny jest nazwany Cloudflare Tunnel albo zwykły hosting procesu Node.
 
 ### Stały adres publiczny przez Tailscale Funnel
 
@@ -160,5 +160,3 @@ Funnel zapewnia publiczny dostęp bez konta Tailscale. Formularz logowania aplik
 - `docs/activio_marketplace_research.md` — źródła i research wspierające decyzje.
 
 Mockup jest warstwą prezentacji. Nie jest niezależnym źródłem zasad biznesowych ani technicznych.
-
-Biblioteka `html2canvas` 1.4.1 jest dołączona lokalnie na licencji MIT i służy wyłącznie do tworzenia screenshotów uwag.

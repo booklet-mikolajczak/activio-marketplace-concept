@@ -13,11 +13,9 @@ services:
     environment:
       ACTIVIO_DEMO_HOST: 0.0.0.0
       ACTIVIO_DEMO_PORT: 8080
-      ACTIVIO_FEEDBACK_DIR: /feedback
       ACTIVIO_TRUST_PROXY: "true"
     volumes:
       - .:/app:ro
-      - ../activio-club-feedback:/feedback
     ports:
       - "127.0.0.1:18080:8080"
     networks:

@@ -3,7 +3,6 @@ import { readFile, stat } from 'node:fs/promises';
 import { dirname, extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
-import { FeedbackStore, statuses } from './lib/feedback-store.mjs';
 
 const project_dir = dirname(fileURLToPath(import.meta.url));
 const expected_user = process.env.ACTIVIO_DEMO_USER || 'activio';
@@ -11,9 +10,13 @@ const expected_password = process.env.ACTIVIO_DEMO_PASSWORD || '';
 const host = process.env.ACTIVIO_DEMO_HOST || '127.0.0.1';
 const port = Number(process.env.ACTIVIO_DEMO_PORT || 8080);
 const trust_proxy = process.env.ACTIVIO_TRUST_PROXY === 'true';
-const feedback_dir = process.env.ACTIVIO_FEEDBACK_DIR
-    || resolve(project_dir, '..', 'activio-club-feedback');
-const feedback_store = new FeedbackStore(feedback_dir);
+const website_feedback_host = normalize_website_feedback_host(
+    process.env.ACTIVIO_WEBSITE_FEEDBACK_HOST || '',
+);
+const website_feedback_project_key = process.env.ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY
+    || 'activio-club-concept';
+const website_feedback_version = process.env.ACTIVIO_WEBSITE_FEEDBACK_VERSION || '2026-08-05.1';
+const website_feedback_development = process.env.ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT === 'true';
 const session_cookie = 'activio_session';
 const session_duration_seconds = 7 * 24 * 60 * 60;
 const session_secret = randomBytes(32);
@@ -33,7 +36,12 @@ if (!['127.0.0.1', '0.0.0.0', '::1'].includes(host)) {
     throw new Error('ACTIVIO_DEMO_HOST musi mieć wartość 127.0.0.1, 0.0.0.0 albo ::1.');
 }
 
-await feedback_store.initialize();
+if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(website_feedback_project_key)) {
+    throw new Error('ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY ma nieprawidłowy format.');
+}
+if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(website_feedback_version)) {
+    throw new Error('ACTIVIO_WEBSITE_FEEDBACK_VERSION ma nieprawidłowy format.');
+}
 
 const content_types = {
     '.css': 'text/css; charset=utf-8',
@@ -50,6 +58,61 @@ const content_types = {
     '.txt': 'text/plain; charset=utf-8',
     '.webp': 'image/webp',
 };
+
+function normalize_website_feedback_host(value) {
+    if (!value.trim()) {
+        return '';
+    }
+
+    try {
+        const url = new URL(value);
+        if (!['http:', 'https:'].includes(url.protocol)
+            || url.username
+            || url.password
+            || url.search
+            || url.hash
+            || !['', '/'].includes(url.pathname)) {
+            throw new Error();
+        }
+
+        return url.origin;
+    } catch {
+        throw new Error('ACTIVIO_WEBSITE_FEEDBACK_HOST musi być originem HTTP(S).');
+    }
+}
+
+function website_feedback_loader_source() {
+    if (!website_feedback_host) {
+        return "'use strict';\n";
+    }
+
+    const config = JSON.stringify({
+        api: `${website_feedback_host}/api/website-feedback/v1`,
+        development: website_feedback_development,
+        host: website_feedback_host,
+        project: website_feedback_project_key,
+        version: website_feedback_version,
+    });
+    const development_attribute = website_feedback_development
+        ? "    script.dataset.feedbackDevelopment = 'true';\n"
+        : '';
+
+    return `(() => {
+    'use strict';
+    if (window.__activioWebsiteFeedbackIntegration) return;
+    window.__activioWebsiteFeedbackIntegration = true;
+    const config = ${config};
+    const script = document.createElement('script');
+    script.src = config.host + '/website-feedback/widget/v1/loader.js?v=' + encodeURIComponent(config.version);
+    script.async = true;
+    script.dataset.feedbackProject = config.project;
+    script.dataset.feedbackVersion = config.version;
+    script.dataset.feedbackApi = config.api;
+${development_attribute}
+    document.head.append(script);
+})();
+`;
+}
 
 function safe_equal(left, right) {
     const left_buffer = Buffer.from(left);
@@ -299,36 +362,17 @@ function clean_text(value, maximum_length, required = false) {
     return text.slice(0, maximum_length);
 }
 
-function clean_number(value, fallback = 0) {
-    const number = Number(value);
-    return Number.isFinite(number) ? number : fallback;
-}
-
-function clean_rect(value) {
-    if (!value || typeof value !== 'object') {
-        return null;
+function is_same_origin(request) {
+    const origin = request.headers.origin;
+    if (!origin) {
+        return true;
     }
 
-    return {
-        left: clean_number(value.left),
-        top: clean_number(value.top),
-        width: Math.max(0, clean_number(value.width)),
-        height: Math.max(0, clean_number(value.height)),
-        page_x: clean_number(value.page_x),
-        page_y: clean_number(value.page_y),
-    };
-}
-
-function clean_viewport(value) {
-    if (!value || typeof value !== 'object') {
-        return null;
+    try {
+        return new URL(origin).host === request.headers.host;
+    } catch {
+        return false;
     }
-
-    return {
-        width: Math.max(0, Math.round(clean_number(value.width))),
-        height: Math.max(0, Math.round(clean_number(value.height))),
-        pixel_ratio: Math.max(0, clean_number(value.pixel_ratio, 1)),
-    };
 }
 
 async function read_body(request, maximum_bytes) {
@@ -346,14 +390,6 @@ async function read_body(request, maximum_bytes) {
     }
 
     return Buffer.concat(chunks).toString('utf8');
-}
-
-async function read_json(request, maximum_bytes = 6 * 1024 * 1024) {
-    try {
-        return JSON.parse(await read_body(request, maximum_bytes) || '{}');
-    } catch {
-        throw new Error('Nieprawidłowy JSON.');
-    }
 }
 
 function login_page(next, user = '', error = '') {
@@ -484,145 +520,6 @@ async function handle_login(request, response, url) {
     response.end();
 }
 
-function is_same_origin(request) {
-    const origin = request.headers.origin;
-
-    if (!origin) {
-        return true;
-    }
-
-    try {
-        return new URL(origin).host === request.headers.host;
-    } catch {
-        return false;
-    }
-}
-
-async function handle_feedback_api(request, response, url) {
-    if (!is_same_origin(request)) {
-        send_json(response, 403, { error: 'Niedozwolone źródło żądania.' });
-        return;
-    }
-
-    const path = url.pathname.replace(/\/+$/, '') || '/api/feedback';
-    const screenshot_match = path.match(/^\/api\/feedback\/([^/]+)\/screenshot$/);
-    const comments_match = path.match(/^\/api\/feedback\/([^/]+)\/comments$/);
-    const feedback_match = path.match(/^\/api\/feedback\/([^/]+)$/);
-
-    try {
-        if (request.method === 'GET' && screenshot_match) {
-            const screenshot = await feedback_store.screenshot(screenshot_match[1]);
-
-            if (!screenshot) {
-                send_json(response, 404, { error: 'Brak screenshota.' });
-                return;
-            }
-
-            response.writeHead(200, {
-                'Cache-Control': 'private, no-store',
-                'Content-Length': screenshot.body.byteLength,
-                'Content-Type': screenshot.content_type,
-            });
-            response.end(screenshot.body);
-            return;
-        }
-
-        if (request.method === 'GET' && path === '/api/feedback') {
-            const feedback = feedback_store.list({
-                view: clean_text(url.searchParams.get('view'), 80),
-                status: clean_text(url.searchParams.get('status'), 30) || 'all',
-            });
-            send_json(response, 200, {
-                feedback,
-                statuses: statuses(),
-                storage: 'append-only',
-            });
-            return;
-        }
-
-        if (request.method === 'POST' && path === '/api/feedback') {
-            const body = await read_json(request);
-            const view = clean_text(body.view, 80, true);
-
-            if (!/^[a-z0-9-]+$/.test(view)) {
-                throw new Error('Nieprawidłowy identyfikator widoku.');
-            }
-
-            const feedback = await feedback_store.create({
-                author: clean_text(body.author, 80, true),
-                comment: clean_text(body.comment, 4000, true),
-                view,
-                page_url: clean_text(body.page_url, 500),
-                element_id: clean_text(body.element_id, 240),
-                selector: clean_text(body.selector, 1400),
-                selected_text: clean_text(body.selected_text, 2000),
-                element_text: clean_text(body.element_text, 3000),
-                element_tag: clean_text(body.element_tag, 40),
-                rect: clean_rect(body.rect),
-                viewport: clean_viewport(body.viewport),
-                mockup_version: clean_text(body.mockup_version, 120),
-                user_agent: clean_text(request.headers['user-agent'], 500),
-            }, clean_text(body.screenshot, 6 * 1024 * 1024));
-
-            send_json(response, 201, { feedback });
-            return;
-        }
-
-        if (request.method === 'POST' && comments_match) {
-            const body = await read_json(request, 32 * 1024);
-            const feedback = feedback_store.add_comment(
-                comments_match[1],
-                clean_text(body.author, 80, true),
-                clean_text(body.comment, 4000, true),
-                body.kind === 'action' ? 'action' : 'reply',
-            );
-
-            if (!feedback) {
-                send_json(response, 404, { error: 'Nie znaleziono uwagi.' });
-                return;
-            }
-
-            send_json(response, 201, { feedback });
-            return;
-        }
-
-        if (request.method === 'PATCH' && feedback_match) {
-            const body = await read_json(request, 16 * 1024);
-            const feedback = feedback_store.change_status(
-                feedback_match[1],
-                clean_text(body.status, 30, true),
-                clean_text(body.author, 80, true),
-            );
-
-            if (!feedback) {
-                send_json(response, 404, { error: 'Nie znaleziono uwagi.' });
-                return;
-            }
-
-            send_json(response, 200, { feedback });
-            return;
-        }
-
-        if (request.method === 'GET' && feedback_match) {
-            const feedback = feedback_store.get(feedback_match[1]);
-
-            if (!feedback) {
-                send_json(response, 404, { error: 'Nie znaleziono uwagi.' });
-                return;
-            }
-
-            send_json(response, 200, { feedback });
-            return;
-        }
-
-        send_json(response, 404, { error: 'Nie znaleziono endpointu.' });
-    } catch (error) {
-        send_json(response, 400, {
-            error: error instanceof Error ? error.message : 'Nie udało się zapisać uwagi.',
-        });
-    }
-}
-
 async function resolve_file(request_url) {
     const url = new URL(request_url, 'http://127.0.0.1');
     const pathname = decodeURIComponent(url.pathname);
@@ -738,8 +635,16 @@ const server = createServer(async (request, response) => {
         return;
     }
 
-    if (url.pathname.startsWith('/api/feedback')) {
-        await handle_feedback_api(request, response, url);
+    if (url.pathname === '/website-feedback-loader.js'
+        && ['GET', 'HEAD'].includes(request.method || '')) {
+        const body = website_feedback_loader_source();
+        response.writeHead(200, {
+            'Cache-Control': 'private, no-store',
+            'Content-Length': Buffer.byteLength(body),
+            'Content-Type': 'text/javascript; charset=utf-8',
+            'X-Content-Type-Options': 'nosniff',
+        });
+        response.end(request.method === 'HEAD' ? undefined : body);
         return;
     }
 
@@ -796,5 +701,5 @@ server.listen(port, host, () => {
         : host === '::1' ? '[::1]' : host;
     process.stdout.write(`ACTIVIO CLUB: http://${display_host}:${port}/\n`);
     process.stdout.write(`Login: ${expected_user}\n`);
-    process.stdout.write(`Feedback: ${feedback_dir}\n`);
+    process.stdout.write(`Website Feedback: ${website_feedback_host || 'wyłączony'}\n`);
 });
