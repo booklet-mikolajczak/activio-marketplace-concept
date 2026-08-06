@@ -61,21 +61,21 @@ ACTIVIO_DEMO_PORT=8090 \
 
 Prototyp korzysta z uniwersalnego widgetu Website Feedback hostowanego poza tym repozytorium. Lokalny serwer wystawia tylko mały, konfigurowany bootstrap `/website-feedback-loader.js`; bez hosta nie ładuje żadnych zewnętrznych zasobów.
 
-Konfiguracja lokalna:
+Konfiguracja publicznego prototypu:
 
 ```bash
 ACTIVIO_DEMO_PASSWORD='własne-mocne-hasło' \
-ACTIVIO_WEBSITE_FEEDBACK_HOST='http://system3-website-feedback.booklet.ubu' \
-ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY='activio-club-concept' \
-ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT=true \
+ACTIVIO_WEBSITE_FEEDBACK_HOST='https://system3.booklet.pl' \
+ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY='activio-storefornt' \
+ACTIVIO_WEBSITE_FEEDBACK_VERSION='2026-08-05.2' \
+ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT=false \
 ./scripts/serve-protected.sh
 ```
 
-Origin `http://127.0.0.1:8080` musi być dodany do projektu w Website Feedback. Pokazany host HTTP
-jest wyłącznie lokalny; strona opublikowana przez HTTPS wymaga również hosta Feedback pod HTTPS,
-inaczej przeglądarka zablokuje mixed content. Flaga developerska jedynie prosi API o sesję; API
-akceptuje ją wyłącznie w środowisku development i dla dozwolonego originu. Na produkcji ustaw
-`ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT=false`; recenzent uruchamia panel ważnym tokenem w fragmencie URL.
+Projekt `activio-storefornt` ma skonfigurowany produkcyjny origin
+`https://bkt-44-parobek.tailf5aee2.ts.net`. Recenzent uruchamia panel linkiem zawierającym ważny
+token `feedback-review` w fragmencie URL. Flaga developerska pozostaje wyłączona na publicznym
+prototypie. Lokalny adres `127.0.0.1` nie jest originem tego projektu i sam nie uruchomi widgetu.
 
 Uwagi, screenshoty, odpowiedzi, działania i statusy przechowuje centralny backend Website Feedback. Stary lokalny endpoint `/api/feedback` nie jest już wystawiany, a lokalny `html2canvas` nie jest ładowany.
 

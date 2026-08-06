@@ -24,7 +24,7 @@ services:
       traefik.enable: "true"
       traefik.docker.network: traefik_proxy
       traefik.http.routers.activio-club-concept.priority: "10000"
-      traefik.http.routers.activio-club-concept.rule: Host(`bkt44bartek.tailf5aee2.ts.net`)
+      traefik.http.routers.activio-club-concept.rule: Host(`bkt-44-parobek.tailf5aee2.ts.net`)
       traefik.http.services.activio-club-concept.loadbalancer.server.port: "8080"
 
 networks:

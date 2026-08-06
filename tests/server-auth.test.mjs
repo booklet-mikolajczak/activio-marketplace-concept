@@ -97,7 +97,7 @@ test('uses form session for browsers and keeps Basic Auth for scripts', { timeou
             ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT: 'true',
             ACTIVIO_WEBSITE_FEEDBACK_HOST: 'https://feedback.example.test',
             ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY: 'activio-club-concept',
-            ACTIVIO_WEBSITE_FEEDBACK_VERSION: '2026-08-05.1',
+            ACTIVIO_WEBSITE_FEEDBACK_VERSION: 'test-version',
         },
         stdio: ['ignore', 'pipe', 'pipe'],
     });
@@ -239,7 +239,7 @@ test('uses form session for browsers and keeps Basic Auth for scripts', { timeou
         assert.equal(scripted.status, 200);
         const scripted_source = await scripted.text();
         assert.match(scripted_source, /\/website-feedback\/widget\/v1\/loader\.js/);
-        assert.match(scripted_source, /2026-08-05\.1/);
+        assert.match(scripted_source, /test-version/);
 
         const api_unauthorized = await raw_request(`${base}/api/feedback?status=all`);
         assert.equal(api_unauthorized.status, 401);
@@ -408,6 +408,51 @@ test('feedback bootstrap stays dormant without a configured host', { timeout: 10
     }
 });
 
+test('feedback bootstrap uses Activio project defaults', { timeout: 10000 }, async () => {
+    const port = await free_port();
+    const user = 'panel-user';
+    const password = 'test-password-123';
+    const environment = {
+        ...process.env,
+        ACTIVIO_DEMO_HOST: '127.0.0.1',
+        ACTIVIO_DEMO_PORT: String(port),
+        ACTIVIO_DEMO_USER: user,
+        ACTIVIO_DEMO_PASSWORD: password,
+        ACTIVIO_WEBSITE_FEEDBACK_HOST: 'https://system3.booklet.pl',
+    };
+    delete environment.ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT;
+    delete environment.ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY;
+    delete environment.ACTIVIO_WEBSITE_FEEDBACK_VERSION;
+
+    const child = spawn(process.execPath, ['server.mjs'], {
+        cwd: resolve(import.meta.dirname, '..'),
+        env: environment,
+        stdio: ['ignore', 'pipe', 'pipe'],
+    });
+    let stderr = '';
+    child.stderr.on('data', (chunk) => {
+        stderr = `${stderr}${chunk}`.slice(-8000);
+    });
+
+    try {
+        await wait_for_server(child, () => stderr);
+        const base = `http://127.0.0.1:${port}`;
+        const basic = Buffer.from(`${user}:${password}`).toString('base64');
+        const loader = await request(`${base}/website-feedback-loader.js`, {
+            headers: { Authorization: `Basic ${basic}` },
+        });
+        const source = await loader.text();
+
+        assert.equal(loader.status, 200);
+        assert.match(source, /activio-storefornt/);
+        assert.match(source, /2026-08-05\.2/);
+        assert.match(source, /"development":false/);
+        assert.doesNotMatch(source, /feedbackDevelopment/);
+    } finally {
+        await stop_server(child);
+    }
+});
+
 test('production bootstrap never requests a development session', { timeout: 10000 }, async () => {
     const port = await free_port();
     const user = 'panel-user';
@@ -421,9 +466,9 @@ test('production bootstrap never requests a development session', { timeout: 100
             ACTIVIO_DEMO_USER: user,
             ACTIVIO_DEMO_PASSWORD: password,
             ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT: 'false',
-            ACTIVIO_WEBSITE_FEEDBACK_HOST: 'https://feedback.example.test',
-            ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY: 'activio-club-concept',
-            ACTIVIO_WEBSITE_FEEDBACK_VERSION: '2026-08-05.1',
+            ACTIVIO_WEBSITE_FEEDBACK_HOST: 'https://system3.booklet.pl',
+            ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY: 'activio-storefornt',
+            ACTIVIO_WEBSITE_FEEDBACK_VERSION: '2026-08-05.2',
         },
         stdio: ['ignore', 'pipe', 'pipe'],
     });
@@ -442,6 +487,9 @@ test('production bootstrap never requests a development session', { timeout: 100
         const source = await loader.text();
 
         assert.equal(loader.status, 200);
+        assert.match(source, /"host":"https:\/\/system3\.booklet\.pl"/);
+        assert.match(source, /activio-storefornt/);
+        assert.match(source, /2026-08-05\.2/);
         assert.match(source, /"development":false/);
         assert.doesNotMatch(source, /feedbackDevelopment/);
     } finally {

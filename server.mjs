@@ -14,8 +14,8 @@ const website_feedback_host = normalize_website_feedback_host(
     process.env.ACTIVIO_WEBSITE_FEEDBACK_HOST || '',
 );
 const website_feedback_project_key = process.env.ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY
-    || 'activio-club-concept';
-const website_feedback_version = process.env.ACTIVIO_WEBSITE_FEEDBACK_VERSION || '2026-08-05.1';
+    || 'activio-storefornt';
+const website_feedback_version = process.env.ACTIVIO_WEBSITE_FEEDBACK_VERSION || '2026-08-05.2';
 const website_feedback_development = process.env.ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT === 'true';
 const session_cookie = 'activio_session';
 const session_duration_seconds = 7 * 24 * 60 * 60;
