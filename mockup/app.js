@@ -591,6 +591,73 @@ const catalog_categories = [
     { id: 'photo', label: 'Foto produkty', lead: 'Zdjęcia drużyny i zawodnika w kilku gotowych formatach.' },
 ];
 
+const activio_offer_categories = [
+    {
+        id: 'clothing', label: 'Odzież klubowa', lead: 'Ubierz drużynę i kibiców', image: '../assets/products/activio-koszulka-bawelniana.jpg',
+        products: [
+            { id: 'cotton-shirt', name: 'Koszulki bawełniane', image: '../assets/products/activio-koszulka-bawelniana.jpg', production: '2–3 dni', lead: 'Bawełniane koszulki z trwałym nadrukiem klubowym.', price: 'od 42,00 zł / szt.' },
+            { id: 'sport-shirt', name: 'Koszulki sportowe', image: '../assets/products/koszulki-sportowe.jpg', production: '2–3 dni', lead: 'Szybkoschnące koszulki dla zawodników i drużyn.', price: 'od 39,00 zł / szt.' },
+            { id: 'hoodie', name: 'Bluzy z kapturem', image: '../assets/products/bluzy.jpg', production: '2–3 dni', lead: 'Ciepłe bluzy klubowe z kapturem i personalizacją.', price: 'od 89,00 zł / szt.' },
+            { id: 'sweatshirt', name: 'Bluzy klasyczne', image: '../assets/products/activio-bluza-klasyczna.jpg', production: '2–3 dni', lead: 'Klasyczny fason z trwałym znakowaniem klubowym.', price: 'od 89,00 zł / szt.' },
+            { id: 'cap', name: 'Czapki z daszkiem', image: '../assets/products/activio-czapka.jpg', production: '2–3 dni', lead: 'Regulowane czapki z nadrukiem lub herbem klubu.', price: 'od 15,00 zł / szt.' },
+            { id: 'marking', name: 'Znakowanie odzieży', image: '../assets/products/activio-naprasowanki.webp', production: '2–3 dni', lead: 'Nadruki, numery, nazwiska i oznaczenia sponsorskie.', price: 'od 3,00 zł / szt.' },
+            { id: 'sleeveless', name: 'Koszulka bez rękawów', image: '../assets/products/koszulki-sportowe.jpg', production: 'do ustalenia', lead: 'Lekka koszulka treningowa bez rękawów.', price: 'Cennik w przygotowaniu' },
+        ],
+    },
+    {
+        id: 'gifts', label: 'Gadżety klubowe', lead: 'Produkty dla kibiców i partnerów', image: '../assets/products/activio-zegar.jpg',
+        products: [
+            { id: 'mug', name: 'Kubki klasyczne', image: '../assets/products/kubki.jpg', production: '2–3 dni', lead: 'Ceramiczne kubki z pełnokolorowym nadrukiem.', price: 'od 19,00 zł / szt.' },
+            { id: 'clock', name: 'Zegarek z pleksi na ścianę', image: '../assets/products/activio-zegar.jpg', production: '3–4 dni', lead: 'Ścienny zegar w klubowym kształcie i kolorach.', price: 'od 30,00 zł / szt.' },
+            { id: 'keyring', name: 'Breloki z zawieszką', image: '../assets/products/breloki.jpg', production: '2–3 dni', lead: 'Dwustronne breloki w dowolnym klubowym kształcie.', price: 'od 4,00 zł / szt.' },
+            { id: 'coaster', name: 'Podkładki pod kubek i kufel', image: '../assets/products/activio-podkladka.webp', production: '2–3 dni', lead: 'Klubowe podkładki z pełnokolorowym nadrukiem.', price: 'od 1,50 zł / szt.' },
+        ],
+    },
+    {
+        id: 'bags', label: 'Torby i akcesoria', lead: 'Na trening, wyjazd i co dzień', image: '../assets/products/activio-worek.png',
+        products: [
+            { id: 'drawstring-bag', name: 'Worek sportowy z nadrukiem klubowym', image: '../assets/products/activio-worek.png', production: '2–3 dni', lead: 'Worek treningowy ze wzmacnianymi rogami.', price: 'od 21,00 zł / szt.' },
+            { id: 'shoulder-bag', name: 'Torby na ramię', image: '../assets/products/activio-torba.jpg', production: '2–3 dni', lead: 'Bawełniane torby wielokrotnego użytku.', price: 'od 15,00 zł / szt.' },
+            { id: 'pencilcase', name: 'Piórnik klubowy z własnym nadrukiem', image: '../assets/products/activio-piornik.jpg', production: '3–4 dni', lead: 'Piórnik z identyfikacją i barwami klubu.', price: 'od 15,00 zł / szt.' },
+            { id: 'cosmetic-bag', name: 'Kosmetyczka podróżna z nadrukiem klubowym', image: '../assets/products/activio-kosmetyczka.png', production: '3–4 dni', lead: 'Podróżna kosmetyczka dla zawodnika i kibica.', price: 'od 29,00 zł / szt.' },
+            { id: 'waist-bag', name: 'Nerka sportowa z nadrukiem klubowym', image: '../assets/products/activio-nerka.png', production: '3–4 dni', lead: 'Sportowa saszetka z regulowanym paskiem.', price: 'od 21,00 zł / szt.' },
+        ],
+    },
+    {
+        id: 'stickers', label: 'Naklejki i magnesy', lead: 'Małe formaty, duża widoczność', image: '../assets/products/activio-naklejki-transferowe.png',
+        products: [
+            { id: 'transfer-stickers', name: 'Naklejki transferowe wypukłe', image: '../assets/products/activio-naklejki-transferowe.png', production: '3–4 dni', lead: 'Wypukły efekt 3D bez widocznego tła.', price: 'od 89,00 zł / pakiet' },
+            { id: 'crest-stickers', name: 'Naklejki z herbem lub logo', image: '../assets/products/activio-club-naklejki.png', production: 'do 2 dni', lead: 'Naklejki wycinane po dowolnym obrysie.', price: 'od 59,00 zł / 100 szt.' },
+            { id: 'advertising-magnets', name: 'Magnesy reklamowe', image: '../assets/products/activio-magnesy-reklamowe.jpg', production: '2–3 dni', lead: 'Magnesy z klubową grafiką lub informacją reklamową.', price: 'od 149,00 zł / 100 szt.' },
+            { id: 'tactical-magnets', name: 'Magnesy taktyczne', image: '../assets/products/activio-magnesy-taktyczne.jpg', production: '2–3 dni', lead: 'Zestaw zawodników do tablicy taktycznej.', price: 'od 29,00 zł / zestaw' },
+            { id: 'sticker-sheet', name: 'Naklejki na arkuszu', image: '../assets/products/activio-naklejki-arkusz.jpg', production: '2–3 dni', lead: 'Zestaw różnych wzorów na jednym arkuszu.', price: 'od 3,00 zł / arkusz' },
+            { id: 'paper-stickers', name: 'Vlepki papierowe', image: '../assets/products/activio-vlepki.png', production: '2–3 dni', lead: 'Ekonomiczne vlepki klubowe w większym nakładzie.', price: 'od 79,00 zł / 250 szt.' },
+            { id: 'name-stickers', name: 'Naklejki imienne', image: '../assets/products/activio-naklejki-imienne.png', production: '2–3 dni', lead: 'Imienne oznaczenia sprzętu zawodnika.', price: 'od 15,00 zł / pakiet' },
+        ],
+    },
+    {
+        id: 'awards', label: 'Statuetki, medale i podziękowania', lead: 'Doceniaj sportowe osiągnięcia', image: '../assets/products/activio-medale.jpg',
+        products: [
+            { id: 'medals', name: 'Medale', image: '../assets/products/activio-medale.jpg', production: '2–4 dni', lead: 'Personalizowane medale na zawody i turnieje.', price: 'od 3,00 zł / szt.' },
+            { id: 'trophies', name: 'Statuetki', image: '../assets/products/activio-statuetki.jpg', production: '2–4 dni', lead: 'Statuetki z pleksi z indywidualnym nadrukiem.', price: 'od 19,00 zł / szt.' },
+            { id: 'thanks', name: 'Podziękowania', image: '../assets/products/activio-podziekowania.jpg', production: '2–4 dni', lead: 'Personalizowany upominek dla trenerów i partnerów.', price: 'od 19,00 zł / szt.' },
+            { id: 'framed-thanks', name: 'Podziękowania w drewnianej ramie', image: '../assets/products/activio-podziekowania-rama.png', production: '2–4 dni', lead: 'Klubowe podziękowanie w eleganckiej oprawie.', price: 'od 99,00 zł / szt.' },
+            { id: 'plastic-trophy', name: 'Statuetka plastikowa', image: '../assets/products/activio-statuetka-plastikowa.png', production: '2–4 dni', lead: 'Lekka statuetka na turnieje i wydarzenia.', price: 'od 9,90 zł / szt.' },
+        ],
+    },
+    {
+        id: 'print', label: 'Druk i poligrafia', lead: 'Materiały, które budują markę klubu', image: '../assets/products/activio-karty-zawodnika.jpg',
+        products: [
+            { id: 'crest', name: 'Herb z pleksi na ścianę', image: '../assets/products/activio-herb-pleksi.jpg', production: '2–4 dni', lead: 'Wycinany po obrysie herb do klubowych wnętrz.', price: 'od 40,00 zł / szt.' },
+            { id: 'transfers', name: 'Prasowanki na koszulki', image: '../assets/products/activio-naprasowanki.webp', production: '2–3 dni', lead: 'Gotowe do wgrzania nadruki i oznaczenia.', price: 'od 3,00 zł / szt.' },
+            { id: 'player-cards', name: 'Karty zawodnika', image: '../assets/products/activio-karty-zawodnika.jpg', production: '2–4 dni', lead: 'Personalizowane karty zawodników i drużyn.', price: 'od 39,00 zł / szt.' },
+            { id: 'posters', name: 'Plakaty', image: '../assets/products/activio-plakaty.jpg', production: '2–3 dni', lead: 'Plakaty meczowe, turniejowe i promocyjne.', price: 'od 2,00 zł / szt.' },
+            { id: 'diplomas', name: 'Dyplomy', image: '../assets/products/activio-dyplomy.jpg', production: '2–3 dni', lead: 'Dyplomy dla uczestników zawodów i wydarzeń.', price: 'od 1,00 zł / szt.' },
+            { id: 'calendars', name: 'Kalendarze', image: '../assets/products/activio-kalendarze.jpg', production: 'do ustalenia', lead: 'Klubowe kalendarze z projektem i drukiem.', price: 'Wycena indywidualna' },
+        ],
+    },
+];
+
 const concept_product_ids = new Set([
     'lesson-plan',
     'jersey-magnet',
@@ -630,11 +697,10 @@ const assumptions = {
         title: 'Oferta dla klubów',
         items: [
             'Oferta to usługa druku i produkcji kierowana bezpośrednio do organizacji sportowych.',
-            'Katalog zawiera 15 pozycji z finalnej listy produktowej przekazanej 3 sierpnia 2026.',
-            'Kategorie są warstwą nawigacyjną prototypu; lista produktów jest źródłem nadrzędnym.',
+            'Katalog odwzorowuje aktualną ofertę drukarni activio.pl: 34 produkty w 6 kategoriach.',
             'Produkt prowadzi do formularza zapytania B2B z uzupełnionym tematem, nie do koszyka konsumenckiego.',
             'Katalog i producenci są kontrolowani przez ACTIVIO.',
-            'Pokazane ceny i minima są przykładowe do czasu przekazania finalnego cennika.',
+            'Ceny i terminy są prezentacją aktualnego stanu oferty źródłowej i wymagają synchronizacji po jej zmianie.',
         ],
     },
     clubs: {
@@ -650,6 +716,7 @@ const assumptions = {
         items: [
             'Landing wyjaśnia model partnerski przed przejściem do formularza kontaktowego lub panelu demonstracyjnego.',
             'ACTIVIO pozostaje sprzedawcą i obsługuje produkcję, płatności, wysyłkę oraz klienta.',
+            'Katalog startowy ACTIVIO Club zawiera 15 zatwierdzonych produktów; kategorie są tylko warstwą nawigacyjną.',
             'Klub wybiera zatwierdzone produkty, ustala ceny ponad minimum i otrzymuje wynagrodzenie zapisane per pozycja zamówienia.',
             'Kwoty, stawki i rozliczenia pokazane w prototypie są przykładami koncepcyjnymi, nie ofertą handlową.',
         ],
@@ -1377,36 +1444,65 @@ function catalog_product_card(entry, club_id, context = 'store') {
     </article>`;
 }
 
-function render_final_offer_catalog() {
-    const category_grid = document.querySelector('.offer-category-grid');
-    const tree = document.querySelector('.offer-tree nav');
-    const browser = document.querySelector('.offer-products');
+function product_count_label(count) {
+    if (count === 1) return 'produkt';
+    if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14)) return 'produkty';
+    return 'produktów';
+}
 
-    category_grid.innerHTML = catalog_categories.map((category, index) => {
-        const entries = final_catalog.filter((entry) => entry.category === category.id);
-        const image = products[entries[0].id].image;
-        return `<button type="button" data-scroll-to="offer-category-${category.id}"><img src="${image}" alt=""><span>${String(index + 1).padStart(2, '0')}</span><strong>${escape_html(category.label)}</strong><small>${entries.length} ${entries.length === 1 ? 'produkt' : 'produkty'} ↓</small></button>`;
-    }).join('');
+function render_offer_browser(category_grid, tree, browser, categories, id_prefix, product_markup) {
+    category_grid.innerHTML = categories.map((category, index) => (
+        `<button type="button" data-scroll-to="${id_prefix}-category-${category.id}"><img src="${category.image}" alt=""><span>${String(index + 1).padStart(2, '0')}</span><strong>${escape_html(category.label)}</strong><small>${category.products.length} ${product_count_label(category.products.length)} ↓</small></button>`
+    )).join('');
 
-    tree.innerHTML = catalog_categories.map((category) => {
-        const links = final_catalog
-            .filter((entry) => entry.category === category.id)
-            .map((entry) => `<button type="button" data-scroll-to="offer-${entry.id}">${escape_html(products[entry.id].name)}</button>`)
+    tree.innerHTML = categories.map((category) => {
+        const links = category.products
+            .map((product) => `<button type="button" data-scroll-to="${id_prefix}-${product.id}">${escape_html(product.name)}</button>`)
             .join('');
-        return `<div><button type="button" data-scroll-to="offer-category-${category.id}">${escape_html(category.label)}</button>${links}</div>`;
+        return `<div><button type="button" data-scroll-to="${id_prefix}-category-${category.id}">${escape_html(category.label)}</button>${links}</div>`;
     }).join('');
 
-    browser.innerHTML = catalog_categories.map((category, index) => {
+    browser.innerHTML = categories.map((category, index) => {
+        const articles = category.products.map((product) => product_markup(product, id_prefix)).join('');
+        return `<section id="${id_prefix}-category-${category.id}"><header><span>${String(index + 1).padStart(2, '0')}</span><div><small>${escape_html(category.label)}</small><h2>${escape_html(category.lead)}</h2></div></header>${articles}</section>`;
+    }).join('');
+}
+
+function render_activio_offer_catalog() {
+    const view = document.querySelector('[data-view="offer"]');
+    render_offer_browser(
+        view.querySelector('.offer-category-grid'),
+        view.querySelector('.offer-tree nav'),
+        view.querySelector('.offer-products'),
+        activio_offer_categories,
+        'offer',
+        (product, id_prefix) => `<article id="${id_prefix}-${product.id}"><img src="${product.image}" alt="${escape_html(product.name)}"><div><small>REALIZACJA ${escape_html(product.production)}</small><h3>${escape_html(product.name)}</h3><p>${escape_html(product.lead)}</p><strong>${escape_html(product.price)}</strong><button type="button" data-offer-question="${escape_html(product.name)}">Zapytaj o produkt →</button></div></article>`,
+    );
+}
+
+function render_club_program_catalog() {
+    const view = document.querySelector('[data-view="club-program"]');
+    const categories = catalog_categories.map((category) => {
         const entries = final_catalog.filter((entry) => entry.category === category.id);
-        const articles = entries.map((entry) => {
-            const product = products[entry.id];
-            const concept_badge = concept_product_ids.has(entry.id)
+        return {
+            ...category,
+            image: products[entries[0].id].image,
+            products: entries.map((entry) => ({ ...products[entry.id], id: entry.id, entry })),
+        };
+    });
+    render_offer_browser(
+        view.querySelector('[data-club-program-categories]'),
+        view.querySelector('[data-club-program-tree]'),
+        view.querySelector('[data-club-program-products]'),
+        categories,
+        'club-catalog',
+        (product, id_prefix) => {
+            const concept_badge = concept_product_ids.has(product.id)
                 ? '<span class="concept-image-label">WIZUALIZACJA</span>'
                 : '';
-            return `<article id="offer-${entry.id}">${concept_badge}<img src="${product.image}" alt="${escape_html(product.name)}"><div><small>REALIZACJA ${escape_html(entry.production)}</small><h3>${escape_html(product.name)}</h3><p>${escape_html(product.lead)}</p><strong>od ${format_price(entry.minimum)} / szt.</strong><button type="button" data-offer-question="${escape_html(product.name)}">Zapytaj o produkt →</button></div></article>`;
-        }).join('');
-        return `<section id="offer-category-${category.id}"><header><span>${String(index + 1).padStart(2, '0')}</span><div><small>${escape_html(category.label)}</small><h2>${escape_html(category.lead)}</h2></div></header>${articles}</section>`;
-    }).join('');
+            return `<article id="${id_prefix}-${product.id}">${concept_badge}<img src="${product.image}" alt="${escape_html(product.name)}"><div><small>REALIZACJA ${escape_html(product.entry.production)}</small><h3>${escape_html(product.name)}</h3><p>${escape_html(product.lead)}</p><strong>od ${format_price(product.entry.minimum)} / szt.</strong><button type="button" data-action="join-club">Dodaj do sklepu klubowego →</button></div></article>`;
+        },
+    );
 }
 
 function render_final_catalogs() {
@@ -1429,10 +1525,10 @@ function render_final_catalogs() {
 
     const project_note = '<aside class="catalog-prototype-note"><strong>FINALNA LISTA · DANE ROBOCZE</strong><span>Produkty są zatwierdzone. Ceny, minima, warianty i terminy są przykładowe. Żółte oznaczenie „Wizualizacja” wskazuje wygenerowane zdjęcie koncepcyjne.</span></aside>';
     [
-        document.querySelector('.offer-catalog > .section-heading'),
+        document.querySelector('.club-program-catalog > .section-heading'),
         document.querySelector('[data-view="partner-catalog"] .partner-page-head'),
         document.querySelector('[data-view="system-catalog"] .system-page-head'),
-    ].forEach((anchor) => anchor.insertAdjacentHTML('afterend', project_note));
+    ].filter(Boolean).forEach((anchor) => anchor.insertAdjacentHTML('afterend', project_note));
 
     const filter_buttons = catalog_categories
         .map((category) => `<button class="chip" type="button" data-store-filter="${category.id}">${escape_html(category.label)}</button>`)
@@ -1470,7 +1566,8 @@ function render_final_catalogs() {
     const category_select = system_view.querySelector('.system-filter-bar select');
     category_select.innerHTML = `<option>Wszystkie kategorie</option>${catalog_categories.map((category) => `<option>${escape_html(category.label)}</option>`).join('')}`;
 
-    render_final_offer_catalog();
+    render_activio_offer_catalog();
+    render_club_program_catalog();
 }
 
 function filter_partner_catalog() {

@@ -89,6 +89,38 @@ test('final starting catalog contains all approved products', () => {
     ].forEach((name) => assert.ok(app_js.includes(`name: '${name}'`), name));
 });
 
+test('printer offer and Club starting catalog stay separate', async () => {
+    const offer_source = app_js.slice(
+        app_js.indexOf('const activio_offer_categories = ['),
+        app_js.indexOf('const concept_product_ids = new Set'),
+    );
+    const categories = Function(`${offer_source}; return activio_offer_categories;`)();
+    const product_names = categories.flatMap((category) => (
+        category.products.map((product) => product.name)
+    ));
+    const product_ids = categories.flatMap((category) => (
+        category.products.map((product) => product.id)
+    ));
+
+    assert.deepEqual(categories.map((category) => category.id), ['clothing', 'gifts', 'bags', 'stickers', 'awards', 'print']);
+    assert.deepEqual(categories.map((category) => category.products.length), [7, 4, 5, 7, 5, 6]);
+    assert.equal(product_names.length, 34);
+    assert.equal(new Set(product_names).size, 34);
+    assert.equal(new Set(product_ids).size, 34);
+    assert.ok(categories.every((category) => (
+        category.products.every((product) => !product.image.includes('-concept.'))
+    )));
+    await Promise.all(categories.flatMap((category) => category.products.map((product) => (
+        readFile(new URL(product.image.replace('../', ''), root_url))
+    ))));
+    assert.ok(app_js.includes("{ ...products[entry.id], id: entry.id, entry }"));
+    assert.ok(app_js.includes("document.querySelector('.club-program-catalog > .section-heading')"));
+    assert.ok(!app_js.includes("document.querySelector('.offer-catalog > .section-heading')"));
+    assert.match(app_js, /data-action="join-club">Dodaj do sklepu klubowego/);
+    assert.match(index_html, /id="club-program-catalog"/);
+    assert.match(index_html, /15 produktów gotowych do wdrożenia w sklepie klubu/);
+});
+
 test('use cases cover every functional view', () => {
     const use_cases_start = index_html.indexOf('<section class="view use-cases-view"');
     const use_cases_end = index_html.indexOf('<section class="view project-hub-view"', use_cases_start);

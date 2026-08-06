@@ -51,7 +51,9 @@ Każde założenie wymaga potwierdzenia biznesowego, prawnego albo operacyjnego 
 
 ### Finalny katalog startowy
 
-Lista przekazana 3 sierpnia 2026 jest nadrzędna wobec wcześniejszych przykładów produktów w koncepcji i prototypie:
+Poniższa lista jest katalogiem startowym programu ACTIVIO Club. Nie zastępuje aktualnej oferty drukarni publikowanej w zakładce „Oferta”, która pozostaje zgodna z activio.pl.
+
+Lista przekazana 3 sierpnia 2026 jest nadrzędna wobec wcześniejszych przykładów produktów klubowych w koncepcji i prototypie:
 
 1. Naklejki i naprasowanki dla zawodnika — herb oraz 1, 2 albo 3 linie tekstu.
 2. Plan lekcji.
