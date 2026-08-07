@@ -712,15 +712,15 @@ main { min-height: calc(100vh - 46px); }
 .club-program-hero aside > span { color: var(--accent); font-size: 9px; font-weight: 900; letter-spacing: .13em; }
 .club-program-hero aside > strong { display: block; margin: 9px 0 20px; font-size: 23px; line-height: 1.15; }
 .club-program-hero ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
-.club-program-hero li { position: relative; padding-left: 22px; color: rgba(255,255,255,.78); font-size: 11px; }
+.club-program-hero li { position: relative; padding-left: 22px; color: rgba(255,255,255,.84); font-size: 15px; }
 .club-program-hero li::before { position: absolute; left: 0; top: 1px; content: "✓"; color: var(--accent); font-weight: 900; }
 .club-program-intro .section-heading { max-width: 790px; }
-.club-program-intro .section-heading > p { max-width: 740px; margin: 14px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.club-program-intro .section-heading > p { max-width: 740px; margin: 14px 0 0; color: var(--muted); font-size: 16px; line-height: 1.6; }
 .club-program-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .club-program-benefits article { min-height: 205px; display: flex; align-items: flex-start; flex-direction: column; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
-.club-program-benefits article > span { color: var(--accent); font-size: 10px; font-weight: 950; }
+.club-program-benefits article > span { color: var(--accent); font-size: 12px; font-weight: 950; }
 .club-program-benefits strong { margin-top: auto; font-size: 19px; }
-.club-program-benefits p { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.club-program-benefits p { margin: 8px 0 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
 .clubs-program-summary { padding-bottom: 40px; }
 .clubs-program-summary .section-heading > div { max-width: 790px; }
 .clubs-program-summary .section-heading p { max-width: 750px; margin: 14px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
@@ -738,32 +738,57 @@ main { min-height: calc(100vh - 46px); }
 .club-program-steps h2 { max-width: 430px; margin: 8px 0 0; font-size: 44px; line-height: 1.05; letter-spacing: -.04em; }
 .club-program-steps ol { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; margin: 0; padding: 0; list-style: none; }
 .club-program-steps li { display: flex; gap: 15px; }
-.club-program-steps li > b { color: var(--accent); font-size: 11px; }
+.club-program-steps li > b { color: var(--accent); font-size: 13px; }
 .club-program-steps li span { display: grid; }
-.club-program-steps li strong { font-size: 16px; }
-.club-program-steps li small { margin-top: 6px; color: #9ca5b4; font-size: 10px; line-height: 1.55; }
+.club-program-steps li strong { font-size: 17px; }
+.club-program-steps li small { margin-top: 6px; color: #b1bac8; font-size: 14px; line-height: 1.55; }
 .club-program-economics { display: grid; grid-template-columns: minmax(0, 1fr) 370px; gap: 70px; align-items: center; }
 .club-program-economics > div { max-width: 690px; }
 .club-program-economics h2 { margin: 8px 0 15px; font-size: clamp(36px, 4vw, 52px); line-height: 1; letter-spacing: -.045em; }
-.club-program-economics p { margin: 0 0 24px; color: var(--muted); font-size: 13px; line-height: 1.65; }
+.club-program-economics p { margin: 0 0 24px; color: var(--muted); font-size: 16px; line-height: 1.65; }
 .club-program-economics aside { padding: 27px; border-radius: 16px; color: #fff; background: linear-gradient(145deg, #142345, #263968); box-shadow: var(--shadow); }
 .club-program-economics aside > span { color: #aeb7c7; font-size: 9px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
 .club-program-economics aside > strong { display: block; margin: 9px 0 20px; color: var(--accent); font-size: 37px; }
 .club-program-economics dl { display: grid; gap: 8px; margin: 0; }
-.club-program-economics dl div { display: flex; justify-content: space-between; gap: 20px; padding: 10px 0; border-top: 1px solid rgba(255,255,255,.12); font-size: 11px; }
+.club-program-economics dl div { display: flex; justify-content: space-between; gap: 20px; padding: 10px 0; border-top: 1px solid rgba(255,255,255,.12); font-size: 14px; }
 .club-program-economics dd { font-weight: 850; }
-.club-program-economics aside small { display: block; margin-top: 17px; color: #909bac; font-size: 8px; line-height: 1.5; }
+.club-program-economics aside small { display: block; margin-top: 17px; color: #aeb7c7; font-size: 12px; line-height: 1.5; }
 .club-program-faq { padding-top: 25px; }
 .club-program-faq > div:last-child { border-top: 1px solid var(--line); }
 .club-program-faq details { border-bottom: 1px solid var(--line); }
-.club-program-faq summary { position: relative; padding: 21px 50px 21px 0; cursor: pointer; font-size: 14px; font-weight: 850; list-style: none; }
+.club-program-faq summary { position: relative; padding: 21px 50px 21px 0; cursor: pointer; font-size: 16px; font-weight: 850; list-style: none; }
 .club-program-faq summary::-webkit-details-marker { display: none; }
 .club-program-faq summary::after { position: absolute; right: 4px; top: 19px; content: "+"; color: var(--primary); font-size: 21px; }
 .club-program-faq details[open] summary::after { content: "−"; }
-.club-program-faq details p { max-width: 820px; margin: -5px 0 21px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+.club-program-faq details p { max-width: 820px; margin: -5px 0 21px; color: var(--muted); font-size: 15px; line-height: 1.65; }
 .club-program-cta { display: grid; justify-items: center; padding: 72px 28px; color: #fff; background: linear-gradient(120deg, var(--brand-purple), var(--brand-pink)); text-align: center; }
 .club-program-cta h2 { max-width: 760px; margin: 9px 0 14px; font-size: clamp(38px, 4vw, 55px); line-height: 1; letter-spacing: -.045em; }
-.club-program-cta p { max-width: 620px; margin: 0 0 25px; color: rgba(255,255,255,.78); font-size: 13px; line-height: 1.6; }
+.club-program-cta p { max-width: 620px; margin: 0 0 25px; color: rgba(255,255,255,.84); font-size: 16px; line-height: 1.6; }
+.club-registration {
+    display: grid;
+    grid-template-columns: minmax(0, .85fr) minmax(480px, 1.15fr);
+    gap: 70px;
+    padding: 78px max(28px, calc((100vw - 1184px) / 2));
+    color: #fff;
+    background: #101a35;
+    scroll-margin-top: 145px;
+}
+.club-registration > div { max-width: 500px; }
+.club-registration h2 { margin: 10px 0 16px; font-size: clamp(38px, 4vw, 54px); line-height: 1; letter-spacing: -.045em; }
+.club-registration > div > p { margin: 0 0 28px; color: #aeb7c7; font-size: 16px; line-height: 1.65; }
+.club-registration ol { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.club-registration li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 10px; }
+.club-registration li b { color: var(--accent); font-size: 13px; }
+.club-registration li span { display: grid; gap: 3px; }
+.club-registration li strong { font-size: 16px; }
+.club-registration li small { color: #aeb7c7; font-size: 14px; line-height: 1.5; }
+.club-registration-form { padding: 27px; border: 1px solid rgba(255,255,255,.15); border-radius: 15px; background: rgba(255,255,255,.08); }
+.action-form.club-registration-form label { color: #d7deea; font-size: 14px; }
+.club-registration-form .club-registration-consent { display: flex; align-items: flex-start; flex-direction: row; color: #c2cad7; font-size: 14px; font-weight: 500; line-height: 1.5; }
+.club-registration-form .club-registration-consent input { width: 16px; height: 16px; flex: 0 0 auto; margin-top: 2px; padding: 0; border: 0; border-radius: 3px; accent-color: var(--accent); }
+.club-registration-form .action-form-note { font-size: 14px; }
+.club-registration-form footer { margin: 0; padding: 0; color: inherit; background: transparent; }
+.club-registration-form footer .button { min-height: 46px; border: 0; }
 .business-offer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .business-offer-grid article {
     min-width: 0;
@@ -782,11 +807,11 @@ main { min-height: calc(100vh - 46px); }
 .business-offer-grid button { margin-top: auto; padding: 9px 12px; border: 0; border-radius: 8px; color: #fff; background: var(--primary); font-size: 11px; font-weight: 800; }
 .offer-catalog { scroll-margin-top: 145px; }
 .offer-catalog > .section-heading { max-width: 780px; }
-.offer-catalog > .section-heading p { margin: 12px 0 0; color: var(--muted); font-size: 13px; }
+.offer-catalog > .section-heading p { margin: 12px 0 0; color: var(--muted); font-size: 16px; }
 .offer-category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 72px; }
 .content-section.offer-catalog { padding-top: 24px; }
-.catalog-prototype-note { display: flex; gap: 12px; align-items: center; margin: 20px 0 24px; padding: 13px 15px; border: 1px solid #e6bd31; border-radius: 10px; color: #463700; background: #fff1a8; font-size: 10px; line-height: 1.45; }
-.catalog-prototype-note strong { flex: 0 0 auto; font-size: 9px; letter-spacing: .09em; }
+.catalog-prototype-note { display: flex; gap: 12px; align-items: center; margin: 20px 0 24px; padding: 13px 15px; border: 1px solid #e6bd31; border-radius: 10px; color: #463700; background: #fff1a8; font-size: 14px; line-height: 1.5; }
+.catalog-prototype-note strong { flex: 0 0 auto; font-size: 14px; letter-spacing: .06em; }
 .concept-image-label { position: absolute; z-index: 3; right: 10px; bottom: 10px; padding: 5px 7px; border: 1px solid #d5a500; border-radius: 6px; color: #352800; background: #ffdb45; box-shadow: 0 4px 12px rgba(36, 25, 0, .15); font-size: 7px; font-weight: 950; letter-spacing: .08em; }
 .offer-category-grid button {
     position: relative;
@@ -807,9 +832,9 @@ main { min-height: calc(100vh - 46px); }
 .offer-category-grid button::after { position: absolute; z-index: -1; inset: 0; content: ""; background: linear-gradient(180deg, rgba(9,16,34,.05), rgba(9,16,34,.93)); }
 .offer-category-grid img { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
 .offer-category-grid button:hover img { transform: scale(1.035); }
-.offer-category-grid span { position: absolute; top: 20px; left: 22px; color: var(--accent); font-size: 10px; font-weight: 950; }
+.offer-category-grid span { position: absolute; top: 20px; left: 22px; color: var(--accent); font-size: 12px; font-weight: 950; }
 .offer-category-grid strong { font-size: 22px; line-height: 1.05; }
-.offer-category-grid small { margin-top: 7px; color: rgba(255,255,255,.72); font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.offer-category-grid small { margin-top: 7px; color: rgba(255,255,255,.82); font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
 .offer-browser { display: grid; grid-template-columns: 255px minmax(0, 1fr); gap: 52px; align-items: start; }
 .offer-tree {
     position: sticky;
@@ -823,19 +848,19 @@ main { min-height: calc(100vh - 46px); }
     scrollbar-width: thin;
     scrollbar-color: #b9c3d3 transparent;
 }
-.offer-tree > strong { display: block; margin-bottom: 15px; font-size: 13px; }
+.offer-tree > strong { display: block; margin-bottom: 15px; font-size: 16px; }
 .offer-tree nav, .offer-tree nav div { display: grid; }
 .offer-tree nav { gap: 14px; }
 .offer-tree nav div { gap: 5px; padding-top: 12px; border-top: 1px solid var(--line); }
 .offer-tree nav div:first-child { padding-top: 0; border-top: 0; }
-.offer-tree button { padding: 0 0 0 12px; border: 0; color: var(--muted); background: transparent; font-size: 11px; line-height: 1.35; text-align: left; cursor: pointer; }
+.offer-tree button { padding: 0 0 0 12px; border: 0; color: var(--muted); background: transparent; font-size: 14px; line-height: 1.45; text-align: left; cursor: pointer; }
 .offer-tree button:hover { color: var(--primary); }
-.offer-tree nav div button:first-child { padding-left: 0; color: var(--ink); font-size: 12px; font-weight: 900; }
+.offer-tree nav div button:first-child { padding-left: 0; color: var(--ink); font-size: 15px; font-weight: 900; }
 .offer-products { display: grid; gap: 82px; }
 .offer-products > section { display: grid; gap: 12px; scroll-margin-top: 150px; }
 .offer-products header { display: flex; gap: 18px; align-items: center; margin-bottom: 10px; }
 .offer-products header > span { width: 46px; height: 46px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 12px; color: #fff; background: var(--primary); font-size: 11px; font-weight: 950; }
-.offer-products header small { color: #ff6841; font-size: 9px; font-weight: 900; letter-spacing: .12em; }
+.offer-products header small { color: #ff6841; font-size: 12px; font-weight: 900; letter-spacing: .1em; }
 .offer-products header h2 { margin: 4px 0 0; font-size: 28px; line-height: 1.05; letter-spacing: -.035em; }
 .offer-products article {
     position: relative;
@@ -850,11 +875,27 @@ main { min-height: calc(100vh - 46px); }
 }
 .offer-products article > img { width: 100%; height: 100%; min-height: 235px; object-fit: cover; }
 .offer-products article > div { min-width: 0; display: flex; align-items: flex-start; flex-direction: column; padding: 25px; }
-.offer-products article small { color: var(--primary); font-size: 8px; font-weight: 900; letter-spacing: .1em; }
-.offer-products article h3 { margin: 7px 0 8px; font-size: 22px; line-height: 1.1; }
-.offer-products article p { max-width: 610px; margin: 0 0 16px; color: var(--muted); font-size: 11px; line-height: 1.55; }
-.offer-products article strong { margin-top: auto; font-size: 12px; }
-.offer-products article button { margin-top: 13px; padding: 0; border: 0; color: var(--primary); background: transparent; font-size: 10px; font-weight: 900; cursor: pointer; }
+.offer-products article small { color: var(--primary); font-size: 12px; font-weight: 900; letter-spacing: .09em; }
+.offer-products article h3 { margin: 8px 0 10px; font-size: 25px; line-height: 1.1; }
+.offer-products article p { max-width: 680px; margin: 0 0 20px; color: var(--muted); font-size: 15px; line-height: 1.6; }
+.offer-products article strong { margin-top: auto; font-size: 15px; }
+.offer-products article button { margin-top: 17px; padding: 0; border: 0; color: var(--primary); background: transparent; font-size: 14px; font-weight: 900; cursor: pointer; }
+.offer-products .offer-detail-card { grid-template-columns: minmax(235px, 31%) minmax(0, 1fr); }
+.offer-products .offer-detail-card > img { min-height: 100%; }
+.offer-products .offer-detail-card > div { padding: 28px 30px; }
+.offer-product-features { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; width: 100%; margin: 1px 0 23px; padding: 0; list-style: none; }
+.offer-product-features li { position: relative; padding-left: 20px; color: #3f4b5d; font-size: 15px; line-height: 1.5; }
+.offer-product-features li::before { position: absolute; left: 0; top: 1px; content: "✓"; color: var(--primary); font-weight: 950; }
+.offer-pricing { width: 100%; margin-top: auto; }
+.offer-products article .offer-pricing > strong { display: block; margin: 0 0 9px; color: var(--ink); font-size: 15px; }
+.offer-price-table-wrap { width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; }
+.offer-price-table { width: 100%; border-collapse: collapse; font-size: 14px; white-space: nowrap; }
+.offer-price-table th, .offer-price-table td { padding: 11px 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; }
+.offer-price-table tr > :last-child { border-right: 0; }
+.offer-price-table tbody tr:last-child > * { border-bottom: 0; }
+.offer-price-table thead th { color: #526076; background: #f3f6fa; font-weight: 850; }
+.offer-price-table tbody th { color: var(--ink); background: #f9fafc; }
+.offer-price-note { margin: 10px 0 0 !important; padding: 11px 13px; border-radius: 7px; color: #53627a !important; background: #eef4fd; font-size: 14px !important; }
 .offer-contact {
     display: grid;
     grid-template-columns: .8fr 1.2fr;
@@ -866,9 +907,9 @@ main { min-height: calc(100vh - 46px); }
 }
 .offer-contact > div { max-width: 430px; }
 .offer-contact h2 { margin: 9px 0 15px; font-size: 44px; line-height: 1; letter-spacing: -.04em; }
-.offer-contact > div p { color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.6; }
+.offer-contact > div p { color: rgba(255,255,255,.82); font-size: 16px; line-height: 1.6; }
 .offer-contact-form { padding: 25px; border: 1px solid rgba(255,255,255,.16); border-radius: 14px; background: rgba(255,255,255,.08); }
-.offer-contact-form label { color: rgba(255,255,255,.8); }
+.action-form.offer-contact-form label { color: rgba(255,255,255,.86); font-size: 14px; }
 .offer-contact-form footer { margin: 0; padding: 0; color: inherit; background: transparent; }
 .offer-contact-form .dialog-button.primary { min-height: 46px; padding: 0 22px; border-color: #ff6841; background: #ff6841; }
 
@@ -994,8 +1035,8 @@ main { min-height: calc(100vh - 46px); }
 .club-card:hover { transform: translateY(-4px); box-shadow: 0 18px 34px rgba(17,24,39,.15); }
 .club-card > span:nth-child(2) { display: grid; margin-top: auto; }
 .club-card strong { font-size: 18px; }
-.club-card small { opacity: .7; font-size: 11px; }
-.club-card b { margin-top: 14px; font-size: 11px; }
+.club-card small { opacity: .75; font-size: 14px; }
+.club-card b { margin-top: 14px; font-size: 14px; }
 .club-stal { color: #14224a; background: linear-gradient(140deg, #f5ca12, #dfb400); }
 .club-kks { background: linear-gradient(140deg, #197c60, #12664f); }
 .club-pogon { background: linear-gradient(140deg, #aa294d, #901f40); }
@@ -1139,7 +1180,7 @@ main { min-height: calc(100vh - 46px); }
 .how-section li > b { color: var(--accent); font-size: 12px; }
 .how-section li span { display: grid; }
 .how-section li strong { font-size: 17px; }
-.how-section li small { margin-top: 6px; color: #9ca5b4; }
+.how-section li small { margin-top: 6px; color: #aeb7c7; font-size: 14px; line-height: 1.5; }
 .social-proof-section {
     display: grid;
     grid-template-columns: minmax(280px, .8fr) minmax(0, 1.2fr);
@@ -3322,6 +3363,8 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     .club-program-steps { grid-template-columns: 1fr; gap: 38px; }
     .club-program-economics { grid-template-columns: 1fr; gap: 38px; }
     .club-program-economics aside { width: min(480px, 100%); }
+    .club-registration { grid-template-columns: 1fr; gap: 38px; }
+    .club-registration > div { max-width: 720px; }
     .store-filter-bar { grid-template-columns: 1fr; }
     .how-section { grid-template-columns: 1fr; }
     .social-proof-section { grid-template-columns: 1fr; gap: 38px; }
@@ -3549,7 +3592,10 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     .club-program-economics { padding: 58px 18px; }
     .club-program-economics h2 { font-size: 39px; }
     .club-program-faq { padding-top: 5px; }
-    .club-program-faq summary { padding-right: 38px; font-size: 13px; }
+    .club-program-faq summary { padding-right: 38px; font-size: 16px; }
+    .club-registration { gap: 32px; padding: 58px 18px; }
+    .club-registration-form { grid-template-columns: 1fr; padding: 19px; }
+    .club-registration-form label.wide, .club-registration-form .action-form-note, .club-registration-form footer { grid-column: auto; }
     .club-program-cta { padding: 58px 20px; }
     .business-offer-grid article { grid-template-columns: 1fr; }
     .business-offer-grid img { height: 210px; min-height: 0; }
@@ -3579,9 +3625,12 @@ td small { display: block; color: var(--muted); font-size: 8px; }
     .offer-products { gap: 60px; }
     .offer-products > section, .offer-products article { scroll-margin-top: 165px; }
     .offer-products header h2 { font-size: 24px; }
-    .offer-products article { grid-template-columns: 1fr; }
-    .offer-products article > img { height: 250px; min-height: 0; }
+    .offer-products article, .offer-products .offer-detail-card { grid-template-columns: 1fr; }
+    .offer-products article > img, .offer-products .offer-detail-card > img { height: 250px; min-height: 0; }
     .offer-products article > div { padding: 21px; }
+    .offer-product-features { grid-template-columns: 1fr; gap: 7px; }
+    .offer-price-table { font-size: 14px; }
+    .offer-price-table th, .offer-price-table td { padding: 10px; }
     .offer-contact { padding: 58px 18px; }
     .offer-contact h2 { font-size: 39px; }
     .offer-contact-form { grid-template-columns: 1fr; padding: 18px; }

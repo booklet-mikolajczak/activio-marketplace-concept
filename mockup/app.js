@@ -658,6 +658,983 @@ const activio_offer_categories = [
     },
 ];
 
+const activio_offer_details = {
+    "cotton-shirt": {
+        "source_id": "koszulki",
+        "production": "2–3 dni robocze",
+        "description": "Koszulki z nadrukiem to podstawowy element identyfikacji wizualnej drużyny. Sprawdzają się zarówno podczas treningów, meczów, jak i w codziennym użytkowaniu. Dzięki personalizacji pozwalają zachować spójny wygląd całego zespołu.",
+        "features": [
+            "bawełna 190 g",
+            "nadruk DTF full kolor",
+            "możliwość personalizacji (grafiki, nazwy, herb)",
+            "pakowanie jednostkowe w woreczki foliowe"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 50 sztuk",
+                "51 - więcej"
+            ],
+            [
+                "Cena",
+                "49,00 zł / szt",
+                "45,00 zł / szt",
+                "42,00 zł / szt"
+            ]
+        ],
+        "pricing_note": "Przy nadruku z obu stron doliczana jest kwota 5,00 zł"
+    },
+    "sport-shirt": {
+        "source_id": "koszulki-sportowe",
+        "production": "2–3 dni robocze",
+        "description": "Koszulki sportowe to praktyczna odzież dla klubów, szkółek sportowych i drużyn trenujących na co dzień. Sprawdzają się podczas treningów, wydarzeń sportowych oraz jako element jednolitego stroju zespołu. Dzięki szybkoschnącemu materiałowi zapewniają komfort podczas aktywności fizycznej.",
+        "features": [
+            "szybkoschnący materiał, 100% poliester",
+            "krój ze szwami bocznymi i wzmocnieniem na ramionach",
+            "możliwość personalizacji (grafiki, nazwy, herb)",
+            "przy nadruku z dwóch stron +5,00 zł"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 50 sztuk",
+                "51 - więcej"
+            ],
+            [
+                "Cena",
+                "45,00 zł / szt",
+                "42,00 zł / szt",
+                "39,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "hoodie": {
+        "source_id": "bluzy",
+        "production": "2–3 dni robocze",
+        "description": "Bluza sportowa z kapturem to funkcjonalny element odzieży klubowej, sprawdzający się w codziennym użytkowaniu jako odzież wyjściowa. Wykonana z wysokiej jakości materiału, zapewnia komfort noszenia i estetyczny wygląd. Ujednolicają wizerunek drużyny i zwiększają rozpoznawalność podczas wyjazdów czy wydarzeń. To rozwiązanie łączące wygodę z funkcją reprezentacyjną.",
+        "features": [
+            "bluzy z kapturem (klasyczny krój)",
+            "nadruk DTF full kolor",
+            "możliwość personalizacji nadruku",
+            "materiał o podwyższonej gramaturze 290 g/m²"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 25 sztuk",
+                "26 sztuk - więcej"
+            ],
+            [
+                "Cena",
+                "109,00 zł / szt",
+                "99,00 zł / szt",
+                "89,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "sweatshirt": {
+        "source_id": "bluzy-klasyczne",
+        "production": "2–3 dni robocze",
+        "description": "Klasyczne bluzy dresowe to wygodny element odzieży klubowej i codziennej. Dzięki uniwersalnemu fasonowi sprawdzają się zarówno podczas wyjazdów, treningów, jak i w codziennym użytkowaniu. Możliwość personalizacji pozwala zachować spójny wygląd całej drużyny lub organizacji.",
+        "features": [
+            "klasyczny fason unisex z okrągłym dekoltem",
+            "materiał o podwyższonej gramaturze 290 g/m²",
+            "elastyczne ściągacze przy rękawach i u dołu bluzy",
+            "podwójne przeszycia zwiększające trwałość"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 20 sztuk",
+                "21 - więcej"
+            ],
+            [
+                "Cena",
+                "99,00 zł",
+                "94,00 zł",
+                "89,00 zł"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "cap": {
+        "source_id": "czapki",
+        "production": "2–3 dni robocze",
+        "description": "Czapki z daszkiem to praktyczny element odzieży klubowej, który sprawdza się zarówno podczas wydarzeń sportowych, jak i w codziennym użytkowaniu. Uzupełniają wizerunek drużyny i pozwalają na spójne oznaczenie członków klubu oraz kibiców.",
+        "features": [
+            "krój pięciopanelowy",
+            "materiał: 100% bawełna (340 g/m²)",
+            "regulowane zapięcie (mosiężny klips)",
+            "haftowane otwory wentylacyjne i opaska pochłaniająca pot"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 25 sztuk",
+                "26 sztuk - więcej"
+            ],
+            [
+                "Cena",
+                "19,00 zł / szt",
+                "17,00 zł / szt",
+                "15,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "marking": {
+        "source_id": "znakowanie-odziezy",
+        "production": "3–4 dni robocze",
+        "description": "Znakowanie odzieży folią flex to trwałe rozwiązanie stosowane głównie przy personalizacji strojów sportowych. Najczęściej wykorzystywane do nanoszenia nazwisk, numerów oraz prostych oznaczeń na odzieży technicznej.",
+        "features": [
+            "technologia: folia flex",
+            "idealne do odzieży syntetycznej i sportowej",
+            "wysoka trwałość i odporność na pranie",
+            "dostępne kolory folii: biały, czarny, żółty, czerwony, niebieski"
+        ],
+        "pricing": [
+            [
+                "Przykład",
+                "Napis np. nazwisko",
+                "Numer duży",
+                "Numer mały"
+            ],
+            [
+                "Wymiar",
+                "30 x 10 cm",
+                "20 x 10 cm",
+                "10 x 5 cm"
+            ],
+            [
+                "Cena",
+                "8,00 zł / szt",
+                "5,00 zł / szt",
+                "3,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "sleeveless": {
+        "source_id": "koszulka-active-bez-rekawow",
+        "production": "2–3 dni robocze",
+        "description": "Koszulka sportowa bez rękawów to praktyczna odzież treningowa dla klubów, szkółek sportowych i drużyn. Lekki, szybkoschnący materiał zapewnia komfort podczas aktywności fizycznej, a krój bez rękawów daje większą swobodę ruchu. Świetnie sprawdzi się na treningach, zajęciach sportowych, turniejach oraz jako element jednolitego stroju zespołu. Możliwość personalizacji nadrukiem pozwala dopasować koszulkę do barw, herbu i identyfikacji klubu.",
+        "features": [
+            "szybkoschnący materiał",
+            "krój ze szwami bocznymi",
+            "szwy na ramionach przesunięte do przodu",
+            "lamówka na karku wzmocniona taśmą z materiału wierzchniego",
+            "otwory wokół ramion wykończone lamówką z materiału wierzchniego"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 50 sztuk",
+                "51 - więcej"
+            ],
+            [
+                "Cena",
+                "",
+                "",
+                ""
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "mug": {
+        "source_id": "kubki",
+        "production": "2–3 dni robocze",
+        "description": "Kubki z nadrukiem to funkcjonalny gadżet, który znajduje zastosowanie w codziennym użytkowaniu. Mogą być wykorzystywane zarówno przez członków klubu, jak i jako element sprzedaży lub promocji. Łączą praktyczność z widocznym oznaczeniem marki.",
+        "features": [
+            "kubki ceramiczne 330 ml",
+            "nadruk full kolor",
+            "odporność na ścieranie i mycie",
+            "możliwość dowolnej personalizacji (logo, hasło, grafika)"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 25 sztuk",
+                "26 sztuk - więcej"
+            ],
+            [
+                "Cena",
+                "25,00 zł / szt",
+                "22,00 zł / szt",
+                "19,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "clock": {
+        "source_id": "zegarek-z-pleksi-na-sciane",
+        "production": "3–4 dni robocze",
+        "description": "Zegarek z pleksi to praktyczny i estetyczny element wyposażenia klubowych pomieszczeń, biur oraz szatni. Dzięki personalizacji może zawierać herb, barwy klubowe lub dowolną grafikę związaną z drużyną. Nowoczesne wykonanie sprawia, że dobrze prezentuje się zarówno we wnętrzach sportowych, jak i biurowych.",
+        "features": [
+            "materiał: pleksi 3 mm",
+            "nadruk UV full kolor",
+            "możliwość pełnej personalizacji projektu oraz kształtu",
+            "mechanizm zegarowy z montażem ściennym"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 5 sztuk",
+                "6 - 10 sztuk",
+                "11 - więcej"
+            ],
+            [
+                "Wymiar: 30 x 30 cm",
+                "40,00 zł",
+                "35,00 zł",
+                "30,00 zł"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "keyring": {
+        "source_id": "breloki",
+        "production": "2–3 dni robocze",
+        "description": "Breloki to niewielki, praktyczny gadżet, który może pełnić funkcję promocyjną lub sprzedażową. Dzięki kompaktowej formie są łatwe do dystrybucji i dobrze sprawdzają się jako dodatek do innych materiałów klubowych.",
+        "features": [
+            "materiał: pleksi / PCV (grubość ok. 4 mm)",
+            "nadruk dwustronny full kolor",
+            "dowolny kształt dopasowany do projektu",
+            "metalowy karabińczyk"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "10 - 25 sztuk",
+                "26 - 50 sztuk",
+                "51 sztuk - więcej"
+            ],
+            [
+                "Cena",
+                "5,00 zł / szt",
+                "4,50 zł / szt",
+                "4,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "coaster": {
+        "source_id": "podkladki",
+        "production": "2–3 dni robocze",
+        "description": "Podkładki to praktyczny dodatek, który jednocześnie pełni funkcję promocyjną. Sprawdzają się podczas wydarzeń, spotkań klubowych oraz w codziennym użytkowaniu. Chronią powierzchnie przed zabrudzeniami, a jednocześnie pozostają czytelnym i estetycznym elementem klubowych gadżetów.",
+        "features": [
+            "wymiar 95 x 95 mm",
+            "dostępne kształty: okrągłe i kwadratowe",
+            "tektura beerboard",
+            "możliwość personalizacji projektu"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "10 - 25 sztuk",
+                "26 - 50 sztuk",
+                "51 sztuk - więcej"
+            ],
+            [
+                "Cena",
+                "2,50 zł / szt",
+                "2,00 zł / szt",
+                "1,50 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "drawstring-bag": {
+        "source_id": "worek-sportowy",
+        "production": "2–3 dni robocze",
+        "description": "Worek sportowy z nadrukiem klubowym to praktyczny gadżet, który sprawdzi się podczas treningów, zawodów oraz w codziennym użytkowaniu. Lekka i wygodna konstrukcja pozwala na komfortowe przenoszenie niezbędnych rzeczy sportowych. Możliwość personalizacji sprawia, że stanowi idealny element wyposażenia drużyny, gadżet klubowy lub reklamowy. Nadruk z logo pozwala w estetyczny sposób eksponować identyfikację wizualną klubu każdego dnia.",
+        "features": [
+            "Materiał: gruba bawełna 195g",
+            "Rozmiar plecaka: 47x37 cm, rozmiar kieszonki: 20x23 cm",
+            "2 bawełniane sznurki w kolorze materiału",
+            "Wzmocnione dole rogi podwójnym materiałem i metalowymi pierścieniami"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 25 sztuk",
+                "26 - więcej"
+            ],
+            [
+                "Cena",
+                "25,00 zł / szt",
+                "23,00 zł / szt",
+                "21,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "shoulder-bag": {
+        "source_id": "torby",
+        "production": "2–3 dni robocze",
+        "description": "Torby z nadrukiem to praktyczne rozwiązanie, które może być wykorzystywane wielokrotnie. Sprawdzają się jako element wyposażenia lub gadżet promocyjny. Dzięki personalizacji pozwalają na subtelne, ale stałe eksponowanie marki.",
+        "features": [
+            "torby bawełniane 200 g",
+            "wymiar torby 38 x 42 cm",
+            "uchwyty: 70 x 2,5 cm — wygodnie w dłoni lub na ramieniu",
+            "wzmocnione szwy na rączkach — większa trwałość"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 25 sztuk",
+                "26 sztuk - więcej"
+            ],
+            [
+                "Cena",
+                "19,00 zł / szt",
+                "17,00 zł / szt",
+                "15,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "pencilcase": {
+        "source_id": "piornik-klubowy",
+        "production": "3–4 dni robocze",
+        "description": "Piórnik z nadrukiem to praktyczny gadżet do szkoły, biura i codziennego użytkowania. Wykonany z piankowej tkaniny, jest lekki i wygodny w użyciu. Dodatkowy karabinek umożliwia łatwe przypięcie do plecaka lub torby. Możliwość personalizacji sprawia, że piórnik świetnie sprawdzi się jako gadżet reklamowy lub klubowy. Nadruk z logo pozwala w estetyczny sposób eksponować markę każdego dnia.",
+        "features": [
+            "Wymiary: 20 x 5 x 4,5 cm",
+            "Materiał: poliester",
+            "Rodzaj zamknięcia: zamek błyskawiczny"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 25 sztuk",
+                "26 - więcej"
+            ],
+            [
+                "Cena",
+                "19,00 zł / szt",
+                "17,00 zł / szt",
+                "15,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "cosmetic-bag": {
+        "source_id": "kosmetyczka-podrozna",
+        "production": "3–4 dni robocze",
+        "description": "Kosmetyczka z nadrukiem to praktyczny gadżet, który sprawdzi się podczas wyjazdów, treningów i w codziennym użytkowaniu. Dzięki pojemnej konstrukcji pozwala wygodnie przechowywać najpotrzebniejsze akcesoria. Możliwość personalizacji sprawia, że świetnie nadaje się jako gadżet klubowy, reklamowy lub element wyposażenia drużyny. Nadruk z logo pozwala w estetyczny sposób eksponować markę każdego dnia.",
+        "features": [
+            "Wymiary: 23,5 x 8,5 x 14,5 cm",
+            "Materiał: poliester wodoodporny",
+            "2 zapinane kieszenie",
+            "Wygodna boczna rączka do przenoszenia"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 25 sztuk",
+                "26 - więcej"
+            ],
+            [
+                "Cena",
+                "35,00 zł / szt",
+                "32,00 zł / szt",
+                "29,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "waist-bag": {
+        "source_id": "nerka-sportowa",
+        "production": "3–4 dni robocze",
+        "description": "Nerka zapinana w pasie z nadrukiem to praktyczny gadżet, który sprawdzi się podczas treningów, wydarzeń sportowych oraz w codziennym użytkowaniu. Kompaktowa, a jednocześnie pojemna konstrukcja pozwala wygodnie przechowywać najpotrzebniejsze drobiazgi zawsze pod ręką. Możliwość personalizacji sprawia, że świetnie nadaje się jako element wyposażenia drużyny, gadżet klubowy lub reklamowy. Nadruk z logo pozwala w estetyczny sposób budować i eksponować identyfikację wizualną marki.",
+        "features": [
+            "Wymiar: 35 x 14 x 8 cm",
+            "Materiał: poliester",
+            "Pasek: regulowany, zapinany na klamrę",
+            "Dostępne kolory: czarny, czerwony, granatowy"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 25 sztuk",
+                "26 - więcej"
+            ],
+            [
+                "Cena",
+                "25,00 zł / szt",
+                "23,00 zł / szt",
+                "21,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "transfer-stickers": {
+        "source_id": "naklejki-transferowe-wypukle",
+        "production": "3–4 dni robocze",
+        "description": "Naklejki transferowe wypukłe DTF UV to nowoczesny sposób na eleganckie znakowanie gadżetów klubowych, bidonów, kubków, statuetek oraz innych akcesoriów (idealne do szkła, plastiku, metalu, ceramiki i akrylu). Po aplikacji pozostaje sam nadruk, bez widocznego tła klasycznej naklejki, dzięki czemu całość wygląda jak nadruk wykonany bezpośrednio na powierzchni. Wypukły efekt 3D i intensywne kolory nadają produktom estetyczny, premium wygląd.",
+        "features": [
+            "efekt wypukłego nadruku 3D (premium)",
+            "aplikacja bez widocznego tła naklejki",
+            "trwałe kolory i wysoka odporność na użytkowanie",
+            "grubość 0,3 mm wykończenie błysk"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "50 sztuk",
+                "100 sztuk",
+                ""
+            ],
+            [
+                "3 x 3 cm",
+                "89,00 zł",
+                "99,00 zł",
+                ""
+            ],
+            [
+                "5 x 5 cm",
+                "89,00 zł",
+                "139,00 zł",
+                ""
+            ],
+            [
+                "7 x 7 cm",
+                "129,00 zł",
+                "229,00 zł",
+                ""
+            ],
+            [
+                "9 x 9 cm",
+                "189,00 zł",
+                "349,00 zł",
+                ""
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "crest-stickers": {
+        "source_id": "naklejki",
+        "production": "do 2 dni roboczych",
+        "description": "Naklejki to prosty sposób na zwiększenie widoczności klubu i oznaczenie sprzętu lub materiałów. Sprawdzają się zarówno jako element promocyjny, jak i użytkowy. Dzięki różnym wariantom można je łatwo dopasować do konkretnego zastosowania.",
+        "features": [
+            "druk full kolor (różne formaty)",
+            "możliwość wycinania po obrysie dowolny kształt",
+            "materiały: papierowe ekonomiczne lub foliowe odporne na ścieranie i warunki zewnętrzne",
+            "druk od małych nakładów"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "100 sztuk",
+                "100 sztuk",
+                "100 sztuk"
+            ],
+            [
+                "Wymiar",
+                "5 x 5 cm",
+                "7,5 x 7,5 cm",
+                "10 x 10 cm"
+            ],
+            [
+                "Naklejki papierowe na arkuszu",
+                "59,00 zł",
+                "89,00 zł",
+                "99,00 zł"
+            ],
+            [
+                "Naklejki foliowe DieCut z laminatem",
+                "99,00 zł",
+                "149,00 zł",
+                "189,00 zł"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "advertising-magnets": {
+        "source_id": "magnesy",
+        "production": "do 3 dni roboczych",
+        "description": "Magnesy reklamowe to niewielki, ale trwały gadżet do codziennego użytku. Pozwalają utrwalić identyfikację wizualną klubu w prosty sposób. Dzięki dowolnym kształtom dobrze sprawdzają się jako element promocyjny.",
+        "features": [
+            "dowolny kształt i format",
+            "nadruk full kolor",
+            "podkład magnetyczny o dobrej przyczepności",
+            "odporny na warunki atmosferyczne"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "100 sztuk",
+                "100 sztuk",
+                "100 sztuk"
+            ],
+            [
+                "Wymiar",
+                "5 x 5 cm",
+                "7,5 x 7,5 cm",
+                "10 x 10 cm"
+            ],
+            [
+                "Cena za pakiet",
+                "149,00 zł",
+                "199,00 zł",
+                "299,00 zł"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "tactical-magnets": {
+        "source_id": "magnesy-taktyczne",
+        "production": "2–3 dni robocze",
+        "description": "Magnesy taktyczne to uzupełnienie tablic trenerskich, umożliwiające wizualizację ustawienia zawodników. Sprawdzają się podczas treningów, odpraw i analiz meczowych. Pozwalają na szybkie i czytelne przedstawienie założeń taktycznych.",
+        "features": [
+            "zestawy magnesów: 11 zawodników z numerami od 1 do 11 + piłka",
+            "różne kolory oznaczeń w barwach klubowych",
+            "materiał: magnes + plastik",
+            "druk UV full kolor",
+            "w zestawie czarny woreczek materiałowy ze sznurkiem ściągającym."
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 5 sztuk",
+                "6 - 10 sztuk",
+                "11 - więcej"
+            ],
+            [
+                "Cena",
+                "39,00 zł",
+                "34,00 zł",
+                "29,00 zł"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "sticker-sheet": {
+        "source_id": "naklejki-na-arkuszu",
+        "production": "2–3 dni robocze",
+        "description": "Naklejki na arkuszu to wygodne rozwiązanie przy większej liczbie wzorów lub mniejszych formatach. Sprawdzają się jako materiały promocyjne, zestawy dla zawodników lub gadżety do sprzedaży. Dzięki umieszczeniu wielu naklejek na jednym arkuszu ułatwiają dystrybucję i przechowywanie.",
+        "features": [
+            "druk full kolor (CMYK)",
+            "wiele wzorów na jednym arkuszu",
+            "nacinanie po obrysie o dowolnym kształcie (łatwe odklejanie)",
+            "naklejki wodoodporne + zabezpieczone laminatem"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "10-49 arkuszy",
+                "50-99 arkuszy",
+                "100 - więcej"
+            ],
+            [
+                "Arkusz A6",
+                "4,00 zł / arkusz",
+                "3,50 zł / arkusz",
+                "3,00 zł / arkusz"
+            ],
+            [
+                "Arkusz A5",
+                "6,00 zł / arkusz",
+                "5,50 zł / arkusz",
+                "5,00 zł / arkusz"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "paper-stickers": {
+        "source_id": "vlepki",
+        "production": "do 2 dni roboczych",
+        "description": "Vlepki papierowe to popularny element identyfikacji klubowej i materiał promocyjny dla drużyn oraz kibiców. Sprawdzają się jako gadżet do rozdawania, dodatek do sprzedaży lub sposób na oznaczenie materiałów klubowych. Dzięki formie pojedynczych sztuk są od razu gotowe do użycia.",
+        "features": [
+            "papier półbłyszczący samoprzylepny",
+            "nacinanie od spodu ułatwiające odklejanie",
+            "kształty: prostokątne lub kwadratowe",
+            "dostarczane jako pojedyncze, pocięte sztuki"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "250 sztuk",
+                "250 sztuk",
+                "250 sztuk"
+            ],
+            [
+                "Wymiar",
+                "5 x 5 cm",
+                "7,5 x 7,5 cm",
+                "10 x 10 cm"
+            ],
+            [
+                "Cena za pakiet",
+                "79,00 zł",
+                "99,00 zł",
+                "149,00 zł"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "name-stickers": {
+        "source_id": "naklejki-imienne",
+        "production": "2–3 dni robocze",
+        "description": "Naklejki na imienne to praktyczny sposób na oznaczenie sprzętu oraz wyróżnienie zawodnika w drużynie. Najpopularniejsze zastosowanie jest na rower oraz w Klubach Kolarskich. Dzięki trwałym materiałom i personalizacji zachowują estetyczny wygląd nawet przy intensywnym użytkowaniu.",
+        "features": [
+            "druk na wysokiej jakości folii samoprzylepnej",
+            "odporność na wilgoć, promieniowanie UV i zabrudzenia",
+            "możliwość personalizacji (imię, nazwisko, nazwa drużyny)",
+            "Zestaw 8 naklejek, wymiar od 49 - 100 mm (w zależności od długości tekstu)"
+        ],
+        "pricing": [
+            [
+                "Ilość pakietów",
+                "1 - 5 sztuk",
+                "6 - 10 sztuk",
+                "11 - więcej"
+            ],
+            [
+                "Cena",
+                "29,00 zł / szt",
+                "19,00 zł / szt",
+                "15,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "medals": {
+        "source_id": "medale",
+        "production": "2–4 dni robocze",
+        "description": "Medale z pleksi to lekka i estetyczna alternatywa dla tradycyjnych odlewów. Sprawdzają się przy wydarzeniach sportowych, zawodach szkolnych i turniejach klubowych. Dzięki pełnej personalizacji można przygotować projekt dopasowany do charakteru imprezy.",
+        "features": [
+            "materiał: pleksi grubość 3 mm",
+            "nadruk UV full kolor",
+            "dowolny kształt i rozmiar",
+            "przygotowanie pod wstążkę (wstążka we własnym zakresie)"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 50 sztuk",
+                "51 - więcej"
+            ],
+            [
+                "7x7 cm",
+                "4,00 zł / szt",
+                "3,50 zł / szt",
+                "3,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "trophies": {
+        "source_id": "statuetki",
+        "production": "2–4 dni robocze",
+        "description": "Statuetki to elegancka forma wyróżnienia podczas wydarzeń sportowych, turniejów i uroczystości klubowych. Dzięki połączeniu pleksi z drewnianą podstawą prezentują się estetycznie i nowocześnie. Personalizacja pozwala dopasować projekt do rangi wydarzenia i identyfikacji wizualnej.",
+        "features": [
+            "materiał: pleksi + podstawka drewniana",
+            "nadruk UV full kolor na pleksi",
+            "dowolny kształt dopasowany do projektu",
+            "możliwość personalizacji (logo, nazwa wydarzenia, miejsce, sponsor)"
+        ],
+        "pricing": [
+            [
+                "Wariant",
+                "Przezroczysta",
+                "Złota",
+                ""
+            ],
+            [
+                "Wymiar A6",
+                "19,00 zł / szt",
+                "29,00 zł / szt",
+                ""
+            ],
+            [
+                "Wymiar A5",
+                "29,00 zł / szt",
+                "39,00 zł / szt",
+                ""
+            ],
+            [
+                "Wymiar A4",
+                "39,00 zł / szt",
+                "49,00 zł / szt",
+                ""
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "thanks": {
+        "source_id": "podziekowania",
+        "production": "1–4 dni robocze",
+        "description": "Nagrody i podziękowania na pleksi to elegancka forma wyróżnienia dla sponsorów, partnerów, trenerów, zawodników lub osób wspierających klub. Dzięki połączeniu pleksi z drewnianą podstawką prezentują się estetycznie i nowocześnie. Personalizacja pozwala dopasować projekt do okazji, identyfikacji klubu oraz charakteru wręczenia.",
+        "features": [
+            "materiał: pleksi + podstawka drewniana",
+            "nadruk UV full kolor na pleksi",
+            "różne wymiary do wyboru A4, A5, A6",
+            "możliwość personalizacji (logo, nazwa wydarzenia, miejsce, sponsor)"
+        ],
+        "pricing": [
+            [
+                "Wariant",
+                "Przezroczysta",
+                "Złota",
+                ""
+            ],
+            [
+                "Wymiar A6",
+                "19,00 zł / szt",
+                "29,00 zł / szt",
+                ""
+            ],
+            [
+                "Wymiar A5",
+                "29,00 zł / szt",
+                "39,00 zł / szt",
+                ""
+            ],
+            [
+                "Wymiar A4",
+                "39,00 zł / szt",
+                "49,00 zł / szt",
+                ""
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "framed-thanks": {
+        "source_id": "podziekowania-w-drewnianej-ramie",
+        "production": "",
+        "description": "Nagrody i podziękowania na pleksi w ramie to elegancki sposób na wyróżnienie sponsorów, partnerów, trenerów, zawodników oraz osób wspierających działalność klubu i organizacji. Połączenie efektownej pleksi z drewnianą ramą nadaje całości prestiżowy i ponadczasowy charakter, dzięki czemu nagroda staje się wyjątkową pamiątką na lata.",
+        "features": [
+            "Materiał: pleksi z nadrukiem UV + drewniana rama",
+            "Nadruk : UV full kolor",
+            "możliwość personalizacji (logo, nazwa wydarzenia, dedykacja, podpisy)",
+            "indywidualny projekt dopasowany do okazji i identyfikacji wizualnej klubu"
+        ],
+        "pricing": [
+            [
+                "Wymiar",
+                "21 x 30 cm",
+                "30 x 40 cm",
+                ""
+            ],
+            [
+                "Cena",
+                "99,00 zł",
+                "199,00 zł",
+                ""
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "plastic-trophy": {
+        "source_id": "statuetka-plastikowa",
+        "production": "3–4 dni robocze",
+        "description": "Podziękowania na pleksi to elegancka i nowoczesna forma wyróżnienia zawodników, trenerów, sponsorów oraz osób zaangażowanych w rozwój klubu. Kompaktowy format sprawia, że doskonale prezentują się na biurku, półce czy w gablocie, będąc jednocześnie wyjątkową pamiątką na długie lata. Każde podziękowanie wykonujemy indywidualnie, z możliwością umieszczenia herbu klubu, logo sponsorów, dedykacji, nazwisk, dat czy dowolnej grafiki. Dzięki pełnej personalizacji projekt można dopasować do charakteru wydarzenia, identyfikacji wizualnej klubu oraz okazji wręczenia.",
+        "features": [
+            "Wymiar: 10 × 15 cm",
+            "Materiał: pleksi biała 3 mm",
+            "Nadruk: full kolor",
+            "możliwość personalizacji (herb, logo, dedykacja, nazwiska, data, grafiki)"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 50 sztuk",
+                "51 - więcej"
+            ],
+            [
+                "Cena",
+                "11,90 zł / szt",
+                "10,90 zł / szt",
+                "9,90 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "crest": {
+        "source_id": "herb-z-pleksi-na-sciane",
+        "production": "2–3 dni robocze",
+        "description": "Herb z pleksi na ścianę to efektowny element identyfikacji wizualnej klubu, który sprawdza się na stadionach, w szatniach, biurach oraz budynkach klubowych. Dzięki wykonaniu z podwójnej warstwy pleksi prezentuje się estetycznie i nowocześnie. To trwałe rozwiązanie pozwalające wyeksponować logo klubu w widocznym miejscu.",
+        "features": [
+            "podwójna pleksi 3 mm",
+            "możliwość wykonania dowolnego kształtu",
+            "nadruk UV full kolor",
+            "zastosowanie wewnętrzne i zewnętrzne"
+        ],
+        "pricing": [
+            [
+                "Wymiar",
+                "30 x 30 cm",
+                "45 x 45 cm",
+                "60 x 60 cm"
+            ],
+            [
+                "Cena",
+                "40,00 zł",
+                "60,00 zł",
+                "90,00 zł"
+            ]
+        ],
+        "pricing_note": "Wycena indywidualna na podstawie szczegółów dotyczących kształtu oraz sposobu montażu na ścianę."
+    },
+    "transfers": {
+        "source_id": "prasowanki",
+        "production": "2–3 dni robocze",
+        "description": "Prasowanki to łatwy sposób na samodzielne znakowanie odzieży bez konieczności zamawiania gotowych produktów. Nadają się do bawełnianych i mieszanych tkanin, a ich aplikacja odbywa się za pomocą wysokiej temperatury.",
+        "features": [
+            "nadruk full kolor (CMYK) na białym podkładzie",
+            "dowolny wymiar i kształt (zalecane proste formy)",
+            "przeznaczone do tkanin bawełnianych i mieszanych",
+            "dostarczane na arkuszach do samodzielnego wycinania"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "min. 30 sztuk",
+                "min. 30 sztuk",
+                "min. 30 sztuk"
+            ],
+            [
+                "Wymiar",
+                "5 x 5 cm",
+                "7,5 x 7,5 cm",
+                "10 x 10 cm"
+            ],
+            [
+                "Cena",
+                "3,00 zł / szt",
+                "5,00 zł / szt",
+                "8,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "player-cards": {
+        "source_id": "karty-zawodnika",
+        "production": "2–3 dni robocze",
+        "description": "Karty zawodnika w stylu FIFA to atrakcyjny gadżet dla drużyn i młodszych zawodników. Mogą być wykorzystywane jako pamiątka, element zabawy lub materiał promocyjny klubu. Personalizacja pozwala odwzorować dane zawodnika i identyfikację drużyny.",
+        "features": [
+            "wysokiej jakości druk metodą UV",
+            "możliwość pełnej personalizacji (zdjęcie, dane, statystyki)",
+            "wydruk na sztywnym PCV o grubości 5 mm",
+            "dwa wymiary do wyboru"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 5 sztuk",
+                "6 - 10 sztuk",
+                "11 - więcej"
+            ],
+            [
+                "Mała wymiar 18 x 30 cm",
+                "49,00 zł / szt",
+                "45,00 zł / szt",
+                "39,00 zł / szt"
+            ],
+            [
+                "Duża wymiar 30 x 47,5 cm",
+                "99,00 zł / szt",
+                "89,00 zł / szt",
+                "79,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "posters": {
+        "source_id": "plakaty",
+        "production": "do 2 dni roboczych",
+        "description": "Plakaty to podstawowe narzędzie informacyjne i promocyjne przy organizacji wydarzeń. Pozwalają szybko dotrzeć do odbiorców i przekazać najważniejsze informacje. Dzięki różnym formatom można je dopasować do miejsca ekspozycji.",
+        "features": [
+            "druk full kolor",
+            "różne formaty (A4, A3, A2 i większe)",
+            "papier plakatowy 200 g"
+        ],
+        "pricing": [
+            [
+                "Format",
+                "1 - 10 sztuk",
+                "11 sztuk - więcej"
+            ],
+            [
+                "A4",
+                "2,00 zł / szt",
+                "2,00 zł / szt"
+            ],
+            [
+                "A3",
+                "3,00 zł / szt",
+                "2,50 zł / szt"
+            ],
+            [
+                "A2",
+                "9,00 zł / szt",
+                "8,00 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "diplomas": {
+        "source_id": "dyplomy",
+        "production": "do 2 dni roboczych",
+        "description": "Dyplomy to podstawowy element wydarzeń sportowych i szkolnych, podkreślający osiągnięcia uczestników. Sprawdzają się zarówno podczas turniejów, jak i uroczystości klubowych. Dzięki personalizacji można je łatwo dopasować do rangi wydarzenia.",
+        "features": [
+            "druk full kolor",
+            "różne formaty np. A4, A5",
+            "papier o podwyższonej gramaturze",
+            "możliwość personalizacji (imienia i nazwiska, nazwy, miejsca)"
+        ],
+        "pricing": [
+            [
+                "Ilość",
+                "1 - 10 sztuk",
+                "11 - 50 sztuk",
+                "51 - więcej"
+            ],
+            [
+                "A5",
+                "2,00 zł / szt",
+                "1,50 zł / szt",
+                "1,00 zł / szt"
+            ],
+            [
+                "A4",
+                "3,00 zł / szt",
+                "2,00 zł / szt",
+                "1,50 zł / szt"
+            ]
+        ],
+        "pricing_note": ""
+    },
+    "calendars": {
+        "source_id": "kalendarze",
+        "production": "do 2 dni roboczych",
+        "description": "Kalendarze to praktyczny materiał, który pozostaje w użyciu przez cały rok. Mogą pełnić funkcję informacyjną, organizacyjną lub promocyjną. Personalizacja pozwala dopasować ich wygląd do identyfikacji wizualnej klubu.",
+        "features": [
+            "kalendarze jednodzielne, plakatowe, biurkowe",
+            "nadruk full kolor",
+            "możliwość pełnej personalizacji układu"
+        ],
+        "pricing": [],
+        "pricing_note": "Wycena indywidualna w zależności od wymiaru i nakładu."
+    }
+};
+
 const concept_product_ids = new Set([
     'lesson-plan',
     'jersey-magnet',
@@ -715,6 +1692,7 @@ const assumptions = {
         title: 'Landing programu ACTIVIO Club',
         items: [
             'Landing wyjaśnia model partnerski przed przejściem do formularza kontaktowego lub panelu demonstracyjnego.',
+            'Przyciski „Dołącz” prowadzą do tego landingu i osadzonego formularza zgłoszenia klubu.',
             'ACTIVIO pozostaje sprzedawcą i obsługuje produkcję, płatności, wysyłkę oraz klienta.',
             'Katalog startowy ACTIVIO Club zawiera 15 zatwierdzonych produktów; kategorie są tylko warstwą nawigacyjną.',
             'Klub wybiera zatwierdzone produkty, ustala ceny ponad minimum i otrzymuje wynagrodzenie zapisane per pozycja zamówienia.',
@@ -1468,6 +2446,22 @@ function render_offer_browser(category_grid, tree, browser, categories, id_prefi
     }).join('');
 }
 
+function offer_pricing_markup(details) {
+    const column_count = Math.max(0, ...details.pricing.map((row) => row.length));
+    const visible_columns = Array.from({ length: column_count }, (_value, index) => index)
+        .filter((index) => details.pricing.some((row) => (row[index] || '') !== ''));
+    const pricing_rows = details.pricing.map((row) => visible_columns.map((index) => row[index] || ''));
+    const has_prices = pricing_rows.slice(1).some((row) => row.slice(1).some((cell) => cell !== ''));
+    const table = pricing_rows.length > 1 && visible_columns.length > 1
+        ? `<div class="offer-price-table-wrap"><table class="offer-price-table"><thead><tr>${pricing_rows[0].map((cell) => `<th>${escape_html(cell)}</th>`).join('')}</tr></thead><tbody>${pricing_rows.slice(1).map((row) => `<tr>${row.map((cell, index) => `<${index === 0 ? 'th' : 'td'}>${escape_html(cell)}</${index === 0 ? 'th' : 'td'}>`).join('')}</tr>`).join('')}</tbody></table></div>`
+        : '';
+    const pricing_note = details.pricing_note || (has_prices ? '' : 'Cennik w przygotowaniu.');
+    const note = pricing_note
+        ? `<p class="offer-price-note">${escape_html(pricing_note)}</p>`
+        : '';
+    return `<div class="offer-pricing"><strong>Cennik:</strong>${table}${note}</div>`;
+}
+
 function render_activio_offer_catalog() {
     const view = document.querySelector('[data-view="offer"]');
     render_offer_browser(
@@ -1476,7 +2470,21 @@ function render_activio_offer_catalog() {
         view.querySelector('.offer-products'),
         activio_offer_categories,
         'offer',
-        (product, id_prefix) => `<article id="${id_prefix}-${product.id}"><img src="${product.image}" alt="${escape_html(product.name)}"><div><small>REALIZACJA ${escape_html(product.production)}</small><h3>${escape_html(product.name)}</h3><p>${escape_html(product.lead)}</p><strong>${escape_html(product.price)}</strong><button type="button" data-offer-question="${escape_html(product.name)}">Zapytaj o produkt →</button></div></article>`,
+        (product, id_prefix) => {
+            const source_details = activio_offer_details[product.id];
+            const details = {
+                production: source_details?.production || product.production,
+                description: source_details?.description || product.lead,
+                features: Array.isArray(source_details?.features) ? source_details.features : [],
+                pricing: Array.isArray(source_details?.pricing) ? source_details.pricing : [],
+                pricing_note: source_details?.pricing_note || (!source_details ? product.price : ''),
+            };
+            const features = details.features.map((feature) => `<li>${escape_html(feature)}</li>`).join('');
+            const production = details.production
+                ? `<small>REALIZACJA ${escape_html(details.production)}</small>`
+                : '';
+            return `<article id="${id_prefix}-${product.id}" class="offer-detail-card"><img src="${product.image}" alt="${escape_html(product.name)}"><div>${production}<h3>${escape_html(product.name)}</h3><p>${escape_html(details.description)}</p><ul class="offer-product-features">${features}</ul>${offer_pricing_markup(details)}<button type="button" data-offer-question="${escape_html(product.name)}">Zapytaj o produkt →</button></div></article>`;
+        },
     );
 }
 
@@ -1760,19 +2768,8 @@ function show_action(action, source) {
     }
 
     if (action === 'join-club') {
-        open_action_dialog('Zgłoś klub do programu', `
-            <form class="action-form" data-action-form="join-club">
-                <label>Nazwa klubu<input name="club" required autocomplete="organization"></label>
-                <label>Dyscyplina<select name="sport"><option>Piłka nożna</option><option>Siatkówka</option><option>Koszykówka</option><option>Inna</option></select></label>
-                <label>Miasto<input name="city" required></label>
-                <label>NIP lub numer rejestrowy<input name="registration" required></label>
-                <label>Osoba kontaktowa<input name="name" required autocomplete="name"></label>
-                <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
-                <label class="wide">Wiadomość<textarea name="message" placeholder="Krótko opisz klub i oczekiwania wobec sklepu"></textarea></label>
-                <p class="action-form-note">Zgłoszenie rozpoczyna weryfikację organizacji, praw do marki i materiałów. Publikację zatwierdza ACTIVIO.</p>
-                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Wyślij zgłoszenie</button></footer>
-            </form>
-        `, 'ACTIVIO CLUB');
+        render_view('club-program');
+        document.getElementById('club-registration')?.scrollIntoView({ behavior: 'instant', block: 'start' });
         return;
     }
 
@@ -3427,6 +4424,9 @@ document.addEventListener('submit', (event) => {
     }
 
     const is_join = form_type === 'join-club';
+    if (is_join) {
+        form.reset();
+    }
     const form_messages = {
         'club-data-change': ['Zmiana danych zgłoszona', 'Weryfikacja dokumentów i rejestrów'],
         'brand-change': ['Materiał marki przekazany', 'Weryfikacja praw i jakości pliku'],

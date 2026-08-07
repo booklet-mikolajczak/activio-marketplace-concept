@@ -5,6 +5,7 @@ import test from 'node:test';
 const root_url = new URL('../', import.meta.url);
 const index_html = await readFile(new URL('mockup/index.html', root_url), 'utf8');
 const app_js = await readFile(new URL('mockup/app.js', root_url), 'utf8');
+const styles_css = await readFile(new URL('mockup/styles.css', root_url), 'utf8');
 
 function unique_attribute_values(source, attribute) {
     return [...new Set(
@@ -119,6 +120,51 @@ test('printer offer and Club starting catalog stay separate', async () => {
     assert.match(app_js, /data-action="join-club">Dodaj do sklepu klubowego/);
     assert.match(index_html, /id="club-program-catalog"/);
     assert.match(index_html, /15 produktów gotowych do wdrożenia w sklepie klubu/);
+});
+
+test('printer offer includes current detailed copy and price tables', () => {
+    const offer_source = app_js.slice(
+        app_js.indexOf('const activio_offer_categories = ['),
+        app_js.indexOf('const activio_offer_details = {'),
+    );
+    const details_source = app_js.slice(
+        app_js.indexOf('const activio_offer_details = {'),
+        app_js.indexOf('const concept_product_ids = new Set'),
+    );
+    const categories = Function(`${offer_source}; return activio_offer_categories;`)();
+    const details = Function(`${details_source}; return activio_offer_details;`)();
+    const product_ids = categories.flatMap((category) => category.products.map((product) => product.id));
+
+    assert.equal(Object.keys(details).length, 34);
+    assert.deepEqual(Object.keys(details).sort(), [...product_ids].sort());
+    Object.values(details).forEach((product) => {
+        assert.ok(product.description.length > 40, product.source_id);
+        assert.ok(product.features.length >= 3, product.source_id);
+        assert.ok(product.pricing.length > 0 || product.pricing_note !== '', product.source_id);
+    });
+    assert.equal(details['cotton-shirt'].features.length, 4);
+    assert.deepEqual(details['cotton-shirt'].pricing[1], [
+        'Cena',
+        '49,00 zł / szt',
+        '45,00 zł / szt',
+        '42,00 zł / szt',
+    ]);
+    assert.match(app_js, /class="offer-product-features"/);
+    assert.match(app_js, /class="offer-price-table"/);
+    assert.match(app_js, /const visible_columns =/);
+    assert.match(app_js, /Cennik w przygotowaniu\./);
+    assert.match(app_js, /const is_join = form_type === 'join-club';\s*if \(is_join\) \{\s*form\.reset\(\);/);
+    assert.match(styles_css, /\.offer-products article p \{[^}]*font-size: 15px/);
+    assert.match(styles_css, /\.offer-price-table \{[^}]*font-size: 14px/);
+    assert.match(styles_css, /\.offer-price-note \{[^}]*font-size: 14px/);
+    assert.match(styles_css, /\.club-registration-form \.club-registration-consent input \{[^}]*width: 16px; height: 16px/);
+});
+
+test('ACTIVIO Club join actions lead to the landing registration form', () => {
+    assert.match(index_html, /id="club-registration"/);
+    assert.match(index_html, /data-action-form="join-club"/);
+    assert.match(app_js, /if \(action === 'join-club'\) \{\s*render_view\('club-program'\)/);
+    assert.match(app_js, /getElementById\('club-registration'\)\?\.scrollIntoView/);
 });
 
 test('use cases cover every functional view', () => {

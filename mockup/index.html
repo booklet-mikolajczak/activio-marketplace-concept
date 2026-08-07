@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b1120">
-    <meta name="activio-mockup-version" content="20260806-01">
+    <meta name="activio-mockup-version" content="20260807-01">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>ACTIVIO — klikalny prototyp</title>
-    <link rel="stylesheet" href="styles.css?v=20260806-01">
+    <link rel="stylesheet" href="styles.css?v=20260807-01">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -777,11 +777,38 @@
                 </div>
             </section>
 
+            <section class="club-registration" id="club-registration">
+                <div>
+                    <span class="eyebrow light">ZGŁOŚ KLUB</span>
+                    <h2>Zacznijmy od krótkiej rozmowy</h2>
+                    <p>Wypełnij formularz, jeśli reprezentujesz klub lub organizację sportową. Sprawdzimy potrzeby, prawa do marki i produkty, od których warto rozpocząć sklep.</p>
+                    <ol>
+                        <li><b>01</b><span><strong>Rozmowa i weryfikacja</strong><small>Poznajemy klub, osoby uprawnione i oczekiwania.</small></span></li>
+                        <li><b>02</b><span><strong>Oferta i projekty</strong><small>Wybieracie produkty, materiały marki oraz ceny.</small></span></li>
+                        <li><b>03</b><span><strong>Publikacja sklepu</strong><small>ACTIVIO uruchamia sprzedaż i obsługuje realizację.</small></span></li>
+                    </ol>
+                </div>
+                <form class="action-form club-registration-form" data-action-form="join-club">
+                    <label>Nazwa klubu<input name="club" required autocomplete="organization" placeholder="Np. KS Stal Pleszew"></label>
+                    <label>Dyscyplina<select name="sport" required><option value="">Wybierz dyscyplinę</option><option>Piłka nożna</option><option>Siatkówka</option><option>Koszykówka</option><option>Sporty indywidualne</option><option>Inna</option></select></label>
+                    <label>Miasto<input name="city" required autocomplete="address-level2"></label>
+                    <label>NIP lub numer rejestrowy<input name="registration" required></label>
+                    <label>Osoba kontaktowa<input name="name" required autocomplete="name"></label>
+                    <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+                    <label>Telefon<input name="phone" type="tel" required autocomplete="tel"></label>
+                    <label>Strona lub profil klubu<input name="website" type="url" placeholder="https://"></label>
+                    <label class="wide">Czego potrzebuje klub?<textarea name="message" placeholder="Napisz kilka słów o klubie, liczbie zawodników i produktach"></textarea></label>
+                    <label class="wide club-registration-consent"><input type="checkbox" required><span>Potwierdzam, że reprezentuję wskazaną organizację i zgadzam się na kontakt w sprawie programu ACTIVIO Club.</span></label>
+                    <p class="action-form-note">Zgłoszenie nie publikuje sklepu. ACTIVIO najpierw weryfikuje organizację, prawa do marki, produkty i zasady współpracy.</p>
+                    <footer><button class="button lime" type="submit">Wyślij zgłoszenie klubu</button></footer>
+                </form>
+            </section>
+
             <section class="club-program-cta">
                 <span class="eyebrow light">GOTOWI NA PILOTAŻ?</span>
                 <h2>Zbudujmy oficjalny sklep Twojego klubu</h2>
                 <p>Zaczniemy od krótkiej rozmowy o klubie, marce i produktach, których potrzebują zawodnicy oraz kibice.</p>
-                <button class="button lime" type="button" data-action="join-club">Dołącz do ACTIVIO Club</button>
+                <button class="button lime" type="button" data-scroll-to="club-registration">Przejdź do formularza</button>
             </section>
         </section>
 
@@ -2414,7 +2441,7 @@
         </div>
     </template>
 
-    <script src="app.js?v=20260806-01"></script>
+    <script src="app.js?v=20260807-01"></script>
     <script defer src="/website-feedback-loader.js"></script>
 </body>
 </html>
