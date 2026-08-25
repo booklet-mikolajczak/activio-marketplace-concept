@@ -15,7 +15,7 @@ const website_feedback_host = normalize_website_feedback_host(
 );
 const website_feedback_project_key = process.env.ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY
     || 'activio-storefornt';
-const website_feedback_version = process.env.ACTIVIO_WEBSITE_FEEDBACK_VERSION || '2026-08-05.2';
+const website_feedback_version = process.env.ACTIVIO_WEBSITE_FEEDBACK_VERSION || '2026-08-06.3';
 const website_feedback_development = process.env.ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT === 'true';
 const session_cookie = 'activio_session';
 const session_duration_seconds = 7 * 24 * 60 * 60;
@@ -108,6 +108,7 @@ function website_feedback_loader_source() {
     script.dataset.feedbackProject = config.project;
     script.dataset.feedbackVersion = config.version;
     script.dataset.feedbackApi = config.api;
+    script.dataset.feedbackPublic = 'true';
 ${development_attribute}
     document.head.append(script);
 })();

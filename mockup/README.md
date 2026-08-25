@@ -58,7 +58,8 @@ odpowiedzieć, opisać wykonane działanie i zmienić status. Uwagi przechowuje 
 nie ten katalog ani serwer Node.
 
 Host, klucz projektu, wersję i tryb development ustawia się zmiennymi
-`ACTIVIO_WEBSITE_FEEDBACK_*`. Bez skonfigurowanego hosta bootstrap nie pobiera zewnętrznych zasobów.
+`ACTIVIO_WEBSITE_FEEDBACK_*`. Bootstrap prosi też o sesję publiczną, którą backend wydaje tylko po
+włączeniu opcji „Pokazuj widget zawsze”. Bez hosta bootstrap nie pobiera zewnętrznych zasobów.
 Stary panel, lokalny `html2canvas`, endpoint `/api/feedback` i widok „Historia zmian” są nieaktywne;
 istniejące dane pozostają w archiwum opisanym w głównym `README.md`.
 

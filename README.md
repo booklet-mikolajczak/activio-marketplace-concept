@@ -67,15 +67,16 @@ Konfiguracja publicznego prototypu:
 ACTIVIO_DEMO_PASSWORD='własne-mocne-hasło' \
 ACTIVIO_WEBSITE_FEEDBACK_HOST='https://system3.booklet.pl' \
 ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY='activio-storefornt' \
-ACTIVIO_WEBSITE_FEEDBACK_VERSION='2026-08-05.2' \
+ACTIVIO_WEBSITE_FEEDBACK_VERSION='2026-08-06.3' \
 ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT=false \
 ./scripts/serve-protected.sh
 ```
 
 Projekt `activio-storefornt` ma skonfigurowany produkcyjny origin
-`https://bkt-44-parobek.tailf5aee2.ts.net`. Recenzent uruchamia panel linkiem zawierającym ważny
-token `feedback-review` w fragmencie URL. Flaga developerska pozostaje wyłączona na publicznym
-prototypie. Lokalny adres `127.0.0.1` nie jest originem tego projektu i sam nie uruchomi widgetu.
+`https://bkt-44-parobek.tailf5aee2.ts.net`. Bootstrap prosi o sesję publiczną; backend wydaje ją
+wyłącznie po włączeniu opcji „Pokazuj widget zawsze” w Website Feedback. Link recenzencki nadal
+uruchamia sesję recenzenta. Flaga developerska pozostaje wyłączona na publicznym prototypie.
+Lokalny adres `127.0.0.1` nie jest originem tego projektu i sam nie uruchomi widgetu.
 
 Uwagi, screenshoty, odpowiedzi, działania i statusy przechowuje centralny backend Website Feedback. Stary lokalny endpoint `/api/feedback` nie jest już wystawiany, a lokalny `html2canvas` nie jest ładowany.
 

@@ -169,6 +169,7 @@ test('uses form session for browsers and keeps Basic Auth for scripts', { timeou
         assert.match(integration_source, /\/widget\/v1\/loader\.js/);
         assert.match(integration_source, /activio-club-concept/);
         assert.match(integration_source, /feedbackDevelopment/);
+        assert.match(integration_source, /feedbackPublic = 'true'/);
 
         const invalid = await request(`${base}/login`, {
             method: 'POST',
@@ -445,9 +446,10 @@ test('feedback bootstrap uses Activio project defaults', { timeout: 10000 }, asy
 
         assert.equal(loader.status, 200);
         assert.match(source, /activio-storefornt/);
-        assert.match(source, /2026-08-05\.2/);
+        assert.match(source, /2026-08-06\.3/);
         assert.match(source, /"development":false/);
         assert.doesNotMatch(source, /feedbackDevelopment/);
+        assert.match(source, /feedbackPublic = 'true'/);
     } finally {
         await stop_server(child);
     }
@@ -468,7 +470,7 @@ test('production bootstrap never requests a development session', { timeout: 100
             ACTIVIO_WEBSITE_FEEDBACK_DEVELOPMENT: 'false',
             ACTIVIO_WEBSITE_FEEDBACK_HOST: 'https://system3.booklet.pl',
             ACTIVIO_WEBSITE_FEEDBACK_PROJECT_KEY: 'activio-storefornt',
-            ACTIVIO_WEBSITE_FEEDBACK_VERSION: '2026-08-05.2',
+            ACTIVIO_WEBSITE_FEEDBACK_VERSION: '2026-08-06.3',
         },
         stdio: ['ignore', 'pipe', 'pipe'],
     });
@@ -489,9 +491,10 @@ test('production bootstrap never requests a development session', { timeout: 100
         assert.equal(loader.status, 200);
         assert.match(source, /"host":"https:\/\/system3\.booklet\.pl"/);
         assert.match(source, /activio-storefornt/);
-        assert.match(source, /2026-08-05\.2/);
+        assert.match(source, /2026-08-06\.3/);
         assert.match(source, /"development":false/);
         assert.doesNotMatch(source, /feedbackDevelopment/);
+        assert.match(source, /feedbackPublic = 'true'/);
     } finally {
         await stop_server(child);
     }
