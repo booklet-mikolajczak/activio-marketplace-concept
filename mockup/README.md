@@ -89,4 +89,8 @@ Mockup sprawdza `Last-Modified` i `ETag` plików HTML, CSS, `app.js` oraz trzech
 
 Nazwy bazowych produktów, parametry i zdjęcia pochodzą z aktualnej oferty [activio.pl](https://www.activio.pl/) za zgodą użytkownika. Publiczne ceny w prototypie są przykładowymi cenami detalicznymi ustalonymi przez kluby, a nie kopią cennika B2B.
 
-Kopie używanych zdjęć znajdują się w `assets/products`, dlatego prototyp nie zależy od dostępności strony źródłowej. Przed wdrożeniem produkcyjnym materiały trzeba przenieść do zarządzanego magazynu plików wraz z prawami, opisem alternatywnym, wersją i historią wycofania.
+Galerie Oferty B2B korzystają z oficjalnych zdjęć `activio.pl`. Lokalne kopie głównych zdjęć w
+repozytoryjnym katalogu `assets/products` są fallbackiem, dlatego niedostępność strony źródłowej ograniczy galerię do
+pojedynczego obrazu, ale nie pozostawi pustego produktu. Przed wdrożeniem produkcyjnym materiały
+trzeba przenieść do zarządzanego magazynu plików wraz z prawami, opisem alternatywnym, wersją i
+historią wycofania.

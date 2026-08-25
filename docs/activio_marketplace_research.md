@@ -198,7 +198,7 @@ Ministerstwo Finansów wskazuje, że stowarzyszenie jest podatnikiem CIT, a przy
 
 Źródło: [Ministerstwo Finansów: stowarzyszenie — CIT i sprzedaż gadżetów](https://www.podatki.gov.pl/poradniki-i-informatory/stowarzyszenie)
 
-Wymagania onboardingu:
+Wymagania wdrożenia klubu:
 
 - forma prawna i rejestr: KRS lub właściwa ewidencja,
 - NIP i dane podatkowe,
@@ -331,7 +331,7 @@ Przed sprzedażą poza Polskę ponownie przeanalizować:
 ### Blokujące przed pilotażem
 
 1. regulamin i informacje konsumenckie,
-2. onboarding prawny klubu,
+2. prawne wdrożenie klubu,
 3. dokumenty produktowe i etykiety,
 4. prywatność i uprawnienia,
 5. reklamacje/recall,

@@ -42,8 +42,16 @@ Produkty ze Sklepu ACTIVIO i oficjalnych sklepów klubowych korzystają z jedneg
 10. Wynagrodzenie właściwego klubu jest przypisane do każdej sprzedanej pozycji.
 11. Warunki obowiązujące w chwili zakupu pozostają częścią historii zamówienia i rozliczenia.
 12. Wynagrodzenie klubu staje się dostępne po dostarczeniu i zakończeniu ustalonego okresu bezpieczeństwa.
-13. Klub widzi dane potrzebne do oceny sprzedaży i identyfikacji produktu, ale nie pełne dane kupującego.
-14. Katalog i lista producentów są kontrolowane przez ACTIVIO; klub nie dodaje własnych dostawców ani dowolnych towarów.
+13. Saldo jest prowadzone w sposób ciągły. Nie tworzymy ani nie zamykamy miesięcznych okresów rozliczeniowych; klub zleca wypłatę dostępnych środków w wybranym momencie.
+14. Klub widzi dane potrzebne do oceny sprzedaży i identyfikacji produktu, ale nie pełne dane kupującego.
+15. Katalog i lista producentów są kontrolowane przez ACTIVIO; klub nie dodaje własnych dostawców ani dowolnych towarów.
+16. Każdy produkt bazowy ma zaprojektowany i wersjonowany szablon. Oferta klubu zachowuje jego układ, technologię i obszary produkcyjne; podmienia herb oraz dwa kolory podstawowe: ciemny i jasny.
+17. Marka klubu przechowuje trzy odrębnie nazwane kolory: podstawowy ciemny, podstawowy jasny i dodatkowy. Kolor dodatkowy nie zastępuje żadnego z dwóch kolorów podstawowych.
+18. Klub może pobrać szablon produktu. Następnie zleca przygotowanie projektu ACTIVIO albo załącza projekt wykonany przez klub na tym szablonie; w obu przypadkach ACTIVIO weryfikuje plik przed publikacją.
+19. Właściwości produkcyjne bez realnego wyboru nie są prezentowane klubowi ani kupującemu jako wariant. Magnes koszulka ma wyłącznie matowe wykończenie.
+20. Licencja na markę jest bezterminowa. Jej czasu trwania nie pokazujemy w operacyjnych listach produktów i listingów; dokument, data rozpoczęcia, zakres oraz ewentualne cofnięcie pozostają w widokach prawnych i audycie.
+21. Interfejs użytkownika jest po polsku. Nazwy techniczne, kody uprawnień i identyfikatory integracji nie zastępują zrozumiałych opisów; proces uruchomienia partnera nazywamy „wdrożeniem klubu”.
+22. Każdy produkt w Ofercie B2B ma galerię co najmniej dwóch oficjalnych zdjęć produktu. Pojedyncze zdjęcie nie zastępuje galerii; źródłem referencyjnym pozostaje aktualna oferta activio.pl. Kliknięcie głównego zdjęcia otwiera pełnoekranowy lightbox z nawigacją po całej galerii.
 
 Historia pozycji zachowuje klub, produkt, wariant, personalizację, zaakceptowany projekt, cenę klienta, obowiązujące minimum, wynagrodzenie klubu, podatek i ilość. Późniejsza zmiana ceny, projektu lub umowy nie zmienia wcześniejszego zamówienia.
 
@@ -183,19 +191,18 @@ Na pilotaż warto rozważyć stałą kwotę za sprzedaną sztukę. Jest najłatw
 
 Wszystkie ceny pokazywane kupującemu w Markecie ACTIVIO i sklepach klubowych są cenami brutto.
 
-Wynagrodzenie partnerskie klubu jest ustalane jako kwota netto:
+Wynagrodzenie partnerskie klubu jest ustalane jako kwota netto. Przy zlecaniu wypłaty klub wybiera sposób dokumentowania:
 
-- klub będący czynnym podatnikiem VAT wystawia fakturę VAT i otrzymuje kwotę brutto, czyli wynagrodzenie netto powiększone o VAT;
-- klub niebędący podatnikiem VAT wystawia dokument bez VAT i otrzymuje kwotę netto.
+- faktura VAT — wypłata kwoty brutto, czyli wynagrodzenia netto powiększonego o VAT;
+- rachunek — wypłata kwoty netto.
 
-Panel musi pokazywać osobno podstawę netto, VAT oraz kwotę brutto do wypłaty. Status VAT i wymagany dokument są danymi umowy klubu. Księgowy powinien potwierdzić dokumenty i moment powstania obowiązku podatkowego przed pilotażem.
+Panel pokazuje zarobek klubu, prognozy, saldo i historię domyślnie w kwotach brutto. Podstawa netto i VAT pozostają widoczne w szczegółowym rozbiciu księgowym. Środki kumulują się po okresie bezpieczeństwa; klub sam wybiera moment i przechodzi na osobną podstronę „Zleć wypłatę”, gdzie wskazuje fakturę VAT albo rachunek oraz wgrywa dokument. ACTIVIO weryfikuje dokument przed przelewem. Księgowy powinien potwierdzić dopuszczalność obu ścieżek i moment powstania obowiązku podatkowego przed pilotażem.
+
+Wypłaty nie są miesięczne. System nie zamyka okresów rozliczeniowych: każda zakwalifikowana sprzedaż zwiększa bieżące saldo, a korekta je zmniejsza. Zlecenie wypłaty zapisuje datę, kwotę i skład dostępnego salda w chwili zlecenia. Objęte wpisy są rezerwowane dla tego zlecenia i nie mogą wejść do kolejnego; nowe naliczenia pozostają na saldzie do kolejnej wypłaty. Miesiąc może być wyłącznie filtrem raportu, nigdy warunkiem ani granicą wypłaty.
 
 W pilotażu nie obsługujemy kuponów, kodów rabatowych, promocji cenowych ani przekreślonych cen. Cena listingu może zostać zmieniona przez klub, ale zawsze pozostaje ceną regularną i nie niższą od minimum ACTIVIO.
 
-Trzeba jeszcze jednoznacznie ustalić:
-
-- kiedy sprzedaż staje się należna do wypłaty;
-- co dzieje się po zwrocie, reklamacji lub obciążeniu zwrotnym.
+Sprzedaż staje się dostępna do wypłaty po dostarczeniu zamówienia i zakończeniu okresu bezpieczeństwa. Zwrot, reklamacja lub obciążenie zwrotne tworzą korektę salda.
 
 ## 9. Role i odpowiedzialności
 
@@ -235,11 +242,13 @@ Trzeba jeszcze jednoznacznie ustalić:
 - wynagrodzenie oczekujące, dostępne, wypłacone i skorygowane;
 - najlepiej sprzedające się produkty;
 - trend sprzedaży;
-- następna wypłata i ważne alerty.
+- środki dostępne do wypłaty i ważne alerty.
 
 ### Oferta i ceny
 
 - katalog produktów dostępnych dla klubu;
+- pobranie szablonu wybranego produktu;
+- wybór projektu przygotowanego przez ACTIVIO albo upload projektu klubu wykonanego na szablonie;
 - status przygotowania i publikacji;
 - cena minimalna ACTIVIO;
 - cena detaliczna ustalana przez klub;
@@ -256,8 +265,11 @@ Klub widzi tylko swoje produkty, ich personalizację, wartość, status i wpływ
 - każda sprzedaż, korekta i wypłata jako osobny zapis;
 - powiązanie kwoty z konkretną pozycją;
 - saldo oczekujące i dostępne;
-- zestawienie okresowe;
-- status wypłaty i dokument rozliczeniowy.
+- ciągła historia salda bez miesięcznych okresów;
+- historia zleceń oznaczonych datą i identyfikatorem;
+- przycisk „Zleć wypłatę”;
+- wybór faktury VAT albo rachunku;
+- status zlecenia wypłaty i dokument rozliczeniowy.
 
 ## 11. Zakres MVP
 
@@ -275,7 +287,7 @@ Klub widzi tylko swoje produkty, ich personalizację, wartość, status i wpływ
 - ceny ustalane przez kluby powyżej minimum;
 - tekstowa personalizacja: rozmiar, numer, imię lub nazwisko;
 - panel klubu: pulpit, oferta, zamówienia i rozliczenia;
-- miesięczne wypłaty zatwierdzane przez ACTIVIO;
+- wypłaty na wniosek klubu, zatwierdzane przez ACTIVIO po weryfikacji dokumentu;
 - ręczna obsługa wyjątków.
 
 ### Poza pilotażem
@@ -324,6 +336,17 @@ Na MVP rekomendowana jest jedna paczka i jasna informacja, że termin zależy od
 ACTIVIO prowadzi katalog bazowy. Klub wybiera z niego produkty, zamiast samodzielnie definiować dowolne technologie i materiały.
 
 Każdy produkt katalogowy wskazuje producenta zatwierdzonego przez ACTIVIO. Nowego producenta i jego produkty może wprowadzić operator ACTIVIO; klub może jedynie wybrać produkt udostępniony w katalogu.
+
+Produkt bazowy zawiera gotowy układ graficzny, obszary produkcyjne i szablon do pobrania. Dla konkretnego klubu system podmienia herb oraz dwa kolory podstawowe — ciemny i jasny — bez przebudowy kompozycji. Marka przechowuje też osobny kolor dodatkowy, który nie może być mylony z żadnym z kolorów podstawowych.
+
+Klub wybiera jedną z dwóch ścieżek projektu:
+
+1. przekazuje wskazówki, a projekt na szablonie przygotowuje ACTIVIO;
+2. pobiera szablon i załącza własny projekt do kontroli ACTIVIO.
+
+Publikacja zawsze wymaga kontroli technicznej ACTIVIO i akceptacji klubu. Sam upload nie pozwala ominąć szablonu, zasad produkcji ani praw do marki.
+
+Wariant jest pokazywany tylko wtedy, gdy klub albo kupujący faktycznie może wybierać. Stałe cechy produktu pozostają częścią szablonu. Dla Magnesu koszulki przyjęto wyłącznie matowe wykończenie.
 
 Początkowy katalog ma cztery kategorie:
 
@@ -378,7 +401,7 @@ Do ustalenia:
 | Cena nie pokrywa pełnego kosztu | Minimum liczone dla pojedynczej produkcji na zamówienie |
 | Klub oczekuje innej wypłaty | Widoczna reguła i rozliczenie każdej pozycji |
 | Błąd personalizacji | Podgląd, potwierdzenie klienta i jasna odpowiedzialność |
-| Wygasają prawa do herbu | Terminy licencji, przypomnienia i możliwość wstrzymania oferty |
+| Klub cofa zgodę albo traci prawa do herbu | Bezterminowa licencja od daty rozpoczęcia, historia zmian i możliwość wstrzymania oferty |
 | Jeden produkt blokuje paczkę | Jasna obietnica terminu i procedura wyjątku |
 | Dużo sprzedaży bez marży | Pomiar pełnej marży po produkcji, obsłudze i reklamacjach |
 | Spór po zwrocie lub reklamacji | Korekta przypisana do konkretnej pozycji i umowna procedura |
@@ -421,7 +444,7 @@ Sam obrót nie wystarczy. Pilot ma potwierdzić jednocześnie popyt, rentownoś�
 
 ### Etap 2 — automatyzacja
 
-Dopiero po dwóch poprawnych cyklach rozliczeniowych rozszerzamy katalog, onboarding, dokumenty, wypłaty, SEO i mechanizmy sezonowe.
+Dopiero po dwóch poprawnie obsłużonych wypłatach rozszerzamy katalog, wdrożenie klubów, dokumenty, wypłaty, SEO i mechanizmy sezonowe.
 
 ## 20. Rejestr decyzji biznesowych
 
@@ -435,9 +458,15 @@ Dopiero po dwóch poprawnych cyklach rozliczeniowych rozszerzamy katalog, onboar
 | Dolna granica ceny | minimum ACTIVIO | przyjęte |
 | Kupony i rabaty | brak w MVP | przyjęte |
 | Rozszerzanie katalogu | wyłącznie ACTIVIO i zatwierdzeni producenci | przyjęte |
+| Projekt produktu klubowego | stały szablon ACTIVIO; podmiana herbu i dwóch kolorów podstawowych | przyjęte |
+| Projekt dostarczony przez klub | dozwolony wyłącznie na pobranym szablonie i po weryfikacji ACTIVIO | przyjęte |
+| Kolory marki | podstawowy ciemny, podstawowy jasny i dodatkowy | przyjęte |
+| Magnes koszulka | wyłącznie matowy; bez wyboru wykończenia | przyjęte |
+| Licencja na markę | bezterminowa; czas trwania ukryty w operacyjnych listach | przyjęte |
+| Język interfejsu | polski; techniczne identyfikatory ukryte za zrozumiałymi nazwami | przyjęte |
 | Wynagrodzenie klubu | osobno dla każdej pozycji | wymagane |
 | Reguła wynagrodzenia | stała kwota na sztukę w pilotażu | do decyzji |
-| Wypłata | miesięczna po okresie bezpieczeństwa | do decyzji księgowej |
+| Wypłata | na wniosek klubu po okresie bezpieczeństwa, bez okresów miesięcznych; faktura VAT brutto albo rachunek netto | przyjęte; do potwierdzenia księgowego |
 | Zdjęcia klientów | poza MVP | rekomendacja |
 | Kluby jako sprzedawcy | poza MVP | rekomendacja |
 

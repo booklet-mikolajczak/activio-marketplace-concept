@@ -30,14 +30,14 @@ ACTIVIO Storefront          ACTIVIO Partner Panel       System/BOK
           ┌───────────────────────┼────────────────────────┐
           │                       │                        │
     Club & storefront      Listing & rights       Partner settlement
-    brand/onboarding       personalization        immutable ledger
+    brand/club rollout     personalization        immutable ledger
           │                       │                        │
           └──────────── ShopSystem integration ────────────┘
                                   │
         ShopSystem Cart → Transaction → Payment → Order → Production/Shipment
 ```
 
-- `Activio` zna kluby, prawa do marki, listingi, personalizację, reguły udziału, onboarding i rozliczenia.
+- `Activio` zna kluby, prawa do marki, listingi, personalizację, reguły udziału, wdrożenie klubów i rozliczenia.
 - `ShopSystem` zna jeden sklep ACTIVIO, klienta, koszyk, ceny transakcyjne, płatność i zamówienie.
 - Produkcja otrzymuje tylko dane potrzebne do wykonania pozycji.
 - Npack i Naklejkon nie znają pojęcia klubu.
@@ -92,7 +92,7 @@ Panel partnera może współdzielić infrastrukturę uwierzytelniania, ale musi 
 
 - identyfikator i slug;
 - dane prawne oraz handlowe;
-- status onboardingu i umowy;
+- status wdrożenia klubu i umowy;
 - rachunek rozliczeniowy;
 - konfiguracja witryny;
 - użytkownicy oraz role.
@@ -101,7 +101,8 @@ Panel partnera może współdzielić infrastrukturę uwierzytelniania, ale musi 
 
 - typ i plik źródłowy;
 - właściciel oraz podstawa praw;
-- zakres i termin licencji;
+- zakres, data rozpoczęcia i bezterminowy charakter licencji;
+- trzy jawne role kolorów: `primary_dark`, `primary_light` i `additional`;
 - wersja;
 - status akceptacji i cofnięcia.
 
@@ -110,7 +111,11 @@ Panel partnera może współdzielić infrastrukturę uwierzytelniania, ale musi 
 - `producer_id` wskazujący producenta zatwierdzonego przez ACTIVIO;
 - produkt bazowy i warianty;
 - kategoria: odzież klubowa, gadżety i upominki, torby i akcesoria albo naklejki i magnesy;
+- galeria co najmniej dwóch wersjonowanych zdjęć produktu z kolejnością i tekstem alternatywnym;
 - technologia oraz materiał;
+- wersjonowany szablon graficzny i jego plik do pobrania;
+- stały układ oraz mapowanie obszarów herbu, `primary_dark` i `primary_light`;
+- cechy stałe, których nie wystawia się jako wariantów, np. matowe wykończenie Magnesu koszulki;
 - wersjonowana cena minimalna;
 - schemat personalizacji;
 - czas produkcji;
@@ -132,6 +137,8 @@ Producenta i `CatalogTemplate` tworzy wyłącznie operator ACTIVIO. Rola klubowa
 - cena detaliczna;
 - użyta wersja ceny minimalnej;
 - projekt oraz pliki produkcyjne;
+- źródło projektu: ACTIVIO albo plik klubu wykonany na szablonie;
+- status kontroli zgodności projektu klubu z wersją szablonu;
 - wersja reguły udziału klubu;
 - status publikacji i daty aktywności.
 
@@ -172,14 +179,18 @@ Tworzony w chwili zamówienia:
 
 Wpisy są nieedytowalne. Błąd naprawia wpis przeciwny.
 
-### `ClubSettlement`
+### `ClubPayoutRequest`
 
-- klub i okres;
-- saldo otwarcia i zamknięcia;
-- naliczenia, korekty i wypłaty;
+- klub, identyfikator i data zlecenia;
+- snapshot kwoty dostępnego salda oraz identyfikatorów objętych wpisów ledgera;
+- naliczenia i korekty włączone do wypłaty;
+- status zlecenia i przelewu;
+- typ dokumentu: faktura VAT albo rachunek;
 - dokument i status zatwierdzenia;
 - snapshot rachunku;
 - identyfikator przelewu.
+
+Nie modelować miesięcznego `SettlementPeriod` ani operacji zamykania okresu. Saldo jest ciągłą projekcją nieedytowalnego ledgera. Zlecenie wypłaty atomowo tworzy niezmienny snapshot dostępnych środków i rezerwuje objęte wpisy ledgera. Jeden wpis może należeć najwyżej do jednego aktywnego zlecenia; jego anulowanie albo ostateczne odrzucenie zwalnia rezerwację w audytowalnym zdarzeniu. Późniejsze naliczenia pozostają poza snapshotem i mogą wejść do następnej wypłaty. Zakres dat może służyć do filtrowania raportu, ale nie zmienia dostępności środków ani granic zlecenia.
 
 ## 7. Cena, minimum i snapshot
 
@@ -214,7 +225,10 @@ PaymentConfirmed
 OrderItemDelivered + safety period elapsed
   → ClubAccrualReleased: available
 
-SettlementApproved + payout confirmed
+PayoutRequested
+  → ClubPayoutRequestCreated: pending_review, ledger entries reserved
+
+PayoutApproved + payout confirmed
   → ClubPayoutRecorded: paid
 
 ReturnAccepted / ClaimAccepted / ChargebackReceived
@@ -225,7 +239,7 @@ Każdy handler musi być idempotentny. Klucze powinny wynikać ze zdarzenia źr�
 
 Nie aktualizować jednego pola salda jako źródła prawdy. Saldo jest sumą ledgera, ewentualnie wspieraną odbudowywalną projekcją.
 
-Późny chargeback po wypłacie tworzy ujemną korektę przyszłego okresu lub proces odzyskania należności zgodny z umową.
+Późny chargeback po wypłacie tworzy ujemną korektę bieżącego salda lub proces odzyskania należności zgodny z umową.
 
 ## 9. Mieszany koszyk
 
@@ -237,7 +251,7 @@ Techniczne przypadki wymagające modelu per pozycja:
 - ponowna produkcja bez nowej sprzedaży;
 - anulowanie jednej pozycji;
 - zawieszenie klubu po zakupie;
-- wygaśnięcie licencji po zakupie;
+- cofnięcie zgody lub utrata praw do marki po zakupie;
 - usunięcie lub zmiana listingu;
 - rozdzielenie albo scalenie wysyłki w przyszłości.
 
@@ -256,6 +270,8 @@ Wymagania:
 
 - filtr `club_id` w każdym query partnera;
 - polityki dostępu na poziomie akcji i zasobów;
+- kwoty zarobku w panelu partnera domyślnie prezentowane brutto; netto i VAT dostępne w rozbiciu księgowym;
+- zlecenie wypłaty jako osobny widok z wymaganym uploadem faktury albo rachunku;
 - testy IDOR „klub A nie odczyta klubu B”;
 - 2FA dla ownera;
 - ponowne uwierzytelnienie przy zmianie rachunku;
@@ -284,6 +300,8 @@ Uploady:
 - usuwanie metadanych;
 - wersjonowanie i audyt;
 - jawne źródło oraz prawa do materiału.
+
+Projekt załączony przez klub musi wskazywać wersję `CatalogTemplate`, przejść te same kontrole MIME, skanowanie i wersjonowanie co pozostałe materiały oraz otrzymać decyzję operatora ACTIVIO. Upload nie może bezpośrednio ustawić aktywnego pliku produkcyjnego.
 
 Osobne polityki retencji dla kont, zamówień, dokumentów księgowych, personalizacji, plików produkcyjnych, eksportów, logów bezpieczeństwa i materiałów klubowych.
 
@@ -314,6 +332,9 @@ Po imporcie katalog aktualizuje operator. Dodatkowy producent przechodzi zatwier
 - cache key zawierający kontekst klubu, wersję ceny i publikacji;
 - inwalidacja po zmianie ceny, praw, grafiki lub statusu;
 - feature flags per klub i funkcję awaryjnego wstrzymania sprzedaży.
+- polskie, zrozumiałe nazwy w każdym widoku publicznym i partnerskim; wewnętrzne kody uprawnień oraz integracji wyłącznie w audycie lub rozwijanych szczegółach technicznych;
+- termin „wdrożenie klubu” zamiast „onboarding” w treściach interfejsu;
+- bezterminowość licencji nie jest kolumną ani filtrem listingu; widoki prawne nadal pokazują dokument, datę rozpoczęcia i historię cofnięcia.
 
 ## 14. Obserwowalność i uzgodnienia
 
@@ -321,7 +342,7 @@ Metryki:
 
 - różnica checkout → order snapshot;
 - różnica order snapshot → ledger;
-- suma ledgera → settlement;
+- suma ledgera → payout request → payout;
 - zdarzenia odrzucone i ponowione;
 - duplikaty idempotency key;
 - czas od płatności do produkcji i dostawy;
@@ -331,7 +352,7 @@ Metryki:
 
 Potrzebne okresowe joby uzgadniające oraz alert, gdy dowolna suma finansowa nie zgadza się co do grosza.
 
-Logi muszą zawierać identyfikatory korelacyjne zamówienia, pozycji, klubu, wpisu ledgera i settlementu, bez ujawniania treści personalizacji.
+Logi muszą zawierać identyfikatory korelacyjne zamówienia, pozycji, klubu, wpisu ledgera i zlecenia wypłaty, bez ujawniania treści personalizacji.
 
 ## 15. Minimalny vertical slice
 
@@ -342,9 +363,10 @@ Logi muszą zawierać identyfikatory korelacyjne zamówienia, pozycji, klubu, wp
 5. Płatność i zamówienie w `ShopSystem`.
 6. Idempotentne naliczenia oczekujące.
 7. Widok pozycji oraz ledgera ograniczony do klubu.
-8. Zwolnienie naliczenia do wypłaty.
-9. Częściowa korekta jednej pozycji.
-10. Uzgodnienie kwot checkout → order → ledger → settlement.
+8. Zwolnienie naliczenia do salda dostępnego.
+9. Zlecenie wypłaty przez klub z fakturą VAT albo rachunkiem.
+10. Częściowa korekta jednej pozycji.
+11. Uzgodnienie kwot checkout → order → ledger → payout request → payout.
 
 To ma być spike potwierdzający granice, nie początek pełnej implementacji.
 
@@ -359,7 +381,7 @@ To ma być spike potwierdzający granice, nie początek pełnej implementacji.
 - częściowy zwrot koryguje właściwą sztukę i klub;
 - zwrot po wypłacie tworzy korektę, nie usuwa historii;
 - zmiana rachunku wymaga właściwej roli i audytu;
-- wygasła licencja blokuje nowe zakupy, nie historię;
+- cofnięta zgoda lub utrata praw do marki blokuje nowe zakupy, nie historię;
 - niepoprawna personalizacja jest odrzucana po stronie serwera;
 - brak potwierdzenia personalizacji blokuje zakup;
 - statusy produkcji mapują się na stabilne statusy klienta i klubu;
@@ -389,7 +411,7 @@ Po zmianach uruchamiać testy właściwych modułów, PHPCS i PHPStan zgodnie z 
 6. Snapshot oraz ledger.
 7. Izolowany panel klubu.
 8. Zwroty, reklamacje i korekty.
-9. Settlement oraz ręczna wypłata.
+9. Zlecenie wypłaty z snapshotem salda i ręczna weryfikacja ACTIVIO.
 10. Obserwowalność, uzgodnienia i hardening.
 
 Każdy etap powinien kończyć się działającym przepływem i testem integracyjnym, bez utrzymywania dwóch źródeł prawdy.
@@ -405,8 +427,14 @@ Każdy etap powinien kończyć się działającym przepływem i testem integracy
 | Klub jako `Shop` | nie | rekomendacja |
 | Klub jako `Offer` | nie | rekomendacja |
 | Listing | domena ACTIVIO | rekomendacja |
+| Projekt listingu | wersjonowany szablon; herb + `primary_dark` + `primary_light`; projekt ACTIVIO albo upload klubu do weryfikacji | wymagane |
+| Kolory marki | `primary_dark`, `primary_light`, `additional` jako trzy różne pola | wymagane |
+| Stałe cechy produktu | nie są wariantami; Magnes koszulka zawsze matowy | wymagane |
+| Galeria Oferty B2B | co najmniej dwa oficjalne zdjęcia dla każdego produktu; activio.pl jako źródło referencyjne; główne zdjęcie otwiera dostępny lightbox z licznikiem i nawigacją | wymagane |
+| Licencja | bezterminowa; bez czasu trwania w operacyjnych listach | wymagane |
+| Język UI | polski; kody techniczne poza podstawową treścią | wymagane |
 | Historia ceny i udziału | snapshot per pozycja | wymagane |
-| Rozliczenia | nieedytowalny ledger | wymagane |
+| Rozliczenia | nieedytowalny ledger i snapshot salda per zlecenie wypłaty; bez okresów miesięcznych | wymagane |
 | Integracja | publiczne moduły, DTO, komendy i zdarzenia | rekomendacja |
 | Idempotencja | per zdarzenie i pozycja | wymagane |
 | Storage obrazów | zarządzany storage, nie hotlink w produkcji | wymagane |
@@ -436,5 +464,5 @@ Pełna implementacja może ruszyć po:
 - wskazaniu źródła prawdy dla ceny, personalizacji i rozliczenia;
 - zaakceptowaniu modelu autoryzacji per klub;
 - potwierdzeniu obsługi zwrotu i reklamacji per pozycja;
-- przejściu testu kwot checkout → order → ledger → settlement;
+- przejściu testu kwot checkout → order → ledger → payout request → payout;
 - decyzji o storage, retencji, monitoringu i procedurze awaryjnej.

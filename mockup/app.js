@@ -30,6 +30,7 @@ const partner_views = [
     'partner-order',
     'partner-settlements',
     'partner-settlement',
+    'partner-payout-request',
     'partner-club',
     'partner-brand',
     'partner-team',
@@ -54,6 +55,7 @@ const partner_nav_roots = {
     'partner-listing': 'partner-offer',
     'partner-order': 'partner-orders',
     'partner-settlement': 'partner-settlements',
+    'partner-payout-request': 'partner-settlements',
     'partner-brand': 'partner-club',
     'partner-team': 'partner-club',
     'partner-security': 'partner-club',
@@ -105,6 +107,10 @@ const loaded_document_timestamp = Date.parse(document.lastModified) || Date.now(
 let known_version_signature = null;
 let version_check_in_progress = false;
 let store_show_all = false;
+let store_resize_timeout = null;
+let settlement_payout_amount = '1 279,20 zł brutto';
+let settlement_document_number = 'FV/07/2026/18';
+let settlement_document_filename = 'FV-07-2026-18.pdf';
 
 const clubs = {
     stal: {
@@ -427,7 +433,8 @@ Object.assign(products, {
         image: '../assets/products/activio-magnes-koszulka-concept.webp',
         lead: 'Magnes w kształcie klubowej koszulki, personalizowany barwami, herbem, numerem i nazwiskiem.',
         option_label: 'Wykończenie',
-        options: ['Błyszczące', 'Matowe'],
+        options: ['Matowe'],
+        fixed_options: true,
         number_label: 'Numer zawodnika',
         name_label: 'Nazwisko',
         has_size_guide: false,
@@ -567,28 +574,28 @@ Object.assign(products, {
 const final_catalog = [
     { id: 'player-labels', sku: 'CAT-NN-001', category: 'personalization', category_label: 'Personalizacja zawodnika', minimum: 19, variants: '3 układy tekstu', personalization: 'Herb + 1/2/3 linie', production: '2–4 dni', clubs: 14, popularity: 93 },
     { id: 'lesson-plan', sku: 'CAT-PL-002', category: 'gifts', category_label: 'Gadżety użytkowe', minimum: 19, variants: '2 formaty', personalization: 'Herb + imię', production: '2–4 dni', clubs: 11, popularity: 78 },
-    { id: 'jersey-keyring', sku: 'CAT-BK-003', category: 'mini', category_label: 'Mini koszulki', minimum: 15, variants: '2 wykończenia', personalization: 'Numer + nazwisko', production: '2–4 dni', clubs: 15, popularity: 96 },
-    { id: 'jersey-magnet', sku: 'CAT-MK-004', category: 'mini', category_label: 'Mini koszulki', minimum: 15, variants: '2 wykończenia', personalization: 'Numer + nazwisko', production: '2–4 dni', clubs: 13, popularity: 89 },
+    { id: 'jersey-keyring', sku: 'CAT-BK-003', category: 'mini', category_label: 'Mini koszulki', minimum: 15, club_earning_net: 4, variants: '2 wykończenia', personalization: 'Numer + nazwisko', production: '2–4 dni', clubs: 15, popularity: 96 },
+    { id: 'jersey-magnet', sku: 'CAT-MK-004', category: 'mini', category_label: 'Mini koszulki', minimum: 15, variants: 'Wykończenie matowe', personalization: 'Numer + nazwisko', production: '2–4 dni', clubs: 13, popularity: 89 },
     { id: 'car-jersey', sku: 'CAT-KS-005', category: 'mini', category_label: 'Mini koszulki', minimum: 25, variants: '2 zawieszki', personalization: 'Numer + nazwisko', production: '3–5 dni', clubs: 12, popularity: 87 },
     { id: 'shoe-labels', sku: 'CAT-NB-006', category: 'personalization', category_label: 'Personalizacja zawodnika', minimum: 12, variants: '3 zestawy', personalization: 'Herb + numer + imię', production: '2–3 dni', clubs: 10, popularity: 82 },
     { id: 'coaster', sku: 'CAT-PD-007', category: 'gifts', category_label: 'Gadżety użytkowe', minimum: 19, variants: '2 kształty', personalization: 'Herb + podpis', production: '2–4 dni', clubs: 9, popularity: 74 },
-    { id: 'mug', sku: 'CAT-KP-008', category: 'gifts', category_label: 'Gadżety użytkowe', minimum: 29, variants: '2 pojemności', personalization: 'Herb + imię + numer', production: '2–4 dni', clubs: 15, popularity: 94 },
-    { id: 'playercard', sku: 'CAT-KF-009', category: 'player', category_label: 'Dla zawodnika', minimum: 49, variants: '2 formaty', personalization: 'Zdjęcie + dane + statystyki', production: '3–5 dni', clubs: 14, popularity: 98 },
-    { id: 'shirt', sku: 'CAT-KB-010', category: 'player', category_label: 'Dla zawodnika', minimum: 59, variants: '7 rozmiarów', personalization: 'Imię + numer', production: '3–5 dni', clubs: 15, popularity: 97 },
+    { id: 'mug', sku: 'CAT-KP-008', category: 'gifts', category_label: 'Gadżety użytkowe', minimum: 29, club_earning_net: 8, variants: '2 pojemności', personalization: 'Herb + imię + numer', production: '2–4 dni', clubs: 15, popularity: 94 },
+    { id: 'playercard', sku: 'CAT-KF-009', category: 'player', category_label: 'Dla zawodnika', minimum: 49, club_earning_net: 12, variants: '2 formaty', personalization: 'Zdjęcie + dane + statystyki', production: '3–5 dni', clubs: 14, popularity: 98 },
+    { id: 'shirt', sku: 'CAT-KB-010', category: 'player', category_label: 'Dla zawodnika', minimum: 59, club_earning_net: 20, variants: '7 rozmiarów', personalization: 'Imię + numer', production: '3–5 dni', clubs: 15, popularity: 97 },
     { id: 'clock', sku: 'CAT-ZS-011', category: 'decor', category_label: 'Dekoracje', minimum: 69, variants: '2 rozmiary', personalization: 'Herb + grafika', production: '3–5 dni', clubs: 12, popularity: 85 },
     { id: 'photo-puzzle', sku: 'CAT-FP-012', category: 'photo', category_label: 'Foto produkty', minimum: 39, variants: '3 liczby elementów', personalization: 'Zdjęcie + podpis', production: '3–5 dni', clubs: 8, popularity: 81 },
     { id: 'photo-canvas', sku: 'CAT-FO-013', category: 'photo', category_label: 'Foto produkty', minimum: 89, variants: '3 formaty', personalization: 'Zdjęcie + podpis', production: '4–6 dni', clubs: 7, popularity: 76 },
     { id: 'poster', sku: 'CAT-FL-014', category: 'photo', category_label: 'Foto produkty', minimum: 29, variants: '3 formaty', personalization: 'Zdjęcie + podpis', production: '2–4 dni', clubs: 11, popularity: 83 },
-    { id: 'calendar', sku: 'CAT-FK-015', category: 'photo', category_label: 'Foto produkty', minimum: 39, variants: '2 formaty', personalization: 'Zdjęcie + podpis', production: '3–5 dni', clubs: 13, popularity: 91 },
+    { id: 'calendar', sku: 'CAT-FK-015', category: 'photo', category_label: 'Foto produkty', minimum: 39, club_earning_net: 4, variants: '2 formaty', personalization: 'Zdjęcie + podpis', production: '3–5 dni', clubs: 13, popularity: 91 },
 ].map((entry, index) => ({ ...entry, newness: 15 - index }));
 
 const catalog_categories = [
-    { id: 'personalization', label: 'Personalizacja zawodnika', lead: 'Oznacz sprzęt i przygotuj zestaw dla zawodnika.' },
-    { id: 'mini', label: 'Mini koszulki', lead: 'Klubowe koszulki w formie breloka, magnesu i zawieszki.' },
-    { id: 'gifts', label: 'Gadżety użytkowe', lead: 'Produkty używane w szkole, domu i klubie.' },
-    { id: 'player', label: 'Dla zawodnika', lead: 'Personalizowane produkty z imieniem, numerem i zdjęciem.' },
-    { id: 'decor', label: 'Dekoracje', lead: 'Klubowe elementy do pokoju zawodnika i kibica.' },
-    { id: 'photo', label: 'Foto produkty', lead: 'Zdjęcia drużyny i zawodnika w kilku gotowych formatach.' },
+    { id: 'personalization', label: 'Personalizacja zawodnika', lead: 'Oznacz sprzęt i przygotuj zestaw dla zawodnika.', image: '../assets/products/activio-naklejki-imienne.png' },
+    { id: 'mini', label: 'Mini koszulki', lead: 'Klubowe koszulki w formie breloka, magnesu i zawieszki.', image: '../assets/products/activio-magnes-koszulka-concept.webp' },
+    { id: 'gifts', label: 'Gadżety użytkowe', lead: 'Produkty używane w szkole, domu i klubie.', image: '../assets/products/activio-kubek-pasiak-concept.webp' },
+    { id: 'player', label: 'Dla zawodnika', lead: 'Personalizowane produkty z imieniem, numerem i zdjęciem.', image: '../assets/products/activio-karty-zawodnika.jpg' },
+    { id: 'decor', label: 'Dekoracje', lead: 'Klubowe elementy do pokoju zawodnika i kibica.', image: '../assets/products/activio-zegar.jpg' },
+    { id: 'photo', label: 'Foto produkty', lead: 'Zdjęcia drużyny i zawodnika w kilku gotowych formatach.', image: '../assets/products/activio-fotopuzzle-concept.webp' },
 ];
 
 const activio_offer_categories = [
@@ -657,6 +664,219 @@ const activio_offer_categories = [
         ],
     },
 ];
+
+const activio_offer_images = {
+    "bluzy": [
+        "https://www.activio.pl/uploads/bluzy_1776768247_540b52.jpg",
+        "https://www.activio.pl/uploads/bluzy_1776771370_f5aa20.jpg",
+        "https://www.activio.pl/uploads/bluzy_1776771431_803c6d.jpg",
+        "https://www.activio.pl/uploads/bluzy_1776771461_148153.jpg",
+        "https://www.activio.pl/uploads/bluzy_1776771486_0ef0ed.jpg",
+        "https://www.activio.pl/uploads/bluzy_1776772353_2818d2.jpg"
+    ],
+    "bluzy-klasyczne": [
+        "https://www.activio.pl/uploads/bluzy-klasyczne_1780037349_33ce02.jpg",
+        "https://www.activio.pl/uploads/bluzy-klasyczne_1780037354_45475e.jpg",
+        "https://www.activio.pl/uploads/bluzy-klasyczne_1780040064_d20f2b.jpg",
+        "https://www.activio.pl/uploads/bluzy-klasyczne_1780040673_7fb389.jpg",
+        "https://www.activio.pl/uploads/bluzy-klasyczne_1780041061_ff223b.jpg",
+        "https://www.activio.pl/uploads/bluzy-klasyczne_1780040259_482247.jpg"
+    ],
+    "breloki": [
+        "https://www.activio.pl/uploads/breloki_1777024379_991dca.jpg",
+        "https://www.activio.pl/uploads/breloki_1776857072_405b7f.png",
+        "https://www.activio.pl/uploads/breloki_1776857073_6d05a6.png",
+        "https://www.activio.pl/uploads/breloki_1776857073_429a9d.png",
+        "https://www.activio.pl/uploads/breloki_1777024379_6e73cd.jpg"
+    ],
+    "czapki": [
+        "https://www.activio.pl/uploads/czapki_1777026544_3b808c.jpg",
+        "https://www.activio.pl/uploads/czapki_1782900776_713c6a.jpg",
+        "https://www.activio.pl/uploads/czapki_1782900773_94eb7f.jpg",
+        "https://www.activio.pl/uploads/czapki_1782900779_32164b.jpg",
+        "https://www.activio.pl/uploads/czapki_1776858178_8031e7.jpg",
+        "https://www.activio.pl/uploads/czapki_1782904331_6bb638.png"
+    ],
+    "dyplomy": [
+        "https://www.activio.pl/uploads/dyplomy_1776931122_1dcd77.jpg",
+        "https://www.activio.pl/uploads/dyplomy_1776931121_b0e267.jpg",
+        "https://www.activio.pl/uploads/dyplomy_1776931122_ca4964.jpg"
+    ],
+    "herb-z-pleksi-na-sciane": [
+        "https://www.activio.pl/uploads/herb-z-pleksi-na-sciane_1778585190_754662.jpg",
+        "https://www.activio.pl/uploads/herb-z-pleksi-na-sciane_1778586372_43f4c3.jpg"
+    ],
+    "kalendarze": [
+        "https://www.activio.pl/uploads/kalendarze_1776838092_06e1e2.jpg",
+        "https://www.activio.pl/uploads/kalendarze_1777282943_773bc3.png",
+        "https://www.activio.pl/uploads/kalendarze_1777283000_8844b2.jpg"
+    ],
+    "karty-zawodnika": [
+        "https://www.activio.pl/uploads/karty-zawodnika-fifa_1776849082_c76f0a.jpg",
+        "https://www.activio.pl/uploads/karty-zawodnika-fifa_1776850588_cd55fc.jpg",
+        "https://www.activio.pl/uploads/karty-zawodnika-fifa_1776850588_b45f38.jpg",
+        "https://www.activio.pl/uploads/karty-zawodnika-fifa_1776849671_2fc359.jpg"
+    ],
+    "kosmetyczka-podrozna": [
+        "https://www.activio.pl/uploads/kosmetyczka-podrozna-z-nadrukiem-klubowym_1780035502_ec1d21.png",
+        "https://www.activio.pl/uploads/kosmetyczka-podrozna-z-nadrukiem-klubowym_1780035511_bebb01.jpg",
+        "https://www.activio.pl/uploads/kosmetyczka-podrozna-z-nadrukiem-klubowym_1780035507_6ad485.png"
+    ],
+    "koszulka-active-bez-rekawow": [
+        "https://www.activio.pl/uploads/koszulka-active-bez-rekawow_1782905972_0810de.jpg",
+        "https://www.activio.pl/uploads/koszulka-active-bez-rekawow_1782986796_0a7908.jpg",
+        "https://www.activio.pl/uploads/koszulka-active-bez-rekawow_1782986802_5608b4.jpg",
+        "https://www.activio.pl/uploads/koszulka-active-bez-rekawow_1782986806_77bb2a.jpg",
+        "https://www.activio.pl/uploads/koszulka-active-bez-rekawow_1782986808_0f623c.jpg",
+        "https://www.activio.pl/uploads/koszulka-active-bez-rekawow_1782988706_0d6846.jpg"
+    ],
+    "koszulki": [
+        "https://www.activio.pl/uploads/koszulki_1776844370_29feca.jpg",
+        "https://www.activio.pl/uploads/koszulki_1776842862_15f94e.jpg",
+        "https://www.activio.pl/uploads/koszulki_1776842862_05a878.jpg",
+        "https://www.activio.pl/uploads/koszulki_1776842862_96b5a7.jpg",
+        "https://www.activio.pl/uploads/koszulki_1776842862_efe79f.jpg",
+        "https://www.activio.pl/uploads/koszulki_1776841857_d57663.jpg"
+    ],
+    "koszulki-sportowe": [
+        "https://www.activio.pl/uploads/koszulki-sportowe_1778581385_7fcaa7.jpg",
+        "https://www.activio.pl/uploads/koszulki-sportowe_1778497023_51815b.png",
+        "https://www.activio.pl/uploads/koszulki-sportowe_1778584746_671ffd.jpg",
+        "https://www.activio.pl/uploads/koszulki-sportowe_1778584276_e57a24.jpg",
+        "https://www.activio.pl/uploads/koszulki-sportowe_1778584281_da38fa.jpg",
+        "https://www.activio.pl/uploads/koszulki-sportowe_1778583100_077cc1.jpg"
+    ],
+    "kubki": [
+        "https://www.activio.pl/uploads/kubki_1776937887_ea0eee.jpg",
+        "https://www.activio.pl/uploads/kubki_1776937887_2ed4fe.jpg",
+        "https://www.activio.pl/uploads/kubki_1776938384_4c3bbd.jpg"
+    ],
+    "magnesy": [
+        "https://www.activio.pl/uploads/magnesy_1776857365_41974a.jpg",
+        "https://www.activio.pl/uploads/magnesy_1776762595_b16e39.png",
+        "https://www.activio.pl/uploads/magnesy_1776762596_b94c70.png",
+        "https://www.activio.pl/uploads/magnesy_1776762596_8e1a19.png"
+    ],
+    "magnesy-taktyczne": [
+        "https://www.activio.pl/uploads/magnesy-taktyczne_1776853369_bef3c2.jpg",
+        "https://www.activio.pl/uploads/magnesy-taktyczne_1776855038_5e382b.jpg",
+        "https://www.activio.pl/uploads/magnesy-taktyczne_1776854684_778aec.jpg",
+        "https://www.activio.pl/uploads/magnesy-taktyczne_1776854885_f9d86d.jpg",
+        "https://www.activio.pl/uploads/magnesy-taktyczne_1782214823_dd5c89.jpg",
+        "https://www.activio.pl/uploads/magnesy-taktyczne_1777023831_3fccdb.jpg"
+    ],
+    "medale": [
+        "https://www.activio.pl/uploads/medale_1777458899_a4a497.jpg",
+        "https://www.activio.pl/uploads/medale_1777377227_3dbdbd.jpg",
+        "https://www.activio.pl/uploads/medale_1777377081_e5d5ed.jpg",
+        "https://www.activio.pl/uploads/medale_1777442533_f7ccd0.jpg"
+    ],
+    "naklejki": [
+        "https://www.activio.pl/uploads/naklejki_1776762535_394792.png",
+        "https://www.activio.pl/uploads/naklejki_1776762535_64b8c5.png",
+        "https://www.activio.pl/uploads/naklejki_1776762536_28bc05.png"
+    ],
+    "naklejki-imienne": [
+        "https://www.activio.pl/uploads/naklejki-imienne_1776945186_fe0e35.png",
+        "https://www.activio.pl/uploads/naklejki-imienne_1776945185_1e102f.png",
+        "https://www.activio.pl/uploads/naklejki-imienne_1776945186_e430eb.png",
+        "https://www.activio.pl/uploads/naklejki-imienne_1777009264_ab3bfd.png",
+        "https://www.activio.pl/uploads/naklejki-imienne_1777009264_0b4e54.png"
+    ],
+    "naklejki-na-arkuszu": [
+        "https://www.activio.pl/uploads/naklejki-na-arkuszu_1776930949_fb52b8.jpg",
+        "https://www.activio.pl/uploads/naklejki-na-arkuszu_1776930949_645257.jpg",
+        "https://www.activio.pl/uploads/naklejki-na-arkuszu_1776930949_d952d3.jpg"
+    ],
+    "naklejki-transferowe-wypukle": [
+        "https://www.activio.pl/uploads/naklejki-transferowe-wypukle_1783331494_239fa4.png",
+        "https://www.activio.pl/uploads/naklejki-transferowe-wypukle_1783331325_fe9d27.png",
+        "https://www.activio.pl/uploads/naklejki-transferowe-wypukle_1783331335_d42129.png",
+        "https://www.activio.pl/uploads/naklejki-transferowe-wypukle_1783331343_d4f418.png",
+        "https://www.activio.pl/uploads/naklejki-transferowe-wypukle_1783331347_519bb3.png"
+    ],
+    "nerka-sportowa": [
+        "https://www.activio.pl/uploads/nerka-sportowa-z-nadrukiem-klubowym_1780038581_97f611.png",
+        "https://www.activio.pl/uploads/nerka-sportowa-z-nadrukiem-klubowym_1780041210_ac62e6.png",
+        "https://www.activio.pl/uploads/nerka-sportowa-z-nadrukiem-klubowym_1780038585_e84b6d.png"
+    ],
+    "piornik-klubowy": [
+        "https://www.activio.pl/uploads/piornik-klubowy_1781776448_d9b6cb.jpg",
+        "https://www.activio.pl/uploads/piornik-klubowy_1781776452_edc77c.jpg"
+    ],
+    "plakaty": [
+        "https://www.activio.pl/uploads/plakaty_1777022463_b63bb8.jpg",
+        "https://www.activio.pl/uploads/plakaty_1777022464_e3e9a0.jpg",
+        "https://www.activio.pl/uploads/plakaty_1776837784_c41616.png",
+        "https://www.activio.pl/uploads/plakaty_1776837785_1a847b.png",
+        "https://www.activio.pl/uploads/plakaty_1776837785_93639e.png"
+    ],
+    "podkladki": [
+        "https://www.activio.pl/uploads/podkladki_1776837660_33f446.png",
+        "https://www.activio.pl/uploads/podkladki_1776837660_a8a73f.png",
+        "https://www.activio.pl/uploads/podkladki_1776837661_7d1c29.png",
+        "https://www.activio.pl/uploads/podkladki_1776858102_ec6f8b.jpg"
+    ],
+    "podziekowania": [
+        "https://www.activio.pl/uploads/podziekowania_1780483159_5e5504.jpg",
+        "https://www.activio.pl/uploads/podziekowania_1780481630_1786e8.jpg",
+        "https://www.activio.pl/uploads/podziekowania_1780481633_cea79e.jpg",
+        "https://www.activio.pl/uploads/podziekowania_1780481637_7988e7.jpg"
+    ],
+    "podziekowania-w-drewnianej-ramie": [
+        "https://www.activio.pl/uploads/podziekowania-w-drewnianej-ramie_1781781489_54126c.png",
+        "https://www.activio.pl/uploads/podziekowania-w-drewnianej-ramie_1781781609_f0beed.jpg",
+        "https://www.activio.pl/uploads/podziekowania-w-drewnianej-ramie_1781781406_572ced.jpg"
+    ],
+    "prasowanki": [
+        "https://www.activio.pl/uploads/prasowanki_1776837623_4eb32a.png",
+        "https://www.activio.pl/uploads/prasowanki_1776938322_f2399f.jpg",
+        "https://www.activio.pl/uploads/prasowanki_1776938322_241dd1.jpg",
+        "https://www.activio.pl/uploads/prasowanki_1776938322_cde3be.jpg"
+    ],
+    "statuetka-plastikowa": [
+        "https://www.activio.pl/uploads/statuetka-plastikowa_1781865572_01c1ab.png",
+        "https://www.activio.pl/uploads/statuetka-plastikowa_1781865580_14312c.png",
+        "https://www.activio.pl/uploads/statuetka-plastikowa_1781865586_f4b2ec.png",
+        "https://www.activio.pl/uploads/statuetka-plastikowa_1781865590_ecfffe.png"
+    ],
+    "statuetki": [
+        "https://www.activio.pl/uploads/statuetki_1777463482_4e43d2.jpg",
+        "https://www.activio.pl/uploads/statuetki_1776858692_2ff388.jpg",
+        "https://www.activio.pl/uploads/statuetki_1777463228_2492af.jpg",
+        "https://www.activio.pl/uploads/statuetki_1777534935_0618e5.jpg"
+    ],
+    "torby": [
+        "https://www.activio.pl/uploads/torby_1780034669_ce0b88.jpg",
+        "https://www.activio.pl/uploads/torby_1777015120_8a4360.jpg",
+        "https://www.activio.pl/uploads/torby_1777015154_8234ff.jpg",
+        "https://www.activio.pl/uploads/torby_1777015121_46132b.jpg"
+    ],
+    "vlepki": [
+        "https://www.activio.pl/uploads/vlepki_1776762428_61f388.png",
+        "https://www.activio.pl/uploads/vlepki_1776837583_2726e8.png",
+        "https://www.activio.pl/uploads/vlepki_1776837583_4e0dfe.png"
+    ],
+    "worek-sportowy": [
+        "https://www.activio.pl/uploads/worek-sportowy-z-nadrukiem-klubowym_1780038096_e34e80.png",
+        "https://www.activio.pl/uploads/worek-sportowy-z-nadrukiem-klubowym_1780039936_63bbcc.png",
+        "https://www.activio.pl/uploads/worek-sportowy-z-nadrukiem-klubowym_1780038108_26242d.png",
+        "https://www.activio.pl/uploads/worek-sportowy-z-nadrukiem-klubowym_1780039927_5a6465.png",
+        "https://www.activio.pl/uploads/worek-sportowy-z-nadrukiem-klubowym_1780040557_e01829.jpg"
+    ],
+    "zegarek-z-pleksi-na-sciane": [
+        "https://www.activio.pl/uploads/zegarek-z-pleksi-na-sciane_1779355019_cc6da0.jpg",
+        "https://www.activio.pl/uploads/zegarek-z-pleksi-na-sciane_1778586042_b45ed4.jpg",
+        "https://www.activio.pl/uploads/zegarek-z-pleksi-na-sciane_1778585857_1e472f.jpg",
+        "https://www.activio.pl/uploads/zegarek-z-pleksi-na-sciane_1778586355_2a2afa.jpg"
+    ],
+    "znakowanie-odziezy": [
+        "https://www.activio.pl/uploads/flex_1776855645_c3a7ef.jpg",
+        "https://www.activio.pl/uploads/znakowanie-odziezy_1777013676_ec3af4.jpg",
+        "https://www.activio.pl/uploads/znakowanie-odziezy_1777013676_8714ec.jpg",
+        "https://www.activio.pl/uploads/znakowanie-odziezy_1777023187_de4438.jpg"
+    ]
+};
 
 const activio_offer_details = {
     "cotton-shirt": {
@@ -1704,7 +1924,8 @@ const assumptions = {
         items: [
             'Market łączy produkty klubów oraz dopuszczone produkty własne ACTIVIO.',
             'Katalog dzieli ofertę na najpopularniejsze produkty, nowości i pozostałe pozycje.',
-            'Produkty można filtrować według kategorii i klubu oraz sortować według popularności, ceny lub daty dodania.',
+            'Graficzne kafle kategorii i wyszukiwarka produktu prowadzą do właściwej części katalogu.',
+            'Produkty można filtrować według kategorii i klubu oraz sortować według popularności, ceny lub daty dodania; każda półka pokazuje najpierw jeden rząd.',
             'Produkty z różnych klubów trafiają do jednego koszyka i są kupowane od ACTIVIO.',
         ],
     },
@@ -1732,7 +1953,7 @@ const assumptions = {
             'Jedno zamówienie może zawierać pozycje przypisane do różnych klubów.',
             'Udział klubu liczony jest osobno dla każdej pozycji, a warunki zakupu pozostają częścią historii zamówienia.',
             'Jedna paczka jest możliwa tylko przy wspólnym centrum realizacji; opóźnienie jednego produktu opóźnia całość.',
-            'MVP nie dzieli płatności pomiędzy kluby — ACTIVIO pobiera całość i rozlicza partnerów okresowo.',
+            'MVP nie dzieli płatności pomiędzy kluby — ACTIVIO pobiera całość, prowadzi ciągłe saldo partnerów i realizuje wypłaty na ich wniosek.',
         ],
     },
     checkout: {
@@ -1757,7 +1978,7 @@ const assumptions = {
             'Panel jest osobnym modułem ACTIVIO, a nie rozszerzeniem paneli Npack lub Naklejkon.',
             'Sprzedaż oznacza wartość produktów klubowych; „należne klubowi” to zobowiązanie ACTIVIO z umowy.',
             'Klub widzi agregaty i pozycje swoich produktów, bez danych innych klubów.',
-            'Sprzedaż klienta jest brutto, a wynagrodzenie klubu pokazujemy jako podstawę netto, VAT i kwotę brutto do wypłaty.',
+            'Kwoty zarobku i salda pokazujemy klubowi domyślnie brutto; netto i VAT pozostają w szczegółowym rozbiciu księgowym.',
         ],
     },
     'partner-offer': {
@@ -1785,9 +2006,11 @@ const assumptions = {
         items: [
             'To nie portfel płatniczy, lecz księga zobowiązań ACTIVIO wobec klubu.',
             'Każda sprzedaż, korekta, reklamacja i wypłata tworzy nieusuwalny zapis powiązany z pozycją zamówienia.',
+            'Saldo jest ciągłe: system nie tworzy ani nie zamyka miesięcznych okresów rozliczeniowych.',
+            'Kafle i historia salda pokazują klubowi brutto; rozbicie netto i VAT jest dostępne przy rozliczeniu.',
             'Kwota staje się dostępna dopiero po ustalonym okresie bezpieczeństwa.',
-            'Klub VAT wystawia fakturę i otrzymuje netto plus VAT; klub bez VAT wystawia dokument bez VAT i otrzymuje netto.',
-            'Częstotliwość wypłat, próg minimalny i skutki ujemnego salda wymagają decyzji księgowej.',
+            'Przy zleceniu klub wybiera fakturę VAT z kwotą brutto albo rachunek z kwotą netto.',
+            'Dopuszczalność obu dokumentów, próg minimalny i skutki ujemnego salda wymagają potwierdzenia księgowego.',
         ],
     },
     'partner-listing': {
@@ -1795,7 +2018,7 @@ const assumptions = {
         items: [
             'Minimum ACTIVIO jest wersjonowane osobno dla wariantu i typu personalizacji.',
             'Prognoza wynagrodzenia klubu nie wynika automatycznie z różnicy między ceną detaliczną a minimum.',
-            'Publikacja wymaga zaakceptowanego projektu, aktualnej licencji i poprawnej ceny.',
+            'Publikacja wymaga zaakceptowanego projektu, aktywnych praw do marki i poprawnej ceny.',
             'Wstrzymanie listingu nie usuwa historii cen, projektów ani wcześniejszych zamówień.',
         ],
     },
@@ -1809,12 +2032,22 @@ const assumptions = {
         ],
     },
     'partner-settlement': {
-        title: 'Okres rozliczeniowy',
+        title: 'Zlecanie wypłaty',
         items: [
-            'To miesięczne rozliczenie zobowiązania, nie portfel ani wypłata środków na żądanie.',
-            'ACTIVIO zamyka okres, klub przekazuje właściwy dokument, a wypłatę zatwierdza ACTIVIO.',
-            'Korekty pozostają osobnymi wpisami i są widoczne w zestawieniu.',
+            'Środki kumulują się po okresie bezpieczeństwa, a klub sam zleca wypłatę całego dostępnego salda.',
+            'Zlecenie zapisuje snapshot salda i objętych nim wpisów; miesiąc nie jest granicą wypłaty.',
+            'Klub przekazuje właściwy dokument, a wypłatę zatwierdza ACTIVIO.',
+            'Korekty pozostają osobnymi wpisami i są widoczne w historii salda.',
             'Zmiana rachunku wymaga ponownego uwierzytelnienia i drugiego składnika.',
+        ],
+    },
+    'partner-payout-request': {
+        title: 'Zlecenie wypłaty',
+        items: [
+            'Formularz jest osobną podstroną, aby klub mógł sprawdzić kwotę, dokument i rachunek przed wysłaniem.',
+            'Klub wgrywa fakturę VAT albo rachunek w PDF, JPG lub PNG; plik podlega weryfikacji ACTIVIO.',
+            'Dla faktury pokazujemy brutto jako kwotę główną, a netto i VAT jako rozbicie.',
+            'Zlecenie nie uruchamia przelewu przed akceptacją dokumentu przez ACTIVIO.',
         ],
     },
     'partner-club': {
@@ -1822,15 +2055,17 @@ const assumptions = {
         items: [
             'Dane formalne i podatkowe są weryfikowane przed uruchomieniem sprzedaży i rozliczeń.',
             'Zmiana danych organizacji jest zgłoszeniem do weryfikacji, nie natychmiastową edycją rekordu.',
-            'Umowa określa model wynagrodzenia, częstotliwość rozliczeń i prawa do marki.',
+            'Umowa określa model wynagrodzenia, wypłaty na wniosek i prawa do marki.',
         ],
     },
     'partner-brand': {
         title: 'Marka i witryna',
         items: [
             'Pliki marki są wersjonowane; produkty wskazują konkretną zaakceptowaną wersję.',
+            'Kolory zapisujemy jako podstawowy ciemny, podstawowy jasny i dodatkowy — bez zamiennych nazw.',
             'Klub potwierdza prawo ACTIVIO do użycia nazwy, herbu i przekazanych treści.',
-            'Wygaśnięcie albo wycofanie licencji może wstrzymać zależne listingi.',
+            'Cofnięcie zgody albo utrata praw do marki może wstrzymać zależne listingi.',
+            'Licencja jest bezterminowa; operacyjne listy nie powtarzają czasu jej trwania.',
             'Treści witryny publikuje ACTIVIO po sprawdzeniu.',
         ],
     },
@@ -1867,7 +2102,7 @@ const assumptions = {
         ],
     },
     'system-clubs': {
-        title: 'Kluby i onboarding',
+        title: 'Kluby i wdrożenie',
         items: [
             'Klub jest partnerem domeny Activio, nie osobnym Shop ani Offer w ShopSystem.',
             'Sprzedaż można uruchomić dopiero po umowie, weryfikacji organizacji, praw do marki i rachunku.',
@@ -1886,6 +2121,8 @@ const assumptions = {
         title: 'Katalog i minima',
         items: [
             'ACTIVIO kontroluje szablony produktów, producentów, warianty i dostępne personalizacje.',
+            'Szablon ma stały układ i podmienia dla klubu herb oraz dwa kolory podstawowe.',
+            'Klub może pobrać szablon i przekazać własny projekt, ale plik nie omija kontroli ACTIVIO.',
             'Minimum jest wersjonowane per wariant i personalizację oraz może obowiązywać od przyszłej daty.',
             'Zmiana minimum wskazuje dotknięte listingi; nie nadpisuje ceny ustalonej przez klub.',
         ],
@@ -1917,7 +2154,8 @@ const assumptions = {
     'system-settlements': {
         title: 'Rozliczenia klubów',
         items: [
-            'Okresy są zamykane miesięcznie, a wypłaty zatwierdzane ręcznie przez ACTIVIO.',
+            'Nie ma miesięcznych okresów ani operacji zamknięcia; system prowadzi bieżące saldo każdego klubu.',
+            'Wypłatę zleca klub, a zlecenie utrwala snapshot dostępnego salda do weryfikacji ACTIVIO.',
             'Dokument, VAT, rachunek, korekty i saldo muszą być zgodne przed wypłatą.',
             'To księga zobowiązań i proces rozliczeniowy, nie portfel płatniczy.',
         ],
@@ -1925,7 +2163,7 @@ const assumptions = {
     'system-settlement': {
         title: 'Akceptacja wypłaty',
         items: [
-            'Operator zatwierdza dokument i tworzy zlecenie wypłaty dopiero po kompletnej kontroli.',
+            'Operator zatwierdza dokument istniejącego zlecenia i uruchamia przelew dopiero po kompletnej kontroli.',
             'Zmiana rachunku albo statusu podatkowego blokuje proces do ponownej weryfikacji.',
             'Decyzja i jej uzasadnienie są nieedytowalnym zdarzeniem audytowym.',
         ],
@@ -1985,13 +2223,14 @@ Object.assign(assumptions, {
     'partner-invite': { title: 'Aktywacja zaproszenia', items: ['Zaproszenie jest jednorazowe i przypisane do osoby oraz roli.', 'Aktywacja ownera kończy się konfiguracją 2FA.'] },
     'partner-two-factor': { title: 'Weryfikacja dwuetapowa', items: ['Owner i księgowość wymagają drugiego składnika.', 'Odzyskanie 2FA wymaga osobnej weryfikacji tożsamości.'] },
     'partner-password-reset': { title: 'Reset hasła', items: ['Komunikat nie potwierdza istnienia konta.', 'Zmiana hasła unieważnia pozostałe sesje i nie omija 2FA.'] },
+    'partner-listing-create': { title: 'Nowa oferta klubowa', items: ['Klub korzysta z gotowego szablonu ACTIVIO i nie zmienia jego układu ani technologii.', 'Szablon można pobrać, a projekt przygotowuje ACTIVIO albo klub załącza własny plik do weryfikacji.', 'Stała cecha produktu nie jest wyborem; Magnes koszulka ma wyłącznie matowe wykończenie.'] },
     'partner-listing-review': { title: 'Listing zwrócony do poprawy', items: ['Odrzucona wersja pozostaje w historii.', 'Ponowne przekazanie tworzy nową wersję projektu.'] },
     'partner-price-conflict': { title: 'Konflikt ceny minimalnej', items: ['ACTIVIO nie nadpisuje ceny ustalonej przez klub.', 'Brak reakcji wstrzymuje tylko dotknięty wariant.'] },
-    'partner-compliance': { title: 'Wygasłe prawa do marki', items: ['Wygaśnięcie licencji blokuje nową sprzedaż zależnych listingów.', 'Opłacone zamówienia zachowują utrwaloną wersję licencji.'] },
+    'partner-compliance': { title: 'Cofnięte prawa do marki', items: ['Cofnięcie zgody blokuje nową sprzedaż zależnych listingów.', 'Opłacone zamówienia zachowują utrwaloną wersję zgody.'] },
     'partner-settlement-problem': { title: 'Problem rozliczenia', items: ['Odrzucony dokument jest zastępowany nową wersją.', 'Klub nie ponawia samodzielnie wypłaty na niezweryfikowany rachunek.'] },
     'partner-orders-empty': { title: 'Pusty stan sprzedaży', items: ['Pusty widok wskazuje następne sensowne działanie.', 'Klub nadal nie tworzy dowolnego produktu poza katalogiem ACTIVIO.'] },
     'partner-access-denied': { title: 'Brak uprawnienia', items: ['Kontrola działa na poziomie akcji i zasobu, nie tylko widoczności przycisku.', 'Niedozwolona próba pozostawia ślad audytowy.'] },
-    'system-order-exception': { title: 'Wyjątek realizacji', items: ['ShopSystem pozostaje źródłem produkcji, a ACTIVIO prowadzi decyzję biznesową.', 'Anulowanie jednej pozycji nie usuwa pozostałych pozycji ani historii.'] },
+    'system-order-exception': { title: 'Wyjątek realizacji', items: ['System realizacji przechowuje stan produkcji, a ACTIVIO prowadzi zrozumiałą decyzję biznesową.', 'Anulowanie jednej pozycji nie usuwa pozostałych pozycji ani historii.'] },
     'system-case-resolution': { title: 'Decyzja reklamacyjna', items: ['Skutek finansowy zależy od przyczyny i odpowiedzialności.', 'Decyzja jest zapisana per pozycja i nie usuwa pierwotnego naliczenia.'] },
     'system-club-suspension': { title: 'Zawieszenie partnera', items: ['Zakres blokady jest jawny i analizowany przed zapisem.', 'Zamówienia w toku, historia oraz ledger nie znikają.'] },
     'system-catalog-impact': { title: 'Archiwizacja produktu bazowego', items: ['Produkt używany przez kluby wymaga analizy wpływu i planu migracji.', 'Snapshoty i opłacone zamówienia pozostają odtwarzalne.'] },
@@ -2161,17 +2400,24 @@ function update_offer_price(input) {
     const minimum_price = Number(offer_item.dataset.minPrice);
     const sale_price = Number(input.value);
     const spread = offer_item.querySelector('[data-price-spread]');
-    const result = spread.closest('.price-result');
+    const result = offer_item.querySelector('.price-result');
+    const price_error = offer_item.querySelector('[data-price-error]');
     const save_button = offer_item.querySelector('[data-save-price]');
     const is_valid = Number.isFinite(sale_price) && sale_price >= minimum_price;
 
     input.classList.toggle('invalid', !is_valid);
     input.setAttribute('aria-invalid', String(!is_valid));
-    result.classList.toggle('invalid', !is_valid);
+    result.classList.toggle('invalid', !is_valid && Boolean(spread));
     save_button.disabled = !is_valid;
-    spread.textContent = is_valid
-        ? format_price(sale_price - minimum_price)
-        : `Minimum: ${format_price(minimum_price)}`;
+    if (price_error) {
+        price_error.hidden = is_valid;
+        price_error.textContent = is_valid ? '' : `Cena nie może być niższa niż ${format_price(minimum_price)}.`;
+    }
+    if (spread) {
+        spread.textContent = is_valid
+            ? format_price(sale_price - minimum_price)
+            : `Minimum: ${format_price(minimum_price)}`;
+    }
 }
 
 function escape_html(value) {
@@ -2403,7 +2649,7 @@ function catalog_product_card(entry, club_id, context = 'store') {
     const category_label = entry.category_label;
     const common = `class="product-card" data-go="product" data-product-id="${entry.id}" data-category="${entry.category}" data-price="${product.price}" data-popularity="${entry.popularity}" data-newness="${entry.newness}" role="link" tabindex="0"`;
     const store_data = context === 'store'
-        ? ` data-club-id="${club_id}" data-store-product="${entry.id}-${club_id}" data-feedback-id="store:product:${entry.id}-${club_id}" data-store-category="${entry.category}" data-store-club="${club_id}"`
+        ? ` data-club-id="${club_id}" data-store-product="${entry.id}-${club_id}" data-feedback-id="store:product:${entry.id}-${club_id}" data-store-category="${entry.category}" data-store-club="${club_id}" data-store-search="${escape_html(`${product.name} ${entry.category_label} ${club.name}`.toLocaleLowerCase('pl-PL'))}"`
         : '';
     const club_data = context === 'marketplace' ? ` data-club-id="${club_id}"` : '';
     const label = context === 'club'
@@ -2462,6 +2708,232 @@ function offer_pricing_markup(details) {
     return `<div class="offer-pricing"><strong>Cennik:</strong>${table}${note}</div>`;
 }
 
+function offer_gallery_markup(product, details) {
+    const official_images = activio_offer_images[details.source_id];
+    const images = Array.isArray(official_images) && official_images.length > 0
+        ? official_images
+        : [product.image];
+
+    const thumbnails = images.map((image, index) => `
+        <button type="button" data-offer-gallery-thumb data-src="${escape_html(image)}" data-index="${index}" aria-label="Pokaż zdjęcie ${index + 1}" aria-pressed="${index === 0}">
+            <img src="${escape_html(image)}" data-offer-image data-fallback-src="${escape_html(product.image)}" alt="" loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer">
+        </button>
+    `).join('');
+
+    return `<div class="offer-product-gallery" data-offer-gallery data-offer-gallery-fallback="${escape_html(product.image)}">
+        <div class="offer-gallery-main">
+            <button type="button" class="offer-gallery-trigger" data-offer-gallery-open data-index="0" aria-label="Powiększ zdjęcie produktu ${escape_html(product.name)}">
+                <img src="${escape_html(images[0])}" alt="${escape_html(product.name)} — zdjęcie 1" data-offer-gallery-main data-offer-image data-fallback-src="${escape_html(product.image)}" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+                <span data-offer-gallery-count${images.length === 1 ? ' hidden' : ''}>1 / ${images.length}</span>
+            </button>
+        </div>
+        ${images.length > 1 ? `<div class="offer-gallery-thumbs" role="group" aria-label="Galeria zdjęć produktu ${escape_html(product.name)}">${thumbnails}</div>` : ''}
+    </div>`;
+}
+
+const offer_lightbox = {
+    element: null,
+    stage: null,
+    image: null,
+    close_button: null,
+    previous_button: null,
+    next_button: null,
+    counter: null,
+    images: [],
+    index: 0,
+    product_name: '',
+    fallback_src: '',
+    previously_focused: null,
+    previous_body_overflow: '',
+    background_inert_states: [],
+    keydown_handler: null,
+    touch_start_x: null,
+    touch_start_y: null,
+    ignore_stage_click_until: 0,
+
+    ensure_mounted() {
+        if (this.element) {
+            return;
+        }
+
+        const element = document.createElement('div');
+        element.className = 'offer-lightbox';
+        element.setAttribute('role', 'dialog');
+        element.setAttribute('aria-modal', 'true');
+        element.setAttribute('aria-label', 'Powiększone zdjęcie produktu');
+        element.setAttribute('data-offer-lightbox', '');
+        element.hidden = true;
+        element.innerHTML = `
+            <button type="button" class="offer-lightbox-close" data-offer-lightbox-close aria-label="Zamknij podgląd zdjęcia">×</button>
+            <button type="button" class="offer-lightbox-previous" data-offer-lightbox-previous aria-label="Poprzednie zdjęcie">‹</button>
+            <div class="offer-lightbox-stage" data-offer-lightbox-stage>
+                <img class="offer-lightbox-image" data-offer-lightbox-image data-offer-image alt="" decoding="async" referrerpolicy="no-referrer">
+            </div>
+            <button type="button" class="offer-lightbox-next" data-offer-lightbox-next aria-label="Następne zdjęcie">›</button>
+            <div class="offer-lightbox-counter" data-offer-lightbox-counter aria-live="polite"></div>
+        `;
+        document.body.append(element);
+
+        this.element = element;
+        this.stage = element.querySelector('[data-offer-lightbox-stage]');
+        this.image = element.querySelector('[data-offer-lightbox-image]');
+        this.close_button = element.querySelector('[data-offer-lightbox-close]');
+        this.previous_button = element.querySelector('[data-offer-lightbox-previous]');
+        this.next_button = element.querySelector('[data-offer-lightbox-next]');
+        this.counter = element.querySelector('[data-offer-lightbox-counter]');
+        this.keydown_handler = (event) => this.on_keydown(event);
+
+        this.close_button.addEventListener('click', () => this.close());
+        this.previous_button.addEventListener('click', () => this.show(this.index - 1));
+        this.next_button.addEventListener('click', () => this.show(this.index + 1));
+        element.addEventListener('click', (event) => {
+            if (Date.now() < this.ignore_stage_click_until) {
+                event.preventDefault();
+                return;
+            }
+            if (event.target === element || event.target === this.stage) {
+                this.close();
+            }
+        });
+
+        const is_zoomed = () => (window.visualViewport?.scale || 1) > 1.01;
+        this.stage.addEventListener('touchstart', (event) => {
+            if (event.touches.length !== 1 || is_zoomed()) {
+                return;
+            }
+            this.touch_start_x = event.touches[0].clientX;
+            this.touch_start_y = event.touches[0].clientY;
+        }, { passive: true });
+        this.stage.addEventListener('touchend', (event) => {
+            if (this.touch_start_x === null) {
+                return;
+            }
+            const touch = event.changedTouches[0];
+            const delta_x = touch.clientX - this.touch_start_x;
+            const delta_y = touch.clientY - this.touch_start_y;
+            this.touch_start_x = null;
+            this.touch_start_y = null;
+            if (!is_zoomed() && Math.abs(delta_x) > 50 && Math.abs(delta_x) > Math.abs(delta_y)) {
+                this.show(this.index + (delta_x < 0 ? 1 : -1));
+                this.ignore_stage_click_until = Date.now() + 400;
+            }
+        });
+        this.stage.addEventListener('touchcancel', () => {
+            this.touch_start_x = null;
+            this.touch_start_y = null;
+        });
+    },
+
+    open(gallery, index) {
+        const main_image = gallery.querySelector('[data-offer-gallery-main]');
+        const thumbnails = [...gallery.querySelectorAll('[data-offer-gallery-thumb]')];
+        const images = thumbnails.length > 0
+            ? thumbnails.map((thumbnail) => thumbnail.dataset.src)
+            : [main_image.currentSrc || main_image.src];
+        if (images.length === 0) {
+            return;
+        }
+
+        this.ensure_mounted();
+        this.images = images;
+        this.product_name = gallery.closest('article')?.querySelector('h3')?.textContent || 'Produkt ACTIVIO';
+        this.fallback_src = gallery.dataset.offerGalleryFallback || main_image.dataset.fallbackSrc;
+        this.previously_focused = document.activeElement;
+        this.previous_body_overflow = document.body.style.overflow;
+        const multiple_images = images.length > 1;
+        this.previous_button.hidden = !multiple_images;
+        this.next_button.hidden = !multiple_images;
+        this.counter.hidden = !multiple_images;
+        this.background_inert_states = [...document.body.children]
+            .filter((element) => element !== this.element)
+            .map((element) => ({ element, inert: element.inert }));
+        this.background_inert_states.forEach(({ element }) => {
+            element.inert = true;
+        });
+        this.element.setAttribute('aria-label', `Powiększone zdjęcia produktu ${this.product_name}`);
+        this.element.hidden = false;
+        void this.element.offsetWidth;
+        this.element.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', this.keydown_handler);
+        this.show(index);
+        this.close_button.focus();
+    },
+
+    close() {
+        if (!this.element || this.element.hidden) {
+            return;
+        }
+
+        this.element.classList.remove('is-open');
+        this.element.hidden = true;
+        document.body.style.overflow = this.previous_body_overflow;
+        document.removeEventListener('keydown', this.keydown_handler);
+        this.background_inert_states.forEach(({ element, inert }) => {
+            element.inert = inert;
+        });
+        this.background_inert_states = [];
+        this.image.dataset.fallbackApplied = 'true';
+        this.image.removeAttribute('src');
+        if (this.previously_focused && typeof this.previously_focused.focus === 'function') {
+            this.previously_focused.focus();
+        }
+    },
+
+    show(raw_index) {
+        const image_count = this.images.length;
+        if (image_count === 0) {
+            return;
+        }
+
+        this.index = ((raw_index % image_count) + image_count) % image_count;
+        delete this.image.dataset.fallbackApplied;
+        this.image.dataset.fallbackSrc = this.fallback_src;
+        this.image.src = this.images[this.index];
+        this.image.alt = `${this.product_name} — zdjęcie ${this.index + 1}`;
+        this.counter.textContent = `${this.index + 1} / ${image_count}`;
+        if (image_count > 1) {
+            [this.index - 1, this.index + 1].forEach((neighbor_index) => {
+                const preload = new Image();
+                preload.referrerPolicy = 'no-referrer';
+                preload.src = this.images[((neighbor_index % image_count) + image_count) % image_count];
+            });
+        }
+    },
+
+    on_keydown(event) {
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            event.stopPropagation();
+            this.close();
+            return;
+        }
+        if (event.key === 'ArrowLeft' && this.images.length > 1) {
+            event.preventDefault();
+            this.show(this.index - 1);
+            return;
+        }
+        if (event.key === 'ArrowRight' && this.images.length > 1) {
+            event.preventDefault();
+            this.show(this.index + 1);
+            return;
+        }
+        if (event.key !== 'Tab') {
+            return;
+        }
+
+        const focusable_buttons = [this.close_button, this.previous_button, this.next_button]
+            .filter((button) => button && !button.hidden);
+        const current_index = focusable_buttons.indexOf(document.activeElement);
+        const direction = event.shiftKey ? -1 : 1;
+        const next_index = current_index === -1
+            ? (event.shiftKey ? focusable_buttons.length - 1 : 0)
+            : (current_index + direction + focusable_buttons.length) % focusable_buttons.length;
+        event.preventDefault();
+        focusable_buttons[next_index].focus();
+    },
+};
+
 function render_activio_offer_catalog() {
     const view = document.querySelector('[data-view="offer"]');
     render_offer_browser(
@@ -2473,6 +2945,7 @@ function render_activio_offer_catalog() {
         (product, id_prefix) => {
             const source_details = activio_offer_details[product.id];
             const details = {
+                source_id: source_details?.source_id || '',
                 production: source_details?.production || product.production,
                 description: source_details?.description || product.lead,
                 features: Array.isArray(source_details?.features) ? source_details.features : [],
@@ -2483,7 +2956,7 @@ function render_activio_offer_catalog() {
             const production = details.production
                 ? `<small>REALIZACJA ${escape_html(details.production)}</small>`
                 : '';
-            return `<article id="${id_prefix}-${product.id}" class="offer-detail-card"><img src="${product.image}" alt="${escape_html(product.name)}"><div>${production}<h3>${escape_html(product.name)}</h3><p>${escape_html(details.description)}</p><ul class="offer-product-features">${features}</ul>${offer_pricing_markup(details)}<button type="button" data-offer-question="${escape_html(product.name)}">Zapytaj o produkt →</button></div></article>`;
+            return `<article id="${id_prefix}-${product.id}" class="offer-detail-card">${offer_gallery_markup(product, details)}<div>${production}<h3>${escape_html(product.name)}</h3><p>${escape_html(details.description)}</p><ul class="offer-product-features">${features}</ul>${offer_pricing_markup(details)}<button type="button" data-offer-question="${escape_html(product.name)}">Zapytaj o produkt →</button></div></article>`;
         },
     );
 }
@@ -2539,9 +3012,9 @@ function render_final_catalogs() {
     ].filter(Boolean).forEach((anchor) => anchor.insertAdjacentHTML('afterend', project_note));
 
     const filter_buttons = catalog_categories
-        .map((category) => `<button class="chip" type="button" data-store-filter="${category.id}">${escape_html(category.label)}</button>`)
+        .map((category) => `<button class="store-category-box" type="button" data-store-filter="${category.id}"><img src="${category.image}" alt=""><span>${escape_html(category.label)}</span></button>`)
         .join('');
-    document.querySelector('.store-category-filter .chips').innerHTML = `<button class="chip active" type="button" data-store-filter="all">Wszystko</button>${filter_buttons}`;
+    document.querySelector('.store-category-grid').innerHTML = `<button class="store-category-box active" type="button" data-store-filter="all"><img src="../assets/hero/activio-market-hero-v1.png" alt=""><span>Wszystkie</span></button>${filter_buttons}`;
     document.querySelector('.marketplace-view .product-section .chips').innerHTML = `<button class="chip active" type="button" data-product-filter="all">Wszystko</button>${catalog_categories.map((category) => `<button class="chip" type="button" data-product-filter="${category.id}">${escape_html(category.label)}</button>`).join('')}`;
     document.querySelector('.club-tabs').innerHTML = `<button class="active" type="button" data-club-filter="all">Wszystkie</button>${catalog_categories.map((category) => `<button type="button" data-club-filter="${category.id}">${escape_html(category.label)}</button>`).join('')}<span data-club-product-count>${final_catalog.length} produktów</span>`;
 
@@ -2556,11 +3029,11 @@ function render_final_catalogs() {
     document.querySelector('[data-view="partner-offer"] .offer-grid').innerHTML = active_offer_ids.map((product_id, index) => {
         const entry = final_catalog_entry(product_id);
         const product = products[product_id];
-        const spread = product.price - entry.minimum;
+        const club_earning_gross = entry.club_earning_net * 1.23;
         return `<article class="offer-card" data-offer-item data-min-price="${entry.minimum}">
             <img src="${product.image}" alt="${escape_html(product.name)}" loading="lazy">
             <div class="offer-card-main"><div class="offer-title"><div><span>${escape_html(entry.category_label)}</span><strong>${escape_html(product.name)}</strong></div><span class="table-status ${index === 4 ? 'pending' : 'available'}">${index === 4 ? 'Projekt' : 'Aktywna'}</span></div>
-            <div class="price-editor"><label>Minimum ACTIVIO brutto <output>${format_price(entry.minimum)}</output></label><label>Cena brutto w Twoim sklepie <span><input type="number" min="${entry.minimum}" step="1" value="${product.price}" data-sale-price> zł</span></label><div class="price-result"><span>Kwota brutto ponad minimum</span><strong data-price-spread>${format_price(spread)}</strong><small>Wartości przykładowe · to nie jest automatycznie wynagrodzenie klubu</small></div></div>
+            <div class="price-editor"><label>Minimum ACTIVIO brutto <output>${format_price(entry.minimum)}</output></label><label>Cena brutto w Twoim sklepie <span><input type="number" min="${entry.minimum}" step="1" value="${product.price}" data-sale-price> zł</span></label><div class="price-result"><span>Twój zarobek brutto</span><strong data-club-earning>${format_price(club_earning_gross)}</strong><small>${format_price(entry.club_earning_net)} netto + VAT / szt.</small></div><small class="price-error" data-price-error role="alert" hidden></small></div>
             <div class="offer-actions"><button type="button" data-go="product" data-product-id="${product_id}" data-club-id="stal">Podgląd produktu</button><button class="button primary" type="button" data-save-price>Zapisz cenę</button></div></div>
         </article>`;
     }).join('');
@@ -2601,7 +3074,15 @@ function update_partner_listing_context(product_id) {
     base.querySelector(':scope > div > img').alt = product.name;
     base.querySelector(':scope > div > span > strong').textContent = product.name;
     base.querySelector(':scope > div > span > p').textContent = `${entry.variants} · ${entry.personalization} · produkcja ${entry.production}`;
-    view.querySelector('.variant-check-grid').innerHTML = product.options.map((option) => `<label><input type="checkbox" checked>${escape_html(option)}</label>`).join('');
+    const template_button = base.querySelector('[data-download-product-template]');
+    template_button.dataset.productId = entry.id;
+    template_button.dataset.templateProductName = product.name;
+    view.querySelector('.variant-check-grid').innerHTML = product.options.map((option) => `<label${product.fixed_options ? ' class="fixed"' : ''}><input type="checkbox" checked${product.fixed_options ? ' disabled' : ''}>${escape_html(option)}</label>`).join('');
+    const fixed_option_note = view.querySelector('[data-listing-fixed-option-note]');
+    fixed_option_note.hidden = !product.fixed_options;
+    fixed_option_note.textContent = product.fixed_options
+        ? 'Wykończenie matowe jest częścią produktu bazowego ACTIVIO i nie wymaga wyboru klubu ani klienta.'
+        : '';
     summary.querySelector('img').src = product.image;
     summary.querySelector('img').alt = `Przykładowy projekt: ${product.name}`;
     summary.querySelector('input[name="listing_name"]').value = product.name;
@@ -2653,6 +3134,13 @@ function update_product_context(product_id, club_id = current_club_id) {
     product_photo_input.value = '';
     product_photo_label.textContent = 'Wybierz zdjęcie z urządzenia';
     document.querySelector('[data-size-guide-button]').hidden = !product.has_size_guide;
+    const product_option_field = document.querySelector('[data-product-option-field]');
+    const fixed_product_option = document.querySelector('[data-fixed-product-option]');
+    product_option_field.hidden = Boolean(product.fixed_options);
+    fixed_product_option.hidden = !product.fixed_options;
+    fixed_product_option.textContent = product.fixed_options
+        ? `${product.option_label}: ${product.options[0]}. To stały parametr produktu i nie wymaga wyboru.`
+        : '';
     document.querySelector('.size-options').innerHTML = product.options
         .map((option) => `<button${option === 'M' || (!product.options.includes('M') && option === product.options[0]) ? ' class="selected"' : ''} type="button">${escape_html(option)}</button>`)
         .join('');
@@ -2857,7 +3345,7 @@ function show_action(action, source) {
 
     if (action === 'retry-payment') {
         open_action_dialog('Ponów płatność 190,99 zł', `
-            <p class="action-info">Utworzymy nową próbę płatności dla tego samego koszyka. Poprzednia próba PAY/2026/8841 pozostanie odrzucona.</p>
+            <p class="action-info">Utworzymy nową próbę płatności dla zamówienia AC/2026/1052. Poprzednia płatność pozostanie oznaczona jako odrzucona.</p>
             <div class="dialog-list"><button type="button" data-go="confirmation"><span class="dialog-icon">B</span><span><strong>BLIK</strong><small>Nowa jednorazowa próba</small></span><b>Wybierz →</b></button><button type="button" data-go="confirmation"><span class="dialog-icon">▣</span><span><strong>Karta lub szybki przelew</strong><small>Przez operatora płatności</small></span><b>Wybierz →</b></button></div>
         `, 'PŁATNOŚĆ');
         return;
@@ -2912,12 +3400,12 @@ function show_action(action, source) {
     }
 
     if (action === 'partner-request-access') {
-        open_action_dialog('Prośba wysłana do administratora klubu', '<p class="action-info">Marek Kowalski otrzyma prośbę o uprawnienie club.finance.manage. Do czasu decyzji dostęp pozostaje zablokowany.</p>', 'UPRAWNIENIA');
+        open_action_dialog('Prośba wysłana do administratora klubu', '<p class="action-info">Marek Kowalski otrzyma prośbę o dostęp do zarządzania finansami klubu. Do czasu decyzji dostęp pozostaje zablokowany.</p>', 'UPRAWNIENIA');
         return;
     }
 
     if (action === 'system-order-technical-log') {
-        open_action_dialog('Log ShopSystem · pozycja 2', '<pre class="action-code">17:42:15 ORDER_ITEM_ACCEPTED\n17:44:09 MATERIAL_BATCH_CHECK\n17:44:09 PROD_MATERIAL_BLOCKED\n17:44:10 ACTIVIO_EXCEPTION_CREATED</pre><p class="action-info">Identyfikator korelacji: cor-29ab17. Personalizacja i snapshot pliku pozostały zapisane.</p>', 'REALIZACJA');
+        open_action_dialog('Informacje techniczne · pozycja 2', '<pre class="action-code">17:42:15 ORDER_ITEM_ACCEPTED\n17:44:09 MATERIAL_BATCH_CHECK\n17:44:09 PROD_MATERIAL_BLOCKED\n17:44:10 ACTIVIO_EXCEPTION_CREATED</pre><p class="action-info">Identyfikator korelacji: cor-29ab17. Personalizacja i zapisana wersja pliku pozostały bez zmian.</p>', 'REALIZACJA');
         return;
     }
 
@@ -2980,19 +3468,6 @@ function show_action(action, source) {
         return;
     }
 
-    if (action === 'submit-settlement-document') {
-        open_action_dialog('Dokument za lipiec 2026', `
-            <form class="action-form" data-action-form="settlement-document">
-                <p class="action-form-note">Dokument powinien opiewać na <strong>1 040,00 zł netto + 239,20 zł VAT</strong>. W prototypie wybór pliku jest symulowany.</p>
-                <label class="wide">Numer faktury VAT<input name="invoice" required placeholder="FV/07/2026"></label>
-                <label class="wide">Plik PDF<input name="file" type="text" required value="FV-07-2026.pdf"></label>
-                <label class="wide">Potwierdzenie<select name="confirmation" required><option value="">Wybierz…</option><option value="confirmed">Kwota i rachunek są prawidłowe</option></select></label>
-                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Przekaż do weryfikacji</button></footer>
-            </form>
-        `, 'ROZLICZENIE MIESIĘCZNE');
-        return;
-    }
-
     if (action === 'edit-club-data') {
         open_action_dialog('Zgłoś zmianę danych klubu', `
             <form class="action-form" data-action-form="club-data-change">
@@ -3006,11 +3481,11 @@ function show_action(action, source) {
         return;
     }
 
-    if (action === 'request-brand-change' || action === 'renew-license') {
-        open_action_dialog(action === 'renew-license' ? 'Odnowienie licencji' : 'Nowe materiały marki', `
+    if (action === 'request-brand-change') {
+        open_action_dialog('Nowe materiały marki', `
             <form class="action-form" data-action-form="brand-change">
                 <label>Rodzaj materiału<select name="type" required><option>Herb lub logo</option><option>Licencja / zgoda</option><option>Kolory marki</option><option>Treści witryny</option></select></label>
-                <label>Plik<input name="file" required value="${action === 'renew-license' ? 'licencja-stal-2027.pdf' : 'stal-pleszew-v5.svg'}"></label>
+                <label>Plik<input name="file" required value="stal-pleszew-v5.svg"></label>
                 <label class="wide">Informacja dla ACTIVIO<textarea name="message" placeholder="Co się zmieniło i od kiedy materiał obowiązuje?"></textarea></label>
                 <p class="action-form-note">Nowa wersja nie zastąpi używanych materiałów do czasu weryfikacji i akceptacji.</p>
                 <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Przekaż do weryfikacji</button></footer>
@@ -3082,7 +3557,7 @@ function show_action(action, source) {
             <div class="dialog-list">
                 <button type="button" data-go="system-club"><span>ACT</span><span><strong>KS Stal Pleszew</strong><small>Partner ACT-014</small></span><b>Otwórz →</b></button>
                 <button type="button" data-go="system-orders"><span>ZAM</span><span><strong>AC/2026/1048 · pozycja 1</strong><small>Koszulka klubowa · KS Stal</small></span><b>Otwórz →</b></button>
-                <button type="button" data-go="system-settlement"><span>FIN</span><span><strong>Lipiec 2026 · KS Stal</strong><small>1 279,20 zł brutto · do weryfikacji</small></span><b>Otwórz →</b></button>
+                <button type="button" data-go="system-settlement"><span>FIN</span><span><strong>WYP/2026/008 · KS Stal</strong><small>${settlement_payout_amount} · do weryfikacji</small></span><b>Otwórz →</b></button>
             </div>
         `, 'SYSTEM');
         return;
@@ -3152,8 +3627,8 @@ function show_action(action, source) {
                 <label>Nazwa klubu<input name="club" required></label><label>NIP<input name="nip" required></label>
                 <label>Miasto<input name="city" required></label><label>Opiekun<select name="manager"><option>Anna Nowak</option><option>Piotr Lis</option></select></label>
                 <label class="wide">E-mail reprezentanta<input name="email" type="email" required></label>
-                <p class="action-form-note">Utworzenie partnera rozpoczyna onboarding. Nie publikuje witryny ani produktów.</p>
-                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Rozpocznij onboarding</button></footer>
+                <p class="action-form-note">Utworzenie partnera rozpoczyna wdrożenie klubu. Nie publikuje witryny ani produktów.</p>
+                <footer><button class="dialog-button" type="button" data-action-close>Anuluj</button><button class="dialog-button primary" type="submit">Rozpocznij wdrożenie</button></footer>
             </form>
         `, 'SYSTEM / ACTIVIO');
         return;
@@ -3181,9 +3656,9 @@ function show_action(action, source) {
 
     if (['system-club-documents', 'system-review-step', 'system-review-license', 'system-review-bank', 'system-edit-club'].includes(action)) {
         const system_club_dialogs = {
-            'system-club-documents': ['Dokumenty klubu', 'Umowa partnerska · podpisana<br>Licencja na markę · ważna do 12.09.2026<br>Potwierdzenie rachunku · zweryfikowane'],
+            'system-club-documents': ['Dokumenty klubu', 'Umowa partnerska · podpisana<br>Licencja na markę · bezterminowa od 12.03.2026<br>Potwierdzenie rachunku · zweryfikowane'],
             'system-review-step': ['Weryfikacja organizacji', 'KRS 0000128456 · NIP 6170004182 · reprezentacja zgodna z dokumentami.'],
-            'system-review-license': ['Odnowienie licencji', 'Aktualna licencja wygasa 12.09.2026. Klub otrzymał przypomnienie; nowy dokument nie został jeszcze przekazany.'],
+            'system-review-license': ['Zgoda na markę', 'Bezterminowa licencja obowiązuje od 12.03.2026. Dokument i osoba zatwierdzająca są zweryfikowane.'],
             'system-review-bank': ['Weryfikacja rachunku', 'Rachunek PL •••• 0047 zweryfikowano 12.03.2026. Brak późniejszych zmian.'],
             'system-edit-club': ['Edycja danych rozliczeniowych', 'Zmiana danych formalnych wymaga dokumentu źródłowego, uprawnienia operatora i wpisu audytowego.'],
         }[action];
@@ -3773,12 +4248,16 @@ function render_store_products() {
     const load_more = document.querySelector('[data-store-load-more]');
     const show_all_button = document.querySelector('[data-store-show-all]');
     const active_filter = document.querySelector('[data-store-filter].active')?.dataset.storeFilter || 'all';
+    const product_search = document.querySelector('[data-store-product-search]')?.value
+        .trim()
+        .toLocaleLowerCase('pl-PL') || '';
     const selected_club = document.querySelector('select[data-store-club]')?.value || 'all';
     const sort = document.querySelector('[data-store-sort]')?.value || 'popular';
     const products = [...document.querySelectorAll('[data-store-product]')];
     const eligible = products.filter((product) => (
         (active_filter === 'all' || product.dataset.storeCategory === active_filter)
         && (selected_club === 'all' || product.dataset.storeClub === selected_club)
+        && (product_search === '' || product.dataset.storeSearch.includes(product_search))
     ));
     const by_popularity = (left, right) => Number(right.dataset.popularity) - Number(left.dataset.popularity);
     const by_newness = (left, right) => Number(right.dataset.newness) - Number(left.dataset.newness);
@@ -3797,11 +4276,14 @@ function render_store_products() {
         .slice(0, 2);
     const featured_ids = new Set([...popular, ...newest].map((product) => product.dataset.storeProduct));
     const other = eligible.filter((product) => !featured_ids.has(product.dataset.storeProduct));
+    const other_preview_count = window.matchMedia('(max-width: 640px)').matches
+        ? 1
+        : (window.matchMedia('(max-width: 980px)').matches ? 2 : 4);
 
     const groups = { popular, new: newest, other };
     Object.entries(groups).forEach(([group, items]) => {
-        items.sort(selected_sort).forEach((product) => {
-            product.hidden = false;
+        items.sort(selected_sort).forEach((product, index) => {
+            product.hidden = group === 'other' && !store_show_all && index >= other_preview_count;
             containers[group].append(product);
         });
     });
@@ -3815,11 +4297,11 @@ function render_store_products() {
     shelves.popular.hidden = popular.length === 0;
     shelves.new.hidden = newest.length === 0;
     shelves.other.hidden = other.length === 0;
-    containers.other.hidden = !store_show_all;
-    load_more.hidden = other.length === 0;
+    containers.other.hidden = false;
+    load_more.hidden = other.length <= other_preview_count;
     show_all_button.textContent = store_show_all
         ? 'Pokaż mniej'
-        : `Pokaż wszystkie (${other.length})`;
+        : `Pokaż więcej (${Math.max(0, other.length - other_preview_count)})`;
     show_all_button.setAttribute('aria-expanded', String(store_show_all));
     document.querySelector('[data-store-empty]').hidden = eligible.length > 0;
 }
@@ -3869,6 +4351,20 @@ function apply_order_filters() {
         row.hidden = !matches_status || !matches_phrase;
     });
 }
+
+document.addEventListener('error', (event) => {
+    const failed_image = event.target.closest?.('[data-offer-image][data-fallback-src]');
+    if (!failed_image || failed_image.dataset.fallbackApplied === 'true') {
+        return;
+    }
+
+    failed_image.dataset.fallbackApplied = 'true';
+    failed_image.src = failed_image.dataset.fallbackSrc;
+    const thumbnail = failed_image.closest('[data-offer-gallery-thumb]');
+    if (thumbnail) {
+        thumbnail.dataset.src = failed_image.dataset.fallbackSrc;
+    }
+}, true);
 
 document.addEventListener('click', (event) => {
     if (event.target === action_dialog || event.target.closest('[data-action-close]')) {
@@ -3928,6 +4424,56 @@ document.addEventListener('click', (event) => {
             show_toast('Projekt wrócił do ACTIVIO z prośbą o poprawki');
         }
         close_action_dialog();
+        return;
+    }
+
+    const offer_gallery_thumb = event.target.closest('[data-offer-gallery-thumb]');
+    if (offer_gallery_thumb) {
+        const gallery = offer_gallery_thumb.closest('[data-offer-gallery]');
+        const main_image = gallery.querySelector('[data-offer-gallery-main]');
+        const gallery_count = gallery.querySelector('[data-offer-gallery-count]');
+        const thumbnails = [...gallery.querySelectorAll('[data-offer-gallery-thumb]')];
+        const gallery_trigger = gallery.querySelector('[data-offer-gallery-open]');
+        const index = Number(offer_gallery_thumb.dataset.index);
+
+        delete main_image.dataset.fallbackApplied;
+        main_image.src = offer_gallery_thumb.dataset.src;
+        main_image.alt = `${gallery.closest('article').querySelector('h3').textContent} — zdjęcie ${index + 1}`;
+        gallery_count.textContent = `${index + 1} / ${thumbnails.length}`;
+        gallery_trigger.dataset.index = String(index);
+        thumbnails.forEach((thumbnail) => {
+            thumbnail.setAttribute('aria-pressed', String(thumbnail === offer_gallery_thumb));
+        });
+        return;
+    }
+
+    const offer_gallery_open = event.target.closest('[data-offer-gallery-open]');
+    if (offer_gallery_open) {
+        offer_lightbox.open(
+            offer_gallery_open.closest('[data-offer-gallery]'),
+            Number(offer_gallery_open.dataset.index),
+        );
+        return;
+    }
+
+    const product_template_button = event.target.closest('[data-download-product-template]');
+    if (product_template_button) {
+        const product_name = product_template_button.dataset.templateProductName || 'Produkt ACTIVIO';
+        const product_slug = slugify_heading(product_name) || product_template_button.dataset.productId;
+        const template = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+            <rect width="1200" height="720" fill="#f4f6f9"/>
+            <text x="70" y="75" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#101933">ACTIVIO · ${escape_html(product_name)}</text>
+            <text x="70" y="112" font-family="Arial, sans-serif" font-size="18" fill="#53627a">Szablon projektu klubowego · nie zmieniaj układu ani obszarów produkcyjnych</text>
+            <rect x="70" y="165" width="500" height="430" rx="28" fill="#101933"/>
+            <rect x="630" y="165" width="500" height="430" rx="28" fill="#ffffff" stroke="#d6dce6" stroke-width="3"/>
+            <rect x="220" y="285" width="200" height="200" rx="22" fill="none" stroke="#d7ff45" stroke-width="8" stroke-dasharray="18 12"/>
+            <rect x="780" y="285" width="200" height="200" rx="22" fill="none" stroke="#101933" stroke-width="8" stroke-dasharray="18 12"/>
+            <text x="320" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#ffffff">HERB KLUBU</text>
+            <text x="880" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#101933">HERB KLUBU</text>
+            <text x="70" y="650" font-family="Arial, sans-serif" font-size="18" fill="#53627a">Kolory do podmiany: podstawowy ciemny i podstawowy jasny. Projekt sprawdza ACTIVIO.</text>
+        </svg>`;
+        download_blob(`szablon-${product_slug}.svg`, template, 'image/svg+xml;charset=utf-8');
+        show_toast(`Pobrano szablon: ${product_name}`);
         return;
     }
 
@@ -4034,8 +4580,8 @@ document.addEventListener('click', (event) => {
             download_blob('activio-cennik-wariantow.csv', '\uFEFFWariant;Personalizacja;Minimum brutto;Cena sklepu brutto\n128-152;Numer i nazwisko;79,00;129,00\nS-XL;Numer i nazwisko;84,00;139,00', 'text/csv;charset=utf-8');
             show_toast('Pobrano cennik wariantów');
         } else if (action === 'export-settlement') {
-            download_blob('activio-rozliczenie-2026-07.csv', '\uFEFFTyp;Powiązanie;Produkt;Zmiana netto\nSprzedaż;AC/2026/1048;Koszulka klubowa;+20,00\nKorekta;AC/2026/0984;Bidon klubowy;-9,00', 'text/csv;charset=utf-8');
-            show_toast('Pobrano skład rozliczenia');
+            download_blob('activio-saldo-do-wyplaty-2026-08-24.csv', '\uFEFFTyp;Powiązanie;Produkt;Zmiana netto\nSprzedaż;AC/2026/1048;Koszulka klubowa;+20,00\nKorekta;AC/2026/0984;Bidon klubowy;-9,00', 'text/csv;charset=utf-8');
+            show_toast('Pobrano skład salda');
         } else if (['download-contract', 'download-brand-asset', 'export-audit'].includes(action)) {
             const files = {
                 'download-contract': ['ACT-CLUB-2026-014.txt', 'Umowa partnerska ACT/CLUB/2026/014 — podgląd prototypu'],
@@ -4063,11 +4609,7 @@ document.addEventListener('click', (event) => {
             status.className = 'table-status available status-large';
             action_button.textContent = 'Zatwierdzone';
             action_button.disabled = true;
-            show_toast('Wypłata 1 279,20 zł zaplanowana na 5 sierpnia');
-        } else if (action === 'system-close-period') {
-            action_button.textContent = 'Okres lipca zamknięty';
-            action_button.disabled = true;
-            show_toast('Okres zamknięty; utworzono zestawienia dla 12 klubów');
+            show_toast(`Wypłata ${settlement_payout_amount} zlecona przez klub została zatwierdzona`);
         } else if (action === 'system-retry-event') {
             action_button.textContent = 'Ponowiono';
             action_button.disabled = true;
@@ -4081,7 +4623,7 @@ document.addEventListener('click', (event) => {
         } else if (['system-export-operations', 'system-download-invoice', 'system-export-audit'].includes(action)) {
             const system_files = {
                 'system-export-operations': ['activio-kolejka-operacyjna.csv', '\uFEFFPozycja;Klub;Status\nAC/2026/1048-1;KS Stal;W produkcji'],
-                'system-download-invoice': ['FV-07-2026.txt', 'Prototyp dokumentu FV/07/2026 · 1 279,20 zł brutto'],
+                'system-download-invoice': [settlement_document_filename, `Prototyp dokumentu ${settlement_document_number} · ${settlement_payout_amount}`],
                 'system-export-audit': ['activio-audyt-operacyjny.csv', '\uFEFFCzas;Źródło;Zdarzenie;Wynik\n17:42:13;ShopSystem;ORDER_ITEM_PAID;Sukces'],
             };
             const [filename, content] = system_files[action];
@@ -4106,7 +4648,7 @@ document.addEventListener('click', (event) => {
             show_toast('Włączono tryb szybkiego przeglądu kolejki');
         } else if (action === 'system-open-partner-preview') {
             open_action_dialog('Podgląd tylko do odczytu', `
-                <div class="info-grid"><article><span>67</span><div><strong>Zamówienia w lipcu</strong><p>Dane wyłącznie KS Stal Pleszew.</p></div></article><article><span>94</span><div><strong>Sprzedane pozycje</strong><p>4 aktywne listingi klubowe.</p></div></article><article><span>1 286</span><div><strong>Naliczenie netto</strong><p>Przed zamknięciem okresu.</p></div></article></div>
+                <div class="info-grid"><article><span>67</span><div><strong>Zamówienia w lipcu</strong><p>Dane wyłącznie KS Stal Pleszew.</p></div></article><article><span>94</span><div><strong>Sprzedane pozycje</strong><p>4 aktywne listingi klubowe.</p></div></article><article><span>1 286</span><div><strong>Saldo netto</strong><p>Prowadzone ciągle, bez zamykania okresów.</p></div></article></div>
                 <p class="action-info">To kontrolowany podgląd bez akcji partnera. Wejście zapisano w audycie operatora.</p>
             `, 'KS STAL PLESZEW');
         } else {
@@ -4395,10 +4937,15 @@ document.addEventListener('submit', (event) => {
     }
 
     if (form_type === 'partner-listing-create') {
+        const club_project = form.elements.design_source.value === 'club';
+        const project_filename = form.elements.club_design.files[0]?.name || 'projekt-klubu.pdf';
+        const project_step = club_project
+            ? `<div class="pending"><i>2</i><span><strong>Weryfikacja projektu klubu</strong><small>${escape_html(project_filename)} · zgodność z szablonem i produkcją</small></span></div>`
+            : '<div class="pending"><i>2</i><span><strong>Projekt ACTIVIO</strong><small>Herb KS Stal i wskazówki trafiły do grafika</small></span></div>';
         open_action_dialog('Produkt przekazany do przygotowania', `
             <div class="tracking-list">
                 <div><i>✓</i><span><strong>Wersja robocza LST-014-018 utworzona</strong><small>Koszulka sportowa · 7 wariantów · cena 129,00 zł</small></span></div>
-                <div class="pending"><i>2</i><span><strong>Projekt ACTIVIO</strong><small>Herb KS Stal i wskazówki trafiły do grafika</small></span></div>
+                ${project_step}
                 <div class="pending"><i>3</i><span><strong>Akceptacja klubu i ACTIVIO</strong><small>Publikacja dopiero po obu decyzjach</small></span></div>
             </div>
             <div class="dialog-actions"><button class="dialog-button" type="button" data-go="partner-offer">Wróć do oferty</button><button class="dialog-button primary" type="button" data-go="partner-listing">Otwórz listing</button></div>
@@ -4406,20 +4953,180 @@ document.addEventListener('submit', (event) => {
         return;
     }
 
-    if (form_type === 'settlement-document') {
+    if (form_type === 'partner-request-payout') {
+        const payout_reference = 'WYP/2026/008';
         const document_state = document.querySelector('[data-document-state]');
         const settlement_status = document.querySelector('[data-settlement-status]');
-        document_state.classList.add('uploaded');
-        document_state.innerHTML = '<i>✓</i><strong>FV-07-2026.pdf</strong><p>Przekazano do ACTIVIO · trwa weryfikacja dokumentu</p><button class="button ghost" type="button" data-action="submit-settlement-document">Zastąp dokument</button>';
-        settlement_status.textContent = 'Weryfikacja dokumentu';
-        settlement_status.className = 'table-status production status-large';
-        open_action_dialog('Dokument przekazany', `
-            <div class="tracking-list">
-                <div><i>✓</i><span><strong>Faktura zapisana</strong><small>Numer sprawy: ${reference}</small></span></div>
-                <div class="pending"><i>2</i><span><strong>Weryfikacja ACTIVIO</strong><small>Kwota, dane i rachunek bankowy</small></span></div>
-                <div class="pending"><i>3</i><span><strong>Wypłata miesięczna</strong><small>Planowany termin: 05.08.2026</small></span></div>
-            </div>
-        `, 'ROZLICZENIE MIESIĘCZNE');
+        const payout_result = document.querySelector('[data-payout-request-result]');
+        const available_payout_amount = document.querySelector('[data-available-payout-amount]');
+        const available_payout_detail = document.querySelector('[data-available-payout-detail]');
+        const available_payout_action = document.querySelector('[data-available-payout-action]');
+        const payout_available_amount = document.querySelector('[data-payout-available-amount]');
+        const payout_available_detail = document.querySelector('[data-payout-available-detail]');
+        const payout_net_label = document.querySelector('[data-payout-net-label]');
+        const payout_net_value = document.querySelector('[data-payout-net-value]');
+        const payout_vat_label = document.querySelector('[data-payout-vat-label]');
+        const payout_vat_value = document.querySelector('[data-payout-vat-value]');
+        const payout_vat_detail = document.querySelector('[data-payout-vat-detail]');
+        const payout_current = document.querySelector('[data-current-payout]');
+        const payout_request_badge = document.querySelector('[data-payout-request-badge]');
+        const payout_summary_title = document.querySelector('[data-payout-summary-title]');
+        const payout_summary_status = document.querySelector('[data-payout-summary-status]');
+        const payout_summary_net_label = document.querySelector('[data-payout-summary-net-label]');
+        const payout_summary_net_value = document.querySelector('[data-payout-summary-net-value]');
+        const payout_summary_vat_label = document.querySelector('[data-payout-summary-vat-label]');
+        const payout_summary_vat_value = document.querySelector('[data-payout-summary-vat-value]');
+        const payout_summary_total_label = document.querySelector('[data-payout-summary-total-label]');
+        const payout_summary_total_value = document.querySelector('[data-payout-summary-total-value]');
+        const payout_notification = document.querySelector('[data-payout-notification]');
+        const payout_step_balance = document.querySelector('[data-payout-step-balance]');
+        const payout_step_request = document.querySelector('[data-payout-step-request]');
+        const payout_step_review = document.querySelector('[data-payout-step-review]');
+        const dashboard_payout_label = document.querySelector('[data-dashboard-payout-label]');
+        const dashboard_payout_amount = document.querySelector('[data-dashboard-payout-amount]');
+        const dashboard_payout_detail = document.querySelector('[data-dashboard-payout-detail]');
+        const dashboard_payout_net_label = document.querySelector('[data-dashboard-payout-net-label]');
+        const dashboard_payout_net_value = document.querySelector('[data-dashboard-payout-net-value]');
+        const dashboard_payout_vat_label = document.querySelector('[data-dashboard-payout-vat-label]');
+        const dashboard_payout_vat_value = document.querySelector('[data-dashboard-payout-vat-value]');
+        const dashboard_payout_action = document.querySelector('[data-dashboard-payout-action]');
+        const dashboard_payout_alert = document.querySelector('[data-dashboard-payout-alert]');
+        const invoice = form.elements.document_type.value === 'invoice';
+        const document_saved = invoice ? 'Faktura VAT zapisana' : 'Rachunek zapisany';
+        const document_transferred = invoice ? 'Faktura VAT przekazana' : 'Rachunek przekazany';
+        const payout_amount = invoice ? '1 279,20 zł brutto' : '1 040,00 zł';
+        const raw_document_filename = form.elements.document_file.files[0]?.name || 'dokument.pdf';
+        const raw_document_number = form.elements.document_number.value.trim();
+        const document_filename = escape_html(raw_document_filename);
+        const document_number = escape_html(raw_document_number);
+        settlement_payout_amount = payout_amount;
+        settlement_document_filename = raw_document_filename;
+        settlement_document_number = raw_document_number;
+        if (available_payout_amount && available_payout_detail && available_payout_action) {
+            available_payout_amount.textContent = '0,00 zł';
+            available_payout_detail.textContent = `${payout_amount} objęte zleceniem ${payout_reference}`;
+            available_payout_action.textContent = 'Zobacz zlecenie';
+            available_payout_action.dataset.go = 'partner-payout-request';
+        }
+        if (payout_available_amount && payout_available_detail) {
+            payout_available_amount.textContent = '0,00 zł';
+            payout_available_detail.textContent = `${payout_amount} objęte zleceniem ${payout_reference}`;
+        }
+        if (payout_net_label && payout_net_value && payout_vat_label && payout_vat_value && payout_vat_detail) {
+            payout_net_label.textContent = 'W zleceniu netto';
+            payout_net_value.textContent = '1 040,00 zł';
+            payout_vat_label.textContent = invoice ? 'VAT w zleceniu' : 'VAT';
+            payout_vat_value.textContent = invoice ? '239,20 zł' : 'Nie dotyczy';
+            payout_vat_detail.textContent = invoice ? 'Dla rozliczenia fakturą VAT' : 'Rachunek bez VAT';
+        }
+        if (payout_current) {
+            payout_current.hidden = false;
+            payout_current.innerHTML = `<span><strong>24.08.2026</strong><small>${payout_reference} · 94 pozycje</small></span><b>${payout_amount}</b><i class="table-status pending">Do weryfikacji</i>`;
+        }
+        if (payout_request_badge) {
+            payout_request_badge.textContent = `0,00 zł dostępne · ${payout_amount} w zleceniu`;
+            payout_request_badge.className = 'table-status production status-large';
+        }
+        if (payout_summary_title && payout_summary_status) {
+            payout_summary_title.textContent = `Snapshot ${payout_reference}`;
+            payout_summary_status.textContent = 'Zlecone';
+            payout_summary_status.className = 'table-status pending';
+        }
+        if (payout_summary_net_label && payout_summary_net_value && payout_summary_vat_label && payout_summary_vat_value && payout_summary_total_label && payout_summary_total_value) {
+            payout_summary_net_label.textContent = invoice ? 'Podstawa netto' : 'Kwota';
+            payout_summary_net_value.textContent = '1 040,00 zł';
+            payout_summary_vat_label.textContent = invoice ? 'VAT 23%' : 'VAT';
+            payout_summary_vat_value.textContent = invoice ? '239,20 zł' : 'Nie dotyczy';
+            payout_summary_total_label.textContent = invoice ? 'Kwota brutto' : 'Do wypłaty';
+            payout_summary_total_value.textContent = payout_amount;
+        }
+        document.querySelectorAll('[data-payout-ledger-state]').forEach((state) => {
+            state.textContent = 'W zleceniu';
+            state.className = 'table-status production';
+        });
+        if (payout_notification) {
+            payout_notification.classList.remove('unread');
+            payout_notification.querySelector('strong').textContent = `Wypłata ${payout_amount} czeka na weryfikację`;
+            payout_notification.querySelector('p').textContent = `${payout_reference} zachowuje snapshot zleconego salda.`;
+            payout_notification.querySelector('b').textContent = 'Otwórz →';
+        }
+        if (payout_step_balance && payout_step_request && payout_step_review) {
+            payout_step_balance.querySelector('strong').textContent = 'Środki objęte zleceniem';
+            payout_step_balance.querySelector('small').textContent = payout_amount;
+            payout_step_request.classList.remove('active');
+            payout_step_request.classList.add('done');
+            payout_step_request.querySelector('i').textContent = '✓';
+            payout_step_request.querySelector('small').textContent = payout_reference;
+            payout_step_review.classList.add('active');
+        }
+        if (dashboard_payout_label && dashboard_payout_amount && dashboard_payout_detail) {
+            dashboard_payout_label.textContent = 'WYPŁATA W TRAKCIE';
+            dashboard_payout_amount.textContent = '0,00 zł';
+            dashboard_payout_detail.textContent = `${payout_amount} objęte zleceniem ${payout_reference}`;
+        }
+        if (dashboard_payout_net_label && dashboard_payout_net_value && dashboard_payout_vat_label && dashboard_payout_vat_value) {
+            dashboard_payout_net_label.textContent = 'W zleceniu netto';
+            dashboard_payout_net_value.textContent = '1 040,00 zł';
+            dashboard_payout_vat_label.textContent = invoice ? 'VAT w zleceniu' : 'VAT';
+            dashboard_payout_vat_value.textContent = invoice ? '239,20 zł' : 'Nie dotyczy';
+        }
+        if (dashboard_payout_action) {
+            dashboard_payout_action.textContent = 'Zobacz zlecenie';
+        }
+        if (dashboard_payout_alert) {
+            dashboard_payout_alert.querySelector('strong').textContent = 'Wypłata czeka na weryfikację';
+            dashboard_payout_alert.querySelector('small').textContent = `${payout_reference} · ${payout_amount} objęte snapshotem.`;
+        }
+        if (document_state) {
+            document_state.classList.add('uploaded');
+            document_state.innerHTML = `<i>✓</i><strong>Wypłata zlecona · ${payout_amount}</strong><p>${document_transferred} do ACTIVIO · trwa weryfikacja</p><button class="button ghost" type="button" data-go="partner-payout-request">Zobacz zlecenie</button>`;
+        }
+        if (settlement_status) {
+            settlement_status.textContent = 'Wypłata zlecona';
+            settlement_status.className = 'table-status production status-large';
+        }
+        const system_document_check = document.querySelector('[data-system-document-check]');
+        const system_document_filename = document.querySelector('[data-system-document-filename]');
+        const system_net_label = document.querySelector('[data-system-net-label]');
+        const system_net_value = document.querySelector('[data-system-net-value]');
+        const system_vat_value = document.querySelector('[data-system-vat-value]');
+        const system_total_label = document.querySelector('[data-system-total-label]');
+        const system_total_value = document.querySelector('[data-system-total-value]');
+        const system_approval_summary = document.querySelector('[data-system-approval-summary]');
+        if (system_document_check) {
+            system_document_check.textContent = `${invoice ? 'Faktura' : 'Rachunek'} ${raw_document_number}`;
+        }
+        if (system_document_filename) {
+            system_document_filename.textContent = raw_document_filename;
+        }
+        if (system_net_label && system_net_value && system_vat_value && system_total_label && system_total_value) {
+            system_net_label.textContent = invoice ? 'Netto' : 'Kwota';
+            system_net_value.textContent = '1 040,00 zł';
+            system_vat_value.textContent = invoice ? '239,20 zł' : 'Nie dotyczy';
+            system_total_label.textContent = invoice ? 'Brutto' : 'Do wypłaty';
+            system_total_value.textContent = payout_amount;
+        }
+        if (system_approval_summary) {
+            system_approval_summary.textContent = `${payout_amount} · wypłata zlecona przez klub`;
+        }
+        form.hidden = true;
+        if (payout_result) {
+            payout_result.hidden = false;
+            payout_result.innerHTML = `
+                <span class="exception-symbol secure">✓</span>
+                <span class="eyebrow">ZLECENIE ${payout_reference}</span>
+                <h2>Wypłata została zlecona</h2>
+                <p>${document_saved}: <strong>${document_filename}</strong> (${document_number}). Kwota ${payout_amount} czeka na weryfikację ACTIVIO.</p>
+                <div class="tracking-list">
+                    <div><i>✓</i><span><strong>Dokument przekazany</strong><small>${document_filename}</small></span></div>
+                    <div class="pending"><i>2</i><span><strong>Weryfikacja ACTIVIO</strong><small>Kwota, dane i rachunek bankowy</small></span></div>
+                    <div class="pending"><i>3</i><span><strong>Przelew</strong><small>Po akceptacji dokumentu</small></span></div>
+                </div>
+                <div class="payout-result-actions"><button class="button primary" type="button" data-go="partner-settlement">Wróć do salda</button><button class="button ghost" type="button" data-go="partner-settlements">Historia salda</button></div>
+            `;
+            payout_result.focus();
+        }
+        show_toast('Wypłata została zlecona');
         return;
     }
 
@@ -4442,7 +5149,7 @@ document.addEventListener('submit', (event) => {
         'partner-save-compliant-price': ['Nowa cena zapisana', 'Walidacja w dniu wejścia minimum'],
         'partner-renew-license': ['Dokument licencyjny przekazany', 'Weryfikacja praw przez ACTIVIO'],
         'partner-replace-settlement-document': ['Poprawiony dokument przekazany', 'Ponowna kontrola kwoty, VAT i danych'],
-        'system-new-club': ['Onboarding rozpoczęty', 'Weryfikacja organizacji i reprezentacji'],
+        'system-new-club': ['Wdrożenie rozpoczęte', 'Weryfikacja organizacji i reprezentacji'],
         'system-club-status': ['Decyzja zapisana', 'Aktualizacja procesów zależnych i powiadomienie klubu'],
         'system-catalog-template': ['Produkt bazowy zapisany', 'Uzupełnienie wariantów, minimum i plików przed aktywacją'],
         'system-duplicate-template': ['Kopia robocza utworzona', 'Uzupełnienie danych i weryfikacja przed aktywacją'],
@@ -4517,7 +5224,10 @@ add_cart_button.addEventListener('click', () => {
         return;
     }
 
-    const option = document.querySelector('.size-options button.selected')?.textContent.trim() || '';
+    const product = products[current_product_id] || products.shirt;
+    const option = product.fixed_options
+        ? product.options[0]
+        : document.querySelector('.size-options button.selected')?.textContent.trim() || '';
     const cart_item = {
         key: `cart-${Date.now()}`,
         club_id: current_product_club_id,
@@ -4542,7 +5252,6 @@ add_cart_button.addEventListener('click', () => {
         cart_items.push(cart_item);
     }
     render_cart();
-    const product = products[current_product_id];
     const product_name = current_product_club_id === 'activio' && product.activio_name
         ? product.activio_name
         : product.name;
@@ -4580,6 +5289,20 @@ document.querySelectorAll('select[data-store-club], select[data-store-sort]').fo
     });
 });
 
+document.querySelector('[data-store-product-search]')?.addEventListener('input', () => {
+    store_show_all = false;
+    render_store_products();
+});
+
+window.addEventListener('resize', () => {
+    window.clearTimeout(store_resize_timeout);
+    store_resize_timeout = window.setTimeout(() => {
+        if (current_view === 'store') {
+            render_store_products();
+        }
+    }, 100);
+});
+
 document.querySelector('[data-store-club-search]')?.addEventListener('input', (event) => {
     const hidden_select = document.querySelector('select[data-store-club]');
     const query = event.target.value.trim().toLocaleLowerCase('pl-PL');
@@ -4596,10 +5319,29 @@ document.querySelector('[data-store-club-search]')?.addEventListener('input', (e
 
 document.querySelector('.partner-catalog-toolbar input')?.addEventListener('input', filter_partner_catalog);
 
+const listing_create_form = document.querySelector('[data-action-form="partner-listing-create"]');
+listing_create_form?.querySelectorAll('input[name="design_source"]').forEach((input) => {
+    input.addEventListener('change', () => {
+        const club_project = listing_create_form.elements.design_source.value === 'club';
+        listing_create_form.querySelector('[data-design-path="activio"]').hidden = club_project;
+        listing_create_form.querySelector('[data-design-path="club"]').hidden = !club_project;
+        listing_create_form.elements.club_design.required = club_project;
+    });
+});
+
 render_final_catalogs();
 
 document.querySelectorAll('[data-sale-price]').forEach((input) => {
     input.addEventListener('input', () => update_offer_price(input));
+});
+
+const payout_document_type = document.querySelector('[data-action-form="partner-request-payout"] [name="document_type"]');
+payout_document_type?.addEventListener('change', () => {
+    const document_number = payout_document_type.form.elements.document_number;
+    const generated_document_numbers = ['FV/07/2026/18', 'R/07/2026/18'];
+    if (document_number.value === '' || generated_document_numbers.includes(document_number.value)) {
+        document_number.value = payout_document_type.value === 'invoice' ? 'FV/07/2026/18' : 'R/07/2026/18';
+    }
 });
 
 const non_functional_views = new Set([
